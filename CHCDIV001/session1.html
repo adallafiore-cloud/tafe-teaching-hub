@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHCDIV001 — Session 1: Who Am I? Understanding Our Own Lens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ─── CSS Custom Properties ─────────────────────────────────── */
+  :root {
+    --green:   #1D3D2F;
+    --terra:   #B85042;
+    --sage:    #84B59F;
+    --cream:   #F5F2ED;
+    --card:    #FFFFFF;
+    --text:    #2C2C2C;
+    --muted:   #6B7280;
+    --border:  #E2DDD6;
+    --shadow:  0 2px 12px rgba(29,61,47,0.09);
+    --radius:  12px;
+    --trans:   0.22s ease;
+  }
+
+  /* ─── Reset & Base ──────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Lora', serif;
+    line-height: 1.3;
+    color: var(--green);
+  }
+
+  a { color: var(--terra); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  p { margin-bottom: 0.85em; }
+  p:last-child { margin-bottom: 0; }
+
+  ul, ol { padding-left: 1.4em; margin-bottom: 0.85em; }
+  li { margin-bottom: 0.3em; }
+
+  strong { color: var(--green); font-weight: 600; }
+
+  em { color: var(--terra); font-style: italic; }
+
+  /* ─── Progress Bar ──────────────────────────────────────────── */
+  #progress-bar-wrap {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: rgba(29,61,47,0.12);
+    z-index: 1000;
+  }
+  #progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--terra), var(--sage));
+    width: 0%;
+    transition: width 1s linear;
+  }
+  body:not(.teacher-mode) #progress-bar-wrap { display: none; }
+
+  /* ─── Sticky Nav ─────────────────────────────────────────────── */
+  #top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: var(--green);
+    color: #fff;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+  #top-nav .nav-left {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    min-width: 0;
+    flex: 1;
+  }
+  #top-nav .unit-code {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  #top-nav .session-title {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin: 0 0.5rem;
+    flex-shrink: 0;
+  }
+  #nav-links a {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    transition: background var(--trans), color var(--trans);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  #nav-links a:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    text-decoration: none;
+  }
+  @media (max-width: 768px) { #nav-links { display: none; } }
+
+  /* ─── View Toggle Button ─────────────────────────────────────── */
+  #view-toggle {
+    position: fixed;
+    top: 66px;
+    right: 1rem;
+    z-index: 850;
+    background: var(--card);
+    border: 2px solid var(--green);
+    color: var(--green);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: background var(--trans), color var(--trans);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  #view-toggle:hover {
+    background: var(--green);
+    color: #fff;
+  }
+
+  /* ─── Back to Top ────────────────────────────────────────────── */
+  #back-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 800;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(29,61,47,0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--trans), transform var(--trans);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #back-top.visible { opacity: 1; pointer-events: auto; }
+  #back-top:hover { transform: translateY(-2px); }
+
+  /* ─── Page Layout ────────────────────────────────────────────── */
+  #top-anchor { position: absolute; top: 0; }
+
+  .page-header {
+    background: var(--green);
+    color: #fff;
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+  }
+  .page-header .session-badge {
+    display: inline-block;
+    background: var(--terra);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  .page-header h1 {
+    color: #fff;
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    margin-bottom: 0.5rem;
+  }
+  .page-header .subtitle {
+    color: var(--sage);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+  }
+  .page-header .meta-row {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .meta-chip {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.88);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.3rem 0.85rem;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1rem 5rem;
+  }
+
+  /* ─── Session at a Glance ────────────────────────────────────── */
+  .glance-section {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-left: 5px solid var(--sage);
+  }
+  .glance-section h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 1rem;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* ─── Tables ─────────────────────────────────────────────────── */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
+  th {
+    background: var(--green);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.6rem 0.85rem;
+    text-align: left;
+  }
+  td {
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: rgba(132,181,159,0.07); }
+
+  /* ─── Resource Checklist ─────────────────────────────────────── */
+  .resource-list { list-style: none; padding: 0; }
+  .resource-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+    transition: opacity var(--trans);
+  }
+  .resource-list li:last-child { border-bottom: none; }
+  .resource-list input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--green);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .resource-list label {
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color var(--trans);
+    flex: 1;
+  }
+  .resource-list li.checked label {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+  .resource-copies {
+    font-size: 0.78rem;
+    color: var(--muted);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  /* ─── Video Section ──────────────────────────────────────────── */
+  .video-wrap {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 1rem 0;
+    background: #000;
+  }
+  .video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+    border-radius: 10px;
+  }
+
+  /* ─── Collapsible Blocks ─────────────────────────────────────── */
+  .time-block {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.25rem;
+    cursor: pointer;
+    background: var(--card);
+    border: none;
+    width: 100%;
+    text-align: left;
+    gap: 0.75rem;
+    transition: background var(--trans);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .block-header:hover { background: rgba(132,181,159,0.1); }
+  .block-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+    flex: 1;
+  }
+  .time-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--terra);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .block-title {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--green);
+    font-weight: 600;
+    line-height: 1.3;
+    min-width: 0;
+  }
+  .block-header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+  .chevron {
+    width: 20px;
+    height: 20px;
+    color: var(--muted);
+    transition: transform var(--trans);
+    flex-shrink: 0;
+  }
+  .time-block.open .chevron { transform: rotate(180deg); }
+
+  .block-body {
+    display: none;
+    padding: 0 1.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+    animation: fadeIn 0.18s ease;
+  }
+  .time-block.open .block-body { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Break / Lunch blocks */
+  .time-block.break-block .block-header { background: rgba(132,181,159,0.15); }
+  .time-block.break-block .block-title { color: var(--muted); font-style: italic; }
+
+  /* ─── AT Badges ──────────────────────────────────────────────── */
+  .at-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .at-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform var(--trans), box-shadow var(--trans);
+    white-space: nowrap;
+    border: none;
+    background: none;
+  }
+  .at-badge:hover { transform: scale(1.08); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .at-badge.at1 { background: #FEF3C7; color: #92400E; }
+  .at-badge.at2 { background: #DBEAFE; color: #1E40AF; }
+  .at-badge.at3 { background: #FCE7F3; color: #9D174D; }
+  .at-badge.at4 { background: #D1FAE5; color: #065F46; }
+
+  /* ─── Section Headings inside blocks ────────────────────────── */
+  .section-heading {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--green);
+    font-weight: 600;
+    margin: 1.4rem 0 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid var(--sage);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-heading:first-child { margin-top: 1rem; }
+
+  .sub-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--terra);
+    margin: 1rem 0 0.4rem;
+  }
+
+  /* ─── Teacher-only blocks ────────────────────────────────────── */
+  .teacher-only {
+    background: rgba(184,80,66,0.06);
+    border-left: 4px solid var(--terra);
+    border-radius: 0 8px 8px 0;
+    padding: 0.85rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.875rem;
+  }
+  .teacher-only .t-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--terra);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  body:not(.teacher-mode) .teacher-only { display: none; }
+
+  /* ─── Callout boxes ──────────────────────────────────────────── */
+  .callout {
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    margin: 0.85rem 0;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+  .callout.info { background: rgba(132,181,159,0.15); border: 1px solid rgba(132,181,159,0.4); }
+  .callout.assessment { background: rgba(254,243,199,0.6); border: 1px solid #FCD34D; }
+  .callout.bold-note { background: rgba(29,61,47,0.06); border: 1px solid rgba(29,61,47,0.15); }
+
+  /* ─── Assessment Task Map ─────────────────────────────────────── */
+  .at-card {
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 0.85rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    cursor: pointer;
+  }
+  .at-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+  .at-card-body {
+    font-size: 0.875rem;
+    color: var(--text);
+    margin-top: 0.6rem;
+    display: none;
+    animation: fadeIn 0.15s ease;
+  }
+  .at-card.open .at-card-body { display: block; }
+  .at-card.open .at-card-chevron { transform: rotate(180deg); }
+  .at-card-chevron { transition: transform var(--trans); }
+  .at-card.at1-card { border-left: 4px solid #F59E0B; }
+  .at-card.at2-card { border-left: 4px solid #3B82F6; }
+  .at-card.at3-card { border-left: 4px solid #EC4899; }
+  .at-card.at4-card { border-left: 4px solid #10B981; }
+
+  /* ─── PC Table ───────────────────────────────────────────────── */
+  .pc-row td:first-child {
+    font-weight: 700;
+    color: var(--terra);
+    white-space: nowrap;
+    font-size: 0.85rem;
+  }
+
+  /* ─── Teams Copy Button ──────────────────────────────────────── */
+  .teams-section {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 2px solid var(--sage);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+  }
+  .teams-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .teams-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .teams-message {
+    background: #F8FAFC;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    max-height: 260px;
+    overflow-y: auto;
+    margin-bottom: 0.85rem;
+  }
+  #copy-btn {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.65rem 1.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background var(--trans), transform var(--trans);
+  }
+  #copy-btn:hover { background: #2a5940; transform: translateY(-1px); }
+  #copy-btn.copied { background: #10B981; }
+
+  /* ─── Section label ──────────────────────────────────────────── */
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin: 2rem 0 0.75rem;
+    padding-left: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── Steps / Instructions ───────────────────────────────────── */
+  .steps { list-style: none; padding: 0; counter-reset: step-counter; }
+  .steps li {
+    counter-increment: step-counter;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+    align-items: flex-start;
+  }
+  .steps li::before {
+    content: counter(step-counter);
+    background: var(--green);
+    color: #fff;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ─── Quote style ─────────────────────────────────────────────── */
+  blockquote {
+    border-left: 4px solid var(--sage);
+    padding: 0.5rem 1rem;
+    margin: 0.75rem 0;
+    color: var(--green);
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    background: rgba(132,181,159,0.08);
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* ─── Diversity table highlight ──────────────────────────────── */
+  .diversity-table td:first-child { font-weight: 600; color: var(--green); }
+
+  /* ─── Print Styles ───────────────────────────────────────────── */
+  @media print {
+    #top-nav, #view-toggle, #back-top, #progress-bar-wrap { display: none !important; }
+    body { background: #fff; font-size: 12pt; }
+    .time-block { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    .block-body { display: block !important; }
+    .page-header { background: var(--green) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    th { background: var(--green) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .teacher-only { display: block !important; }
+    #copy-btn { display: none; }
+    main { padding: 1rem 0; }
+    .glance-section { break-inside: avoid; }
+  }
+
+  /* ─── Mobile tweaks ──────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .page-header { padding: 2rem 1rem 1.75rem; }
+    main { padding: 1.25rem 0.75rem 4rem; }
+    .block-body { padding: 0 1rem 1.25rem; }
+    .block-header { padding: 0.9rem 1rem; }
+    .time-label { display: none; }
+    th, td { padding: 0.5rem 0.65rem; }
+    #view-toggle { top: 62px; right: 0.75rem; font-size: 0.75rem; padding: 0.4rem 0.7rem; }
+  }
+
+  /* ─── Utility ────────────────────────────────────────────────── */
+  .mt1 { margin-top: 0.5rem; }
+  .mt2 { margin-top: 1rem; }
+  .text-muted { color: var(--muted); font-size: 0.85rem; }
+  .text-small { font-size: 0.85rem; }
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+</style>
+</head>
+<body id="top-anchor">
+
+<!-- Progress Bar (teacher only) -->
+<div id="progress-bar-wrap"><div id="progress-bar"></div></div>
+
+<!-- Sticky Nav -->
+<nav id="top-nav">
+  <div class="nav-left">
+    <span class="unit-code">CHCDIV001</span>
+    <span class="session-title">Session 1 — Who Am I? Understanding Our Own Lens</span>
+  </div>
+  <div id="nav-links">
+    <a href="#block-nl1">9:30</a>
+    <a href="#block-act1">10:45</a>
+    <a href="#block-nl2">11:30</a>
+    <a href="#block-act2">11:50</a>
+    <a href="#block-warmup">12:45</a>
+    <a href="#block-assessment">1:15</a>
+    <a href="#block-wrapup">2:45</a>
+    <a href="#block-pc">PCs</a>
+    <a href="#at-links">ATs</a>
+  </div>
+</nav>
+
+<!-- View Toggle -->
+<button id="view-toggle" onclick="toggleView()" aria-label="Toggle view mode">
+  <span id="toggle-icon">👁</span>
+  <span id="toggle-label">Teacher View</span>
+</button>
+
+<!-- Back to Top -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- ─── Page Header ─────────────────────────────────────────────── -->
+<header class="page-header">
+  <span class="session-badge">Session 1 of 5</span>
+  <h1>Who Am I? Understanding Our Own Lens</h1>
+  <p class="subtitle">CHCDIV001 — Work with Diverse People &nbsp;·&nbsp; CHC42021 Cert IV in Community Services</p>
+  <div class="meta-row">
+    <span class="meta-chip">📅 Date: TBC</span>
+    <span class="meta-chip">⏱ 9:30am – 3:00pm</span>
+    <span class="meta-chip">📍 Box Hill Institute</span>
+    <span class="meta-chip">Elements 1.1–1.4 &amp; 2.1 intro</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ─── Session at a Glance ──────────────────────────────────── -->
+  <div class="glance-section">
+    <h2>📋 Session at a Glance</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Unit</th><th>Session</th><th>Theme</th><th>Elements</th><th>Teaching time</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>CHCDIV001</td>
+            <td>1 of 5</td>
+            <td>Who Am I? Understanding Our Own Lens</td>
+            <td>Element 1 (1.1–1.4), Element 2 (2.1 intro)</td>
+            <td>~4 hrs 15 min</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─── Resources — Print Before Class ──────────────────────── -->
+  <div class="section-label">Resources</div>
+  <div class="time-block open" id="block-resources">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">PREP</span>
+        <span class="block-title">🖨 Print Before Class</span>
+      </div>
+      <div class="block-header-right">
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+      <ul class="resource-list" id="resource-checklist">
+        <li id="res-0">
+          <input type="checkbox" id="r0" onchange="saveCheck(0, this)">
+          <label for="r0">Social Identity Wheel Worksheet</label>
+          <span class="resource-copies">1 per student</span>
+        </li>
+        <li id="res-1">
+          <input type="checkbox" id="r1" onchange="saveCheck(1, this)">
+          <label for="r1">Cultural Iceberg Handout</label>
+          <span class="resource-copies">1 per student</span>
+        </li>
+        <li id="res-2">
+          <input type="checkbox" id="r2" onchange="saveCheck(2, this)">
+          <label for="r2">Bias Audit Reflection Sheet</label>
+          <span class="resource-copies">1 per student</span>
+        </li>
+        <li id="res-3">
+          <input type="checkbox" id="r3" onchange="saveCheck(3, this)">
+          <label for="r3">Sentence Starters for Reflective Writing</label>
+          <span class="resource-copies">1 per student</span>
+        </li>
+        <li id="res-4">
+          <input type="checkbox" id="r4" onchange="saveCheck(4, this)">
+          <label for="r4">Assessment Overview — CHCDIV001</label>
+          <span class="resource-copies">1 per student</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── Video ─────────────────────────────────────────────────── -->
+  <div class="time-block open" id="block-video">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">PREP</span>
+        <span class="block-title">🎬 Video — Cue Up Before Class</span>
+      </div>
+      <div class="block-header-right">
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Duration</th><th>When to play</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Understanding Unconscious Bias — Royal Society</td>
+              <td>~3 min</td>
+              <td>New Learning 2 (11:30am)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="video-wrap mt2">
+        <iframe src="https://www.youtube.com/embed/dVp9Z5k0dEE?rel=0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="Understanding Unconscious Bias — Royal Society"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Assessment Task Map ───────────────────────────────────── -->
+  <div class="section-label" id="at-links">Assessment Task Map</div>
+  <div class="time-block open" id="block-atmap">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">CONTEXT</span>
+        <span class="block-title">🗺 What This Session Builds Toward</span>
+      </div>
+      <div class="block-header-right">
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+      <div id="at-cards">
+
+        <div class="at-card at1-card open" id="at1-card">
+          <div class="at-card-header" onclick="toggleATCard(this.closest('.at-card'))">
+            <span><span class="at-badge at1">AT1</span> &nbsp;Knowledge Questions</span>
+            <svg class="at-card-chevron chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="at-card-body">
+            Cultural Awareness / Competence / Cultural Safety = <strong>Q1</strong>. Unconscious bias = <strong>Q2</strong>. Diversity areas covered today = <strong>Q1 background</strong>. Take notes during New Learning 1 — these definitions are examinable.
+          </div>
+        </div>
+
+        <div class="at-card at2-card" id="at2-card">
+          <div class="at-card-header" onclick="toggleATCard(this.closest('.at-card'))">
+            <span><span class="at-badge at2">AT2</span> &nbsp;Research Report</span>
+            <svg class="at-card-chevron chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="at-card-body">
+            The Cultural Iceberg model and the diversity areas introduced today form the research framework. Start thinking about <strong>3 cultural groups in your local community</strong> that you could research for this task.
+          </div>
+        </div>
+
+        <div class="at-card at3-card" id="at3-card">
+          <div class="at-card-header" onclick="toggleATCard(this.closest('.at-card'))">
+            <span><span class="at-badge at3">AT3</span> &nbsp;Role Play</span>
+            <svg class="at-card-chevron chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="at-card-body">
+            The <strong>Team Conflict scenario</strong> directly assesses unconscious bias awareness. Your awareness of your own biases — developed in today's Bias Audit — is the foundation for performing this role play authentically.
+          </div>
+        </div>
+
+        <div class="at-card at4-card" id="at4-card">
+          <div class="at-card-header" onclick="toggleATCard(this.closest('.at-card'))">
+            <span><span class="at-badge at4">AT4</span> &nbsp;Reflective Journal</span>
+            <svg class="at-card-chevron chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="at-card-body">
+            <strong>Part A Q1 &amp; Q2</strong> → Social Identity Wheel is your source material.<br>
+            <strong>Part A Q5</strong> → Bias Audit is your starting point.<br>
+            <em>Keep both worksheets — they are direct evidence for this task.</em>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 9:30–10:30 | New Learning 1 ──────────────────────────── -->
+  <div class="section-label">Morning — New Learning</div>
+  <div class="time-block open" id="block-nl1">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">9:30–10:30</span>
+        <span class="block-title">New Learning 1: Culture, Diversity &amp; Key Concepts</span>
+      </div>
+      <div class="block-header-right">
+        <div class="at-badges">
+          <button class="at-badge at1" onclick="scrollToAT('at1-card', event)">AT1</button>
+          <button class="at-badge at2" onclick="scrollToAT('at2-card', event)">AT2</button>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+
+      <div class="teacher-only">
+        <span class="t-label">Facilitator — Teacher Only</span>
+        Open with whiteboard prompt: <strong>"What comes to mind when you hear 'diversity'?"</strong> Write responses up. Do not evaluate — just collect. Return to this list at 2:45pm to see what has shifted.
+      </div>
+
+      <div class="section-heading">Welcome &amp; Check-In <span class="text-muted text-small">(5 min)</span></div>
+      <p>Quick round: <strong>name + one word describing your background</strong> — cultural, professional, geographic, or generational. Everyone has one.</p>
+      <blockquote>"This room already contains more diversity than most workplaces."</blockquote>
+
+      <div class="section-heading">What Do We Mean by Diversity? <span class="text-muted text-small">(10 min)</span></div>
+      <p>Diversity in community services covers the full range of human difference. You will encounter all of these in your work:</p>
+      <div class="table-wrap">
+        <table class="diversity-table">
+          <thead><tr><th>Area</th><th>Key characteristics</th></tr></thead>
+          <tbody>
+            <tr><td>Disability</td><td>Sensory, intellectual, physical, mental health, acquired brain injury</td></tr>
+            <tr><td>Culture</td><td>Customs, social norms, family practices, beliefs</td></tr>
+            <tr><td>Race</td><td>Genetic variation, physical characteristics</td></tr>
+            <tr><td>Ethnicity</td><td>Shared language, religion, customs, place of origin</td></tr>
+            <tr><td>Religion &amp; Spirituality</td><td>Beliefs, practices, ceremonies — not the same thing as each other</td></tr>
+            <tr><td>Gender &amp; Transgender</td><td>Gender identity — not the same as biological sex</td></tr>
+            <tr><td>Intersex</td><td>Born with sex characteristics not exclusively male or female</td></tr>
+            <tr><td>Sexual Orientation</td><td>Lesbian, gay, bisexual, heterosexual</td></tr>
+            <tr><td>Generational</td><td>Different values, expectations and life experiences across generations</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-heading">Three Key Concepts <span class="text-muted text-small">(20 min)</span></div>
+      <div class="callout assessment">
+        <span class="callout-icon">📝</span>
+        <div><strong>AT1 Q1 — take notes here.</strong> You will need to define and distinguish these three concepts in your knowledge questions.</div>
+      </div>
+
+      <div class="sub-heading">Cultural Awareness</div>
+      <p>Understanding your own cultural background and how it differs from others.</p>
+      <p><strong>In practice:</strong> Identify the cultural needs of clients, colleagues and families. Stay curious and open-minded — curiosity is a professional skill.</p>
+
+      <div class="sub-heading">Cultural Competence</div>
+      <p>The ability to participate ethically and effectively in intercultural settings.</p>
+      <p><strong>In practice:</strong> Ensure diversity policies are implemented; staff receive appropriate training; diverse communities are consulted in service design.</p>
+
+      <div class="sub-heading">Cultural Safety</div>
+      <p>An environment that is spiritually, socially and emotionally safe — where people are <em>not</em> exposed to assault, challenge or rejection because of who they are.</p>
+      <p><strong>In practice:</strong> Be non-judgemental. Use respectful language. Avoid stereotyping. Build trust over time — it cannot be assumed.</p>
+
+      <div class="callout info">
+        <span class="callout-icon">💬</span>
+        <div><strong>Discussion:</strong> "Which of these three do you think is hardest to achieve in a community services workplace? Why?"</div>
+      </div>
+
+      <div class="section-heading">The Cultural Iceberg <span class="text-muted text-small">(15 min)</span></div>
+      <p>Culture is like an iceberg. Most of it is invisible — including to the people who hold it.</p>
+
+      <div class="sub-heading">Above the waterline (visible)</div>
+      <p>Food, clothing, language, celebrations, art, greetings, music, dress</p>
+
+      <div class="sub-heading">Below the waterline (invisible)</div>
+      <p>Values, beliefs, assumptions, attitudes to authority, concepts of time, gender roles, communication style, notions of fairness, religious beliefs, family roles, approaches to conflict</p>
+
+      <blockquote>"Most of what shapes how we see the world is invisible — including to ourselves."</blockquote>
+
+      <div class="teacher-only">
+        <span class="t-label">Facilitator — Teacher Only</span>
+        Brief share: "Has anyone had a miscommunication with someone from a different background?" Invite 2–3 people only. Do not push. The goal is normalising, not exposing.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Break ─────────────────────────────────────────────────── -->
+  <div class="time-block break-block" id="block-break1">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="false">
+      <div class="block-header-left">
+        <span class="time-label">10:30–10:45</span>
+        <span class="block-title">☕ Break — 15 minutes</span>
+      </div>
+      <div class="block-header-right">
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+      <p class="text-muted">Back at 10:45am for Activity 1.</p>
+    </div>
+  </div>
+
+  <!-- ─── Activity 1 ────────────────────────────────────────────── -->
+  <div class="section-label">Activity 1</div>
+  <div class="time-block open" id="block-act1">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">10:45–11:30</span>
+        <span class="block-title">Activity 1: Social Identity Wheel</span>
+      </div>
+      <div class="block-header-right">
+        <div class="at-badges">
+          <button class="at-badge at4" onclick="scrollToAT('at4-card', event)">AT4</button>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+
+      <div class="callout bold-note">
+        <span class="callout-icon">🎯</span>
+        <div><strong>Purpose:</strong> Explore your own identity markers and how they shape your perspective. This is direct source material for AT4 Part A Q1 and Q2.</div>
+      </div>
+
+      <div class="section-heading">Instructions</div>
+      <ol class="steps">
+        <li>Fill in your Social Identity Wheel individually — <strong>10 min</strong>. What identities do you carry? Cultural background, profession, age group, language, religion, gender, disability, family role…</li>
+        <li>Written reflection questions on the sheet — <strong>10 min</strong>:
+          <ul>
+            <li>Which identities do you think about most often? Which do you rarely think about — why?</li>
+            <li>Which have shaped how you approach helping others?</li>
+          </ul>
+        </li>
+        <li>Pair share — one thing from your wheel with a partner, <em>only what you're comfortable sharing</em> — <strong>10 min</strong></li>
+        <li>Whole group debrief — What did this exercise bring up? Any surprises? — <strong>10 min</strong></li>
+      </ol>
+
+      <div class="callout assessment">
+        <span class="callout-icon">📎</span>
+        <div><strong>Keep this worksheet.</strong> It is direct source material for AT4 Part A — your reflective journal.</div>
+      </div>
+
+      <div class="teacher-only">
+        <span class="t-label">Facilitator — Teacher Only</span>
+        <p>Model briefly by sharing one item from your own wheel first — this lowers the risk for students. Then invite pairs.</p>
+        <p><strong>Experienced workers:</strong> Ask how professional identity has shifted over time — does your sense of yourself as a worker now differ from when you started?</p>
+        <p><strong>Newer students:</strong> Reassure them that personal reflection IS a professional skill — it is literally what PC 1.1 asks for.</p>
+        <p><strong>CALD students:</strong> Their cultural knowledge is a genuine academic contribution. Name this explicitly: "What you know from your own culture is real expertise — not just personal experience."</p>
+        <p><strong>Quieter students:</strong> Pair-share before whole-group ensures everyone has something prepared before the big group. Don't skip it.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── New Learning 2 ───────────────────────────────────────── -->
+  <div class="section-label">New Learning 2</div>
+  <div class="time-block open" id="block-nl2">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">11:30–11:50</span>
+        <span class="block-title">New Learning 2: Unconscious Bias</span>
+      </div>
+      <div class="block-header-right">
+        <div class="at-badges">
+          <button class="at-badge at1" onclick="scrollToAT('at1-card', event)">AT1</button>
+          <button class="at-badge at3" onclick="scrollToAT('at3-card', event)">AT3</button>
+          <button class="at-badge at4" onclick="scrollToAT('at4-card', event)">AT4</button>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+
+      <div class="section-heading">What Is Unconscious Bias? <span class="text-muted text-small">(10 min)</span></div>
+      <ul>
+        <li><strong>Bias</strong> = a tendency to favour or disfavour something based on background, culture, or experience</li>
+        <li><strong>Unconscious</strong> = we are not aware it is happening</li>
+        <li>Not about being a bad person — it is a feature of how the brain categorises and pattern-matches to save time</li>
+        <li><strong>Why it matters:</strong> unexamined bias directly impacts the quality of care clients receive</li>
+      </ul>
+
+      <div class="section-heading">Common Types of Bias</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>What it looks like in practice</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Affinity bias</strong></td><td>Favouring people who are similar to us — in background, communication style, values</td></tr>
+            <tr><td><strong>Confirmation bias</strong></td><td>Seeking information that confirms what we already believe — ignoring contradicting evidence</td></tr>
+            <tr><td><strong>Attribution bias</strong></td><td>Explaining our own mistakes differently from how we explain others' mistakes</td></tr>
+            <tr><td><strong>Halo / horns effect</strong></td><td>One positive or negative trait colours our entire view of a person</td></tr>
+            <tr><td><strong>Generational bias</strong></td><td>Assumptions based on age — older workers can be seen as resistant to change; younger workers as inexperienced. It runs in all directions.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-heading">Video + Discussion</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/dVp9Z5k0dEE?rel=0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="Understanding Unconscious Bias — Royal Society"></iframe>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">💬</span>
+        <div>
+          <p><strong>After the video:</strong></p>
+          <ul>
+            <li>"Where have you seen this play out — in work, in community, or in yourself?"</li>
+            <li>"What might happen to a client if their support worker had an unexamined bias?"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout assessment">
+        <span class="callout-icon">📝</span>
+        <div><strong>AT1 note:</strong> Unconscious bias is examined in AT1 Q2. <strong>AT4 Part A Q5</strong> asks: "What cultural biases or assumptions did you hold before undertaking this unit?" Today's learning is the start of that answer.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Activity 2 ────────────────────────────────────────────── -->
+  <div class="time-block open" id="block-act2">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">11:50–12:00</span>
+        <span class="block-title">Activity 2: Bias Audit</span>
+      </div>
+      <div class="block-header-right">
+        <div class="at-badges">
+          <button class="at-badge at4" onclick="scrollToAT('at4-card', event)">AT4</button>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+
+      <p><strong>Resource:</strong> Bias Audit Reflection Sheet — complete Parts 1–4 individually.</p>
+      <p>This is <em>private</em> — it is not shared with the group unless you choose to.</p>
+
+      <blockquote>"Noticing a bias and being honest about it is Performance Criterion 1.1. You have just begun your assessment work."</blockquote>
+
+      <div class="teacher-only">
+        <span class="t-label">Facilitator — Teacher Only</span>
+        For students who say "I don't have biases" — gently: <em>"The research tells us everyone does. The skill this unit builds is the willingness to look. That's what makes a safe practitioner."</em>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Lunch ─────────────────────────────────────────────────── -->
+  <div class="time-block break-block" id="block-lunch">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="false">
+      <div class="block-header-left">
+        <span class="time-label">12:00–12:45</span>
+        <span class="block-title">🍽 Lunch — 45 minutes</span>
+      </div>
+      <div class="block-header-right">
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+      <p class="text-muted">Back at 12:45pm.</p>
+    </div>
+  </div>
+
+  <!-- ─── Warm-up ───────────────────────────────────────────────── -->
+  <div class="section-label">Afternoon</div>
+  <div class="time-block open" id="block-warmup">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">12:45–1:15</span>
+        <span class="block-title">Warm-up: Group Iceberg Mapping</span>
+      </div>
+      <div class="block-header-right">
+        <div class="at-badges">
+          <button class="at-badge at2" onclick="scrollToAT('at2-card', event)">AT2</button>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+
+      <p>Small groups of <strong>3–4 people</strong> — mix ages and experience levels deliberately.</p>
+
+      <ol class="steps">
+        <li>Draw an iceberg on large paper — freehand is fine</li>
+        <li><strong>Above the waterline:</strong> things you'd notice about each other in the first 5 minutes</li>
+        <li><strong>Below the waterline:</strong> things that took longer to learn — or that might never be visible without trust</li>
+        <li>Each group shares <strong>one item from below the waterline</strong> with the whole class</li>
+      </ol>
+
+      <blockquote>"This is what we navigate every time we start with a new client, colleague, or family."</blockquote>
+
+      <div class="teacher-only">
+        <span class="t-label">Facilitator — Teacher Only</span>
+        Move around the room during the activity. For early finishers: <em>"What assumptions might someone make about your group just from what is above the line?"</em> The variety in the room IS the learning — call it out positively and name it as a professional asset.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Assessment Work ──────────────────────────────────────── -->
+  <div class="time-block open" id="block-assessment">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">1:15–2:30</span>
+        <span class="block-title">Assessment Work — 75 min</span>
+      </div>
+      <div class="block-header-right">
+        <div class="at-badges">
+          <button class="at-badge at1" onclick="scrollToAT('at1-card', event)">AT1</button>
+          <button class="at-badge at2" onclick="scrollToAT('at2-card', event)">AT2</button>
+          <button class="at-badge at4" onclick="scrollToAT('at4-card', event)">AT4</button>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+
+      <div class="sub-heading">Priority — AT4 Part A (Reflective Journal)</div>
+      <p>Begin drafting using today's activities as your source material:</p>
+      <ul>
+        <li><strong>Q1:</strong> Discuss your cultural and social background → use your Social Identity Wheel</li>
+        <li><strong>Q2:</strong> How do your cultural beliefs and values affect your behaviour at work? → Identity Wheel + class discussion</li>
+        <li><strong>Q5:</strong> What cultural biases did you hold before this unit? → your Bias Audit is the starting point</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <div class="sub-heading">Alternative — AT1 Preparation</div>
+      <p>Note definitions and examples for: Cultural Awareness, Cultural Competence, Cultural Safety, and the diversity areas covered in New Learning 1.</p>
+
+      <div class="divider"></div>
+
+      <div class="sub-heading">Further Along? — AT2 Outline</div>
+      <p>Identify 3 cultural groups in your local community to research for your report. Start noting what you already know about each.</p>
+
+      <div class="teacher-only">
+        <span class="t-label">Facilitator — Teacher Only — Circulate Priorities</span>
+        <p>Check in with <strong>every student</strong> — not just the ones who look stuck. Priority order:</p>
+        <ol>
+          <li>Students new to reflective writing — offer the Sentence Starters handout actively, don't wait for them to ask</li>
+          <li>Students who seemed unsettled during the morning activities — a quiet check-in is enough</li>
+          <li>CALD students — affirm that writing from their own cultural experience is exactly what the task asks for</li>
+          <li>Experienced workers — prompt: "Think of a real workplace moment — a client interaction, a team conflict, a time you felt unsure about how to respond."</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Afternoon Break ───────────────────────────────────────── -->
+  <div class="time-block break-block" id="block-break2">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="false">
+      <div class="block-header-left">
+        <span class="time-label">2:30–2:45</span>
+        <span class="block-title">☕ Break — 15 minutes</span>
+      </div>
+      <div class="block-header-right">
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+      <p class="text-muted">Final session at 2:45pm — Group Discussion &amp; Wrap-up.</p>
+    </div>
+  </div>
+
+  <!-- ─── Wrap-up ───────────────────────────────────────────────── -->
+  <div class="time-block open" id="block-wrapup">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">2:45–3:00</span>
+        <span class="block-title">Group Discussion &amp; Wrap-up</span>
+      </div>
+      <div class="block-header-right">
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+
+      <div class="teacher-only">
+        <span class="t-label">Facilitator — Teacher Only</span>
+        Return to the whiteboard list from 9:30am. Read some of the words back. Ask: <em>"Has anyone's thinking about diversity shifted today?"</em>
+      </div>
+
+      <div class="section-heading">Discussion Prompts</div>
+      <ul>
+        <li>"What's one thing from today that stuck with you?"</li>
+        <li>"Did anything surprise you — about yourself or the content?"</li>
+        <li>"Any questions about the assessment tasks before you go?"</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="callout-icon">🔜</span>
+        <div>
+          <strong>Close and preview:</strong> "Everything you reflected on today can go directly into AT4 Part A. Keep your worksheets."
+          <br><br>
+          <strong>Next session:</strong> How we communicate across difference — verbal, non-verbal, and when there's a language barrier. This connects directly to Assessment Task 3.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Performance Criteria ─────────────────────────────────── -->
+  <div class="section-label">Reference</div>
+  <div class="time-block open" id="block-pc">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">PCs</span>
+        <span class="block-title">Performance Criteria Addressed This Session</span>
+      </div>
+      <div class="block-header-right">
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>PC</th><th>Description</th><th>How addressed today</th></tr></thead>
+          <tbody class="pc-row">
+            <tr>
+              <td>1.1</td>
+              <td>Identify and reflect on own social and cultural perspectives and biases</td>
+              <td>Social Identity Wheel + Bias Audit</td>
+            </tr>
+            <tr>
+              <td>1.2</td>
+              <td>Work with awareness of own limitations in self and social awareness</td>
+              <td>Bias Audit + group debrief</td>
+            </tr>
+            <tr>
+              <td>1.3</td>
+              <td>Use reflection to support ability to work inclusively</td>
+              <td>AT4 Part A drafting during Assessment Work</td>
+            </tr>
+            <tr>
+              <td>1.4</td>
+              <td>Identify and act on ways to improve own self and social awareness</td>
+              <td>Assessment Work block + Wrap-up discussion</td>
+            </tr>
+            <tr>
+              <td>2.1</td>
+              <td>Value and respect diversity and inclusiveness across all areas of work</td>
+              <td>Cultural Iceberg activity; framing throughout the day</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── AT1 Knowledge Coverage ───────────────────────────────── -->
+  <div class="time-block open" id="block-at1note">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">AT1</span>
+        <span class="block-title">AT1 Knowledge Questions — What Was Covered Today</span>
+      </div>
+      <div class="block-header-right">
+        <div class="at-badges">
+          <button class="at-badge at1" onclick="scrollToAT('at1-card', event)">AT1</button>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+      <ul>
+        <li><strong>Q1 —</strong> Definitions of Cultural Awareness, Cultural Competence, Cultural Safety (New Learning 1, Three Key Concepts section)</li>
+        <li><strong>Q1 background —</strong> All diversity areas: disability, culture, race, ethnicity, religion &amp; spirituality, gender, intersex, sexual orientation, generational</li>
+        <li><strong>Q2 —</strong> Definition and types of unconscious bias (New Learning 2)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── Resources Checklist (repeat) ─────────────────────────── -->
+  <div class="time-block open" id="block-checklist-end">
+    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
+      <div class="block-header-left">
+        <span class="time-label">EOD</span>
+        <span class="block-title">Resources Checklist</span>
+      </div>
+      <div class="block-header-right">
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+    <div class="block-body">
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Social Identity Wheel Worksheet — printed and distributed</li>
+        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Cultural Iceberg Handout — printed and distributed</li>
+        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Bias Audit Reflection Sheet — printed and distributed</li>
+        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Sentence Starters for Reflective Writing — printed and distributed</li>
+        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Assessment Overview — CHCDIV001 — printed and distributed</li>
+        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Large paper + markers for Group Iceberg Mapping</li>
+        <li style="padding:0.4rem 0;">☐ YouTube video cued up: dVp9Z5k0dEE</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── End-of-Day Teams Message ─────────────────────────────── -->
+  <div class="section-label">End of Day</div>
+  <div class="teams-section">
+    <h2>📧 End-of-Day Message — Copy for Teams/Email</h2>
+    <p class="teams-meta">Copy and paste into Teams or email to send to students at the end of class.</p>
+    <div class="teams-message" id="teams-message-text">Hi everyone,
+
+Great work today. Here is a summary of everything we covered in Session 1, plus how today's learning connects to your assessment tasks.
+
+─────────────────────────────────
+WHAT WE COVERED TODAY
+─────────────────────────────────
+
+1. What diversity means in community services — the full range of diversity areas you'll encounter as a community services worker: culture, race, ethnicity, religion and spirituality, disability, gender identity, intersex, sexual orientation, and generational differences.
+
+2. The three key concepts: Cultural Awareness, Cultural Competence, and Cultural Safety — these sit at the heart of this unit and come up directly in your assessments.
+
+3. The Cultural Iceberg — how most of what shapes our worldview is invisible, and how cultural misunderstandings happen because of those invisible parts.
+
+4. Unconscious bias — what it is, why it happens, and the most common types. Having bias doesn't make you a bad person — what matters is being willing to notice it.
+
+5. Social Identity Wheel — you reflected on your own identity markers and how they shape your approach to work.
+
+6. Group Iceberg Mapping — exploring what is visible versus hidden, and how easy it is to make assumptions.
+
+7. Bias Audit — a private written reflection on your own potential biases. That took courage and honesty — that's exactly what this unit builds.
+
+─────────────────────────────────
+HOW TODAY LINKS TO YOUR ASSESSMENTS
+─────────────────────────────────
+
+AT1 — Knowledge Questions: Q1 asks you to define Cultural Awareness, Competence, and Safety, and describe the diversity areas. Today's content is your direct source material. Make sure you have notes.
+
+AT2 — Research Report: The Cultural Iceberg and diversity areas are your foundation. Start thinking about 3 cultural groups in your local community.
+
+AT3 — Role Play: The unconscious bias awareness you developed today is exactly what the Team Conflict scenario assesses.
+
+AT4 — Reflective Journal Part A: Q1 and Q2 draw directly on your Social Identity Wheel. Q5 draws on your Bias Audit. Keep both worksheets.
+
+─────────────────────────────────
+A NOTE FOR YOUR RECORDS
+─────────────────────────────────
+
+Keep all of today's worksheets — Social Identity Wheel, Cultural Iceberg Handout, and Bias Audit — in your portfolio. They are evidence across multiple assessment tasks.
+
+See you next session.
+</div>
+    <button id="copy-btn" onclick="copyTeamsMessage()">
+      <span id="copy-icon">📋</span>
+      <span id="copy-text">Copy for Teams</span>
+    </button>
+  </div>
+
+</main>
+
+<!-- ─── JavaScript ──────────────────────────────────────────────── -->
+<script>
+  // ── View Toggle ─────────────────────────────────────────────────
+  const body = document.body;
+  const toggleBtn = document.getElementById('view-toggle');
+  const toggleLabel = document.getElementById('toggle-label');
+  const toggleIcon = document.getElementById('toggle-icon');
+
+  function setView(isTeacher) {
+    if (isTeacher) {
+      body.classList.add('teacher-mode');
+      toggleLabel.textContent = 'Student View';
+      toggleIcon.textContent = '👤';
+    } else {
+      body.classList.remove('teacher-mode');
+      toggleLabel.textContent = 'Teacher View';
+      toggleIcon.textContent = '👁';
+    }
+    try { localStorage.setItem('div001_view', isTeacher ? 'teacher' : 'student'); } catch(e) {}
+  }
+
+  function toggleView() {
+    setView(!body.classList.contains('teacher-mode'));
+  }
+
+  // Load saved preference
+  (function() {
+    try {
+      const saved = localStorage.getItem('div001_view');
+      if (saved === 'teacher') setView(true);
+      else setView(false);
+    } catch(e) { setView(false); }
+  })();
+
+
+  // ── Collapsible Blocks ──────────────────────────────────────────
+  function toggleBlock(btn) {
+    const block = btn.closest('.time-block');
+    block.classList.toggle('open');
+    btn.setAttribute('aria-expanded', block.classList.contains('open'));
+  }
+
+
+  // ── AT Card Toggle ──────────────────────────────────────────────
+  function toggleATCard(card) {
+    card.classList.toggle('open');
+  }
+
+
+  // ── Scroll to AT ─────────────────────────────────────────────────
+  function scrollToAT(cardId, event) {
+    if (event) event.stopPropagation();
+    const card = document.getElementById(cardId);
+    if (!card) return;
+    // Open the parent block if closed
+    const parentBlock = document.getElementById('block-atmap');
+    if (parentBlock && !parentBlock.classList.contains('open')) {
+      parentBlock.classList.add('open');
+    }
+    // Open the card
+    card.classList.add('open');
+    setTimeout(() => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  }
+
+
+  // ── Resource Checklist ──────────────────────────────────────────
+  function saveCheck(idx, checkbox) {
+    const li = document.getElementById('res-' + idx);
+    if (checkbox.checked) li.classList.add('checked');
+    else li.classList.remove('checked');
+    try {
+      const checks = getChecks();
+      checks[idx] = checkbox.checked;
+      localStorage.setItem('div001_checks', JSON.stringify(checks));
+    } catch(e) {}
+  }
+
+  function getChecks() {
+    try {
+      const raw = localStorage.getItem('div001_checks');
+      return raw ? JSON.parse(raw) : {};
+    } catch(e) { return {}; }
+  }
+
+  // Restore checklist state
+  (function() {
+    const checks = getChecks();
+    for (let i = 0; i < 5; i++) {
+      if (checks[i]) {
+        const cb = document.getElementById('r' + i);
+        const li = document.getElementById('res-' + i);
+        if (cb && li) { cb.checked = true; li.classList.add('checked'); }
+      }
+    }
+  })();
+
+
+  // ── Copy Teams Message ──────────────────────────────────────────
+  function copyTeamsMessage() {
+    const text = document.getElementById('teams-message-text').innerText;
+    const btn = document.getElementById('copy-btn');
+    const icon = document.getElementById('copy-icon');
+    const label = document.getElementById('copy-text');
+
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      icon.textContent = '✅';
+      label.textContent = 'Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        icon.textContent = '📋';
+        label.textContent = 'Copy for Teams';
+      }, 2200);
+    }).catch(() => {
+      // Fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.classList.add('copied');
+      icon.textContent = '✅';
+      label.textContent = 'Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        icon.textContent = '📋';
+        label.textContent = 'Copy for Teams';
+      }, 2200);
+    });
+  }
+
+
+  // ── Back to Top Button ──────────────────────────────────────────
+  const backTop = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) backTop.classList.add('visible');
+    else backTop.classList.remove('visible');
+  }, { passive: true });
+
+
+  // ── Progress Bar (teacher mode) ─────────────────────────────────
+  function updateProgress() {
+    const bar = document.getElementById('progress-bar');
+    if (!bar) return;
+    const now = new Date();
+    const start = new Date(now);
+    start.setHours(9, 30, 0, 0);
+    const end = new Date(now);
+    end.setHours(15, 0, 0, 0);
+    const total = end - start;
+    const elapsed = now - start;
+    const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+    bar.style.width = pct + '%';
+  }
+
+  updateProgress();
+  setInterval(updateProgress, 60000);
+</script>
+
+</body>
+</html>

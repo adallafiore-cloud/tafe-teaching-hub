@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAFE Teaching Hub — CHC42021 Community Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #F5F2ED;
+      color: #2C2C2C;
+      min-height: 100vh;
+    }
+    header {
+      background: #1D3D2F;
+      color: #fff;
+      padding: 0;
+      position: relative;
+    }
+    .header-accent {
+      height: 6px;
+      background: #B85042;
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 2rem;
+    }
+    .qualification {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #84B59F;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      font-size: 0.95rem;
+      color: #E7E8D1;
+      opacity: 0.85;
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+    .unit-section { margin-bottom: 2.5rem; }
+    .unit-section h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      color: #1D3D2F;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #E0D8CF;
+    }
+    .unit-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      margin-bottom: 1rem;
+    }
+    .unit-header {
+      background: #1D3D2F;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .unit-code {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #84B59F;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .unit-title {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      color: #fff;
+      font-weight: 600;
+    }
+    .session-list {
+      padding: 0.75rem 1.25rem;
+    }
+    .session-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid #F0EBE4;
+      text-decoration: none;
+      color: #2C2C2C;
+      transition: color 0.15s;
+    }
+    .session-link:last-child { border-bottom: none; }
+    .session-link:hover { color: #B85042; }
+    .session-info { display: flex; flex-direction: column; gap: 0.15rem; }
+    .session-num {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #84B59F;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .session-theme {
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .session-arrow {
+      font-size: 1rem;
+      color: #B85042;
+      flex-shrink: 0;
+    }
+    .badge-coming-soon {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: #F0EBE4;
+      color: #888;
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.78rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-accent"></div>
+  <header>
+    <div class="header-inner">
+      <div class="qualification">CHC42021 Certificate IV in Community Services</div>
+      <h1>TAFE Teaching Hub</h1>
+      <div class="subtitle">Box Hill Institute — Lesson Plans &amp; Resources</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="unit-section">
+      <h2>Units</h2>
+
+      <div class="unit-card">
+        <div class="unit-header">
+          <div>
+            <div class="unit-code">CHCDIV001</div>
+            <div class="unit-title">Work with Diverse People</div>
+          </div>
+        </div>
+        <div class="session-list">
+          <a href="CHCDIV001/session1.html" class="session-link">
+            <div class="session-info">
+              <span class="session-num">Session 1</span>
+              <span class="session-theme">Who Am I? Understanding Our Own Lens</span>
+            </div>
+            <span class="session-arrow">→</span>
+          </a>
+          <div class="session-link" style="cursor:default;">
+            <div class="session-info">
+              <span class="session-num">Sessions 2–5</span>
+              <span class="session-theme" style="color:#aaa;">Coming soon</span>
+            </div>
+            <span class="badge-coming-soon">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>CHC42021 Community Services · Box Hill Institute of TAFE</footer>
+</body>
+</html>
