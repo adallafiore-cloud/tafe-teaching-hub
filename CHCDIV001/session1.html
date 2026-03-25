@@ -614,11 +614,236 @@ footer {
   #top-nav .nav-sub { display: none; }
 }
 
-/* ── Print styles ────────────────────────────────────────────────── */
+/* ── Key Takeaways ───────────────────────────────────────────────── */
+#key-takeaways {
+  background: var(--dark);
+  padding: 3rem 0;
+}
+#key-takeaways .kt-heading {
+  font-family: 'Lora', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--white);
+  margin-bottom: .4rem;
+}
+#key-takeaways .kt-sub {
+  color: var(--sage);
+  font-size: .88rem;
+  margin-bottom: 2rem;
+  letter-spacing: .04em;
+}
+.kt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.kt-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(132,181,159,.25);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: background var(--trans), transform var(--trans);
+}
+.kt-card:hover {
+  background: rgba(255,255,255,.1);
+  transform: translateY(-2px);
+}
+.kt-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--terra);
+  color: var(--white);
+  font-weight: 700; font-size: .9rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: .1rem;
+}
+.kt-body {}
+.kt-title {
+  font-family: 'Lora', serif;
+  font-size: 1rem; font-weight: 700;
+  color: var(--sand);
+  margin-bottom: .4rem;
+  line-height: 1.3;
+}
+.kt-text {
+  font-size: .84rem;
+  color: rgba(231,232,209,.75);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Worksheets ──────────────────────────────────────────────────── */
+#worksheets { padding: 2.5rem 0; }
+#worksheets .ws-intro { color: var(--muted); font-size: .9rem; margin-bottom: 1.5rem; }
+
+/* Tab switcher */
+.ws-tabs {
+  display: flex; gap: .4rem; flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+.ws-tab-btn {
+  padding: .55rem 1.1rem;
+  border: 2px solid var(--border);
+  border-bottom: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--white);
+  font-size: .85rem; font-weight: 600;
+  cursor: pointer; color: var(--muted);
+  transition: all var(--trans);
+  position: relative; bottom: -2px;
+}
+.ws-tab-btn:hover { color: var(--dark); border-color: var(--sage); }
+.ws-tab-btn.active {
+  background: var(--dark); color: var(--white);
+  border-color: var(--dark);
+}
+.ws-panel { display: none; }
+.ws-panel.active { display: block; }
+
+/* Worksheet inner styles */
+.ws-title {
+  font-family: 'Lora', serif;
+  font-size: 1.4rem; color: var(--dark);
+  margin-bottom: .5rem;
+}
+.ws-instructions {
+  font-size: .9rem; color: var(--muted);
+  margin-bottom: 1.25rem; font-style: italic;
+}
+.ws-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+.ws-table th {
+  background: var(--dark); color: var(--white);
+  padding: .6rem .85rem; text-align: left;
+  font-size: .82rem; font-weight: 600;
+}
+.ws-table td { padding: .5rem .6rem; border: 1px solid var(--border); vertical-align: top; }
+.ws-table tr:nth-child(even) td { background: rgba(231,232,209,.35); }
+.ws-table td:first-child {
+  font-weight: 600; font-size: .85rem; color: var(--dark);
+  width: 22%; white-space: nowrap;
+}
+.ws-table td input[type="text"],
+.ws-table td textarea {
+  width: 100%; border: none; background: transparent;
+  font-family: 'Inter', sans-serif; font-size: .85rem;
+  resize: vertical; min-height: 48px; line-height: 1.5;
+  color: var(--text);
+}
+.ws-table td input[type="text"] { min-height: auto; }
+.ws-table td input[type="text"]:focus,
+.ws-table td textarea:focus { outline: 1px solid var(--sage); border-radius: 2px; }
+
+.ws-reflection-group { margin-bottom: 1.5rem; }
+.ws-reflection-label {
+  font-weight: 600; font-size: .9rem; color: var(--dark);
+  display: block; margin-bottom: .4rem;
+}
+.ws-reflection-group textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: .65rem .85rem; font-family: 'Inter', sans-serif; font-size: .88rem;
+  resize: vertical; min-height: 80px; background: var(--white);
+  transition: border-color var(--trans);
+}
+.ws-reflection-group textarea:focus { outline: none; border-color: var(--sage); }
+
+.ws-print-btn {
+  background: var(--dark); color: var(--white);
+  border: none; padding: .55rem 1.4rem;
+  border-radius: var(--radius); font-weight: 600;
+  cursor: pointer; font-size: .88rem;
+  transition: background var(--trans);
+  margin-top: .75rem;
+}
+.ws-print-btn:hover { background: #2a5840; }
+
+/* Iceberg handout two-col */
+.iceberg-handout-cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin-bottom: 1.5rem;
+}
+.iceberg-handout-col { border-radius: var(--radius); overflow: hidden; }
+.iceberg-handout-header {
+  padding: .75rem 1rem;
+  font-weight: 700; font-size: .9rem;
+}
+.iceberg-handout-header.above { background: var(--sage); color: var(--dark); }
+.iceberg-handout-header.below { background: var(--dark); color: var(--white); }
+.iceberg-handout-body {
+  padding: .75rem 1rem;
+  background: var(--white);
+  border: 1px solid var(--border); border-top: none;
+  min-height: 200px;
+}
+.iceberg-chip-list { display: flex; flex-wrap: wrap; gap: .45rem; }
+.iceberg-handout-chip {
+  padding: .3rem .75rem; border-radius: 999px;
+  font-size: .8rem; font-weight: 500;
+}
+.iceberg-handout-chip.above {
+  background: rgba(132,181,159,.2); border: 1.5px solid var(--sage); color: var(--dark);
+}
+.iceberg-handout-chip.below {
+  background: rgba(29,61,47,.12); border: 1.5px solid var(--dark); color: var(--dark);
+}
+.iceberg-quote-callout {
+  background: var(--sand); border-left: 4px solid var(--sage);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1rem 1.25rem; font-style: italic;
+  font-size: .92rem; color: var(--dark); margin: 1.25rem 0;
+}
+
+/* Bias audit parts */
+.bias-part-heading {
+  font-family: 'Lora', serif; font-size: 1.05rem;
+  color: var(--dark); margin: 1.5rem 0 .75rem;
+  padding-bottom: .4rem; border-bottom: 2px solid var(--border);
+}
+.privacy-note {
+  background: rgba(132,181,159,.12); border: 1.5px solid var(--sage);
+  border-radius: var(--radius); padding: .85rem 1.1rem;
+  font-size: .85rem; color: var(--dark); margin-bottom: 1.25rem;
+}
+.privacy-note strong { color: #2e7d61; }
+
+/* Sentence starters */
+.starter-group { margin-bottom: 1.75rem; }
+.starter-group-heading {
+  font-weight: 700; font-size: .82rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: .55rem .9rem; border-radius: var(--radius) var(--radius) 0 0;
+  margin-bottom: .5rem;
+}
+.starter-group-heading.terra { background: var(--terra); color: var(--white); }
+.starter-group-heading.dark  { background: var(--dark);  color: var(--white); }
+.starter-group-heading.sage  { background: var(--sage);  color: var(--dark);  }
+.starter-cards { display: flex; flex-direction: column; gap: .4rem; }
+.starter-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: .7rem 1rem;
+  font-size: .88rem; cursor: pointer; font-style: italic;
+  transition: all var(--trans); position: relative;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: .75rem;
+}
+.starter-card:hover { border-color: var(--sage); background: rgba(132,181,159,.07); }
+.starter-copy-hint {
+  font-style: normal; font-size: .72rem; font-weight: 600;
+  color: var(--muted); white-space: nowrap; flex-shrink: 0;
+  transition: color var(--trans);
+}
+.starter-card:hover .starter-copy-hint { color: var(--sage); }
+.starter-card.copied { border-color: #27ae60; background: rgba(39,174,96,.07); }
+.starter-card.copied .starter-copy-hint { color: #27ae60; }
+
+/* Print styles ─────────────────────────────────────────────────── */
 @media print {
   #top-nav, #back-to-top, .mode-toggle, .flip-card, .match-game,
   .sort-btns, .scenario-btns, .bias-opts, .quiz-wrap .quiz-options,
-  .quiz-next-btn, .sort-btn, .timeline-wrap { display: none !important; }
+  .quiz-next-btn, .sort-btn, .timeline-wrap,
+  .ws-tabs, .ws-print-btn, .starter-copy-hint { display: none !important; }
   body { background: white; }
   .card, .at-expand-body { box-shadow: none; border: 1px solid #ccc; }
   .at-expand-body { display: block !important; }
@@ -626,6 +851,13 @@ footer {
   textarea { border: 1px solid #ccc; min-height: 40px; }
   section { padding: 1rem 0; }
   a[href]::after { content: ''; }
+  /* Show all worksheet panels for print */
+  .ws-panel { display: block !important; page-break-before: always; }
+  .ws-panel:first-child { page-break-before: auto; }
+  #key-takeaways { background: #1D3D2F !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .kt-card { border: 1px solid #84B59F !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .iceberg-handout-header.above { background: #84B59F !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .iceberg-handout-header.below { background: #1D3D2F !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 </style>
 </head>
@@ -1229,6 +1461,385 @@ footer {
         <textarea class="exit-ticket" id="exit3" placeholder="Your answer…" oninput="saveExit()"></textarea>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 14a — KEY TAKEAWAYS
+═══════════════════════════════════════════════════════════════ -->
+<section id="key-takeaways">
+  <div class="container">
+    <h2 class="kt-heading">Key Takeaways — What to Remember From Today</h2>
+    <p class="kt-sub">Your revision card set. Everything here feeds your assessments.</p>
+
+    <div class="kt-grid">
+
+      <div class="kt-card">
+        <div class="kt-num">1</div>
+        <div class="kt-body">
+          <p class="kt-title">Culture is an iceberg</p>
+          <p class="kt-text">Most of what shapes how we see the world is invisible: our values, beliefs, and assumptions sit below the surface. Visible culture (food, clothing, language) is just the tip.</p>
+        </div>
+      </div>
+
+      <div class="kt-card">
+        <div class="kt-num">2</div>
+        <div class="kt-body">
+          <p class="kt-title">Three concepts to know for AT1</p>
+          <p class="kt-text">Cultural Awareness (understanding your own background), Cultural Competence (working effectively across difference), and Cultural Safety (creating environments where no one is exposed to challenge or rejection because of who they are).</p>
+        </div>
+      </div>
+
+      <div class="kt-card">
+        <div class="kt-num">3</div>
+        <div class="kt-body">
+          <p class="kt-title">Diversity in community services covers 9 areas</p>
+          <p class="kt-text">Disability, culture, race, ethnicity, religion and spirituality, gender identity, intersex, sexual orientation, and generational differences. You need to understand all of them.</p>
+        </div>
+      </div>
+
+      <div class="kt-card">
+        <div class="kt-num">4</div>
+        <div class="kt-body">
+          <p class="kt-title">Unconscious bias is universal</p>
+          <p class="kt-text">Every human brain pattern-matches. Having bias is not a character flaw — failing to examine it is. The types to know: affinity, confirmation, attribution, halo/horns, and generational bias.</p>
+        </div>
+      </div>
+
+      <div class="kt-card">
+        <div class="kt-num">5</div>
+        <div class="kt-body">
+          <p class="kt-title">Self-reflection IS a professional skill</p>
+          <p class="kt-text">AT4 Part A asks you to reflect honestly on your own background, values, and biases. The Social Identity Wheel and Bias Audit you completed today are the starting material for those answers.</p>
+        </div>
+      </div>
+
+      <div class="kt-card">
+        <div class="kt-num">6</div>
+        <div class="kt-body">
+          <p class="kt-title">Your lived experience is a genuine academic contribution</p>
+          <p class="kt-text">The diversity in this room (ages, backgrounds, cultures, careers) is not incidental to this unit. It IS the learning.</p>
+        </div>
+      </div>
+
+      <div class="kt-card" style="grid-column: 1 / -1;">
+        <div class="kt-num">7</div>
+        <div class="kt-body">
+          <p class="kt-title">Everything today feeds your assessments</p>
+          <p class="kt-text">AT1 Q1 &amp; Q2 (concepts + bias) · AT4 Part A Q1, Q2 &amp; Q5 (reflection) · AT2 (iceberg + diversity areas as foundation) · AT3 (bias awareness applied in role play).</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 14b — WORKSHEETS
+═══════════════════════════════════════════════════════════════ -->
+<section id="worksheets">
+  <div class="container">
+    <h2 style="margin-bottom:.35rem;">📄 Worksheets &amp; Reference Materials</h2>
+    <p class="ws-intro">Digital versions of today's handouts — complete them here or print them.</p>
+
+    <!-- Tab buttons -->
+    <div class="ws-tabs" role="tablist">
+      <button class="ws-tab-btn active" role="tab" aria-selected="true"  onclick="switchWsTab(0)">Social Identity Wheel</button>
+      <button class="ws-tab-btn"        role="tab" aria-selected="false" onclick="switchWsTab(1)">Cultural Iceberg</button>
+      <button class="ws-tab-btn"        role="tab" aria-selected="false" onclick="switchWsTab(2)">Bias Audit Reflection</button>
+      <button class="ws-tab-btn"        role="tab" aria-selected="false" onclick="switchWsTab(3)">Sentence Starters</button>
+    </div>
+
+    <!-- ─── Tab 1: Social Identity Wheel ─── -->
+    <div class="ws-panel active" id="wsPanel0">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="ws-title">Social Identity Wheel Worksheet</h3>
+          <span class="at-badge">AT4 Part A — Q1, Q2</span>
+        </div>
+        <p class="ws-instructions">Fill in each identity category below. Reflect on how each has shaped your perspectives, values, and the way you approach your work with others.</p>
+
+        <table class="ws-table">
+          <thead>
+            <tr>
+              <th>Identity Category</th>
+              <th>My background / experience</th>
+              <th>How this shapes my perspective</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cultural background</td>
+              <td><textarea id="ws_iw_0_bg" placeholder="Write here…" oninput="saveWsIw(0)" rows="2"></textarea></td>
+              <td><textarea id="ws_iw_0_sh" placeholder="Write here…" oninput="saveWsIw(0)" rows="2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Generation &amp; age group</td>
+              <td><textarea id="ws_iw_1_bg" placeholder="Write here…" oninput="saveWsIw(1)" rows="2"></textarea></td>
+              <td><textarea id="ws_iw_1_sh" placeholder="Write here…" oninput="saveWsIw(1)" rows="2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Work &amp; professional background</td>
+              <td><textarea id="ws_iw_2_bg" placeholder="Write here…" oninput="saveWsIw(2)" rows="2"></textarea></td>
+              <td><textarea id="ws_iw_2_sh" placeholder="Write here…" oninput="saveWsIw(2)" rows="2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Religion or spirituality (if applicable)</td>
+              <td><textarea id="ws_iw_3_bg" placeholder="Write here…" oninput="saveWsIw(3)" rows="2"></textarea></td>
+              <td><textarea id="ws_iw_3_sh" placeholder="Write here…" oninput="saveWsIw(3)" rows="2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Family background</td>
+              <td><textarea id="ws_iw_4_bg" placeholder="Write here…" oninput="saveWsIw(4)" rows="2"></textarea></td>
+              <td><textarea id="ws_iw_4_sh" placeholder="Write here…" oninput="saveWsIw(4)" rows="2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Place of origin</td>
+              <td><textarea id="ws_iw_5_bg" placeholder="Write here…" oninput="saveWsIw(5)" rows="2"></textarea></td>
+              <td><textarea id="ws_iw_5_sh" placeholder="Write here…" oninput="saveWsIw(5)" rows="2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Education background</td>
+              <td><textarea id="ws_iw_6_bg" placeholder="Write here…" oninput="saveWsIw(6)" rows="2"></textarea></td>
+              <td><textarea id="ws_iw_6_sh" placeholder="Write here…" oninput="saveWsIw(6)" rows="2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Other identity that matters to me</td>
+              <td><textarea id="ws_iw_7_bg" placeholder="Write here…" oninput="saveWsIw(7)" rows="2"></textarea></td>
+              <td><textarea id="ws_iw_7_sh" placeholder="Write here…" oninput="saveWsIw(7)" rows="2"></textarea></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_iw_r1">Which of these identities do you think about most often? Why?</label>
+          <textarea id="ws_iw_r1" placeholder="Your answer…" oninput="saveWsIwRef()" rows="3"></textarea>
+        </div>
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_iw_r2">Which do you rarely think about — and why do you think that is?</label>
+          <textarea id="ws_iw_r2" placeholder="Your answer…" oninput="saveWsIwRef()" rows="3"></textarea>
+        </div>
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_iw_r3">How have these identity markers shaped the way you approach helping others?</label>
+          <textarea id="ws_iw_r3" placeholder="Your answer…" oninput="saveWsIwRef()" rows="3"></textarea>
+        </div>
+
+        <button class="ws-print-btn" onclick="window.print()">Print this worksheet</button>
+      </div>
+    </div>
+
+    <!-- ─── Tab 2: Cultural Iceberg ─── -->
+    <div class="ws-panel" id="wsPanel1">
+      <div class="card">
+        <h3 class="ws-title">Cultural Iceberg — Reference Handout</h3>
+
+        <div class="iceberg-handout-cols">
+          <div class="iceberg-handout-col">
+            <div class="iceberg-handout-header above">🌊 Above the Waterline — Visible Culture</div>
+            <div class="iceberg-handout-body">
+              <div class="iceberg-chip-list">
+                <span class="iceberg-handout-chip above">Food &amp; cuisine</span>
+                <span class="iceberg-handout-chip above">Clothing &amp; dress</span>
+                <span class="iceberg-handout-chip above">Language &amp; greetings</span>
+                <span class="iceberg-handout-chip above">Celebrations &amp; festivals</span>
+                <span class="iceberg-handout-chip above">Art, music &amp; literature</span>
+                <span class="iceberg-handout-chip above">Religious practices (visible)</span>
+                <span class="iceberg-handout-chip above">Gestures &amp; body language</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="iceberg-handout-col">
+            <div class="iceberg-handout-header below">🧊 Below the Waterline — Invisible Culture</div>
+            <div class="iceberg-handout-body">
+              <div class="iceberg-chip-list">
+                <span class="iceberg-handout-chip below">Values &amp; core beliefs</span>
+                <span class="iceberg-handout-chip below">Attitudes to authority &amp; hierarchy</span>
+                <span class="iceberg-handout-chip below">Concepts of time &amp; punctuality</span>
+                <span class="iceberg-handout-chip below">Gender role expectations</span>
+                <span class="iceberg-handout-chip below">Communication style (direct vs indirect)</span>
+                <span class="iceberg-handout-chip below">Notions of fairness &amp; justice</span>
+                <span class="iceberg-handout-chip below">Attitudes to conflict</span>
+                <span class="iceberg-handout-chip below">Concepts of personal space</span>
+                <span class="iceberg-handout-chip below">Religious beliefs &amp; worldview</span>
+                <span class="iceberg-handout-chip below">Definition of family &amp; kinship</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="iceberg-quote-callout">
+          "Most cultural misunderstandings happen not because people are rude, but because the invisible parts of their icebergs are different."
+        </div>
+
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_iceberg_r1">Think of a time when a difference in the invisible layer caused a misunderstanding — in your life, your community, or a workplace. What happened, and what might explain it?</label>
+          <textarea id="ws_iceberg_r1" placeholder="Your reflection…" oninput="saveWsIceberg()" rows="5"></textarea>
+        </div>
+
+        <button class="ws-print-btn" onclick="window.print()">Print this handout</button>
+      </div>
+    </div>
+
+    <!-- ─── Tab 3: Bias Audit ─── -->
+    <div class="ws-panel" id="wsPanel2">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="ws-title">Bias Audit — Personal Reflection</h3>
+          <span class="at-badge">AT4 Part A — Q5</span>
+        </div>
+
+        <div class="privacy-note">
+          <strong>Private worksheet.</strong> You are not required to share your answers with anyone. The purpose is honest self-reflection.
+        </div>
+
+        <p class="bias-part-heading">Part 1 — Recognising bias in yourself</p>
+
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_ba_1">1. Think of a time you made a quick judgement about someone based on their appearance, accent, background, or culture. What was the assumption, and where do you think it came from?</label>
+          <textarea id="ws_ba_1" placeholder="Your answer…" oninput="saveWsBa()" rows="4"></textarea>
+        </div>
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_ba_2">2. Are there any groups, backgrounds, or lifestyles that you find it harder to remain neutral about? What do you think is behind that reaction?</label>
+          <textarea id="ws_ba_2" placeholder="Your answer…" oninput="saveWsBa()" rows="4"></textarea>
+        </div>
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_ba_3">3. Have you ever noticed yourself feeling more comfortable with clients or colleagues who are similar to you? What did that look like in practice?</label>
+          <textarea id="ws_ba_3" placeholder="Your answer…" oninput="saveWsBa()" rows="4"></textarea>
+        </div>
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_ba_4">4. Have you ever acted on a bias — even unintentionally — in a way that may have affected how you treated someone? What happened?</label>
+          <textarea id="ws_ba_4" placeholder="Your answer…" oninput="saveWsBa()" rows="4"></textarea>
+        </div>
+
+        <p class="bias-part-heading">Part 2 — Moving forward</p>
+
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_ba_5">5. What cultural biases or assumptions did you hold before starting this unit? <em>(This directly feeds AT4 Part A Q5 — your answer here can go straight into your journal.)</em></label>
+          <textarea id="ws_ba_5" placeholder="Your answer…" oninput="saveWsBa()" rows="4"></textarea>
+        </div>
+        <div class="ws-reflection-group">
+          <label class="ws-reflection-label" for="ws_ba_6">6. What is one specific thing you will do differently in your work or study as a result of today's learning?</label>
+          <textarea id="ws_ba_6" placeholder="Your answer…" oninput="saveWsBa()" rows="4"></textarea>
+        </div>
+
+        <button class="ws-print-btn" onclick="window.print()">Print this worksheet</button>
+      </div>
+    </div>
+
+    <!-- ─── Tab 4: Sentence Starters ─── -->
+    <div class="ws-panel" id="wsPanel3">
+      <div class="card">
+        <h3 class="ws-title">Sentence Starters for Reflective Writing</h3>
+        <p class="ws-instructions">Use these to help structure your AT4 journal entries and any written reflections. Click any card to copy the sentence starter to your clipboard.</p>
+
+        <div class="starter-group">
+          <div class="starter-group-heading terra">Group 1 — Describing your experience</div>
+          <div class="starter-cards">
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>During today's session, I became aware that…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>When I completed the Social Identity Wheel, I noticed…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>One thing that surprised me about my own background was…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>Before today, I had assumed that…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>I found it challenging when…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="starter-group">
+          <div class="starter-group-heading dark">Group 2 — Analysing and reflecting</div>
+          <div class="starter-cards">
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>On reflection, I think this happened because…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>This connects to my own experience of…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>I can see how this might affect my work with clients when…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>Looking back, I realise that my cultural background has shaped…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>The reason I responded this way might be related to…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="starter-group">
+          <div class="starter-group-heading sage">Group 3 — Linking to theory and concepts</div>
+          <div class="starter-cards">
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>This is an example of cultural awareness because…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>According to the cultural iceberg model, this suggests…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>This relates to the concept of unconscious bias because…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>Cultural safety would require me to…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>This links to performance criterion [X] because…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="starter-group">
+          <div class="starter-group-heading terra">Group 4 — Growth and next steps</div>
+          <div class="starter-cards">
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>As a result of today's learning, I intend to…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>One bias I am now more aware of is… and I will address it by…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>In my future practice, I will approach [situation] differently by…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>I want to learn more about… because…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+            <div class="starter-card" onclick="copyStarter(this)">
+              <span>Something I will observe at my workplace placement is…</span>
+              <span class="starter-copy-hint">Click to copy</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1956,6 +2567,28 @@ function loadSaved() {
     if (el) el.value = localStorage.getItem(LS+id) || '';
   });
 
+  // Worksheet — Identity Wheel table rows
+  for (let r = 0; r < 8; r++) {
+    ['bg','sh'].forEach(col => {
+      const key = LS + 'worksheet_identitywheel_' + r + '_' + col;
+      const el = document.getElementById('ws_iw_' + r + '_' + col);
+      if (el) el.value = localStorage.getItem(key) || '';
+    });
+  }
+  // Worksheet — Identity Wheel reflections
+  ['ws_iw_r1','ws_iw_r2','ws_iw_r3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = localStorage.getItem(LS+id) || '';
+  });
+  // Worksheet — Iceberg
+  const icebergR1 = document.getElementById('ws_iceberg_r1');
+  if (icebergR1) icebergR1.value = localStorage.getItem(LS+'ws_iceberg_r1') || '';
+  // Worksheet — Bias Audit
+  for (let i = 1; i <= 6; i++) {
+    const el = document.getElementById('ws_ba_' + i);
+    if (el) el.value = localStorage.getItem(LS+'ws_ba_'+i) || '';
+  }
+
   // Checkmarks
   if (localStorage.getItem(LS+'flip_done')) { document.getElementById('check-flip').classList.add('visible'); document.getElementById('flipCelebration').classList.add('show'); }
   if (localStorage.getItem(LS+'match_done')) document.getElementById('check-match').classList.add('visible');
@@ -1964,6 +2597,72 @@ function loadSaved() {
   if (localStorage.getItem(LS+'audit_done')) document.getElementById('check-audit').classList.add('visible');
   if (localStorage.getItem(LS+'quiz_done')) document.getElementById('check-quiz').classList.add('visible');
   if (localStorage.getItem(LS+'exit_done')) document.getElementById('check-exit').classList.add('visible');
+}
+
+/* ─── Worksheet Tab Switcher ─────────────────────────────────── */
+function switchWsTab(idx) {
+  document.querySelectorAll('.ws-tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === idx);
+    btn.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+  });
+  document.querySelectorAll('.ws-panel').forEach((panel, i) => {
+    panel.classList.toggle('active', i === idx);
+  });
+}
+
+/* ─── Worksheet localStorage — Identity Wheel ────────────────── */
+function saveWsIw(row) {
+  const bg = document.getElementById('ws_iw_' + row + '_bg');
+  const sh = document.getElementById('ws_iw_' + row + '_sh');
+  if (bg) localStorage.setItem(LS + 'worksheet_identitywheel_' + row + '_bg', bg.value);
+  if (sh) localStorage.setItem(LS + 'worksheet_identitywheel_' + row + '_sh', sh.value);
+}
+function saveWsIwRef() {
+  ['ws_iw_r1','ws_iw_r2','ws_iw_r3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) localStorage.setItem(LS + id, el.value);
+  });
+}
+
+/* ─── Worksheet localStorage — Iceberg ──────────────────────── */
+function saveWsIceberg() {
+  const el = document.getElementById('ws_iceberg_r1');
+  if (el) localStorage.setItem(LS + 'ws_iceberg_r1', el.value);
+}
+
+/* ─── Worksheet localStorage — Bias Audit ───────────────────── */
+function saveWsBa() {
+  for (let i = 1; i <= 6; i++) {
+    const el = document.getElementById('ws_ba_' + i);
+    if (el) localStorage.setItem(LS + 'ws_ba_' + i, el.value);
+  }
+}
+
+/* ─── Sentence Starters — Copy to Clipboard ─────────────────── */
+function copyStarter(card) {
+  const text = card.querySelector('span:first-child').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const hint = card.querySelector('.starter-copy-hint');
+    const orig = hint.textContent;
+    hint.textContent = 'Copied!';
+    card.classList.add('copied');
+    setTimeout(() => {
+      hint.textContent = orig;
+      card.classList.remove('copied');
+    }, 1800);
+  }).catch(() => {
+    // Fallback for browsers without clipboard API
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    const hint = card.querySelector('.starter-copy-hint');
+    hint.textContent = 'Copied!';
+    card.classList.add('copied');
+    setTimeout(() => { hint.textContent = 'Click to copy'; card.classList.remove('copied'); }, 1800);
+  });
 }
 
 /* ─── Init ───────────────────────────────────────────────────── */
