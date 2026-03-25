@@ -479,9 +479,309 @@ footer .container {
   footer .container { flex-direction: column; align-items: flex-start; }
 }
 
+/* ── Practice Mode ───────────────────────────────────────────── */
+#practice { background: var(--cream); }
+
+.practice-intro-card {
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 2rem 2rem 2.25rem;
+  box-shadow: var(--shadow);
+  color: var(--white);
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+.practice-intro-card h3 {
+  font-family: 'Lora', serif;
+  color: var(--white);
+  font-size: 1.35rem;
+  margin-bottom: .5rem;
+}
+.practice-intro-card p {
+  color: rgba(245,242,237,.78);
+  font-size: .93rem;
+  line-height: 1.75;
+  max-width: 600px;
+  margin: 0 auto .5rem;
+}
+.practice-bestscore {
+  display: inline-block;
+  background: rgba(132,181,159,.25);
+  border: 1px solid var(--sage);
+  color: var(--sage);
+  font-size: .8rem; font-weight: 600;
+  padding: .25rem .8rem;
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+}
+.btn-start-practice {
+  display: inline-block;
+  background: var(--terra);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  padding: .85rem 2.25rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background var(--trans), transform var(--trans);
+  letter-spacing: .02em;
+}
+.btn-start-practice:hover { background: #9d3e32; transform: translateY(-1px); }
+
+/* Stage */
+#practice-stage {
+  display: none;
+  background: #1D3D2F;
+  border-radius: var(--radius);
+  padding: 2rem 1.75rem 2.5rem;
+  box-shadow: 0 4px 28px rgba(29,61,47,.22);
+}
+#practice-stage.active { display: block; }
+
+.stage-progress {
+  display: flex; gap: .35rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+}
+.stage-pip {
+  height: 4px; flex: 1; min-width: 24px;
+  background: rgba(255,255,255,.15);
+  border-radius: 2px;
+  transition: background .4s ease;
+}
+.stage-pip.done { background: var(--sage); }
+.stage-pip.active { background: var(--terra); }
+
+/* Beat */
+.beat-block {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .4s ease, transform .4s ease;
+  margin-bottom: 1.25rem;
+}
+.beat-block.visible { opacity: 1; transform: translateY(0); }
+
+.beat-narrator {
+  font-style: italic;
+  color: rgba(245,242,237,.55);
+  font-size: .88rem;
+  line-height: 1.7;
+  text-align: center;
+  padding: .5rem 0;
+}
+
+.beat-char {
+  display: flex; align-items: flex-start; gap: .85rem;
+}
+.char-badge {
+  flex-shrink: 0;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--white);
+  line-height: 1.15;
+  text-align: center;
+}
+.char-badge.ryan   { background: #B85042; }
+.char-badge.haider { background: #5A7D6F; }
+.char-badge.dianne { background: #888888; }
+
+.speech-bubble {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: .85rem 1rem;
+  font-size: .91rem;
+  color: var(--text);
+  line-height: 1.65;
+  border-left: 4px solid #ccc;
+  flex: 1;
+}
+.speech-bubble.ryan   { border-color: #B85042; }
+.speech-bubble.haider { border-color: #5A7D6F; }
+.speech-bubble.dianne { border-color: #888888; }
+
+.beat-label {
+  font-size: .7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: .3rem;
+}
+.beat-label.ryan   { color: #f4b5ae; }
+.beat-label.haider { color: #9fcfbf; }
+.beat-label.dianne { color: #ccc; }
+
+/* Choice prompt */
+.choice-prompt {
+  background: rgba(255,255,255,.07);
+  border: 1.5px solid rgba(255,255,255,.15);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.35rem 1.5rem;
+  margin-top: .75rem;
+}
+.choice-prompt-label {
+  font-size: .78rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--sage);
+  margin-bottom: .6rem;
+}
+.choice-prompt-q {
+  color: var(--white);
+  font-size: .93rem; line-height: 1.65;
+  margin-bottom: 1.1rem;
+}
+.choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .65rem;
+}
+@media (max-width: 580px) { .choice-grid { grid-template-columns: 1fr; } }
+
+.choice-btn {
+  background: rgba(255,255,255,.1);
+  border: 1.5px solid rgba(255,255,255,.18);
+  border-radius: var(--radius);
+  padding: .85rem 1rem;
+  font-size: .87rem;
+  color: rgba(245,242,237,.88);
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.55;
+  transition: background var(--trans), border-color var(--trans);
+}
+.choice-btn:hover:not(:disabled) {
+  background: rgba(255,255,255,.18);
+  border-color: rgba(255,255,255,.35);
+}
+.choice-btn:disabled { cursor: default; }
+.choice-btn.chosen-green  { background: rgba(45,106,79,.55);  border-color: #52b788; color: #d8f3dc; }
+.choice-btn.chosen-amber  { background: rgba(123,94,0,.55);   border-color: #f0a500; color: #fff3cd; }
+.choice-btn.chosen-red    { background: rgba(107,26,26,.55);  border-color: #e06060; color: #ffe5e5; }
+.choice-btn.reveal-green  { background: rgba(45,106,79,.3);   border-color: rgba(82,183,136,.4);  color: rgba(216,243,220,.7); }
+.choice-btn.reveal-amber  { background: rgba(123,94,0,.25);   border-color: rgba(240,165,0,.35);  color: rgba(255,243,205,.65); }
+.choice-btn.reveal-red    { background: rgba(107,26,26,.25);  border-color: rgba(224,96,96,.35);  color: rgba(255,229,229,.6); }
+
+/* Feedback */
+.feedback-block {
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  margin-top: 1rem;
+  display: none;
+}
+.feedback-block.visible { display: block; }
+.feedback-block.green { background: #2D6A4F; color: #d8f3dc; }
+.feedback-block.amber { background: #7B5E00; color: #fff3cd; }
+.feedback-block.red   { background: #6B1A1A; color: #ffe5e5; }
+.feedback-main { font-size: .9rem; line-height: 1.7; margin-bottom: .75rem; }
+.crit-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
+.crit-pill {
+  font-size: .72rem; font-weight: 600;
+  padding: .18rem .6rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.18);
+  color: inherit;
+}
+
+/* Continue btn */
+.btn-continue {
+  display: none;
+  margin-top: 1.25rem;
+  background: rgba(132,181,159,.25);
+  border: 1.5px solid var(--sage);
+  color: var(--sage);
+  border-radius: var(--radius);
+  padding: .65rem 1.5rem;
+  font-size: .9rem; font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background var(--trans), color var(--trans);
+}
+.btn-continue:hover { background: var(--sage); color: var(--dark); }
+.btn-continue.visible { display: inline-block; }
+
+/* Completion */
+#practice-completion {
+  display: none;
+  background: #1D3D2F;
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 28px rgba(29,61,47,.22);
+}
+#practice-completion.active { display: block; }
+.completion-title {
+  font-family: 'Lora', serif;
+  color: var(--white);
+  font-size: 1.6rem;
+  margin-bottom: .4rem;
+}
+.completion-sub {
+  color: rgba(245,242,237,.7);
+  font-size: .92rem;
+  margin-bottom: 1.75rem;
+}
+.score-summary {
+  display: flex; flex-direction: column; gap: .55rem;
+  max-width: 420px; margin: 0 auto 1.5rem;
+  text-align: left;
+}
+.score-row {
+  display: flex; align-items: center; gap: .85rem;
+  background: rgba(255,255,255,.07);
+  border-radius: var(--radius);
+  padding: .65rem 1rem;
+}
+.score-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.score-dot.green { background: #52b788; }
+.score-dot.amber { background: #f0a500; }
+.score-dot.red   { background: #e06060; }
+.score-dot.grey  { background: #888; }
+.score-label { color: rgba(245,242,237,.85); font-size: .88rem; }
+.completion-verdict {
+  background: rgba(132,181,159,.18);
+  border: 1.5px solid var(--sage);
+  border-radius: var(--radius);
+  padding: 1rem 1.5rem;
+  color: #d8f3dc;
+  font-size: .9rem; line-height: 1.7;
+  max-width: 480px; margin: 0 auto 1.75rem;
+}
+.bestscore-line {
+  color: var(--sage);
+  font-size: .84rem;
+  margin-bottom: 1.5rem;
+}
+.completion-actions { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; }
+.btn-try-again {
+  background: var(--terra); color: var(--white);
+  border: none; border-radius: var(--radius);
+  padding: .7rem 1.75rem;
+  font-size: .92rem; font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background var(--trans);
+}
+.btn-try-again:hover { background: #9d3e32; }
+.btn-review-criteria {
+  background: transparent;
+  border: 1.5px solid var(--sage);
+  color: var(--sage);
+  border-radius: var(--radius);
+  padding: .7rem 1.75rem;
+  font-size: .92rem; font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background var(--trans), color var(--trans);
+}
+.btn-review-criteria:hover { background: var(--sage); color: var(--dark); }
+
 /* ── Print styles ────────────────────────────────────────────────── */
 @media print {
-  #top-nav, #back-to-top, .reset-btn { display: none !important; }
+  #top-nav, #back-to-top, .reset-btn, #practice-stage, #practice-completion, .btn-start-practice { display: none !important; }
   body { background: white; font-size: 11pt; }
   section { padding: 1rem 0; }
   .briefing-card { background: #f0f0f0 !important; color: black !important; border: 2px solid #333; }
@@ -539,6 +839,7 @@ footer .container {
       <a href="#scenes" class="nav-link">Scene Breakdown</a>
       <a href="#criteria" class="nav-link">Assessment Criteria</a>
       <a href="#tips" class="nav-link">Tips</a>
+      <a href="#practice" class="nav-link">Practice Mode</a>
       <a href="#written" class="nav-link">Written Questions</a>
       <a href="#at-links" class="nav-link">Assessment Links</a>
     </div>
@@ -908,7 +1209,47 @@ footer .container {
   </div>
 </section>
 
-<!-- ── Section 7: AT3B Written Questions ─────────────────────── -->
+<!-- ── Section 7: Practice Mode ──────────────────────────────── -->
+<section id="practice">
+  <div class="container">
+    <h2 class="section-title">Practice Mode</h2>
+    <p class="section-subtitle">Walk through the scenario step by step before the real thing. Your choices are private.</p>
+
+    <!-- Intro card (shown when not yet started / between runs) -->
+    <div class="practice-intro-card" id="practice-intro">
+      <h3>&#x1F3AD; Practice Mode — Run Through the Scenario First</h3>
+      <p>Walk through the scene before the real thing. See what each character says and practice how you'd respond. Your choices are private — no one else sees them.</p>
+      <div class="practice-bestscore" id="practice-bestscore-badge" style="display:none"></div>
+      <br>
+      <button class="btn-start-practice" onclick="practiceStart()">Start Practice</button>
+    </div>
+
+    <!-- Stage (hidden until started) -->
+    <div id="practice-stage">
+      <!-- Progress pips — 9 total steps (6 beats + 4 choices = step markers) -->
+      <div class="stage-progress" id="stage-progress"></div>
+
+      <!-- Scene content injected here by JS -->
+      <div id="stage-content"></div>
+    </div>
+
+    <!-- Completion card -->
+    <div id="practice-completion">
+      <div class="completion-title">&#x1F3AD; Practice complete!</div>
+      <p class="completion-sub" id="completion-sub">Here's how you went across the four decision points.</p>
+      <div class="score-summary" id="score-summary"></div>
+      <div class="completion-verdict" id="completion-verdict"></div>
+      <p class="bestscore-line" id="completion-bestscore"></p>
+      <div class="completion-actions">
+        <button class="btn-try-again" onclick="practiceStart()">Try again</button>
+        <button class="btn-review-criteria" onclick="document.getElementById('criteria').scrollIntoView({behavior:'smooth'})">Review the assessment criteria</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Section 8: AT3B Written Questions ─────────────────────── -->
 <section id="written" style="background: var(--sand);">
   <div class="container">
     <h2 class="section-title">AT3B — Written Questions</h2>
@@ -1005,7 +1346,7 @@ footer .container {
   </div>
 </section>
 
-<!-- ── Section 8: Assessment Links ───────────────────────────── -->
+<!-- ── Section 9: Assessment Links ───────────────────────────── -->
 <section id="at-links">
   <div class="container">
     <h2 class="section-title">How Today Links to Your Assessments</h2>
@@ -1145,9 +1486,458 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
   });
 });
 
+/* ── Practice Mode ───────────────────────────────────────────── */
+
+var practiceScores = [null, null, null, null]; // null | 'green' | 'amber' | 'red'
+
+// ── Scene data ────────────────────────────────────────────────
+// Each step is either a 'beat' or a 'choice'
+// Beats auto-advance after 1.2s (except those with continueBtn: true)
+var STEPS = [
+  // BEAT 1
+  {
+    type: 'beat',
+    kind: 'narrator',
+    text: 'It is 10:00am at First Access. Ryan is supervising clients packing up board games. They are running behind and morning tea is already out. You walk in.',
+    continueBtn: 'Enter the room \u2192'
+  },
+  // BEAT 2
+  {
+    type: 'beat',
+    kind: 'char',
+    char: 'haider',
+    charLabel: 'Haider',
+    text: 'He never hurries, even when something urgent happens. I\u2019ve had enough of him.',
+    autoAdvance: true
+  },
+  // BEAT 3
+  {
+    type: 'beat',
+    kind: 'char',
+    char: 'ryan',
+    charLabel: 'Ryan',
+    text: 'Look who\u2019s talking. The one that leaves everything to go and pray.',
+    autoAdvance: true
+  },
+  // BEAT 4
+  {
+    type: 'beat',
+    kind: 'char',
+    char: 'haider',
+    charLabel: 'Haider',
+    text: 'C-c-come on man, l-l-look in me eyes if y-y-you have something t-t-to tell me. What\u2019s your p-p-problem?',
+    autoAdvance: true
+  },
+  // BEAT 5
+  {
+    type: 'beat',
+    kind: 'char',
+    char: 'ryan',
+    charLabel: 'Ryan',
+    text: 'Just take your stupid rug and go pray\u2026 who cares if you take extra time off.',
+    autoAdvance: true
+  },
+  // BEAT 6
+  {
+    type: 'beat',
+    kind: 'char',
+    char: 'dianne',
+    charLabel: 'Dianne',
+    text: 'Enough is enough you two! Why can\u2019t you just be like the rest of us?',
+    autoAdvance: false,
+    continueBtn: null // moves straight to choice
+  },
+  // CHOICE 1
+  {
+    type: 'choice',
+    choiceIndex: 0,
+    prompt: 'The argument is escalating. Ryan and Haider are both upset, and Dianne has made things worse. You need to intervene. What do you do first?',
+    options: [
+      {
+        label: 'A) \u201cTell everyone to calm down and that this behaviour is unprofessional.\u201d',
+        outcome: 'amber',
+        feedback: 'Partially right \u2014 you\u2019ve stepped in, which is good. But labelling the behaviour as \u2018unprofessional\u2019 straight away can feel dismissive and put people on the defensive. Try acknowledging the situation without judging it first.',
+        crits: ['\u26A0\uFE0F Criterion 2 (professional approach) \u2014 close, but avoid judgemental language early on.']
+      },
+      {
+        label: 'B) \u201cSpeak calmly to the group: \u2018I can see things are pretty heated right now. Can we take a breath and talk this through?\u2019\u201d',
+        outcome: 'green',
+        feedback: 'Great start. You\u2019ve acknowledged the situation without taking sides or judging anyone. Your calm tone is already de-escalating the energy in the room.',
+        crits: ['\u2705 Criterion 1 (respectful communication)', '\u2705 Criterion 2 (professional approach)']
+      },
+      {
+        label: 'C) \u201cPull Ryan aside first \u2014 he seems to be the one causing the most trouble.\u201d',
+        outcome: 'red',
+        feedback: 'This approach takes sides before you know the full picture. Ryan\u2019s communication style is linked to his cultural background, and singling him out could make things worse and shows unconscious bias.',
+        crits: ['\u274C Criterion 2 (no taking sides)', '\u274C Criterion 3 (inclusive practices)']
+      },
+      {
+        label: 'D) \u201cAsk Dianne what happened \u2014 she seems the most reasonable.\u201d',
+        outcome: 'red',
+        feedback: 'Dianne has actually been making the situation worse by stirring. Going to her first gives her more influence than she should have, and excludes Ryan and Haider from the conversation.',
+        crits: ['\u274C Criterion 2 (no taking sides)', '\u274C Criterion 3 (inclusive practices)']
+      }
+    ]
+  },
+  // BEAT 7
+  {
+    type: 'beat',
+    kind: 'narrator',
+    text: 'You\u2019ve stepped in. Ryan crosses his arms and looks away. Haider tries to explain his side but is clearly distressed.',
+    autoAdvance: true
+  },
+  {
+    type: 'beat',
+    kind: 'char',
+    char: 'haider',
+    charLabel: 'Haider',
+    text: 'He\u2026 he always\u2026 I just\u2026 I c-c-can\u2019t\u2026 every time I need to p-p-pray he makes me feel like\u2026 like I am d-d-doing something wrong.',
+    autoAdvance: false
+  },
+  // CHOICE 2
+  {
+    type: 'choice',
+    choiceIndex: 1,
+    prompt: 'Haider is visibly distressed and stuttering badly. He\u2019s trying to explain but losing his words. What\u2019s your approach?',
+    options: [
+      {
+        label: 'A) Finish his sentence for him to help him along: \u201cYou mean Ryan makes you feel judged for your religious practice?\u201d',
+        outcome: 'amber',
+        feedback: 'You\u2019re trying to help, but finishing someone\u2019s sentence \u2014 even kindly \u2014 can feel disrespectful and may put words in his mouth that aren\u2019t quite right. Give him the space to find his own words.',
+        crits: ['\u26A0\uFE0F Criterion 5 (language barriers) \u2014 patience is the key, not rushing.']
+      },
+      {
+        label: 'B) Wait quietly and give him time. Make calm eye contact and nod to show you\u2019re listening.',
+        outcome: 'green',
+        feedback: 'Exactly right. Giving Haider time and showing through your body language that you\u2019re listening is one of the most important things your assessor is watching for. Don\u2019t rush this moment.',
+        crits: ['\u2705 Criterion 4 (non-verbal communication)', '\u2705 Criterion 5 (language barriers)']
+      },
+      {
+        label: 'C) Speak up a little to make sure he can hear you clearly: \u201cTake your time, Haider \u2014 we can hear you.\u201d',
+        outcome: 'red',
+        feedback: 'Raising your voice is not the right response to a language barrier or emotional distress \u2014 it can feel confrontational. Keep your voice calm and low, not louder.',
+        crits: ['\u274C Criterion 5 (language barriers) \u2014 never raise your voice.']
+      },
+      {
+        label: 'D) Move on to Ryan for now and come back to Haider when he\u2019s calmer.',
+        outcome: 'amber',
+        feedback: 'It\u2019s understandable to want to keep things moving, but stepping away from Haider when he\u2019s mid-sentence sends the message that his words don\u2019t matter as much. Stay with him.',
+        crits: ['\u26A0\uFE0F Criterion 3 (inclusive practices) \u2014 everyone needs to feel heard.']
+      }
+    ]
+  },
+  // BEAT 8
+  {
+    type: 'beat',
+    kind: 'narrator',
+    text: 'Ryan has been watching. He seems to be calming slightly but is still defensive.',
+    autoAdvance: true
+  },
+  {
+    type: 'beat',
+    kind: 'char',
+    char: 'ryan',
+    charLabel: 'Ryan',
+    text: 'I\u2019m just saying \u2014 the rest of us don\u2019t take time off during a shift. That\u2019s all.',
+    autoAdvance: false
+  },
+  // CHOICE 3
+  {
+    type: 'choice',
+    choiceIndex: 2,
+    prompt: 'Ryan is implying that Haider\u2019s prayer practice is taking time away from the team. How do you address this?',
+    options: [
+      {
+        label: 'A) Acknowledge Ryan\u2019s concern while explaining the context: \u201cI hear you, Ryan. It can feel uneven when schedules are tight. Haider\u2019s prayer practice is part of his faith \u2014 it\u2019s also something the organisation is required to accommodate.\u201d',
+        outcome: 'green',
+        feedback: 'Well done. You\u2019ve acknowledged Ryan\u2019s perspective without dismissing it, and you\u2019ve introduced the legal/organisational context without being preachy. This shows cultural competence in action.',
+        crits: ['\u2705 Criterion 3 (inclusive practices)', '\u2705 Criterion 4 (verbal communication)', '\u2705 Criterion 6 (supervisor debrief prep \u2014 you\u2019ll need to raise this)']
+      },
+      {
+        label: 'B) Tell Ryan he needs to be more respectful of other religions.',
+        outcome: 'amber',
+        feedback: 'You\u2019re right that respect is needed, but this response sounds like a reprimand and puts Ryan on the defensive. It also doesn\u2019t acknowledge that he may have a genuine concern about workload distribution.',
+        crits: ['\u26A0\uFE0F Criterion 1 \u2014 tone matters as much as the words.']
+      },
+      {
+        label: 'C) Stay neutral: \u201cWe can talk about scheduling concerns another time. Right now I just want to make sure everyone is okay.\u201d',
+        outcome: 'green',
+        feedback: 'Good instinct \u2014 keeping focus on de-escalation rather than relitigating the scheduling debate is a solid professional move. You\u2019re not dismissing the concern, just deferring it appropriately.',
+        crits: ['\u2705 Criterion 2 (professional approach)', '\u2705 Criterion 3 (inclusive)']
+      },
+      {
+        label: 'D) Agree that it does seem unfair that Haider gets extra breaks.',
+        outcome: 'red',
+        feedback: 'This takes sides and shows a misunderstanding of the legal context. Religious practice accommodation is a right, not a favour. This would be a significant issue in the real assessment.',
+        crits: ['\u274C Criterion 2 (taking sides)', '\u274C Criterion 3 (inclusive practices)']
+      }
+    ]
+  },
+  // BEAT 9
+  {
+    type: 'beat',
+    kind: 'narrator',
+    text: 'The energy in the room has dropped. Ryan and Haider are no longer shouting. Dianne has gone quiet. You\u2019ve managed to de-escalate the situation. Now it\u2019s time to speak to your Supervisor.',
+    continueBtn: 'Head to the Supervisor \u2192'
+  },
+  // CHOICE 4
+  {
+    type: 'choice',
+    choiceIndex: 3,
+    prompt: 'You approach your Supervisor. They ask: \u201cWhat happened out there?\u201d How do you debrief?',
+    options: [
+      {
+        label: 'A) \u201cRyan and Haider have been at each other for weeks. Today it blew up. Ryan\u2019s been making comments about Haider\u2019s religion and honestly I think Ryan started it.\u201d',
+        outcome: 'red',
+        feedback: 'This debrief takes sides and makes a judgement call. Your supervisor needs facts and context, not your opinion on who is at fault. Keep it neutral.',
+        crits: ['\u274C Criterion 6 (non-judgemental debrief)']
+      },
+      {
+        label: 'B) \u201cThere was a conflict between Ryan and Haider that escalated today. I intervened to de-escalate. I think it\u2019s worth knowing that Haider\u2019s prayer practice is a religious right \u2014 if the organisation is preventing him from practising it, there may be a compliance issue. Both of them are valuable to the team and I\u2019d suggest we look at some cultural awareness support.\u201d',
+        outcome: 'green',
+        feedback: 'This is an excellent debrief. You\u2019ve been factual and non-judgemental, you\u2019ve raised the legal issue appropriately, affirmed both colleagues\u2019 value, and suggested a constructive strategy. This hits every point your assessor needs to hear.',
+        crits: ['\u2705 Criterion 6 \u2014 all boxes ticked: non-judgemental, legal issue raised, both valued, strategy suggested.']
+      },
+      {
+        label: 'C) \u201cEverything is fine now, I sorted it out.\u201d',
+        outcome: 'red',
+        feedback: 'The supervisor needs to know what happened so they can support the team and assess any organisational risks. \u2018I sorted it\u2019 gives them nothing to work with and doesn\u2019t demonstrate professional judgement.',
+        crits: ['\u274C Criterion 6 \u2014 insufficient debrief.']
+      },
+      {
+        label: 'D) \u201cRyan and Haider had an argument. Dianne was involved too. I stepped in and calmed everyone down. I think they\u2019ll be fine.\u201d',
+        outcome: 'amber',
+        feedback: 'You\u2019ve covered the basics but missed the important elements \u2014 the cultural/religious dimension, the potential legal issue for the organisation, and a suggested strategy. A supervisor needs that context.',
+        crits: ['\u26A0\uFE0F Criterion 6 \u2014 debrief needs more depth.']
+      }
+    ]
+  }
+];
+
+var practiceStep = 0;
+var practiceActive = false;
+var TOTAL_PIPS = STEPS.length;
+
+function practiceStart() {
+  practiceScores = [null, null, null, null];
+  practiceStep = 0;
+  practiceActive = true;
+
+  document.getElementById('practice-intro').style.display = 'none';
+  document.getElementById('practice-completion').classList.remove('active');
+  var stage = document.getElementById('practice-stage');
+  stage.classList.add('active');
+
+  // Build progress pips
+  var pipHtml = '';
+  for (var i = 0; i < TOTAL_PIPS; i++) {
+    pipHtml += '<div class="stage-pip" id="pip-' + i + '"></div>';
+  }
+  document.getElementById('stage-progress').innerHTML = pipHtml;
+
+  document.getElementById('stage-content').innerHTML = '';
+  practiceShowStep(0);
+}
+
+function updatePips(currentStep) {
+  for (var i = 0; i < TOTAL_PIPS; i++) {
+    var pip = document.getElementById('pip-' + i);
+    if (!pip) continue;
+    pip.className = 'stage-pip';
+    if (i < currentStep) pip.classList.add('done');
+    else if (i === currentStep) pip.classList.add('active');
+  }
+}
+
+function practiceShowStep(stepIndex) {
+  if (stepIndex >= STEPS.length) {
+    practiceComplete();
+    return;
+  }
+  practiceStep = stepIndex;
+  updatePips(stepIndex);
+  var step = STEPS[stepIndex];
+  var content = document.getElementById('stage-content');
+
+  if (step.type === 'beat') {
+    var block = document.createElement('div');
+    block.className = 'beat-block';
+    block.id = 'beat-' + stepIndex;
+
+    if (step.kind === 'narrator') {
+      block.innerHTML = '<p class="beat-narrator">' + step.text + '</p>';
+      if (step.continueBtn) {
+        var btn = document.createElement('button');
+        btn.className = 'btn-continue visible';
+        btn.textContent = step.continueBtn;
+        btn.onclick = (function(si){ return function(){ practiceShowStep(si + 1); }; })(stepIndex);
+        block.appendChild(btn);
+      }
+    } else {
+      // char beat
+      block.innerHTML =
+        '<div class="beat-label ' + step.char + '">' + step.charLabel + '</div>' +
+        '<div class="beat-char">' +
+          '<div class="char-badge ' + step.char + '">' + step.charLabel.substring(0,2) + '</div>' +
+          '<div class="speech-bubble ' + step.char + '">' + step.text + '</div>' +
+        '</div>';
+    }
+
+    content.appendChild(block);
+    // Trigger fade-in
+    setTimeout(function() { block.classList.add('visible'); }, 50);
+
+    if (step.autoAdvance) {
+      setTimeout(function() { practiceShowStep(stepIndex + 1); }, 1200);
+    } else if (!step.continueBtn) {
+      // advance immediately to next (which should be a choice)
+      setTimeout(function() { practiceShowStep(stepIndex + 1); }, 600);
+    }
+
+    block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  } else if (step.type === 'choice') {
+    var block2 = document.createElement('div');
+    block2.className = 'beat-block';
+    block2.id = 'choice-' + stepIndex;
+
+    var optHtml = '';
+    step.options.forEach(function(opt, idx) {
+      optHtml += '<button class="choice-btn" data-step="' + stepIndex + '" data-idx="' + idx + '" onclick="practiceChoose(' + stepIndex + ',' + idx + ')">' + opt.label + '</button>';
+    });
+
+    block2.innerHTML =
+      '<div class="choice-prompt">' +
+        '<div class="choice-prompt-label">Your turn</div>' +
+        '<div class="choice-prompt-q">' + step.prompt + '</div>' +
+        '<div class="choice-grid" id="choice-grid-' + stepIndex + '">' + optHtml + '</div>' +
+        '<div class="feedback-block" id="feedback-' + stepIndex + '">' +
+          '<div class="feedback-main" id="feedback-main-' + stepIndex + '"></div>' +
+          '<div class="crit-pills" id="crit-pills-' + stepIndex + '"></div>' +
+        '</div>' +
+        '<button class="btn-continue" id="continue-' + stepIndex + '" onclick="practiceShowStep(' + (stepIndex + 1) + ')">Continue the scene \u2192</button>' +
+      '</div>';
+
+    content.appendChild(block2);
+    setTimeout(function() { block2.classList.add('visible'); }, 50);
+    block2.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function practiceChoose(stepIndex, chosenIdx) {
+  var step = STEPS[stepIndex];
+  var chosen = step.options[chosenIdx];
+
+  // Record score
+  practiceScores[step.choiceIndex] = chosen.outcome;
+
+  // Disable all buttons and colour them
+  var grid = document.getElementById('choice-grid-' + stepIndex);
+  var btns = grid.querySelectorAll('.choice-btn');
+  btns.forEach(function(btn, idx) {
+    btn.disabled = true;
+    var opt = step.options[idx];
+    if (idx === chosenIdx) {
+      btn.classList.add('chosen-' + opt.outcome);
+    } else {
+      btn.classList.add('reveal-' + opt.outcome);
+    }
+  });
+
+  // Show feedback
+  var fb = document.getElementById('feedback-' + stepIndex);
+  fb.classList.add('visible', chosen.outcome);
+  document.getElementById('feedback-main-' + stepIndex).textContent = chosen.feedback;
+
+  var pillsEl = document.getElementById('crit-pills-' + stepIndex);
+  chosen.crits.forEach(function(c) {
+    var pill = document.createElement('span');
+    pill.className = 'crit-pill';
+    pill.textContent = c;
+    pillsEl.appendChild(pill);
+  });
+
+  // Show continue
+  var continueBtn = document.getElementById('continue-' + stepIndex);
+  continueBtn.classList.add('visible');
+
+  // If this is the last choice, change continue label
+  if (step.choiceIndex === 3) {
+    continueBtn.textContent = 'See your results \u2192';
+    continueBtn.onclick = function() { practiceComplete(); };
+  }
+}
+
+var CHOICE_LABELS = [
+  'How you stepped in',
+  'How you handled Haider',
+  'How you addressed the prayer issue',
+  'Your supervisor debrief'
+];
+
+function practiceComplete() {
+  document.getElementById('practice-stage').classList.remove('active');
+  var comp = document.getElementById('practice-completion');
+  comp.classList.add('active');
+
+  var greens = practiceScores.filter(function(s){ return s === 'green'; }).length;
+
+  // Score summary rows
+  var summaryEl = document.getElementById('score-summary');
+  summaryEl.innerHTML = '';
+  practiceScores.forEach(function(score, i) {
+    var dotClass = score || 'grey';
+    var row = document.createElement('div');
+    row.className = 'score-row';
+    row.innerHTML = '<div class="score-dot ' + dotClass + '"></div><span class="score-label">' + CHOICE_LABELS[i] + '</span>';
+    summaryEl.appendChild(row);
+  });
+
+  // Verdict
+  var verdictEl = document.getElementById('completion-verdict');
+  if (greens === 4) {
+    verdictEl.textContent = 'Strong performance \u2014 you\u2019ve shown the key professional judgements needed for a Satisfactory result. You\u2019re ready.';
+  } else if (greens >= 2) {
+    verdictEl.textContent = 'Good instincts in most areas. Review the feedback on the choices you missed, then run through it again.';
+  } else {
+    verdictEl.textContent = 'This is exactly what practice is for. Read through the feedback carefully, revisit the assessment criteria, and give it another go.';
+  }
+
+  // Best score localStorage
+  var BEST_KEY = 'roleplay_practice_bestscore';
+  var stored = null;
+  try { stored = localStorage.getItem(BEST_KEY); } catch(e) {}
+  var best = stored !== null ? parseInt(stored, 10) : 0;
+  if (greens > best) {
+    best = greens;
+    try { localStorage.setItem(BEST_KEY, best); } catch(e) {}
+  }
+
+  document.getElementById('completion-bestscore').textContent = 'Your best score: ' + best + '/4';
+
+  // Update badge on intro (for next time)
+  var badge = document.getElementById('practice-bestscore-badge');
+  badge.textContent = 'Best score: ' + best + '/4';
+  badge.style.display = 'inline-block';
+
+  comp.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function practiceLoadBestScore() {
+  try {
+    var stored = localStorage.getItem('roleplay_practice_bestscore');
+    if (stored !== null) {
+      var badge = document.getElementById('practice-bestscore-badge');
+      badge.textContent = 'Best score: ' + stored + '/4';
+      badge.style.display = 'inline-block';
+    }
+  } catch(e) {}
+}
+
 /* ── Init ────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function() {
   loadAnswers();
+  practiceLoadBestScore();
 });
 </script>
 </body>
