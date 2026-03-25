@@ -3,1941 +3,1580 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHCDIV001 — Role Play Day | AT3A + AT3B</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>AT3 Role Play — First Access | CHCDIV001</title>
 <style>
-/* ── CSS Custom Properties ──────────────────────────────────────── */
-:root {
-  --dark:   #1D3D2F;
-  --terra:  #B85042;
-  --sage:   #84B59F;
-  --cream:  #F5F2ED;
-  --sand:   #E7E8D1;
-  --white:  #FFFFFF;
-  --text:   #2C2C2C;
-  --muted:  #5A5A5A;
-  --border: #DDD9D2;
-  --shadow: 0 2px 14px rgba(29,61,47,0.10);
-  --radius: 8px;
-  --trans:  0.2s ease;
-  --haider: #5A7D6F;
-  --dianne: #888888;
-}
-
-/* ── Reset ──────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body { background: var(--cream); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; }
-h1,h2,h3,h4 { font-family: 'Lora', serif; line-height: 1.3; color: var(--dark); }
-a { color: var(--terra); text-decoration: none; }
-a:hover { text-decoration: underline; }
-p { margin-bottom: .85em; }
-p:last-child { margin-bottom: 0; }
-ul,ol { padding-left: 1.4em; margin-bottom: .85em; }
-li { margin-bottom: .25em; }
-
-/* ── Layout ──────────────────────────────────────────────────────── */
-.container { max-width: 900px; margin: 0 auto; padding: 0 1.25rem; }
-section { padding: 2.5rem 0; }
-
-/* ── Sticky Nav ──────────────────────────────────────────────────── */
-#top-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: var(--dark); color: var(--white);
-  padding: .75rem 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,.25);
-}
-#top-nav .container {
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-}
-.nav-brand { display: flex; align-items: center; gap: .5rem; }
-.nav-title { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--white); }
-.nav-sub { font-size: .78rem; color: var(--sage); }
-.nav-links { display: flex; gap: .5rem; flex-wrap: wrap; }
-.nav-link {
-  color: rgba(255,255,255,.7); font-size: .75rem; font-weight: 500;
-  padding: .25rem .6rem; border-radius: var(--radius);
-  transition: color var(--trans), background var(--trans);
-}
-.nav-link:hover { color: var(--white); background: rgba(255,255,255,.1); text-decoration: none; }
-
-/* ── Hero ────────────────────────────────────────────────────────── */
-#hero {
-  background: var(--dark);
-  border-left: 8px solid var(--terra);
-  padding: 3.5rem 0 3rem;
-  position: relative; overflow: hidden;
-}
-#hero::after {
-  content: ''; position: absolute; right: -60px; top: -60px;
-  width: 280px; height: 280px;
-  border-radius: 50%;
-  background: rgba(132,181,159,.07);
-  pointer-events: none;
-}
-#hero::before {
-  content: ''; position: absolute; right: 80px; bottom: -40px;
-  width: 160px; height: 160px;
-  border-radius: 50%;
-  background: rgba(184,80,66,.06);
-  pointer-events: none;
-}
-.hero-unit {
-  font-size: .78rem; font-weight: 600; color: var(--sage);
-  letter-spacing: .12em; text-transform: uppercase; margin-bottom: .5rem;
-}
-.hero-title {
-  font-family: 'Lora', serif;
-  font-size: clamp(2rem,5vw,3.2rem);
-  font-weight: 700; color: var(--white); margin-bottom: .4rem;
-}
-.hero-sub {
-  color: rgba(245,242,237,.8); font-size: 1rem; margin-bottom: 1.4rem;
-  font-style: italic;
-}
-.hero-pills { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-.pill {
-  background: rgba(255,255,255,.12); color: var(--white);
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 999px; padding: .3rem .85rem;
-  font-size: .78rem; font-weight: 500;
-}
-.pill.sage { background: rgba(132,181,159,.25); border-color: var(--sage); color: var(--sage); }
-.pill.terra { background: rgba(184,80,66,.25); border-color: var(--terra); color: #f4b5ae; }
-.hero-intro {
-  color: var(--sand); font-size: .95rem; line-height: 1.75;
-  max-width: 680px;
-  background: rgba(255,255,255,.06);
-  border-left: 3px solid var(--sage);
-  padding: 1rem 1.25rem;
-  border-radius: 0 var(--radius) var(--radius) 0;
-}
-
-/* ── Section headers ─────────────────────────────────────────────── */
-.section-title {
-  font-size: clamp(1.35rem,3vw,1.75rem);
-  color: var(--dark); margin-bottom: .35rem;
-}
-.section-subtitle {
-  color: var(--muted); font-size: .92rem; margin-bottom: 1.75rem;
-  font-family: 'Inter', sans-serif;
-}
-.section-divider {
-  border: none; border-top: 2px solid var(--border);
-  margin: 0 0 2.5rem;
-}
-
-/* ── Scenario briefing card ──────────────────────────────────────── */
-.briefing-card {
-  background: var(--dark);
-  border-left: 6px solid var(--terra);
-  border-radius: var(--radius);
-  padding: 2rem 2rem 2rem 1.75rem;
-  box-shadow: var(--shadow);
-  color: var(--white);
-  margin-bottom: 1.5rem;
-}
-.briefing-card-title {
-  font-family: 'Lora', serif;
-  font-size: 1.15rem; font-weight: 700;
-  color: var(--white); margin-bottom: 1rem;
-  display: flex; align-items: center; gap: .5rem;
-}
-.briefing-card p {
-  color: rgba(245,242,237,.88); font-size: .95rem; line-height: 1.8;
-}
-.callout-sage {
-  background: rgba(132,181,159,.18);
-  border: 1.5px solid var(--sage);
-  border-radius: var(--radius);
-  padding: 1rem 1.25rem;
-  color: var(--dark); font-size: .9rem; line-height: 1.7;
-}
-.callout-sage strong { color: var(--dark); }
-
-/* ── Character Cards ─────────────────────────────────────────────── */
-.characters-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-}
-.char-card {
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  background: var(--white);
-  transition: box-shadow var(--trans), transform var(--trans);
-}
-.char-card:hover { box-shadow: 0 4px 24px rgba(29,61,47,0.16); transform: translateY(-2px); }
-
-.char-header {
-  display: flex; align-items: center; gap: 1rem;
-  padding: 1rem 1.25rem;
-  cursor: pointer; user-select: none;
-}
-.char-header::-webkit-details-marker { display: none; }
-.char-avatar {
-  width: 52px; height: 52px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem; flex-shrink: 0;
-  background: rgba(255,255,255,.2);
-  border: 2px solid rgba(255,255,255,.3);
-}
-.char-header-text { flex: 1; }
-.char-name {
-  font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 700;
-  color: var(--white); line-height: 1.2;
-}
-.char-role {
-  font-size: .72rem; font-weight: 600; letter-spacing: .08em;
-  text-transform: uppercase; color: rgba(255,255,255,.7);
-  margin-top: .15rem;
-}
-.char-toggle {
-  color: rgba(255,255,255,.6); font-size: 1rem;
-  transition: transform var(--trans);
-}
-.char-card.open .char-toggle { transform: rotate(180deg); }
-
-.char-body {
-  padding: 0 1.25rem;
-  max-height: 0; overflow: hidden;
-  transition: max-height .45s ease, padding .45s ease;
-}
-.char-card.open .char-body {
-  max-height: 1200px;
-  padding: 1.25rem 1.25rem 1.5rem;
-}
-.char-body h4 {
-  font-size: .82rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .07em; color: var(--muted); margin: 1rem 0 .4rem;
-}
-.char-body h4:first-child { margin-top: 0; }
-.char-body p, .char-body li { font-size: .9rem; color: var(--text); }
-.char-body ul { padding-left: 1.3em; }
-
-.char-key-lines {
-  background: var(--sand); border-radius: var(--radius);
-  padding: .85rem 1rem; margin: .75rem 0;
-}
-.char-key-lines .kl-label {
-  font-size: .72rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .07em; color: var(--muted); margin-bottom: .4rem;
-}
-.char-key-lines .kl-line {
-  font-style: italic; color: var(--text); font-size: .88rem;
-  padding: .2rem 0; border-bottom: 1px dashed var(--border);
-}
-.char-key-lines .kl-line:last-child { border-bottom: none; }
-
-.char-cultural-note {
-  background: rgba(132,181,159,.12);
-  border: 1.5px solid var(--sage);
-  border-radius: var(--radius); padding: .75rem 1rem;
-  margin-top: .75rem;
-  font-size: .84rem; color: var(--text); line-height: 1.65;
-}
-.char-cultural-note::before {
-  content: 'Cultural note — ';
-  font-weight: 700; color: var(--dark);
-}
-
-.criteria-badges { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .75rem; }
-.crit-badge {
-  background: rgba(29,61,47,.1);
-  border: 1px solid rgba(29,61,47,.2);
-  color: var(--dark); font-size: .72rem; font-weight: 600;
-  padding: .2rem .6rem; border-radius: 999px;
-}
-
-/* Character colour headers */
-.char-card.you .char-header { background: var(--dark); }
-.char-card.ryan .char-header { background: var(--terra); }
-.char-card.haider .char-header { background: var(--haider); }
-.char-card.dianne .char-header { background: var(--dianne); }
-
-/* ── Scene Breakdown ─────────────────────────────────────────────── */
-.scenes-wrap { display: flex; flex-direction: column; gap: 0; }
-.scene-card {
-  display: flex; gap: 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  margin-bottom: .5rem;
-  background: var(--white);
-}
-.scene-accent { width: 6px; flex-shrink: 0; }
-.scene-accent.terra { background: var(--terra); }
-.scene-accent.dark { background: var(--dark); }
-.scene-accent.sage { background: var(--sage); }
-.scene-inner { padding: 1.5rem 1.5rem 1.5rem 1.25rem; flex: 1; }
-.scene-number {
-  font-size: .7rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .1em; color: var(--muted); margin-bottom: .3rem;
-}
-.scene-title { font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: .65rem; }
-.scene-inner p, .scene-inner li { font-size: .9rem; }
-.scene-checklist { list-style: none; padding: 0; margin: .5rem 0 0; }
-.scene-checklist li {
-  display: flex; align-items: flex-start; gap: .5rem;
-  font-size: .9rem; margin-bottom: .3rem;
-}
-.scene-checklist li::before {
-  content: '✓'; color: var(--sage); font-weight: 700;
-  flex-shrink: 0; margin-top: .1rem;
-}
-
-.scene-arrow {
-  text-align: center; color: var(--muted); font-size: 1.25rem;
-  padding: .1rem 0; line-height: 1;
-  margin-bottom: .5rem;
-}
-
-/* ── Criteria Cards ──────────────────────────────────────────────── */
-.criteria-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-}
-.crit-card {
-  background: var(--white); border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: 1.4rem;
-  display: flex; flex-direction: column; gap: .6rem;
-}
-.crit-card-top { display: flex; align-items: flex-start; gap: .85rem; }
-.crit-number {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--terra); color: var(--white);
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: .95rem; flex-shrink: 0; margin-top: .1rem;
-}
-.crit-title { font-family: 'Lora', serif; font-size: 1rem; font-weight: 700; line-height: 1.3; }
-.crit-body { font-size: .88rem; color: var(--muted); line-height: 1.7; }
-.crit-pc-badge {
-  display: inline-block;
-  background: rgba(29,61,47,.1); border: 1px solid rgba(29,61,47,.2);
-  color: var(--dark); font-size: .7rem; font-weight: 600;
-  padding: .2rem .6rem; border-radius: 999px;
-  align-self: flex-start;
-}
-
-.callout-reassure {
-  background: rgba(132,181,159,.14);
-  border: 1.5px solid var(--sage);
-  border-radius: var(--radius);
-  padding: 1.1rem 1.4rem;
-  color: var(--text); font-size: .92rem; line-height: 1.7;
-  margin-top: 1.5rem;
-}
-
-/* ── Tips Cards ──────────────────────────────────────────────────── */
-.tips-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.1rem;
-}
-.tip-card {
-  background: var(--white); border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: 1.3rem;
-}
-.tip-emoji { font-size: 1.8rem; margin-bottom: .5rem; }
-.tip-title { font-family: 'Lora', serif; font-size: .98rem; font-weight: 700; margin-bottom: .4rem; }
-.tip-body { font-size: .88rem; color: var(--muted); line-height: 1.65; }
-
-/* ── AT3B Questions ──────────────────────────────────────────────── */
-.question-cards { display: flex; flex-direction: column; gap: 1.25rem; }
-.q-card {
-  background: var(--white); border-radius: var(--radius);
-  box-shadow: var(--shadow); overflow: hidden;
-}
-.q-card-top {
-  display: flex; align-items: flex-start; gap: 1rem;
-  padding: 1.4rem 1.4rem 1rem;
-}
-.q-number {
-  width: 38px; height: 38px; border-radius: 50%;
-  background: var(--terra); color: var(--white);
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 1rem; flex-shrink: 0;
-}
-.q-text { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; line-height: 1.4; }
-.q-hint {
-  margin: 0 1.4rem .75rem 1.4rem;
-  font-size: .84rem; color: var(--muted);
-  font-style: italic; line-height: 1.6;
-  padding: .65rem .85rem;
-  background: var(--cream); border-radius: var(--radius);
-  border-left: 3px solid var(--sage);
-}
-.q-textarea-wrap { padding: 0 1.4rem 1.4rem; }
-.q-textarea {
-  width: 100%; min-height: 120px;
-  border: 1.5px solid var(--border); border-radius: var(--radius);
-  padding: .85rem; font-family: 'Inter', sans-serif;
-  font-size: .9rem; color: var(--text); line-height: 1.65;
-  resize: vertical; transition: border-color var(--trans), box-shadow var(--trans);
-  background: var(--cream);
-}
-.q-textarea:focus {
-  outline: none; border-color: var(--sage);
-  box-shadow: 0 0 0 3px rgba(132,181,159,.2);
-  background: var(--white);
-}
-.q-char-hint {
-  font-size: .76rem; color: var(--muted); margin-top: .4rem;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.q-char-hint .char-count { font-weight: 600; color: var(--dark); }
-
-.save-note {
-  background: var(--sand); border-radius: var(--radius);
-  padding: 1rem 1.25rem; font-size: .86rem; color: var(--muted);
-  margin-top: 1.5rem; line-height: 1.6;
-}
-
-/* ── AT Links ────────────────────────────────────────────────────── */
-.at-grid { display: flex; flex-direction: column; gap: .75rem; }
-.at-card {
-  border-radius: var(--radius); overflow: hidden;
-  box-shadow: var(--shadow);
-}
-.at-card summary {
-  display: flex; align-items: center; gap: .85rem;
-  padding: 1rem 1.25rem; cursor: pointer;
-  background: var(--white); list-style: none;
-  user-select: none;
-  transition: background var(--trans);
-}
-.at-card summary::-webkit-details-marker { display: none; }
-.at-card summary:hover { background: var(--cream); }
-.at-badge {
-  background: var(--dark); color: var(--white);
-  font-size: .72rem; font-weight: 700; letter-spacing: .05em;
-  padding: .25rem .65rem; border-radius: var(--radius);
-  white-space: nowrap;
-}
-.at-badge.terra { background: var(--terra); }
-.at-badge.sage { background: var(--sage); color: var(--dark); }
-.at-summary-title { font-family: 'Lora', serif; font-size: .98rem; font-weight: 600; flex: 1; }
-.at-toggle { color: var(--muted); font-size: .9rem; transition: transform var(--trans); }
-.at-card[open] .at-toggle { transform: rotate(180deg); }
-.at-body {
-  padding: 1rem 1.25rem 1.25rem;
-  background: var(--cream);
-  border-top: 1px solid var(--border);
-  font-size: .9rem; line-height: 1.7;
-}
-
-/* ── Footer ──────────────────────────────────────────────────────── */
-footer {
-  background: var(--dark); color: rgba(245,242,237,.6);
-  padding: 2rem 0; font-size: .84rem; margin-top: 3rem;
-}
-footer .container {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 1rem;
-}
-.footer-note { line-height: 1.6; }
-.footer-note strong { color: var(--sage); }
-.reset-btn {
-  background: rgba(184,80,66,.25); color: #f4b5ae;
-  border: 1.5px solid rgba(184,80,66,.4);
-  border-radius: var(--radius); padding: .5rem 1.1rem;
-  font-size: .82rem; font-weight: 600; cursor: pointer;
-  transition: background var(--trans), color var(--trans);
-}
-.reset-btn:hover { background: var(--terra); color: var(--white); }
-
-/* ── Back to top ─────────────────────────────────────────────────── */
-#back-to-top {
-  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
-  background: var(--dark); color: var(--white);
-  border: none; border-radius: 50%;
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,.3);
-  opacity: 0; transform: translateY(10px);
-  transition: opacity var(--trans), transform var(--trans), background var(--trans);
-  pointer-events: none;
-}
-#back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-#back-to-top:hover { background: var(--terra); }
-
-/* ── Utilities ──────────────────────────────────────────────────── */
-.mb-sm { margin-bottom: .75rem; }
-.mb-md { margin-bottom: 1.25rem; }
-.text-muted { color: var(--muted); font-size: .88rem; }
-
-/* ── Responsive ──────────────────────────────────────────────────── */
-@media (max-width: 680px) {
-  .characters-grid { grid-template-columns: 1fr; }
-  .criteria-grid { grid-template-columns: 1fr; }
-  .tips-grid { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
-  footer .container { flex-direction: column; align-items: flex-start; }
-}
-
-/* ── Practice Mode ───────────────────────────────────────────── */
-#practice { background: var(--cream); }
-
-.practice-intro-card {
-  background: var(--dark);
-  border-radius: var(--radius);
-  padding: 2rem 2rem 2.25rem;
-  box-shadow: var(--shadow);
-  color: var(--white);
-  margin-bottom: 1.75rem;
-  text-align: center;
-}
-.practice-intro-card h3 {
-  font-family: 'Lora', serif;
-  color: var(--white);
-  font-size: 1.35rem;
-  margin-bottom: .5rem;
-}
-.practice-intro-card p {
-  color: rgba(245,242,237,.78);
-  font-size: .93rem;
-  line-height: 1.75;
-  max-width: 600px;
-  margin: 0 auto .5rem;
-}
-.practice-bestscore {
-  display: inline-block;
-  background: rgba(132,181,159,.25);
-  border: 1px solid var(--sage);
-  color: var(--sage);
-  font-size: .8rem; font-weight: 600;
-  padding: .25rem .8rem;
-  border-radius: 999px;
-  margin-bottom: 1.25rem;
-}
-.btn-start-practice {
-  display: inline-block;
-  background: var(--terra);
-  color: var(--white);
-  border: none;
-  border-radius: var(--radius);
-  padding: .85rem 2.25rem;
-  font-size: 1.05rem;
-  font-weight: 700;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  transition: background var(--trans), transform var(--trans);
-  letter-spacing: .02em;
-}
-.btn-start-practice:hover { background: #9d3e32; transform: translateY(-1px); }
-
-/* Stage */
-#practice-stage {
-  display: none;
-  background: #1D3D2F;
-  border-radius: var(--radius);
-  padding: 2rem 1.75rem 2.5rem;
-  box-shadow: 0 4px 28px rgba(29,61,47,.22);
-}
-#practice-stage.active { display: block; }
-
-.stage-progress {
-  display: flex; gap: .35rem; margin-bottom: 1.75rem; flex-wrap: wrap;
-}
-.stage-pip {
-  height: 4px; flex: 1; min-width: 24px;
-  background: rgba(255,255,255,.15);
-  border-radius: 2px;
-  transition: background .4s ease;
-}
-.stage-pip.done { background: var(--sage); }
-.stage-pip.active { background: var(--terra); }
-
-/* Beat */
-.beat-block {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .4s ease, transform .4s ease;
-  margin-bottom: 1.25rem;
-}
-.beat-block.visible { opacity: 1; transform: translateY(0); }
-
-.beat-narrator {
-  font-style: italic;
-  color: rgba(245,242,237,.55);
-  font-size: .88rem;
-  line-height: 1.7;
-  text-align: center;
-  padding: .5rem 0;
-}
-
-.beat-char {
-  display: flex; align-items: flex-start; gap: .85rem;
-}
-.char-badge {
-  flex-shrink: 0;
-  width: 42px; height: 42px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .7rem; font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: var(--white);
-  line-height: 1.15;
-  text-align: center;
-}
-.char-badge.ryan   { background: #B85042; }
-.char-badge.haider { background: #5A7D6F; }
-.char-badge.dianne { background: #888888; }
-
-.speech-bubble {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: .85rem 1rem;
-  font-size: .91rem;
-  color: var(--text);
-  line-height: 1.65;
-  border-left: 4px solid #ccc;
-  flex: 1;
-}
-.speech-bubble.ryan   { border-color: #B85042; }
-.speech-bubble.haider { border-color: #5A7D6F; }
-.speech-bubble.dianne { border-color: #888888; }
-
-.beat-label {
-  font-size: .7rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .08em;
-  margin-bottom: .3rem;
-}
-.beat-label.ryan   { color: #f4b5ae; }
-.beat-label.haider { color: #9fcfbf; }
-.beat-label.dianne { color: #ccc; }
-
-/* Choice prompt */
-.choice-prompt {
-  background: rgba(255,255,255,.07);
-  border: 1.5px solid rgba(255,255,255,.15);
-  border-radius: var(--radius);
-  padding: 1.25rem 1.35rem 1.5rem;
-  margin-top: .75rem;
-}
-.choice-prompt-label {
-  font-size: .78rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .08em; color: var(--sage);
-  margin-bottom: .6rem;
-}
-.choice-prompt-q {
-  color: var(--white);
-  font-size: .93rem; line-height: 1.65;
-  margin-bottom: 1.1rem;
-}
-.choice-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .65rem;
-}
-@media (max-width: 580px) { .choice-grid { grid-template-columns: 1fr; } }
-
-.choice-btn {
-  background: rgba(255,255,255,.1);
-  border: 1.5px solid rgba(255,255,255,.18);
-  border-radius: var(--radius);
-  padding: .85rem 1rem;
-  font-size: .87rem;
-  color: rgba(245,242,237,.88);
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  text-align: left;
-  line-height: 1.55;
-  transition: background var(--trans), border-color var(--trans);
-}
-.choice-btn:hover:not(:disabled) {
-  background: rgba(255,255,255,.18);
-  border-color: rgba(255,255,255,.35);
-}
-.choice-btn:disabled { cursor: default; }
-.choice-btn.chosen-green  { background: rgba(45,106,79,.55);  border-color: #52b788; color: #d8f3dc; }
-.choice-btn.chosen-amber  { background: rgba(123,94,0,.55);   border-color: #f0a500; color: #fff3cd; }
-.choice-btn.chosen-red    { background: rgba(107,26,26,.55);  border-color: #e06060; color: #ffe5e5; }
-.choice-btn.reveal-green  { background: rgba(45,106,79,.3);   border-color: rgba(82,183,136,.4);  color: rgba(216,243,220,.7); }
-.choice-btn.reveal-amber  { background: rgba(123,94,0,.25);   border-color: rgba(240,165,0,.35);  color: rgba(255,243,205,.65); }
-.choice-btn.reveal-red    { background: rgba(107,26,26,.25);  border-color: rgba(224,96,96,.35);  color: rgba(255,229,229,.6); }
-
-/* Feedback */
-.feedback-block {
-  border-radius: var(--radius);
-  padding: 1.1rem 1.25rem;
-  margin-top: 1rem;
-  display: none;
-}
-.feedback-block.visible { display: block; }
-.feedback-block.green { background: #2D6A4F; color: #d8f3dc; }
-.feedback-block.amber { background: #7B5E00; color: #fff3cd; }
-.feedback-block.red   { background: #6B1A1A; color: #ffe5e5; }
-.feedback-main { font-size: .9rem; line-height: 1.7; margin-bottom: .75rem; }
-.crit-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
-.crit-pill {
-  font-size: .72rem; font-weight: 600;
-  padding: .18rem .6rem;
-  border-radius: 999px;
-  background: rgba(255,255,255,.18);
-  color: inherit;
-}
-
-/* Continue btn */
-.btn-continue {
-  display: none;
-  margin-top: 1.25rem;
-  background: rgba(132,181,159,.25);
-  border: 1.5px solid var(--sage);
-  color: var(--sage);
-  border-radius: var(--radius);
-  padding: .65rem 1.5rem;
-  font-size: .9rem; font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  transition: background var(--trans), color var(--trans);
-}
-.btn-continue:hover { background: var(--sage); color: var(--dark); }
-.btn-continue.visible { display: inline-block; }
-
-/* Completion */
-#practice-completion {
-  display: none;
-  background: #1D3D2F;
-  border-radius: var(--radius);
-  padding: 2.5rem 2rem;
-  text-align: center;
-  box-shadow: 0 4px 28px rgba(29,61,47,.22);
-}
-#practice-completion.active { display: block; }
-.completion-title {
-  font-family: 'Lora', serif;
-  color: var(--white);
-  font-size: 1.6rem;
-  margin-bottom: .4rem;
-}
-.completion-sub {
-  color: rgba(245,242,237,.7);
-  font-size: .92rem;
-  margin-bottom: 1.75rem;
-}
-.score-summary {
-  display: flex; flex-direction: column; gap: .55rem;
-  max-width: 420px; margin: 0 auto 1.5rem;
-  text-align: left;
-}
-.score-row {
-  display: flex; align-items: center; gap: .85rem;
-  background: rgba(255,255,255,.07);
-  border-radius: var(--radius);
-  padding: .65rem 1rem;
-}
-.score-dot {
-  width: 14px; height: 14px; border-radius: 50%;
-  flex-shrink: 0;
-}
-.score-dot.green { background: #52b788; }
-.score-dot.amber { background: #f0a500; }
-.score-dot.red   { background: #e06060; }
-.score-dot.grey  { background: #888; }
-.score-label { color: rgba(245,242,237,.85); font-size: .88rem; }
-.completion-verdict {
-  background: rgba(132,181,159,.18);
-  border: 1.5px solid var(--sage);
-  border-radius: var(--radius);
-  padding: 1rem 1.5rem;
-  color: #d8f3dc;
-  font-size: .9rem; line-height: 1.7;
-  max-width: 480px; margin: 0 auto 1.75rem;
-}
-.bestscore-line {
-  color: var(--sage);
-  font-size: .84rem;
-  margin-bottom: 1.5rem;
-}
-.completion-actions { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; }
-.btn-try-again {
-  background: var(--terra); color: var(--white);
-  border: none; border-radius: var(--radius);
-  padding: .7rem 1.75rem;
-  font-size: .92rem; font-weight: 700;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  transition: background var(--trans);
-}
-.btn-try-again:hover { background: #9d3e32; }
-.btn-review-criteria {
-  background: transparent;
-  border: 1.5px solid var(--sage);
-  color: var(--sage);
-  border-radius: var(--radius);
-  padding: .7rem 1.75rem;
-  font-size: .92rem; font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  transition: background var(--trans), color var(--trans);
-}
-.btn-review-criteria:hover { background: var(--sage); color: var(--dark); }
-
-/* ── Print styles ────────────────────────────────────────────────── */
-@media print {
-  #top-nav, #back-to-top, .reset-btn, #practice-stage, #practice-completion, .btn-start-practice { display: none !important; }
-  body { background: white; font-size: 11pt; }
-  section { padding: 1rem 0; }
-  .briefing-card { background: #f0f0f0 !important; color: black !important; border: 2px solid #333; }
-  .briefing-card p { color: black !important; }
-  .briefing-card-title { color: black !important; }
-  #hero { background: white !important; border-left: 4px solid #333; padding: 1rem 0; }
-  .hero-title { color: black !important; font-size: 20pt; }
-  .hero-unit, .hero-sub { color: #444 !important; }
-  .hero-pills { display: none; }
-  .hero-intro { background: #f5f5f5; color: black !important; border-left: 3px solid #333; }
-
-  /* Character cards: all open in print */
-  .char-body { max-height: none !important; padding: 1rem 1.25rem 1.5rem !important; }
-  .char-toggle { display: none; }
-  .char-header { cursor: default; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-
-  /* AT cards open in print */
-  .at-card .at-body { display: block !important; }
-  .at-toggle { display: none; }
-
-  /* Replace textareas with print lines */
-  .q-textarea { display: none !important; }
-  .q-textarea-wrap::after {
-    content: '';
-    display: block;
-    border-bottom: 1px solid #999;
-    margin-bottom: 1rem;
-    padding-bottom: 2.5rem;
+  /* ── DESIGN SYSTEM ─────────────────────────────────────── */
+  :root {
+    --bg:          #F4F6FB;
+    --surface:     #FFFFFF;
+    --border:      #E2E8F0;
+    --text:        #1E293B;
+    --muted:       #64748B;
+    --teal:        #0D9488;
+    --teal-light:  #CCFBF1;
+    --amber:       #D97706;
+    --amber-light: #FEF3C7;
+    --red:         #DC2626;
+    --red-light:   #FEE2E2;
+    --green:       #16A34A;
+    --green-light: #DCFCE7;
+    --purple:      #7C3AED;
+    --purple-light:#EDE9FE;
+    --ryan:        #92400E;
+    --ryan-bg:     #FEF3C7;
+    --haider:      #1D4ED8;
+    --haider-bg:   #DBEAFE;
+    --dianne:      #BE185D;
+    --dianne-bg:   #FCE7F3;
+    --worker:      #065F46;
+    --worker-bg:   #D1FAE5;
+    --shadow-sm:   0 1px 3px rgba(0,0,0,.08);
+    --shadow-md:   0 4px 16px rgba(0,0,0,.10);
+    --shadow-lg:   0 8px 32px rgba(0,0,0,.13);
+    --radius:      14px;
+    --radius-sm:   8px;
   }
-  .q-char-hint { display: none; }
-  .save-note { display: none; }
 
-  .tip-card, .crit-card, .scene-card, .q-card { box-shadow: none; border: 1px solid #ddd; }
-  .char-card { box-shadow: none; border: 1px solid #ddd; }
-  .callout-sage, .callout-reassure { border: 1px solid #999; background: #f5f5f5 !important; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-  a { color: black; text-decoration: none; }
-  h2, h3, h4 { color: black !important; }
-  .crit-number, .q-number { background: #333 !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-}
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* ── HERO ──────────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 45%, #0D9488 100%);
+    color: white;
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 999px;
+    padding: 5px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 800;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .hero p {
+    font-size: 16px;
+    opacity: .8;
+    max-width: 540px;
+    margin: 0 auto 28px;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    background: rgba(255,255,255,.12);
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  .hero-meta-item strong { display: block; font-size: 11px; opacity: .7; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+
+  /* ── NAV TABS ──────────────────────────────────────────── */
+  .nav-strip {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all .2s;
+    border-top: none; border-left: none; border-right: none;
+    background: none;
+    font-family: inherit;
+  }
+  .nav-tab:hover { color: var(--teal); }
+  .nav-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+
+  /* ── LAYOUT ────────────────────────────────────────────── */
+  .page { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .section { margin-bottom: 48px; }
+
+  /* ── SECTION HEADERS ───────────────────────────────────── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: grid; place-items: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-header p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── CARD ──────────────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  /* ── SCENARIO BOX ──────────────────────────────────────── */
+  .scenario-box {
+    background: linear-gradient(135deg, #0F172A, #1E3A5F);
+    color: white;
+    border-radius: var(--radius);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .scenario-box::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 20px;
+    font-size: 160px;
+    color: rgba(255,255,255,.06);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .scenario-box p {
+    font-size: 16px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+    opacity: .92;
+  }
+  .scenario-box .scenario-label {
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .6;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  /* ── CHARACTER CARDS ───────────────────────────────────── */
+  .char-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .char-card {
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .char-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .char-card.ryan    { background: var(--ryan-bg);   border-color: var(--ryan); }
+  .char-card.haider  { background: var(--haider-bg); border-color: var(--haider); }
+  .char-card.dianne  { background: var(--dianne-bg); border-color: var(--dianne); }
+  .char-card.worker  { background: var(--worker-bg); border-color: var(--worker); }
+
+  .char-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 26px;
+    margin-bottom: 14px;
+  }
+  .ryan    .char-avatar { background: var(--ryan);   }
+  .haider  .char-avatar { background: var(--haider); }
+  .dianne  .char-avatar { background: var(--dianne); }
+  .worker  .char-avatar { background: var(--worker); }
+
+  .char-role {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 4px;
+    opacity: .7;
+  }
+  .char-name {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .char-desc { font-size: 13px; line-height: 1.5; opacity: .85; }
+
+  .char-expand {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0,0,0,.1);
+    display: none;
+  }
+  .char-card.open .char-expand { display: block; }
+  .char-expand h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; margin-bottom: 8px; opacity: .7; }
+  .char-expand ul { padding-left: 18px; }
+  .char-expand li { font-size: 13px; margin-bottom: 4px; }
+  .char-expand .lines { margin-top: 12px; }
+  .char-expand .line-bubble {
+    background: rgba(255,255,255,.6);
+    border-radius: 12px 12px 12px 0;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-style: italic;
+    margin-bottom: 6px;
+    border-left: 3px solid rgba(0,0,0,.15);
+  }
+
+  /* ── SCENE TIMELINE ─────────────────────────────────────── */
+  .scene-timeline { position: relative; }
+  .scene-step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 8px;
+  }
+  .scene-step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 40px;
+  }
+  .scene-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    border: 3px solid white;
+    box-shadow: var(--shadow-sm);
+  }
+  .scene-line {
+    width: 2px;
+    flex: 1;
+    min-height: 24px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+  .scene-body {
+    flex: 1;
+    padding-bottom: 24px;
+  }
+  .scene-body h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .scene-body p { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+
+  .dialogue-block {
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    padding: 16px;
+    margin-top: 10px;
+  }
+  .dialogue-line {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .dialogue-line:last-child { margin-bottom: 0; }
+  .dlg-name {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    white-space: nowrap;
+    padding: 4px 0;
+    min-width: 60px;
+  }
+  .dlg-name.ryan   { color: var(--ryan); }
+  .dlg-name.haider { color: var(--haider); }
+  .dlg-name.dianne { color: var(--dianne); }
+  .dlg-bubble {
+    background: var(--bg);
+    border-radius: 0 12px 12px 12px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-style: italic;
+    flex: 1;
+    border: 1px solid var(--border);
+  }
+  .dlg-bubble.ryan   { border-left: 3px solid var(--ryan); }
+  .dlg-bubble.haider { border-left: 3px solid var(--haider); }
+  .dlg-bubble.dianne { border-left: 3px solid var(--dianne); }
+
+  /* ── PRACTICE MODE ──────────────────────────────────────── */
+  .practice-wrapper {
+    background: linear-gradient(135deg, #1E1B4B, #312E81);
+    border-radius: var(--radius);
+    padding: 32px;
+    color: white;
+  }
+  .practice-intro {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .practice-intro h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+  .practice-intro p  { opacity: .8; font-size: 14px; max-width: 480px; margin: 0 auto; }
+
+  .practice-scene-box {
+    background: rgba(255,255,255,.08);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .practice-scene-box .situation-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-weight: 700;
+    opacity: .6;
+    margin-bottom: 8px;
+  }
+
+  .practice-q {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .practice-options { display: flex; flex-direction: column; gap: 10px; }
+  .practice-option {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: left;
+    color: white;
+    font-family: inherit;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .practice-option:hover:not(:disabled) {
+    background: rgba(255,255,255,.16);
+    border-color: rgba(255,255,255,.4);
+    transform: translateX(4px);
+  }
+  .practice-option:disabled { cursor: default; }
+  .practice-option .opt-letter {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.15);
+    display: grid; place-items: center;
+    font-size: 12px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .practice-option.correct {
+    background: rgba(22, 163, 74, .25);
+    border-color: #4ADE80;
+  }
+  .practice-option.incorrect {
+    background: rgba(220, 38, 38, .2);
+    border-color: #F87171;
+    opacity: .7;
+  }
+  .practice-option.neutral {
+    background: rgba(234, 179, 8, .15);
+    border-color: #FDE047;
+  }
+
+  .practice-feedback {
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    display: none;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .practice-feedback.correct  { background: rgba(22,163,74,.2);  border: 1px solid #4ADE80; }
+  .practice-feedback.partial  { background: rgba(234,179,8,.15); border: 1px solid #FDE047; }
+  .practice-feedback.incorrect{ background: rgba(220,38,38,.2);  border: 1px solid #F87171; }
+  .practice-feedback.show     { display: block; }
+  .feedback-label {
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 6px;
+  }
+  .criteria-tag {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 8px;
+    margin-right: 4px;
+  }
+
+  .practice-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .practice-progress {
+    font-size: 12px;
+    opacity: .6;
+    font-weight: 600;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: all .2s;
+  }
+  .btn-primary { background: var(--teal); color: white; }
+  .btn-primary:hover { background: #0F766E; transform: translateY(-1px); }
+  .btn-white   { background: rgba(255,255,255,.15); color: white; border: 1px solid rgba(255,255,255,.3); }
+  .btn-white:hover { background: rgba(255,255,255,.25); }
+  .btn:disabled { opacity: .4; cursor: default; transform: none !important; }
+
+  .practice-score-box {
+    text-align: center;
+    padding: 32px;
+    display: none;
+  }
+  .practice-score-box.show { display: block; }
+  .score-circle {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: grid;
+    place-items: center;
+    font-size: 32px;
+    font-weight: 900;
+  }
+  .practice-questions-panel { display: block; }
+  .practice-questions-panel.hide { display: none; }
+
+  /* ── CRITERIA CARDS ─────────────────────────────────────── */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .criteria-card {
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    transition: transform .2s, box-shadow .2s;
+    cursor: pointer;
+  }
+  .criteria-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .criteria-number {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 8px;
+  }
+  .criteria-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .criteria-desc  { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .criteria-look {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+  .criteria-card.open .criteria-look { display: block; }
+  .criteria-look-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; color: var(--muted); }
+  .criteria-look ul { padding-left: 18px; }
+  .criteria-look li { font-size: 13px; margin-bottom: 4px; }
+  .criteria-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: all .2s;
+  }
+
+  /* ── AT3B QUESTIONS ─────────────────────────────────────── */
+  .q-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .q-header {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .q-number {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--purple);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .q-text { font-size: 15px; font-weight: 600; line-height: 1.5; }
+  .q-hint { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+
+  .q-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    resize: vertical;
+    transition: border-color .2s;
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  .q-textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(124,58,237,.12);
+  }
+  .q-saved-indicator {
+    font-size: 11px;
+    color: var(--green);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .q-saved-indicator.show { opacity: 1; }
+  .q-bench-toggle {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--purple);
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    font-family: inherit;
+    padding: 0;
+  }
+  .q-bench {
+    margin-top: 10px;
+    background: var(--purple-light);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    display: none;
+  }
+  .q-bench.show { display: block; }
+  .q-bench-label { font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--purple); margin-bottom: 6px; }
+  .q-bench ul   { padding-left: 18px; }
+  .q-bench li   { margin-bottom: 4px; }
+
+  /* ── TIPS SECTION ───────────────────────────────────────── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .tip-card {
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1px solid var(--border);
+  }
+  .tip-icon { font-size: 28px; margin-bottom: 10px; }
+  .tip-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .tip-body  { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ── CHECKLIST ───────────────────────────────────────────── */
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all .2s;
+    user-select: none;
+  }
+  .check-item:hover { border-color: var(--teal); }
+  .check-item.checked {
+    background: var(--green-light);
+    border-color: var(--green);
+  }
+  .check-box {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    transition: all .2s;
+    font-size: 13px;
+  }
+  .check-item.checked .check-box {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .check-label { font-size: 14px; font-weight: 500; }
+  .check-item.checked .check-label { text-decoration: line-through; color: var(--muted); }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  .footer {
+    background: #0F172A;
+    color: rgba(255,255,255,.5);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+  }
+
+  /* ── PROGRESS BAR ────────────────────────────────────────── */
+  .progress-wrap {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .progress-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 10px; display: flex; justify-content: space-between; }
+  .progress-bar { height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--purple)); border-radius: 999px; transition: width .4s ease; }
+
+  /* ── UTILS ───────────────────────────────────────────────── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .pill-teal   { background: var(--teal-light);   color: var(--teal);   }
+  .pill-amber  { background: var(--amber-light);  color: var(--amber);  }
+  .pill-red    { background: var(--red-light);    color: var(--red);    }
+  .pill-green  { background: var(--green-light);  color: var(--green);  }
+
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+  /* ── SCROLL REVEAL ────────────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 16px 32px; }
+    .page { padding: 20px 14px 60px; }
+    .char-grid { grid-template-columns: 1fr 1fr; }
+    .criteria-grid { grid-template-columns: 1fr; }
+    .tips-grid { grid-template-columns: 1fr 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ── Sticky Nav ─────────────────────────────────────────────── -->
-<nav id="top-nav" role="navigation" aria-label="Page navigation">
-  <div class="container">
-    <div class="nav-brand">
-      <span class="nav-title">CHCDIV001 — Role Play Day</span>
-      <span class="nav-sub">AT3A + AT3B</span>
-    </div>
-    <div class="nav-links">
-      <a href="#scenario" class="nav-link">Scenario</a>
-      <a href="#characters" class="nav-link">Characters</a>
-      <a href="#scenes" class="nav-link">Scene Breakdown</a>
-      <a href="#criteria" class="nav-link">Assessment Criteria</a>
-      <a href="#tips" class="nav-link">Tips</a>
-      <a href="#practice" class="nav-link">Practice Mode</a>
-      <a href="#written" class="nav-link">Written Questions</a>
-      <a href="#at-links" class="nav-link">Assessment Links</a>
-    </div>
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-badge">CHCDIV001 · AT3 Assessment</div>
+  <h1>Role Play Day<br><span style="color:#5EEAD4">First Access</span></h1>
+  <p>Your interactive guide to Assessment Task 3 — character scripts, practice scenarios, assessment criteria, and AT3B questions.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><strong>Format</strong>Observed Role Play + Written Questions</div>
+    <div class="hero-meta-item"><strong>Setting</strong>First Access Community Services</div>
+    <div class="hero-meta-item"><strong>Criteria</strong>6 — all must be Satisfactory</div>
+    <div class="hero-meta-item"><strong>Resubmissions</strong>Up to 3 attempts</div>
+  </div>
+</div>
+
+<!-- ── STICKY NAV ──────────────────────────────────────────── -->
+<nav class="nav-strip">
+  <div class="nav-inner">
+    <button class="nav-tab active" onclick="scrollTo('scenario')">📄 Scenario</button>
+    <button class="nav-tab" onclick="scrollTo('characters')">👥 Characters</button>
+    <button class="nav-tab" onclick="scrollTo('scene')">🎬 Scene</button>
+    <button class="nav-tab" onclick="scrollTo('practice')">🎮 Practice</button>
+    <button class="nav-tab" onclick="scrollTo('criteria')">✅ Criteria</button>
+    <button class="nav-tab" onclick="scrollTo('at3b')">✍️ AT3B Questions</button>
+    <button class="nav-tab" onclick="scrollTo('tips')">💡 Tips</button>
   </div>
 </nav>
 
-<!-- ── Section 1: Hero ───────────────────────────────────────── -->
-<header id="hero">
-  <div class="container">
-    <p class="hero-unit">CHCDIV001 — Work with Diverse People</p>
-    <h1 class="hero-title">Role Play Day</h1>
-    <p class="hero-sub">AT3A — Observed Role Play + AT3B — Written Questions</p>
-    <div class="hero-pills">
-      <span class="pill">Assessment Task 3</span>
-      <span class="pill sage">Elements 3 &amp; 4</span>
-      <span class="pill terra">Individual assessment</span>
+<div class="page">
+
+  <!-- ── PROGRESS ────────────────────────────────────────── -->
+  <div class="progress-wrap reveal" id="progressWrap">
+    <div class="progress-label">
+      <span>Your AT3B progress</span>
+      <span id="progressPct">0% answered</span>
     </div>
-    <div class="hero-intro">
-      Today you will step into a real workplace conflict scenario as a Support Worker. You'll be assessed on your professional judgement — not a script. There are no exact right words. What matters is your approach.
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
     </div>
   </div>
-</header>
 
-<!-- ── Section 2: The Scenario ───────────────────────────────── -->
-<section id="scenario">
-  <div class="container">
-    <h2 class="section-title">The Scenario</h2>
-    <p class="section-subtitle">Read this carefully before the role play begins. You will be given a copy on the day.</p>
-
-    <div class="briefing-card" role="region" aria-label="Scenario briefing">
-      <div class="briefing-card-title">📋 Your Scenario — Team Conflict at First Access</div>
-      <p>You work at <strong style="color:var(--sage)">First Access</strong> as a Support Worker. Two male casual Support Workers don't appear to get along very well. One is Indigenous, named <strong style="color:var(--sage)">Ryan</strong>, and the other is Muslim, named <strong style="color:var(--sage)">Haider</strong>, who has English as an additional language — it is sometimes hard to understand Haider when he gets overwhelmed.</p>
-      <p>One day their issue escalated and they started to yell at each other. Haider accused Ryan of being lazy and rude, and Ryan made comments about Haider leaving the clients to go and pray. <strong style="color:var(--sage)">Dianne</strong>, an Australian-born Support Worker, gets caught up with Ryan and Haider complaining all the time about each other and tries to get them to take sides.</p>
-      <p>Their conflict impacts the staff and the clients. In this instance, their shouts could be heard in the office where the Supervisor was in a meeting with a client.</p>
-      <p style="margin-bottom:0">You will need to intervene between Ryan, Haider and Dianne to diffuse the conflict in a professional manner.</p>
+  <!-- ── SCENARIO ─────────────────────────────────────────── -->
+  <div class="section reveal" id="scenario">
+    <div class="section-header">
+      <div class="section-icon" style="background:#EFF6FF">📄</div>
+      <div>
+        <h2>The Scenario</h2>
+        <p>Read this before your role play — know the context</p>
+      </div>
     </div>
-
-    <div class="callout-sage" role="note">
-      <strong>Remember:</strong> You are not there to decide who is right or wrong. You are there to de-escalate, communicate respectfully, and then brief your supervisor.
+    <div class="scenario-box">
+      <div class="scenario-label">Incident — First Access Community Services</div>
+      <p>You work at First Access as a Support Worker. Two male casual Support Workers don't appear to get along very well. One is Indigenous, named <strong>Ryan</strong>, and the other is Muslim, named <strong>Haider</strong>, who has English as an additional language — it is sometimes hard to understand Haider when he gets overwhelmed.</p>
+      <br>
+      <p>One day their issue escalated and they started to yell at each other. <strong>Haider accused Ryan of being lazy and rude</strong>, and <strong>Ryan made comments about Haider leaving clients to go and pray</strong>. Dianne, an Australian-born Support Worker, gets caught up with Ryan and Haider complaining all the time about each other and tries to get them to take sides.</p>
+      <br>
+      <p>Their conflict impacts the staff and clients. Their shouts could be heard in the office where the Supervisor was in a meeting with a client.</p>
+      <br>
+      <p style="opacity:.7; font-size:14px; font-style:italic;"><strong style="opacity:1">Your role:</strong> You will need to intervene between Ryan, Haider and Dianne to diffuse the conflict in a professional manner. After the conflict is resolved, you must approach your Supervisor to debrief.</p>
     </div>
   </div>
-</section>
 
-<!-- ── Section 3: Characters ──────────────────────────────────── -->
-<section id="characters" style="background: var(--sand); padding-top: 2.5rem; padding-bottom: 3rem;">
-  <div class="container">
-    <h2 class="section-title">Meet the Characters</h2>
-    <p class="section-subtitle">Click each character card to see their full profile and script notes.</p>
+  <!-- ── CHARACTERS ────────────────────────────────────────── -->
+  <div class="section reveal" id="characters">
+    <div class="section-header">
+      <div class="section-icon" style="background:#FEF9C3">👥</div>
+      <div>
+        <h2>Meet the Characters</h2>
+        <p>Tap each card to see lines and character notes</p>
+      </div>
+    </div>
+    <div class="char-grid">
 
-    <div class="characters-grid">
-
-      <!-- You -->
-      <div class="char-card you" id="char-you">
-        <div class="char-header" role="button" tabindex="0" aria-expanded="false" aria-controls="char-you-body" onclick="toggleChar('char-you')" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChar('char-you')">
-          <div class="char-avatar">🧑‍💼</div>
-          <div class="char-header-text">
-            <div class="char-name">You: The Support Worker</div>
-            <div class="char-role">The student being assessed</div>
-          </div>
-          <span class="char-toggle" aria-hidden="true">▼</span>
-        </div>
-        <div class="char-body" id="char-you-body">
-          <h4>Your situation</h4>
-          <p>You are a Support Worker at First Access. You arrive to find your colleagues in a heated argument. You don't know the full history of their conflict, but you can see it's escalating and affecting the workplace.</p>
-
-          <h4>Your job in this scene</h4>
+      <!-- Support Worker -->
+      <div class="char-card worker" onclick="toggleChar(this)">
+        <div class="char-avatar">🧑‍💼</div>
+        <div class="char-role">You are playing</div>
+        <div class="char-name" style="color:var(--worker)">Support Worker</div>
+        <div class="char-desc">The student being assessed. You walk in to find the conflict already happening and must step in.</div>
+        <div class="char-expand">
+          <h4>Your task in the scene</h4>
           <ul>
-            <li>Step in calmly and professionally</li>
-            <li>Do not take sides or make judgements about who is right or wrong</li>
-            <li>Make sure everyone feels heard</li>
-            <li>Be aware of Haider's language barrier — give him time and space</li>
-            <li>Be aware of Ryan's cultural communication style — less direct eye contact is not rudeness</li>
-            <li>End the scene by approaching the Supervisor (your teacher) to debrief</li>
+            <li>Step in calmly — you don't need to yell or rush</li>
+            <li>Don't take Ryan's or Haider's side</li>
+            <li>Make sure Dianne is also addressed — she is fuelling the conflict</li>
+            <li>Be patient with Haider's stutter and language barriers</li>
+            <li>End by approaching the Supervisor (teacher) to debrief</li>
           </ul>
-
-          <h4>You are being assessed on these 6 criteria</h4>
-          <div class="criteria-badges">
-            <span class="crit-badge">Respectful communication</span>
-            <span class="crit-badge">No taking sides</span>
-            <span class="crit-badge">Inclusive work practices</span>
-            <span class="crit-badge">Verbal &amp; non-verbal communication</span>
-            <span class="crit-badge">Language barrier sensitivity</span>
-            <span class="crit-badge">Supervisor debrief</span>
+          <div class="lines">
+            <h4>Example opening lines</h4>
+            <div class="line-bubble">"Okay everyone, let's take a moment and step back."</div>
+            <div class="line-bubble">"I can see things are a bit heated right now. Can we find a quiet space to talk this through?"</div>
+            <div class="line-bubble">"I want to hear from everyone, but one at a time — let's keep this respectful."</div>
           </div>
         </div>
       </div>
 
       <!-- Ryan -->
-      <div class="char-card ryan" id="char-ryan">
-        <div class="char-header" role="button" tabindex="0" aria-expanded="false" aria-controls="char-ryan-body" onclick="toggleChar('char-ryan')" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChar('char-ryan')">
-          <div class="char-avatar">👨</div>
-          <div class="char-header-text">
-            <div class="char-name">Ryan</div>
-            <div class="char-role">Indigenous Support Worker — peer plays this role</div>
-          </div>
-          <span class="char-toggle" aria-hidden="true">▼</span>
-        </div>
-        <div class="char-body" id="char-ryan-body">
-          <h4>Background</h4>
-          <p>Ryan is an Indigenous Support Worker. His communication style reflects aspects of Aboriginal culture — he tends not to make direct eye contact and works at his own pace. He's been frustrated with Haider's comments about his work pace and has reacted badly today.</p>
-
-          <h4>How to play this role</h4>
+      <div class="char-card ryan" onclick="toggleChar(this)">
+        <div class="char-avatar">👨‍🦱</div>
+        <div class="char-role">Character</div>
+        <div class="char-name" style="color:var(--ryan)">Ryan</div>
+        <div class="char-desc">Indigenous Australian Support Worker. Doesn't always make direct eye contact — this is cultural, not rudeness.</div>
+        <div class="char-expand">
+          <h4>Character background</h4>
           <ul>
-            <li>Start by muttering to yourself about running behind — you're supervising clients packing up board games and they're moving slowly</li>
-            <li>When Haider comments, respond defensively: <em>"Look who's talking. The one that leaves everything to go and pray."</em></li>
-            <li>Escalate if Haider pushes back: <em>"Just take your stupid rug and go pray... who cares if you take extra time off."</em></li>
-            <li>When the Support Worker intervenes: <strong>gradually de-escalate</strong> if they are calm and respectful. If they take sides or seem dismissive, stay resistant.</li>
-            <li>Do NOT make it impossible — this is a realistic situation, not a trap.</li>
+            <li>Indigenous Australian — indirect eye contact is normal and respectful in his culture</li>
+            <li>Works at his own steady pace — this is not laziness</li>
+            <li>Feels targeted by Haider's comments and is defensive</li>
           </ul>
-
-          <div class="char-key-lines">
-            <div class="kl-label">Key lines from the scene</div>
-            <div class="kl-line">"Look who's talking."</div>
-            <div class="kl-line">"Just take your stupid rug and go pray... who cares if you take extra time off."</div>
+          <div class="lines">
+            <h4>Your lines</h4>
+            <div class="line-bubble">"Look who's talking. The one that leaves everything to go and pray."</div>
+            <div class="line-bubble">"Just take your stupid rug and go pray... who cares if you take extra time off."</div>
           </div>
-
-          <div class="char-cultural-note">
-            Ryan's indirect communication style and relationship with time are aspects of his cultural background — not laziness. A culturally competent worker recognises this difference.
-          </div>
+          <p style="margin-top:10px; font-size:12px; opacity:.7;"><strong>Note:</strong> Stay in character but don't be over the top. Be grumpy and defensive, not aggressive beyond what's needed.</p>
         </div>
       </div>
 
       <!-- Haider -->
-      <div class="char-card haider" id="char-haider">
-        <div class="char-header" role="button" tabindex="0" aria-expanded="false" aria-controls="char-haider-body" onclick="toggleChar('char-haider')" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChar('char-haider')">
-          <div class="char-avatar">👨‍🦱</div>
-          <div class="char-header-text">
-            <div class="char-name">Haider</div>
-            <div class="char-role">Muslim Support Worker, EAL/D — peer plays this role</div>
-          </div>
-          <span class="char-toggle" aria-hidden="true">▼</span>
-        </div>
-        <div class="char-body" id="char-haider-body">
-          <h4>Background</h4>
-          <p>Haider is a Muslim Support Worker for whom English is an additional language. He becomes harder to understand when he's upset — he stutters and loses words. His religion requires him to pray at certain times, which has caused conflict with Ryan.</p>
-
-          <h4>How to play this role</h4>
+      <div class="char-card haider" onclick="toggleChar(this)">
+        <div class="char-avatar">👨‍🦲</div>
+        <div class="char-role">Character</div>
+        <div class="char-name" style="color:var(--haider)">Haider</div>
+        <div class="char-desc">Muslim Support Worker with English as an additional language. Stutters when overwhelmed or stressed.</div>
+        <div class="char-expand">
+          <h4>Character background</h4>
           <ul>
-            <li>Start by commenting to Dianne about Ryan: <em>"He never hurries, even when something urgent happens. I've had enough of him."</em></li>
-            <li>When Ryan responds, get visibly upset: <em>"C-c-come on man, l-l-look in me eyes if y-y-you have something t-t-to tell me. What's your p-p-problem?"</em></li>
-            <li>When the Support Worker intervenes: respond to patience and calm. If they rush you or seem frustrated with your stutter, become more distressed.</li>
-            <li><strong>Haider DOES need extra time and patience to communicate</strong> — this is part of what's being assessed in the student.</li>
+            <li>EAL/D — English is not his first language</li>
+            <li>Stutters when upset or overwhelmed — portray this gently (no mocking)</li>
+            <li>Needs to pray at set times — this is a religious obligation, not absenteeism</li>
+            <li>Feels dismissed and disrespected by Ryan</li>
           </ul>
-
-          <div class="char-key-lines">
-            <div class="kl-label">Key lines from the scene</div>
-            <div class="kl-line">"He never hurries, even when something urgent happens."</div>
-            <div class="kl-line">"C-c-come on man, l-l-look in me eyes if y-y-you have something t-t-to tell me. What's your p-p-problem?"</div>
+          <div class="lines">
+            <h4>Your lines</h4>
+            <div class="line-bubble">"He never hurries, even when something urgent happens. I've had enough of him."</div>
+            <div class="line-bubble">"C-c-come on man, l-l-look in me eyes if y-y-you have something t-t-to tell me. What's your p-p-problem?"</div>
           </div>
-
-          <div class="char-cultural-note">
-            Haider's prayer practice is a religious right — not an optional extra. An employer who prevents him practising his religion risks breaching anti-discrimination law.
-          </div>
+          <p style="margin-top:10px; font-size:12px; opacity:.7;"><strong>Note:</strong> The stutter is authentic to the character. Play it with dignity — Haider is frustrated, not incompetent.</p>
         </div>
       </div>
 
       <!-- Dianne -->
-      <div class="char-card dianne" id="char-dianne">
-        <div class="char-header" role="button" tabindex="0" aria-expanded="false" aria-controls="char-dianne-body" onclick="toggleChar('char-dianne')" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChar('char-dianne')">
-          <div class="char-avatar">👩</div>
-          <div class="char-header-text">
-            <div class="char-name">Dianne</div>
-            <div class="char-role">Australian-born Support Worker — peer plays this role</div>
-          </div>
-          <span class="char-toggle" aria-hidden="true">▼</span>
-        </div>
-        <div class="char-body" id="char-dianne-body">
-          <h4>Background</h4>
-          <p>Dianne is well-meaning but tends to gossip and get drawn into drama. She's not malicious — she just doesn't have good professional boundaries. Today she's fanning the flames by taking sides and commenting.</p>
-
-          <h4>How to play this role</h4>
+      <div class="char-card dianne" onclick="toggleChar(this)">
+        <div class="char-avatar">👩</div>
+        <div class="char-role">Character</div>
+        <div class="char-name" style="color:var(--dianne)">Dianne</div>
+        <div class="char-desc">Australian-born Support Worker who keeps trying to get people to take sides. Fuels the conflict.</div>
+        <div class="char-expand">
+          <h4>Character background</h4>
           <ul>
-            <li>Get drawn into the argument and comment: <em>"Enough is enough you two! Why can't you just be like the rest of us?"</em></li>
-            <li>If the Support Worker addresses you directly, be slightly defensive but ultimately cooperative — you're not the villain here.</li>
-            <li>You are not the main focus of the scene — your role is to show that workplace conflicts often have bystanders who unintentionally make things worse.</li>
+            <li>Doesn't have direct cultural conflict with either — but makes it worse by gossiping and taking sides</li>
+            <li>Represents a lack of cultural awareness and professional boundaries</li>
+            <li>Isn't malicious — just unprofessional</li>
           </ul>
-
-          <div class="char-key-lines">
-            <div class="kl-label">Key line from the scene</div>
-            <div class="kl-line">"Enough is enough you two! Why can't you just be like the rest of us?"</div>
+          <div class="lines">
+            <h4>Your lines</h4>
+            <div class="line-bubble">"Enough is enough you two! Why can't you just be like the rest of us?"</div>
           </div>
-
-          <div class="char-cultural-note">
-            Dianne's comment "just be like the rest of us" is itself a form of cultural pressure — a culturally safe worker would recognise this even while managing the larger conflict.
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end characters-grid -->
-  </div>
-</section>
-
-<!-- ── Section 4: Scene Breakdown ────────────────────────────── -->
-<section id="scenes">
-  <div class="container">
-    <h2 class="section-title">Scene Breakdown — What to Expect</h2>
-    <p class="section-subtitle">The scene has three phases. Knowing what's coming will help you stay confident.</p>
-
-    <div class="scenes-wrap">
-
-      <div class="scene-card">
-        <div class="scene-accent terra"></div>
-        <div class="scene-inner">
-          <div class="scene-number">Scene 1</div>
-          <div class="scene-title">The conflict escalates</div>
-          <p>It is 10:00am. Ryan is supervising clients packing up board games. They are running behind and morning tea is already out. Haider comments to Dianne about Ryan. Ryan overhears. The argument escalates. Dianne jumps in and makes it worse.</p>
-          <p style="font-style:italic; color:var(--muted); font-size:.88rem; margin-top:.5rem; margin-bottom:0">This is already happening when you walk in — you don't start the scene, you enter it.</p>
-        </div>
-      </div>
-
-      <div class="scene-arrow" aria-hidden="true">↓</div>
-
-      <div class="scene-card">
-        <div class="scene-accent dark"></div>
-        <div class="scene-inner">
-          <div class="scene-number">Scene 2</div>
-          <div class="scene-title">You intervene</div>
-          <p>You step in as the Support Worker. There is no script — your job is to respond naturally and professionally.</p>
-          <ul class="scene-checklist">
-            <li>Stay calm and professional throughout</li>
-            <li>Communicate respectfully with all three colleagues</li>
-            <li>Not take sides or make value judgements</li>
-            <li>Give Haider extra time and patience — he stutters when upset</li>
-            <li>Be aware of Ryan's communication style — less eye contact is cultural, not dismissive</li>
-            <li>Make sure everyone feels heard and included</li>
-          </ul>
-          <p style="font-style:italic; color:var(--muted); font-size:.88rem; margin-top:.65rem; margin-bottom:0">The scene ends when the conflict is de-escalated to a reasonable point.</p>
-        </div>
-      </div>
-
-      <div class="scene-arrow" aria-hidden="true">↓</div>
-
-      <div class="scene-card">
-        <div class="scene-accent sage"></div>
-        <div class="scene-inner">
-          <div class="scene-number">Scene 3</div>
-          <div class="scene-title">Supervisor debrief</div>
-          <p>After the conflict is de-escalated, approach your teacher (playing the Supervisor) and brief them on what happened. In your debrief you should:</p>
-          <ul class="scene-checklist">
-            <li>Describe the situation clearly and without taking sides</li>
-            <li>Acknowledge the value of both Ryan and Haider to the team</li>
-            <li>Mention that preventing Haider from practising his religion could breach anti-discrimination law</li>
-            <li>Suggest at least one strategy to improve cultural safety in the team going forward</li>
-          </ul>
+          <p style="margin-top:10px; font-size:12px; opacity:.7;"><strong>Note:</strong> If the Support Worker addresses Dianne, back off — her role is to add pressure, not to escalate endlessly.</p>
         </div>
       </div>
 
     </div>
   </div>
-</section>
 
-<!-- ── Section 5: Assessment Criteria ────────────────────────── -->
-<section id="criteria" style="background: var(--sand);">
-  <div class="container">
-    <h2 class="section-title">Assessment Criteria — AT3A</h2>
-    <p class="section-subtitle">Your assessor will be watching for all 6 of these. You need all 6 to achieve Satisfactory.</p>
+  <!-- ── SCENE BREAKDOWN ───────────────────────────────────── -->
+  <div class="section reveal" id="scene">
+    <div class="section-header">
+      <div class="section-icon" style="background:#F0FDF4">🎬</div>
+      <div>
+        <h2>Scene Breakdown</h2>
+        <p>What happens in each part of the role play</p>
+      </div>
+    </div>
+    <div class="scene-timeline">
 
+      <!-- Scene 1 -->
+      <div class="scene-step">
+        <div class="scene-step-left">
+          <div class="scene-dot" style="background:#F59E0B">🔥</div>
+          <div class="scene-line"></div>
+        </div>
+        <div class="scene-body">
+          <h3>Scene 1 — The conflict escalates</h3>
+          <p>10:00am. Ryan is supervising clients packing up board games. They're running behind — morning tea is already out.</p>
+          <div class="dialogue-block">
+            <div class="dialogue-line">
+              <div class="dlg-name haider">Haider</div>
+              <div class="dlg-bubble haider">"He never hurries, even when something urgent happens. I've had enough of him."</div>
+            </div>
+            <div class="dialogue-line">
+              <div class="dlg-name ryan">Ryan</div>
+              <div class="dlg-bubble ryan">"Look who's talking. The one that leaves everything to go and pray."</div>
+            </div>
+            <div class="dialogue-line">
+              <div class="dlg-name haider">Haider</div>
+              <div class="dlg-bubble haider">"C-c-come on man, l-l-look in me eyes if y-y-you have something t-t-to tell me. What's your p-p-problem?"</div>
+            </div>
+            <div class="dialogue-line">
+              <div class="dlg-name ryan">Ryan</div>
+              <div class="dlg-bubble ryan">"Just take your stupid rug and go pray... who cares if you take extra time off."</div>
+            </div>
+            <div class="dialogue-line">
+              <div class="dlg-name dianne">Dianne</div>
+              <div class="dlg-bubble dianne">"Enough is enough you two! Why can't you just be like the rest of us?"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 2 -->
+      <div class="scene-step">
+        <div class="scene-step-left">
+          <div class="scene-dot" style="background:#0D9488">🧑‍💼</div>
+          <div class="scene-line"></div>
+        </div>
+        <div class="scene-body">
+          <h3>Scene 2 — You intervene <span class="pill pill-teal" style="font-size:11px">This is assessed</span></h3>
+          <p>You step in and must handle the situation. There is no script — your approach and professional judgement are what's being assessed.</p>
+          <div class="card" style="background:var(--teal-light); border-color:var(--teal);">
+            <strong style="font-size:13px; color:var(--teal)">What you need to demonstrate:</strong>
+            <ul style="margin-top:8px; padding-left:18px;">
+              <li style="font-size:14px; margin-bottom:4px">Communicate respectfully with <em>all three</em> people</li>
+              <li style="font-size:14px; margin-bottom:4px">Stay professional — don't take sides or judge</li>
+              <li style="font-size:14px; margin-bottom:4px">Make everyone feel included and heard</li>
+              <li style="font-size:14px; margin-bottom:4px">Be patient and sensitive with Haider's communication needs</li>
+              <li style="font-size:14px;">Address Dianne's behaviour too — she's part of the problem</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 3 -->
+      <div class="scene-step">
+        <div class="scene-step-left">
+          <div class="scene-dot" style="background:#7C3AED">👔</div>
+        </div>
+        <div class="scene-body">
+          <h3>Scene 3 — Supervisor debrief</h3>
+          <p>After the conflict is managed, you approach the teacher (as your Supervisor) and debrief.</p>
+          <div class="card" style="background:var(--purple-light); border-color:var(--purple);">
+            <strong style="font-size:13px; color:var(--purple)">Key points to include in your debrief:</strong>
+            <ul style="margin-top:8px; padding-left:18px;">
+              <li style="font-size:14px; margin-bottom:4px">Describe what happened — <strong>without judgement</strong> of either party</li>
+              <li style="font-size:14px; margin-bottom:4px">Explain why <strong>both Ryan and Haider</strong> are valuable to the team</li>
+              <li style="font-size:14px; margin-bottom:4px">Note that <strong>Haider's right to pray</strong> is protected — the employer could breach anti-discrimination law if he's prevented from practising his religion</li>
+              <li style="font-size:14px;">Suggest <strong>at least one strategy</strong> (e.g. cultural competency training, team cultural sharing, mediation)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── PRACTICE MODE ──────────────────────────────────────── -->
+  <div class="section reveal" id="practice">
+    <div class="section-header">
+      <div class="section-icon" style="background:#EDE9FE">🎮</div>
+      <div>
+        <h2>Practice Mode</h2>
+        <p>Walk through the scenario and see how you'd respond — before the real thing</p>
+      </div>
+    </div>
+
+    <div class="practice-wrapper">
+      <div class="practice-intro">
+        <h3>🎮 Try the scenario first</h3>
+        <p>Five situations from the role play. For each one, choose how you would respond. You'll get instant feedback and see which assessment criteria it links to.</p>
+      </div>
+
+      <!-- QUESTIONS PANEL -->
+      <div id="practicePanel" class="practice-questions-panel">
+        <div class="practice-scene-box">
+          <div class="situation-label" id="practiceSceneLabel">Situation 1 of 5</div>
+          <div id="practiceSceneText"></div>
+        </div>
+        <div class="practice-q" id="practiceQ"></div>
+        <div class="practice-options" id="practiceOptions"></div>
+        <div class="practice-feedback" id="practiceFeedback"></div>
+        <div class="practice-nav">
+          <span class="practice-progress" id="practiceProgressLabel">Question 1 of 5</span>
+          <button class="btn btn-white" id="practiceNextBtn" onclick="nextPractice()" disabled>Next →</button>
+        </div>
+      </div>
+
+      <!-- SCORE PANEL -->
+      <div class="practice-score-box" id="practiceScore">
+        <div class="score-circle" id="scoreCircle"></div>
+        <h3 style="font-size:22px; font-weight:800; margin-bottom:8px;" id="scoreTitle"></h3>
+        <p style="opacity:.8; font-size:14px; max-width:400px; margin:0 auto 24px;" id="scoreMsg"></p>
+        <button class="btn btn-white" onclick="resetPractice()">↩ Try again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CRITERIA ────────────────────────────────────────────── -->
+  <div class="section reveal" id="criteria">
+    <div class="section-header">
+      <div class="section-icon" style="background:#F0FDF4">✅</div>
+      <div>
+        <h2>Assessment Criteria</h2>
+        <p>All 6 must be Satisfactory. Tap each to see what the assessor is looking for.</p>
+      </div>
+    </div>
     <div class="criteria-grid">
 
-      <div class="crit-card">
-        <div class="crit-card-top">
-          <div class="crit-number">1</div>
-          <div class="crit-title">Respectful communication with diverse colleagues</div>
+      <div class="criteria-card" onclick="toggleCriteria(this)" style="border-top:4px solid #0D9488">
+        <div class="criteria-number" style="color:#0D9488">Criterion 1</div>
+        <div class="criteria-title">Respectful communication with diverse colleagues</div>
+        <div class="criteria-desc">How you talk to and treat Ryan, Haider and Dianne during the conflict.</div>
+        <div class="criteria-look">
+          <div class="criteria-look-label">✅ Assessor is looking for</div>
+          <ul>
+            <li>Patient — doesn't rush or dismiss anyone</li>
+            <li>Calm — no raised voice, no negative facial expressions</li>
+            <li>Allows Ryan and Haider time to re-group and respond</li>
+            <li>Does not mirror or match their agitation</li>
+          </ul>
         </div>
-        <div class="crit-body">You are patient and calm throughout. You don't rush anyone. You don't make negative facial expressions or dismissive gestures. You allow people time to re-group — especially Haider.</div>
-        <span class="crit-pc-badge">Linked to PC 3.1</span>
       </div>
 
-      <div class="crit-card">
-        <div class="crit-card-top">
-          <div class="crit-number">2</div>
-          <div class="crit-title">Professional approach — no taking sides</div>
+      <div class="criteria-card" onclick="toggleCriteria(this)" style="border-top:4px solid #7C3AED">
+        <div class="criteria-number" style="color:#7C3AED">Criterion 2</div>
+        <div class="criteria-title">Maintains professional approach</div>
+        <div class="criteria-desc">Staying neutral, non-judgemental, and without taking sides.</div>
+        <div class="criteria-look">
+          <div class="criteria-look-label">✅ Assessor is looking for</div>
+          <ul>
+            <li>No discriminatory actions or statements</li>
+            <li>Does not judge either person's cultural background or practices</li>
+            <li>Does not take Ryan's or Haider's side — or join in with Dianne</li>
+            <li>Stays composed even if characters escalate</li>
+          </ul>
         </div>
-        <div class="crit-body">You don't make judgements about who is right or wrong. You don't join in with Dianne's side-taking. You treat all three colleagues with equal respect regardless of your personal opinion of the situation.</div>
-        <span class="crit-pc-badge">Linked to PC 3.2</span>
       </div>
 
-      <div class="crit-card">
-        <div class="crit-card-top">
-          <div class="crit-number">3</div>
-          <div class="crit-title">Inclusive work practices</div>
+      <div class="criteria-card" onclick="toggleCriteria(this)" style="border-top:4px solid #D97706">
+        <div class="criteria-number" style="color:#D97706">Criterion 3</div>
+        <div class="criteria-title">Inclusive work practices</div>
+        <div class="criteria-desc">Making sure everyone is involved and their needs are considered.</div>
+        <div class="criteria-look">
+          <div class="criteria-look-label">✅ Assessor is looking for</div>
+          <ul>
+            <li>Ensures all three people feel heard — including Dianne</li>
+            <li>Considers individual needs (Ryan's eye contact, Haider's language)</li>
+            <li>People's values and identities feel acknowledged, not dismissed</li>
+          </ul>
         </div>
-        <div class="crit-body">Everyone is involved in the conversation. You consider individual needs — including cultural ones. You make it clear through your actions that each person's background and values matter.</div>
-        <span class="crit-pc-badge">Linked to PC 4.1</span>
       </div>
 
-      <div class="crit-card">
-        <div class="crit-card-top">
-          <div class="crit-number">4</div>
-          <div class="crit-title">Effective verbal and non-verbal communication</div>
+      <div class="criteria-card" onclick="toggleCriteria(this)" style="border-top:4px solid #1D4ED8">
+        <div class="criteria-number" style="color:#1D4ED8">Criterion 4</div>
+        <div class="criteria-title">Effective verbal and non-verbal communication</div>
+        <div class="criteria-desc">How your body language and tone supports what you're saying.</div>
+        <div class="criteria-look">
+          <div class="criteria-look-label">✅ Assessor is looking for</div>
+          <ul>
+            <li>Appropriate eye contact (aware Ryan may not make direct eye contact)</li>
+            <li>Aware of personal space — not invading anyone's space</li>
+            <li>Calm tone of voice throughout</li>
+            <li>Appropriate gestures — no pointing, no threatening posture</li>
+          </ul>
         </div>
-        <div class="crit-body">Appropriate eye contact — aware that Ryan's culture involves less direct eye contact. Calm tone of voice. Awareness of personal space. No pointing. Your body language matches your words.</div>
-        <span class="crit-pc-badge">Linked to PC 3.2</span>
       </div>
 
-      <div class="crit-card">
-        <div class="crit-card-top">
-          <div class="crit-number">5</div>
-          <div class="crit-title">Sensitive handling of language barriers</div>
+      <div class="criteria-card" onclick="toggleCriteria(this)" style="border-top:4px solid #BE185D">
+        <div class="criteria-number" style="color:#BE185D">Criterion 5</div>
+        <div class="criteria-title">Sensitive handling of language barriers</div>
+        <div class="criteria-desc">How you communicate with Haider given his EAL/D background and stutter.</div>
+        <div class="criteria-look">
+          <div class="criteria-look-label">✅ Assessor is looking for</div>
+          <ul>
+            <li>Active listening — doesn't interrupt or rush Haider</li>
+            <li>Repeats or summarises to check understanding</li>
+            <li>Does not raise voice or show frustration at his stutter</li>
+            <li>Uses simple language; may use gesture or imagery if helpful</li>
+          </ul>
         </div>
-        <div class="crit-body">You actively listen when Haider speaks. You don't raise your voice or show frustration when he stutters. You may repeat information back to check understanding. You do not speak over him or finish his sentences.</div>
-        <span class="crit-pc-badge">Linked to PC 3.3</span>
       </div>
 
-      <div class="crit-card">
-        <div class="crit-card-top">
-          <div class="crit-number">6</div>
-          <div class="crit-title">Seeks supervisor assistance and debriefs</div>
+      <div class="criteria-card" onclick="toggleCriteria(this)" style="border-top:4px solid #065F46">
+        <div class="criteria-number" style="color:#065F46">Criterion 6</div>
+        <div class="criteria-title">Seeks supervisor assistance and debriefs</div>
+        <div class="criteria-desc">The supervisor conversation at the end of the role play.</div>
+        <div class="criteria-look">
+          <div class="criteria-look-label">✅ Assessor is looking for</div>
+          <ul>
+            <li>Approaches the supervisor (teacher) — doesn't wait to be asked</li>
+            <li>Describes situation non-judgementally</li>
+            <li>Acknowledges the value of <em>both</em> Ryan and Haider</li>
+            <li>Flags employer risk re: Haider's religious practice and anti-discrimination law</li>
+            <li>Suggests at least one practical strategy</li>
+          </ul>
         </div>
-        <div class="crit-body">You approach the Supervisor (teacher) at the end. You describe the situation without taking sides. You mention the value of both Ryan and Haider. You raise the anti-discrimination issue re: Haider's religion. You suggest at least one forward strategy.</div>
-        <span class="crit-pc-badge">Linked to PC 3.4</span>
       </div>
 
-    </div>
-
-    <div class="callout-reassure" role="note">
-      <strong>There are no exact right words.</strong> Your assessor is watching your approach and your professional judgement — not a performance. A calm, respectful, inclusive approach is what earns a Satisfactory result.
     </div>
   </div>
-</section>
 
-<!-- ── Section 6: Tips ────────────────────────────────────────── -->
-<section id="tips">
-  <div class="container">
-    <h2 class="section-title">Tips for Your Role Play</h2>
-    <p class="section-subtitle">Six things to keep in mind when the scene gets intense.</p>
+  <div class="divider"></div>
 
+  <!-- ── AT3B QUESTIONS ────────────────────────────────────── -->
+  <div class="section reveal" id="at3b">
+    <div class="section-header">
+      <div class="section-icon" style="background:#EDE9FE">✍️</div>
+      <div>
+        <h2>AT3B — Written Questions</h2>
+        <p>Complete these after your role play. Your answers save automatically on this device.</p>
+      </div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="q-card">
+      <div class="q-header">
+        <div class="q-number">1</div>
+        <div class="q-text">Identify the issue that caused the conflict between Ryan and Haider.</div>
+      </div>
+      <p class="q-hint">Think about the cultural and religious factors at play — not just the argument itself.</p>
+      <textarea class="q-textarea" id="q1" placeholder="Type your answer here…" oninput="saveQ('q1')" onblur="saveQ('q1')"></textarea>
+      <div class="q-saved-indicator" id="q1-saved">✓ Saved</div>
+      <button class="q-bench-toggle" onclick="toggleBench('q1-bench', this)">
+        <span>👁</span> View benchmark guidance
+      </button>
+      <div class="q-bench" id="q1-bench">
+        <div class="q-bench-label">What a satisfactory answer covers</div>
+        <ul>
+          <li>Ryan's communication style reflects his Indigenous cultural background — indirect eye contact and working at his own pace are cultural norms, not laziness</li>
+          <li>Haider's religion (Islam) requires prayer at set times — this is a religious obligation, not absenteeism</li>
+          <li>Personal biases of both parties create tension and misunderstanding</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-card">
+      <div class="q-header">
+        <div class="q-number">2</div>
+        <div class="q-text">Describe how to show respect to and support diverse colleagues in a workplace.</div>
+      </div>
+      <p class="q-hint">Give at least one clear example. Think about what you'd actually do differently.</p>
+      <textarea class="q-textarea" id="q2" placeholder="Type your answer here…" oninput="saveQ('q2')" onblur="saveQ('q2')"></textarea>
+      <div class="q-saved-indicator" id="q2-saved">✓ Saved</div>
+      <button class="q-bench-toggle" onclick="toggleBench('q2-bench', this)">
+        <span>👁</span> View benchmark guidance
+      </button>
+      <div class="q-bench" id="q2-bench">
+        <div class="q-bench-label">What a satisfactory answer covers (at least one)</div>
+        <ul>
+          <li>Avoid discriminatory actions or behaviours</li>
+          <li>Demonstrate understanding of a person's cultural background and needs</li>
+          <li>Allow space for people to practise their cultural customs</li>
+          <li>Don't participate in culturally inappropriate or discriminatory discussions</li>
+          <li>Take action when situations may be unfair or impact someone's rights</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-card">
+      <div class="q-header">
+        <div class="q-number">3</div>
+        <div class="q-text">Describe the benefits of maintaining a professional approach when cultural differences arise at work.</div>
+      </div>
+      <p class="q-hint">Why does it matter — not just for individuals, but for the whole team and the clients?</p>
+      <textarea class="q-textarea" id="q3" placeholder="Type your answer here…" oninput="saveQ('q3')" onblur="saveQ('q3')"></textarea>
+      <div class="q-saved-indicator" id="q3-saved">✓ Saved</div>
+      <button class="q-bench-toggle" onclick="toggleBench('q3-bench', this)">
+        <span>👁</span> View benchmark guidance
+      </button>
+      <div class="q-bench" id="q3-bench">
+        <div class="q-bench-label">What a satisfactory answer covers (at least one)</div>
+        <ul>
+          <li>Role models cultural competence and sensitive practice for the whole team</li>
+          <li>Rapport, empathy and mutual respect lead to calmer outcomes over time</li>
+          <li>Professional behaviour builds trust and confidence, enabling more civil interactions under tension</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-card">
+      <div class="q-header">
+        <div class="q-number">4</div>
+        <div class="q-text">Describe how you can contribute to and promote a culturally safe work environment.</div>
+      </div>
+      <p class="q-hint">Think beyond this specific scenario — what does this look like day to day?</p>
+      <textarea class="q-textarea" id="q4" placeholder="Type your answer here…" oninput="saveQ('q4')" onblur="saveQ('q4')"></textarea>
+      <div class="q-saved-indicator" id="q4-saved">✓ Saved</div>
+      <button class="q-bench-toggle" onclick="toggleBench('q4-bench', this)">
+        <span>👁</span> View benchmark guidance
+      </button>
+      <div class="q-bench" id="q4-bench">
+        <div class="q-bench-label">What a satisfactory answer covers (at least one)</div>
+        <ul>
+          <li>Role model sensitive work practices every day — not just in conflict</li>
+          <li>Be inclusive; consider the impact of diversity before acting</li>
+          <li>Show knowledge of specific cultural needs and customs</li>
+          <li>Display sensitivity and genuine appreciation for cultural difference</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-card">
+      <div class="q-header">
+        <div class="q-number">5</div>
+        <div class="q-text">Describe how you can deal sensitively with language barriers in the workplace.</div>
+      </div>
+      <p class="q-hint">Think specifically about Haider — what could you do in the moment? What about longer term?</p>
+      <textarea class="q-textarea" id="q5" placeholder="Type your answer here…" oninput="saveQ('q5')" onblur="saveQ('q5')"></textarea>
+      <div class="q-saved-indicator" id="q5-saved">✓ Saved</div>
+      <button class="q-bench-toggle" onclick="toggleBench('q5-bench', this)">
+        <span>👁</span> View benchmark guidance
+      </button>
+      <div class="q-bench" id="q5-bench">
+        <div class="q-bench-label">What a satisfactory answer covers (at least one)</div>
+        <ul>
+          <li>Locate a staff member who speaks the same language</li>
+          <li>Identify if an interpreter is needed and arrange one</li>
+          <li>Work respectfully with a family member or carer who is translating</li>
+          <li>Active listening — don't raise voice or show frustration</li>
+          <li>Use imagery or other visual resources</li>
+          <li>Ask for clarification and confirmation of understanding</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── TIPS ───────────────────────────────────────────────── -->
+  <div class="section reveal" id="tips">
+    <div class="section-header">
+      <div class="section-icon" style="background:#FEF9C3">💡</div>
+      <div>
+        <h2>Tips for the Day</h2>
+        <p>Practical advice to help you feel prepared and confident</p>
+      </div>
+    </div>
     <div class="tips-grid">
-
-      <div class="tip-card">
-        <div class="tip-emoji">💬</div>
-        <div class="tip-title">Start by listening</div>
-        <p class="tip-body">Don't rush in with solutions. Take a moment to observe and understand what's actually happening before you speak. People feel respected when they feel heard first.</p>
+      <div class="tip-card" style="background:#F0FDF4; border-color:#BBF7D0">
+        <div class="tip-icon">🧘</div>
+        <div class="tip-title">There's no exact script</div>
+        <div class="tip-body">You're not being judged on your exact words. You're being assessed on your approach, your tone, and your professional judgement. Calm is more important than perfect.</div>
       </div>
-
-      <div class="tip-card">
-        <div class="tip-emoji">🧘</div>
-        <div class="tip-title">Calm is contagious</div>
-        <p class="tip-body">Your tone sets the tone for the room. If you stay calm and speak slowly, the people around you will usually start to match your energy. Don't match the aggression — lower it.</p>
+      <div class="tip-card" style="background:#EFF6FF; border-color:#BFDBFE">
+        <div class="tip-icon">⏸️</div>
+        <div class="tip-title">Pausing is a skill</div>
+        <div class="tip-body">If you feel stuck, it's okay to say "I need a moment to think about the best way to handle this." That's what a real professional does — it shows self-awareness.</div>
       </div>
-
-      <div class="tip-card">
-        <div class="tip-emoji">⚖️</div>
-        <div class="tip-title">Don't pick a side</div>
-        <p class="tip-body">Even if one person seems more 'right' than the other, taking sides will make things worse. Acknowledge both perspectives: <em>"I can hear that this is really frustrating for both of you."</em></p>
+      <div class="tip-card" style="background:#FEF9C3; border-color:#FDE68A">
+        <div class="tip-icon">👀</div>
+        <div class="tip-title">Watch your body language</div>
+        <div class="tip-body">The assessor is watching your non-verbal communication as much as what you say. Stay open, avoid crossing your arms, don't point, and keep a calm, steady tone.</div>
       </div>
-
-      <div class="tip-card">
-        <div class="tip-emoji">🗣️</div>
-        <div class="tip-title">Give Haider time</div>
-        <p class="tip-body">When Haider is upset, he stutters and struggles to find words. Do not rush him, finish his sentences, or speak over him. Slow down, make eye contact, and wait. This is one of the key things your assessor is watching for.</p>
+      <div class="tip-card" style="background:#FCE7F3; border-color:#FBCFE8">
+        <div class="tip-icon">🤝</div>
+        <div class="tip-title">Don't forget Dianne</div>
+        <div class="tip-body">Many students focus on Ryan and Haider and forget to address Dianne, who is actively fuelling the conflict. Make sure all three people are included in your intervention.</div>
       </div>
-
-      <div class="tip-card">
-        <div class="tip-emoji">🏢</div>
-        <div class="tip-title">Remember the workplace context</div>
-        <p class="tip-body">You are a Support Worker in a community services setting. Clients may be nearby. Your professional behaviour here affects not just your colleagues, but the people you all serve.</p>
-      </div>
-
-      <div class="tip-card">
-        <div class="tip-emoji">👔</div>
+      <div class="tip-card" style="background:#EDE9FE; border-color:#DDD6FE">
+        <div class="tip-icon">👔</div>
         <div class="tip-title">End with the supervisor</div>
-        <p class="tip-body">Don't forget this step. Walking to your teacher for a debrief is one of the six assessment criteria. When the conflict feels de-escalated, that's your cue to approach the supervisor.</p>
+        <div class="tip-body">The supervisor debrief is its own assessment criterion. Don't forget to approach your supervisor (the teacher) at the end. You need to include the legal risk point about Haider's right to pray.</div>
       </div>
-
+      <div class="tip-card" style="background:#FEF2F2; border-color:#FECACA">
+        <div class="tip-icon">🔄</div>
+        <div class="tip-title">Not Satisfactory = not the end</div>
+        <div class="tip-body">You have up to 3 attempts. If a criterion is NS, you'll only need to redo that specific criterion — not the whole scenario. One rough moment doesn't define your outcome.</div>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- ── Section 7: Practice Mode ──────────────────────────────── -->
-<section id="practice">
-  <div class="container">
-    <h2 class="section-title">Practice Mode</h2>
-    <p class="section-subtitle">Walk through the scenario step by step before the real thing. Your choices are private.</p>
+</div>
 
-    <!-- Intro card (shown when not yet started / between runs) -->
-    <div class="practice-intro-card" id="practice-intro">
-      <h3>&#x1F3AD; Practice Mode — Run Through the Scenario First</h3>
-      <p>Walk through the scene before the real thing. See what each character says and practice how you'd respond. Your choices are private — no one else sees them.</p>
-      <div class="practice-bestscore" id="practice-bestscore-badge" style="display:none"></div>
-      <br>
-      <button class="btn-start-practice" onclick="practiceStart()">Start Practice</button>
-    </div>
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<div class="footer">
+  CHCDIV001 — Work with Diverse People · CHC42021 CERT IV Community Services · Box Hill Institute of TAFE
+</div>
 
-    <!-- Stage (hidden until started) -->
-    <div id="practice-stage">
-      <!-- Progress pips — 9 total steps (6 beats + 4 choices = step markers) -->
-      <div class="stage-progress" id="stage-progress"></div>
-
-      <!-- Scene content injected here by JS -->
-      <div id="stage-content"></div>
-    </div>
-
-    <!-- Completion card -->
-    <div id="practice-completion">
-      <div class="completion-title">&#x1F3AD; Practice complete!</div>
-      <p class="completion-sub" id="completion-sub">Here's how you went across the four decision points.</p>
-      <div class="score-summary" id="score-summary"></div>
-      <div class="completion-verdict" id="completion-verdict"></div>
-      <p class="bestscore-line" id="completion-bestscore"></p>
-      <div class="completion-actions">
-        <button class="btn-try-again" onclick="practiceStart()">Try again</button>
-        <button class="btn-review-criteria" onclick="document.getElementById('criteria').scrollIntoView({behavior:'smooth'})">Review the assessment criteria</button>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── Section 8: AT3B Written Questions ─────────────────────── -->
-<section id="written" style="background: var(--sand);">
-  <div class="container">
-    <h2 class="section-title">AT3B — Written Questions</h2>
-    <p class="section-subtitle">Answer all 5 questions. You can draft your answers here and submit on paper — or your teacher may accept a digital submission.</p>
-
-    <div class="question-cards">
-
-      <!-- Q1 -->
-      <div class="q-card">
-        <div class="q-card-top">
-          <div class="q-number">1</div>
-          <div class="q-text">Identify the issue that caused the conflict between Ryan and Haider.</div>
-        </div>
-        <div class="q-hint">A good answer identifies the cultural factors on both sides — Ryan's Indigenous communication style and relationship with time, and Haider's religious practices. It also notes that personal biases on both sides raised tensions.</div>
-        <div class="q-textarea-wrap">
-          <textarea class="q-textarea" id="q1" placeholder="Write your answer here..." aria-label="Question 1 answer" oninput="saveQ(1);countChars(1)"></textarea>
-          <div class="q-char-hint">
-            <span>Aim for 3–5 sentences</span>
-            <span class="char-count" id="q1-count">0 words</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Q2 -->
-      <div class="q-card">
-        <div class="q-card-top">
-          <div class="q-number">2</div>
-          <div class="q-text">Describe how you can show respect and support for colleagues from diverse backgrounds.</div>
-        </div>
-        <div class="q-hint">Give at least one specific example. Think about: avoiding discriminatory behaviour, demonstrating understanding of cultural customs, not participating in discriminatory discussions, taking action when someone's rights may be affected.</div>
-        <div class="q-textarea-wrap">
-          <textarea class="q-textarea" id="q2" placeholder="Write your answer here..." aria-label="Question 2 answer" oninput="saveQ(2);countChars(2)"></textarea>
-          <div class="q-char-hint">
-            <span>Aim for 3–5 sentences</span>
-            <span class="char-count" id="q2-count">0 words</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Q3 -->
-      <div class="q-card">
-        <div class="q-card-top">
-          <div class="q-number">3</div>
-          <div class="q-text">Describe the benefits of maintaining a professional approach when cultural differences cause conflict.</div>
-        </div>
-        <div class="q-hint">Think about what professionalism achieves over time — trust, rapport, calmer outcomes, team cohesion. A good answer goes beyond "it's policy" to explain the real human benefit.</div>
-        <div class="q-textarea-wrap">
-          <textarea class="q-textarea" id="q3" placeholder="Write your answer here..." aria-label="Question 3 answer" oninput="saveQ(3);countChars(3)"></textarea>
-          <div class="q-char-hint">
-            <span>Aim for 3–5 sentences</span>
-            <span class="char-count" id="q3-count">0 words</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Q4 -->
-      <div class="q-card">
-        <div class="q-card-top">
-          <div class="q-number">4</div>
-          <div class="q-text">Describe how you can contribute to a culturally safe work environment.</div>
-        </div>
-        <div class="q-hint">Think about the everyday actions that build cultural safety — not just big policy gestures, but how you personally show sensitivity, inclusion, and respect in your day-to-day interactions.</div>
-        <div class="q-textarea-wrap">
-          <textarea class="q-textarea" id="q4" placeholder="Write your answer here..." aria-label="Question 4 answer" oninput="saveQ(4);countChars(4)"></textarea>
-          <div class="q-char-hint">
-            <span>Aim for 3–5 sentences</span>
-            <span class="char-count" id="q4-count">0 words</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Q5 -->
-      <div class="q-card">
-        <div class="q-card-top">
-          <div class="q-number">5</div>
-          <div class="q-text">Describe how you can deal sensitively with language barriers in the workplace.</div>
-        </div>
-        <div class="q-hint">Give at least two specific strategies. Think about: interpreters, family members who translate, active listening, not raising your voice, using images or visual aids, asking for confirmation of understanding.</div>
-        <div class="q-textarea-wrap">
-          <textarea class="q-textarea" id="q5" placeholder="Write your answer here..." aria-label="Question 5 answer" oninput="saveQ(5);countChars(5)"></textarea>
-          <div class="q-char-hint">
-            <span>Aim for 3–5 sentences</span>
-            <span class="char-count" id="q5-count">0 words</span>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end question-cards -->
-
-    <div class="save-note" role="note">
-      <strong>Your answers are automatically saved in this browser.</strong> If you clear your browser history, they will be deleted — consider copying them somewhere safe before you leave.
-    </div>
-
-  </div>
-</section>
-
-<!-- ── Section 9: Assessment Links ───────────────────────────── -->
-<section id="at-links">
-  <div class="container">
-    <h2 class="section-title">How Today Links to Your Assessments</h2>
-    <p class="section-subtitle">Today's role play connects to every assessment task in this unit.</p>
-
-    <div class="at-grid">
-
-      <details class="at-card">
-        <summary>
-          <span class="at-badge">AT1</span>
-          <span class="at-summary-title">Knowledge Questions</span>
-          <span class="at-toggle" aria-hidden="true">▼</span>
-        </summary>
-        <div class="at-body">
-          The knowledge you applied today — cultural safety, inclusive communication, managing conflict — is directly relevant to AT1 Q1 and Q2. Use today's experience to inform your written answers. You now have real, lived examples to draw on.
-        </div>
-      </details>
-
-      <details class="at-card">
-        <summary>
-          <span class="at-badge">AT2</span>
-          <span class="at-summary-title">Research Report</span>
-          <span class="at-toggle" aria-hidden="true">▼</span>
-        </summary>
-        <div class="at-body">
-          Today's experience of navigating real cultural differences is relevant context for your research report. Cultural competence in practice is exactly what you are researching. Consider reflecting on what the scenario revealed about assumptions and biases.
-        </div>
-      </details>
-
-      <details class="at-card">
-        <summary>
-          <span class="at-badge terra">AT3</span>
-          <span class="at-summary-title">Role Play + Written Questions — Today's Task</span>
-          <span class="at-toggle" aria-hidden="true">▼</span>
-        </summary>
-        <div class="at-body">
-          Your result has been recorded today. If any criteria were Not Satisfactory, you will be contacted about resubmission — you only need to redo the specific criteria that were not yet met. AT3B written questions are also due today.
-        </div>
-      </details>
-
-      <details class="at-card">
-        <summary>
-          <span class="at-badge sage">AT4 Part A</span>
-          <span class="at-summary-title">Reflective Journal</span>
-          <span class="at-toggle" aria-hidden="true">▼</span>
-        </summary>
-        <div class="at-body">
-          Today is excellent material for your journal. <strong>Q3/Q4:</strong> What did you notice about your own communication style under pressure? <strong>Q5:</strong> Did anything in the role play reveal a bias you didn't know you had? Write your journal entry while today is still fresh.
-        </div>
-      </details>
-
-    </div>
-  </div>
-</section>
-
-<!-- ── Footer ─────────────────────────────────────────────────── -->
-<footer>
-  <div class="container">
-    <div class="footer-note">
-      <strong>CHCDIV001 — Work with Diverse People</strong><br>
-      CERT IV in Community Services (CHC42021) · Box Hill Institute of TAFE<br>
-      Assessment Task 3 · Role Play Day
-    </div>
-    <button class="reset-btn" onclick="resetAnswers()" aria-label="Reset all written question answers">Reset my answers</button>
-  </div>
-</footer>
-
-<!-- ── Back to top ─────────────────────────────────────────────── -->
-<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">↑</button>
-
-<!-- ── JavaScript ─────────────────────────────────────────────── -->
 <script>
-/* ── Character card toggle ───────────────────────────────────── */
-function toggleChar(id) {
-  const card = document.getElementById(id);
-  const header = card.querySelector('.char-header');
-  const isOpen = card.classList.contains('open');
-  card.classList.toggle('open');
-  header.setAttribute('aria-expanded', !isOpen);
+// ── CHARACTER CARD TOGGLE ─────────────────────────────────
+function toggleChar(el) {
+  el.classList.toggle('open');
 }
 
-/* ── localStorage for Q textareas ───────────────────────────── */
-const STORAGE_PREFIX = 'roleplay_at3b_q';
-
-function saveQ(n) {
-  const val = document.getElementById('q' + n).value;
-  try { localStorage.setItem(STORAGE_PREFIX + n, val); } catch(e) {}
+// ── CRITERIA TOGGLE ───────────────────────────────────────
+function toggleCriteria(el) {
+  el.classList.toggle('open');
 }
 
-function loadAnswers() {
-  for (let n = 1; n <= 5; n++) {
-    try {
-      const saved = localStorage.getItem(STORAGE_PREFIX + n);
-      if (saved) {
-        document.getElementById('q' + n).value = saved;
-        countChars(n);
-      }
-    } catch(e) {}
+// ── NAV SCROLL ─────────────────────────────────────────────
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const offset = 64;
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
   }
 }
 
-function resetAnswers() {
-  if (!confirm('Are you sure you want to clear all your written answers? This cannot be undone.')) return;
-  for (let n = 1; n <= 5; n++) {
-    try { localStorage.removeItem(STORAGE_PREFIX + n); } catch(e) {}
-    document.getElementById('q' + n).value = '';
-    document.getElementById('q' + n + '-count').textContent = '0 words';
-  }
-}
-
-/* ── Word counter ────────────────────────────────────────────── */
-function countChars(n) {
-  const val = document.getElementById('q' + n).value.trim();
-  const words = val ? val.split(/\s+/).filter(Boolean).length : 0;
-  const label = words === 1 ? '1 word' : words + ' words';
-  document.getElementById('q' + n + '-count').textContent = label;
-}
-
-/* ── Back to top visibility ──────────────────────────────────── */
-const btt = document.getElementById('back-to-top');
-window.addEventListener('scroll', function() {
-  if (window.scrollY > 400) {
-    btt.classList.add('visible');
-  } else {
-    btt.classList.remove('visible');
-  }
-}, { passive: true });
-
-/* ── Smooth scroll for nav links (accessibility) ─────────────── */
-document.querySelectorAll('a[href^="#"]').forEach(function(link) {
-  link.addEventListener('click', function(e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+// Update active nav tab on scroll
+const sections = ['scenario','characters','scene','practice','criteria','at3b','tips'];
+const tabs = document.querySelectorAll('.nav-tab');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 120) current = id;
+  });
+  tabs.forEach((tab, i) => {
+    tab.classList.toggle('active', sections[i] === current || (!current && i === 0));
   });
 });
 
-/* ── Practice Mode ───────────────────────────────────────────── */
+// ── SCROLL REVEAL ──────────────────────────────────────────
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+reveals.forEach(r => observer.observe(r));
 
-var practiceScores = [null, null, null, null]; // null | 'green' | 'amber' | 'red'
+// ── AT3B SAVE / LOAD ──────────────────────────────────────
+function saveQ(id) {
+  const val = document.getElementById(id).value;
+  localStorage.setItem('at3b_' + id, val);
+  const ind = document.getElementById(id + '-saved');
+  if (ind) { ind.classList.add('show'); setTimeout(() => ind.classList.remove('show'), 1500); }
+  updateProgress();
+}
 
-// ── Scene data ────────────────────────────────────────────────
-// Each step is either a 'beat' or a 'choice'
-// Beats auto-advance after 1.2s (except those with continueBtn: true)
-var STEPS = [
-  // BEAT 1
+function loadAllQ() {
+  ['q1','q2','q3','q4','q5'].forEach(id => {
+    const saved = localStorage.getItem('at3b_' + id);
+    if (saved) document.getElementById(id).value = saved;
+  });
+  updateProgress();
+}
+
+function updateProgress() {
+  const qs = ['q1','q2','q3','q4','q5'];
+  const answered = qs.filter(id => (document.getElementById(id)?.value || '').trim().length > 20).length;
+  const pct = Math.round((answered / qs.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '% answered';
+}
+
+function toggleBench(id, btn) {
+  const el = document.getElementById(id);
+  el.classList.toggle('show');
+  btn.innerHTML = el.classList.contains('show')
+    ? '<span>🙈</span> Hide guidance'
+    : '<span>👁</span> View benchmark guidance';
+}
+
+// ── PRACTICE MODE ─────────────────────────────────────────
+const practiceData = [
   {
-    type: 'beat',
-    kind: 'narrator',
-    text: 'It is 10:00am at First Access. Ryan is supervising clients packing up board games. They are running behind and morning tea is already out. You walk in.',
-    continueBtn: 'Enter the room \u2192'
-  },
-  // BEAT 2
-  {
-    type: 'beat',
-    kind: 'char',
-    char: 'haider',
-    charLabel: 'Haider',
-    text: 'He never hurries, even when something urgent happens. I\u2019ve had enough of him.',
-    autoAdvance: true
-  },
-  // BEAT 3
-  {
-    type: 'beat',
-    kind: 'char',
-    char: 'ryan',
-    charLabel: 'Ryan',
-    text: 'Look who\u2019s talking. The one that leaves everything to go and pray.',
-    autoAdvance: true
-  },
-  // BEAT 4
-  {
-    type: 'beat',
-    kind: 'char',
-    char: 'haider',
-    charLabel: 'Haider',
-    text: 'C-c-come on man, l-l-look in me eyes if y-y-you have something t-t-to tell me. What\u2019s your p-p-problem?',
-    autoAdvance: true
-  },
-  // BEAT 5
-  {
-    type: 'beat',
-    kind: 'char',
-    char: 'ryan',
-    charLabel: 'Ryan',
-    text: 'Just take your stupid rug and go pray\u2026 who cares if you take extra time off.',
-    autoAdvance: true
-  },
-  // BEAT 6
-  {
-    type: 'beat',
-    kind: 'char',
-    char: 'dianne',
-    charLabel: 'Dianne',
-    text: 'Enough is enough you two! Why can\u2019t you just be like the rest of us?',
-    autoAdvance: false,
-    continueBtn: null // moves straight to choice
-  },
-  // CHOICE 1
-  {
-    type: 'choice',
-    choiceIndex: 0,
-    prompt: 'The argument is escalating. Ryan and Haider are both upset, and Dianne has made things worse. You need to intervene. What do you do first?',
+    scene: "The conflict has just erupted. Ryan and Haider are arguing loudly. Dianne is hovering nearby, shaking her head and making comments. Clients in the next room can hear everything. You've just walked in.",
+    q: "What do you do first?",
     options: [
-      {
-        label: 'A) \u201cTell everyone to calm down and that this behaviour is unprofessional.\u201d',
-        outcome: 'amber',
-        feedback: 'Partially right \u2014 you\u2019ve stepped in, which is good. But labelling the behaviour as \u2018unprofessional\u2019 straight away can feel dismissive and put people on the defensive. Try acknowledging the situation without judging it first.',
-        crits: ['\u26A0\uFE0F Criterion 2 (professional approach) \u2014 close, but avoid judgemental language early on.']
-      },
-      {
-        label: 'B) \u201cSpeak calmly to the group: \u2018I can see things are pretty heated right now. Can we take a breath and talk this through?\u2019\u201d',
-        outcome: 'green',
-        feedback: 'Great start. You\u2019ve acknowledged the situation without taking sides or judging anyone. Your calm tone is already de-escalating the energy in the room.',
-        crits: ['\u2705 Criterion 1 (respectful communication)', '\u2705 Criterion 2 (professional approach)']
-      },
-      {
-        label: 'C) \u201cPull Ryan aside first \u2014 he seems to be the one causing the most trouble.\u201d',
-        outcome: 'red',
-        feedback: 'This approach takes sides before you know the full picture. Ryan\u2019s communication style is linked to his cultural background, and singling him out could make things worse and shows unconscious bias.',
-        crits: ['\u274C Criterion 2 (no taking sides)', '\u274C Criterion 3 (inclusive practices)']
-      },
-      {
-        label: 'D) \u201cAsk Dianne what happened \u2014 she seems the most reasonable.\u201d',
-        outcome: 'red',
-        feedback: 'Dianne has actually been making the situation worse by stirring. Going to her first gives her more influence than she should have, and excludes Ryan and Haider from the conversation.',
-        crits: ['\u274C Criterion 2 (no taking sides)', '\u274C Criterion 3 (inclusive practices)']
-      }
+      { text: "Step between Ryan and Haider, raise your voice over theirs and tell them both to stop immediately.", type: "incorrect", feedback: "Raising your voice and stepping physically between two people in conflict can escalate things further and may feel threatening. A calmer, more measured approach is more effective — and it's what the assessor is looking for.", criteria: ["Criterion 1: Respectful communication", "Criterion 4: Non-verbal communication"] },
+      { text: "Calmly step into the space, speak at a steady, quiet volume, and acknowledge that things are clearly tense: 'I can see this has become really difficult. Can we take a breath and find somewhere quieter?'", type: "correct", feedback: "This is excellent. You're de-escalating by lowering the energy in the room, you're not taking sides, and you're acknowledging both parties' emotions without judgment. This is what Satisfactory looks like.", criteria: ["Criterion 1: Respectful communication", "Criterion 2: Professional approach", "Criterion 4: Non-verbal communication"] },
+      { text: "Tell Dianne to leave the room first, then deal with Ryan and Haider separately.", type: "neutral", feedback: "Addressing Dianne is important — she is fuelling the conflict. However, separating everyone immediately before acknowledging what's happening might feel abrupt. Starting with a calm acknowledgement first is usually more effective. This could work but it depends on how it's done.", criteria: ["Criterion 3: Inclusive work practices"] }
     ]
   },
-  // BEAT 7
   {
-    type: 'beat',
-    kind: 'narrator',
-    text: 'You\u2019ve stepped in. Ryan crosses his arms and looks away. Haider tries to explain his side but is clearly distressed.',
-    autoAdvance: true
-  },
-  {
-    type: 'beat',
-    kind: 'char',
-    char: 'haider',
-    charLabel: 'Haider',
-    text: 'He\u2026 he always\u2026 I just\u2026 I c-c-can\u2019t\u2026 every time I need to p-p-pray he makes me feel like\u2026 like I am d-d-doing something wrong.',
-    autoAdvance: false
-  },
-  // CHOICE 2
-  {
-    type: 'choice',
-    choiceIndex: 1,
-    prompt: 'Haider is visibly distressed and stuttering badly. He\u2019s trying to explain but losing his words. What\u2019s your approach?',
+    scene: "You've calmed things down slightly. Ryan is standing with his arms crossed, looking away. Haider is trying to explain his frustration but is stuttering significantly — 'I-I-I j-just w-w-want to be r-r-respected.' Dianne rolls her eyes.",
+    q: "How do you respond to Haider?",
     options: [
-      {
-        label: 'A) Finish his sentence for him to help him along: \u201cYou mean Ryan makes you feel judged for your religious practice?\u201d',
-        outcome: 'amber',
-        feedback: 'You\u2019re trying to help, but finishing someone\u2019s sentence \u2014 even kindly \u2014 can feel disrespectful and may put words in his mouth that aren\u2019t quite right. Give him the space to find his own words.',
-        crits: ['\u26A0\uFE0F Criterion 5 (language barriers) \u2014 patience is the key, not rushing.']
-      },
-      {
-        label: 'B) Wait quietly and give him time. Make calm eye contact and nod to show you\u2019re listening.',
-        outcome: 'green',
-        feedback: 'Exactly right. Giving Haider time and showing through your body language that you\u2019re listening is one of the most important things your assessor is watching for. Don\u2019t rush this moment.',
-        crits: ['\u2705 Criterion 4 (non-verbal communication)', '\u2705 Criterion 5 (language barriers)']
-      },
-      {
-        label: 'C) Speak up a little to make sure he can hear you clearly: \u201cTake your time, Haider \u2014 we can hear you.\u201d',
-        outcome: 'red',
-        feedback: 'Raising your voice is not the right response to a language barrier or emotional distress \u2014 it can feel confrontational. Keep your voice calm and low, not louder.',
-        crits: ['\u274C Criterion 5 (language barriers) \u2014 never raise your voice.']
-      },
-      {
-        label: 'D) Move on to Ryan for now and come back to Haider when he\u2019s calmer.',
-        outcome: 'amber',
-        feedback: 'It\u2019s understandable to want to keep things moving, but stepping away from Haider when he\u2019s mid-sentence sends the message that his words don\u2019t matter as much. Stay with him.',
-        crits: ['\u26A0\uFE0F Criterion 3 (inclusive practices) \u2014 everyone needs to feel heard.']
-      }
+      { text: "Ask Haider to slow down and repeat himself more clearly so you can understand what he's saying.", type: "incorrect", feedback: "Asking someone to 'slow down and repeat themselves more clearly' can feel dismissive and humiliating, particularly for someone with EAL/D background or a stutter. This doesn't demonstrate sensitive handling of language barriers.", criteria: ["Criterion 5: Language barriers"] },
+      { text: "Wait patiently, nod to show you're listening, and once he's finished say: 'Thank you for explaining that, Haider. What I'm hearing is that you want to feel respected — is that right?'", type: "correct", feedback: "This is exactly the right approach. You waited without rushing him, used active listening, and checked your understanding by summarising back to him. This is a clear Satisfactory response for Criterion 5.", criteria: ["Criterion 5: Language barriers", "Criterion 1: Respectful communication"] },
+      { text: "Acknowledge Haider and turn to Dianne: 'Dianne, I noticed that eye roll. That's not helping. Let's keep this respectful for everyone.'", type: "neutral", feedback: "Addressing Dianne's behaviour is genuinely important — but doing it mid-conversation with Haider means you've shifted attention away from him at a vulnerable moment. Addressing Dianne separately is better. This shows good situational awareness but the timing could be improved.", criteria: ["Criterion 3: Inclusive work practices"] }
     ]
   },
-  // BEAT 8
   {
-    type: 'beat',
-    kind: 'narrator',
-    text: 'Ryan has been watching. He seems to be calming slightly but is still defensive.',
-    autoAdvance: true
-  },
-  {
-    type: 'beat',
-    kind: 'char',
-    char: 'ryan',
-    charLabel: 'Ryan',
-    text: 'I\u2019m just saying \u2014 the rest of us don\u2019t take time off during a shift. That\u2019s all.',
-    autoAdvance: false
-  },
-  // CHOICE 3
-  {
-    type: 'choice',
-    choiceIndex: 2,
-    prompt: 'Ryan is implying that Haider\u2019s prayer practice is taking time away from the team. How do you address this?',
+    scene: "Ryan says: 'I don't see why I have to change anything. He's the one who goes off to pray and leaves us shorthanded. That's not fair to the rest of us.'",
+    q: "How do you respond to Ryan's comment about Haider praying?",
     options: [
-      {
-        label: 'A) Acknowledge Ryan\u2019s concern while explaining the context: \u201cI hear you, Ryan. It can feel uneven when schedules are tight. Haider\u2019s prayer practice is part of his faith \u2014 it\u2019s also something the organisation is required to accommodate.\u201d',
-        outcome: 'green',
-        feedback: 'Well done. You\u2019ve acknowledged Ryan\u2019s perspective without dismissing it, and you\u2019ve introduced the legal/organisational context without being preachy. This shows cultural competence in action.',
-        crits: ['\u2705 Criterion 3 (inclusive practices)', '\u2705 Criterion 4 (verbal communication)', '\u2705 Criterion 6 (supervisor debrief prep \u2014 you\u2019ll need to raise this)']
-      },
-      {
-        label: 'B) Tell Ryan he needs to be more respectful of other religions.',
-        outcome: 'amber',
-        feedback: 'You\u2019re right that respect is needed, but this response sounds like a reprimand and puts Ryan on the defensive. It also doesn\u2019t acknowledge that he may have a genuine concern about workload distribution.',
-        crits: ['\u26A0\uFE0F Criterion 1 \u2014 tone matters as much as the words.']
-      },
-      {
-        label: 'C) Stay neutral: \u201cWe can talk about scheduling concerns another time. Right now I just want to make sure everyone is okay.\u201d',
-        outcome: 'green',
-        feedback: 'Good instinct \u2014 keeping focus on de-escalation rather than relitigating the scheduling debate is a solid professional move. You\u2019re not dismissing the concern, just deferring it appropriately.',
-        crits: ['\u2705 Criterion 2 (professional approach)', '\u2705 Criterion 3 (inclusive)']
-      },
-      {
-        label: 'D) Agree that it does seem unfair that Haider gets extra breaks.',
-        outcome: 'red',
-        feedback: 'This takes sides and shows a misunderstanding of the legal context. Religious practice accommodation is a right, not a favour. This would be a significant issue in the real assessment.',
-        crits: ['\u274C Criterion 2 (taking sides)', '\u274C Criterion 3 (inclusive practices)']
-      }
+      { text: "Tell Ryan that he's right — the rostering does seem unequal and you'll raise it with the supervisor.", type: "incorrect", feedback: "This takes Ryan's side and validates his bias. It dismisses Haider's religious rights. This would be Not Satisfactory — the assessor is specifically watching to see that you don't agree with or validate discriminatory statements.", criteria: ["Criterion 2: Professional approach", "Criterion 3: Inclusive work practices"] },
+      { text: "Acknowledge Ryan's frustration without agreeing: 'I hear you — it can feel frustrating when rosters seem uneven. That's worth raising with the supervisor. What I want to make sure is that everyone here feels valued, and that includes how we talk about each other's needs.'", type: "correct", feedback: "This is a Satisfactory response. You've acknowledged Ryan's feelings without taking his side, you've redirected without judging him, and you've gently held a boundary around how his comment landed. Well done.", criteria: ["Criterion 2: Professional approach", "Criterion 1: Respectful communication"] },
+      { text: "Ignore Ryan's comment and focus on asking Haider how he's feeling.", type: "neutral", feedback: "Ignoring Ryan's comment might keep the peace temporarily, but it leaves his bias unchallenged and could signal to Haider that his rights aren't being taken seriously. A gentle, non-confrontational acknowledgement and redirect is more effective.", criteria: ["Criterion 2: Professional approach"] }
     ]
   },
-  // BEAT 9
   {
-    type: 'beat',
-    kind: 'narrator',
-    text: 'The energy in the room has dropped. Ryan and Haider are no longer shouting. Dianne has gone quiet. You\u2019ve managed to de-escalate the situation. Now it\u2019s time to speak to your Supervisor.',
-    continueBtn: 'Head to the Supervisor \u2192'
-  },
-  // CHOICE 4
-  {
-    type: 'choice',
-    choiceIndex: 3,
-    prompt: 'You approach your Supervisor. They ask: \u201cWhat happened out there?\u201d How do you debrief?',
+    scene: "The situation is winding down. Ryan and Haider are no longer shouting. You've encouraged them to step back and take a break. Dianne has quietened down.",
+    q: "What do you do next?",
     options: [
-      {
-        label: 'A) \u201cRyan and Haider have been at each other for weeks. Today it blew up. Ryan\u2019s been making comments about Haider\u2019s religion and honestly I think Ryan started it.\u201d',
-        outcome: 'red',
-        feedback: 'This debrief takes sides and makes a judgement call. Your supervisor needs facts and context, not your opinion on who is at fault. Keep it neutral.',
-        crits: ['\u274C Criterion 6 (non-judgemental debrief)']
-      },
-      {
-        label: 'B) \u201cThere was a conflict between Ryan and Haider that escalated today. I intervened to de-escalate. I think it\u2019s worth knowing that Haider\u2019s prayer practice is a religious right \u2014 if the organisation is preventing him from practising it, there may be a compliance issue. Both of them are valuable to the team and I\u2019d suggest we look at some cultural awareness support.\u201d',
-        outcome: 'green',
-        feedback: 'This is an excellent debrief. You\u2019ve been factual and non-judgemental, you\u2019ve raised the legal issue appropriately, affirmed both colleagues\u2019 value, and suggested a constructive strategy. This hits every point your assessor needs to hear.',
-        crits: ['\u2705 Criterion 6 \u2014 all boxes ticked: non-judgemental, legal issue raised, both valued, strategy suggested.']
-      },
-      {
-        label: 'C) \u201cEverything is fine now, I sorted it out.\u201d',
-        outcome: 'red',
-        feedback: 'The supervisor needs to know what happened so they can support the team and assess any organisational risks. \u2018I sorted it\u2019 gives them nothing to work with and doesn\u2019t demonstrate professional judgement.',
-        crits: ['\u274C Criterion 6 \u2014 insufficient debrief.']
-      },
-      {
-        label: 'D) \u201cRyan and Haider had an argument. Dianne was involved too. I stepped in and calmed everyone down. I think they\u2019ll be fine.\u201d',
-        outcome: 'amber',
-        feedback: 'You\u2019ve covered the basics but missed the important elements \u2014 the cultural/religious dimension, the potential legal issue for the organisation, and a suggested strategy. A supervisor needs that context.',
-        crits: ['\u26A0\uFE0F Criterion 6 \u2014 debrief needs more depth.']
-      }
+      { text: "Consider the situation handled. There's no need to involve anyone else — you don't want to make a big deal of it.", type: "incorrect", feedback: "Not approaching the supervisor is a direct Not Satisfactory for Criterion 6. The supervisor debrief is a required part of the assessment. It also reflects poor professional practice — incidents like this should always be reported and documented.", criteria: ["Criterion 6: Supervisor debrief"] },
+      { text: "Approach the teacher (supervisor) and describe what happened — clearly, calmly, and without blaming either party.", type: "correct", feedback: "Yes — this is exactly right. Seeking supervisor support is a required criterion. Make sure when you debrief you describe it non-judgementally, mention the value of both staff members, raise the legal risk around Haider's prayer, and suggest at least one strategy.", criteria: ["Criterion 6: Supervisor debrief"] },
+      { text: "Ask Ryan and Haider to go and see the supervisor themselves — it's better if they explain it in their own words.", type: "neutral", feedback: "While encouraging staff to self-report can be good practice, the assessor needs to observe YOU approaching the supervisor and debriefing. Sending them alone without debriefing yourself means Criterion 6 is not demonstrated.", criteria: ["Criterion 6: Supervisor debrief"] }
+    ]
+  },
+  {
+    scene: "You're now speaking with the supervisor (teacher) about what happened. You've described the situation. The supervisor asks: 'Is there anything the organisation should be aware of in terms of our responsibilities?'",
+    q: "What do you tell the supervisor?",
+    options: [
+      { text: "Mention that Haider's prayer requirements are a personal choice and the organisation isn't really obligated to accommodate them.", type: "incorrect", feedback: "This is incorrect — and would be Not Satisfactory. Prayer is a protected religious right under anti-discrimination legislation. The employer has an obligation to accommodate it. This misses a key criterion requirement.", criteria: ["Criterion 6: Supervisor debrief"] },
+      { text: "Explain that if the organisation prevents Haider from practising his religion (e.g. restricting his prayer time), this could constitute a breach of anti-discrimination legislation. You'd recommend reviewing rostering and considering cultural competency training for the team.", type: "correct", feedback: "This is a fully Satisfactory response for Criterion 6. You've raised the legal risk clearly, connected it to Haider's rights, and suggested a practical strategy. This is exactly what the assessor is looking for in the supervisor debrief.", criteria: ["Criterion 6: Supervisor debrief", "Criterion 3: Inclusive work practices"] },
+      { text: "Tell the supervisor that both Ryan and Haider need to learn to get along and maybe they should have a team meeting.", type: "neutral", feedback: "Suggesting a team meeting is a reasonable strategy — but it's not enough on its own. You also need to raise the legal risk around Haider's prayer and acknowledge the value both employees bring. This is a partial response.", criteria: ["Criterion 6: Supervisor debrief"] }
     ]
   }
 ];
 
-var practiceStep = 0;
-var practiceActive = false;
-var TOTAL_PIPS = STEPS.length;
+let currentQ = 0;
+let score = 0;
+let answered = false;
 
-function practiceStart() {
-  practiceScores = [null, null, null, null];
-  practiceStep = 0;
-  practiceActive = true;
-
-  document.getElementById('practice-intro').style.display = 'none';
-  document.getElementById('practice-completion').classList.remove('active');
-  var stage = document.getElementById('practice-stage');
-  stage.classList.add('active');
-
-  // Build progress pips
-  var pipHtml = '';
-  for (var i = 0; i < TOTAL_PIPS; i++) {
-    pipHtml += '<div class="stage-pip" id="pip-' + i + '"></div>';
-  }
-  document.getElementById('stage-progress').innerHTML = pipHtml;
-
-  document.getElementById('stage-content').innerHTML = '';
-  practiceShowStep(0);
+function initPractice() {
+  currentQ = 0;
+  score = 0;
+  renderPractice();
 }
 
-function updatePips(currentStep) {
-  for (var i = 0; i < TOTAL_PIPS; i++) {
-    var pip = document.getElementById('pip-' + i);
-    if (!pip) continue;
-    pip.className = 'stage-pip';
-    if (i < currentStep) pip.classList.add('done');
-    else if (i === currentStep) pip.classList.add('active');
-  }
+function renderPractice() {
+  answered = false;
+  const data = practiceData[currentQ];
+  document.getElementById('practiceSceneLabel').textContent = `Situation ${currentQ + 1} of ${practiceData.length}`;
+  document.getElementById('practiceSceneText').textContent = data.scene;
+  document.getElementById('practiceQ').textContent = data.q;
+  document.getElementById('practiceProgressLabel').textContent = `Question ${currentQ + 1} of ${practiceData.length}`;
+  document.getElementById('practiceNextBtn').disabled = true;
+  document.getElementById('practiceFeedback').className = 'practice-feedback';
+  document.getElementById('practiceFeedback').innerHTML = '';
+
+  const optContainer = document.getElementById('practiceOptions');
+  optContainer.innerHTML = '';
+  data.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'practice-option';
+    btn.innerHTML = `<span class="opt-letter">${String.fromCharCode(65+i)}</span><span>${opt.text}</span>`;
+    btn.onclick = () => selectOption(i);
+    optContainer.appendChild(btn);
+  });
 }
 
-function practiceShowStep(stepIndex) {
-  if (stepIndex >= STEPS.length) {
-    practiceComplete();
-    return;
-  }
-  practiceStep = stepIndex;
-  updatePips(stepIndex);
-  var step = STEPS[stepIndex];
-  var content = document.getElementById('stage-content');
+function selectOption(idx) {
+  if (answered) return;
+  answered = true;
+  const data = practiceData[currentQ];
+  const opt  = data.options[idx];
+  const allBtns = document.querySelectorAll('.practice-option');
 
-  if (step.type === 'beat') {
-    var block = document.createElement('div');
-    block.className = 'beat-block';
-    block.id = 'beat-' + stepIndex;
-
-    if (step.kind === 'narrator') {
-      block.innerHTML = '<p class="beat-narrator">' + step.text + '</p>';
-      if (step.continueBtn) {
-        var btn = document.createElement('button');
-        btn.className = 'btn-continue visible';
-        btn.textContent = step.continueBtn;
-        btn.onclick = (function(si){ return function(){ practiceShowStep(si + 1); }; })(stepIndex);
-        block.appendChild(btn);
-      }
-    } else {
-      // char beat
-      block.innerHTML =
-        '<div class="beat-label ' + step.char + '">' + step.charLabel + '</div>' +
-        '<div class="beat-char">' +
-          '<div class="char-badge ' + step.char + '">' + step.charLabel.substring(0,2) + '</div>' +
-          '<div class="speech-bubble ' + step.char + '">' + step.text + '</div>' +
-        '</div>';
-    }
-
-    content.appendChild(block);
-    // Trigger fade-in
-    setTimeout(function() { block.classList.add('visible'); }, 50);
-
-    if (step.autoAdvance) {
-      setTimeout(function() { practiceShowStep(stepIndex + 1); }, 1200);
-    } else if (!step.continueBtn) {
-      // advance immediately to next (which should be a choice)
-      setTimeout(function() { practiceShowStep(stepIndex + 1); }, 600);
-    }
-
-    block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-  } else if (step.type === 'choice') {
-    var block2 = document.createElement('div');
-    block2.className = 'beat-block';
-    block2.id = 'choice-' + stepIndex;
-
-    var optHtml = '';
-    step.options.forEach(function(opt, idx) {
-      optHtml += '<button class="choice-btn" data-step="' + stepIndex + '" data-idx="' + idx + '" onclick="practiceChoose(' + stepIndex + ',' + idx + ')">' + opt.label + '</button>';
-    });
-
-    block2.innerHTML =
-      '<div class="choice-prompt">' +
-        '<div class="choice-prompt-label">Your turn</div>' +
-        '<div class="choice-prompt-q">' + step.prompt + '</div>' +
-        '<div class="choice-grid" id="choice-grid-' + stepIndex + '">' + optHtml + '</div>' +
-        '<div class="feedback-block" id="feedback-' + stepIndex + '">' +
-          '<div class="feedback-main" id="feedback-main-' + stepIndex + '"></div>' +
-          '<div class="crit-pills" id="crit-pills-' + stepIndex + '"></div>' +
-        '</div>' +
-        '<button class="btn-continue" id="continue-' + stepIndex + '" onclick="practiceShowStep(' + (stepIndex + 1) + ')">Continue the scene \u2192</button>' +
-      '</div>';
-
-    content.appendChild(block2);
-    setTimeout(function() { block2.classList.add('visible'); }, 50);
-    block2.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-}
-
-function practiceChoose(stepIndex, chosenIdx) {
-  var step = STEPS[stepIndex];
-  var chosen = step.options[chosenIdx];
-
-  // Record score
-  practiceScores[step.choiceIndex] = chosen.outcome;
-
-  // Disable all buttons and colour them
-  var grid = document.getElementById('choice-grid-' + stepIndex);
-  var btns = grid.querySelectorAll('.choice-btn');
-  btns.forEach(function(btn, idx) {
+  allBtns.forEach((btn, i) => {
     btn.disabled = true;
-    var opt = step.options[idx];
-    if (idx === chosenIdx) {
-      btn.classList.add('chosen-' + opt.outcome);
-    } else {
-      btn.classList.add('reveal-' + opt.outcome);
+    const t = data.options[i].type;
+    if (i === idx) {
+      btn.classList.add(t === 'correct' ? 'correct' : t === 'neutral' ? 'neutral' : 'incorrect');
     }
   });
 
-  // Show feedback
-  var fb = document.getElementById('feedback-' + stepIndex);
-  fb.classList.add('visible', chosen.outcome);
-  document.getElementById('feedback-main-' + stepIndex).textContent = chosen.feedback;
+  if (opt.type === 'correct') score++;
 
-  var pillsEl = document.getElementById('crit-pills-' + stepIndex);
-  chosen.crits.forEach(function(c) {
-    var pill = document.createElement('span');
-    pill.className = 'crit-pill';
-    pill.textContent = c;
-    pillsEl.appendChild(pill);
-  });
-
-  // Show continue
-  var continueBtn = document.getElementById('continue-' + stepIndex);
-  continueBtn.classList.add('visible');
-
-  // If this is the last choice, change continue label
-  if (step.choiceIndex === 3) {
-    continueBtn.textContent = 'See your results \u2192';
-    continueBtn.onclick = function() { practiceComplete(); };
-  }
+  const fb = document.getElementById('practiceFeedback');
+  const label = opt.type === 'correct' ? '✅ Satisfactory' : opt.type === 'neutral' ? '⚠️ Partially correct' : '❌ Not Satisfactory';
+  const cls   = opt.type === 'correct' ? 'correct' : opt.type === 'neutral' ? 'partial' : 'incorrect';
+  fb.innerHTML = `
+    <div class="feedback-label">${label}</div>
+    <div>${opt.feedback}</div>
+    <div style="margin-top:10px">${opt.criteria.map(c => `<span class="criteria-tag">${c}</span>`).join('')}</div>
+  `;
+  fb.className = `practice-feedback show ${cls}`;
+  document.getElementById('practiceNextBtn').disabled = false;
 }
 
-var CHOICE_LABELS = [
-  'How you stepped in',
-  'How you handled Haider',
-  'How you addressed the prayer issue',
-  'Your supervisor debrief'
-];
-
-function practiceComplete() {
-  document.getElementById('practice-stage').classList.remove('active');
-  var comp = document.getElementById('practice-completion');
-  comp.classList.add('active');
-
-  var greens = practiceScores.filter(function(s){ return s === 'green'; }).length;
-
-  // Score summary rows
-  var summaryEl = document.getElementById('score-summary');
-  summaryEl.innerHTML = '';
-  practiceScores.forEach(function(score, i) {
-    var dotClass = score || 'grey';
-    var row = document.createElement('div');
-    row.className = 'score-row';
-    row.innerHTML = '<div class="score-dot ' + dotClass + '"></div><span class="score-label">' + CHOICE_LABELS[i] + '</span>';
-    summaryEl.appendChild(row);
-  });
-
-  // Verdict
-  var verdictEl = document.getElementById('completion-verdict');
-  if (greens === 4) {
-    verdictEl.textContent = 'Strong performance \u2014 you\u2019ve shown the key professional judgements needed for a Satisfactory result. You\u2019re ready.';
-  } else if (greens >= 2) {
-    verdictEl.textContent = 'Good instincts in most areas. Review the feedback on the choices you missed, then run through it again.';
+function nextPractice() {
+  currentQ++;
+  if (currentQ >= practiceData.length) {
+    showScore();
   } else {
-    verdictEl.textContent = 'This is exactly what practice is for. Read through the feedback carefully, revisit the assessment criteria, and give it another go.';
+    renderPractice();
   }
-
-  // Best score localStorage
-  var BEST_KEY = 'roleplay_practice_bestscore';
-  var stored = null;
-  try { stored = localStorage.getItem(BEST_KEY); } catch(e) {}
-  var best = stored !== null ? parseInt(stored, 10) : 0;
-  if (greens > best) {
-    best = greens;
-    try { localStorage.setItem(BEST_KEY, best); } catch(e) {}
-  }
-
-  document.getElementById('completion-bestscore').textContent = 'Your best score: ' + best + '/4';
-
-  // Update badge on intro (for next time)
-  var badge = document.getElementById('practice-bestscore-badge');
-  badge.textContent = 'Best score: ' + best + '/4';
-  badge.style.display = 'inline-block';
-
-  comp.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function practiceLoadBestScore() {
-  try {
-    var stored = localStorage.getItem('roleplay_practice_bestscore');
-    if (stored !== null) {
-      var badge = document.getElementById('practice-bestscore-badge');
-      badge.textContent = 'Best score: ' + stored + '/4';
-      badge.style.display = 'inline-block';
-    }
-  } catch(e) {}
+function showScore() {
+  document.getElementById('practicePanel').classList.add('hide');
+  const scoreBox = document.getElementById('practiceScore');
+  scoreBox.classList.add('show');
+  const pct = Math.round((score / practiceData.length) * 100);
+  const circle = document.getElementById('scoreCircle');
+  const title  = document.getElementById('scoreTitle');
+  const msg    = document.getElementById('scoreMsg');
+  if (pct >= 80) {
+    circle.style.background = 'rgba(22,163,74,.25)';
+    circle.style.border = '4px solid #4ADE80';
+    circle.textContent = `${score}/${practiceData.length}`;
+    title.textContent = 'You\'re ready. 🎉';
+    msg.textContent = `You identified the Satisfactory response in most situations. Walk into your role play with confidence — you know what good practice looks like.`;
+  } else if (pct >= 60) {
+    circle.style.background = 'rgba(234,179,8,.2)';
+    circle.style.border = '4px solid #FDE047';
+    circle.textContent = `${score}/${practiceData.length}`;
+    title.textContent = 'Getting there — try once more.';
+    msg.textContent = 'You\'re on the right track. Review the feedback above and try again — focus on the criteria you missed.';
+  } else {
+    circle.style.background = 'rgba(220,38,38,.2)';
+    circle.style.border = '4px solid #F87171';
+    circle.textContent = `${score}/${practiceData.length}`;
+    title.textContent = 'Keep practising before the real thing.';
+    msg.textContent = 'Read through the Criteria section and the Scene Breakdown again, then give this another go. You\'ve got this.';
+  }
 }
 
-/* ── Init ────────────────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', function() {
-  loadAnswers();
-  practiceLoadBestScore();
+function resetPractice() {
+  document.getElementById('practiceScore').classList.remove('show');
+  document.getElementById('practicePanel').classList.remove('hide');
+  initPractice();
+}
+
+// ── INIT ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadAllQ();
+  initPractice();
 });
 </script>
 </body>
