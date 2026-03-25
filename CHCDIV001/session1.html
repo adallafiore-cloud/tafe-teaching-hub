@@ -8,1614 +8,1975 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ─── CSS Custom Properties ─────────────────────────────────── */
-  :root {
-    --green:   #1D3D2F;
-    --terra:   #B85042;
-    --sage:    #84B59F;
-    --cream:   #F5F2ED;
-    --card:    #FFFFFF;
-    --text:    #2C2C2C;
-    --muted:   #6B7280;
-    --border:  #E2DDD6;
-    --shadow:  0 2px 12px rgba(29,61,47,0.09);
-    --radius:  12px;
-    --trans:   0.22s ease;
-  }
+/* ── CSS Custom Properties ──────────────────────────────────────── */
+:root {
+  --dark:   #1D3D2F;
+  --terra:  #B85042;
+  --sage:   #84B59F;
+  --cream:  #F5F2ED;
+  --white:  #FFFFFF;
+  --sand:   #E7E8D1;
+  --text:   #2C2C2C;
+  --muted:  #5A5A5A;
+  --border: #DDD9D2;
+  --shadow: 0 2px 14px rgba(29,61,47,0.10);
+  --radius: 8px;
+  --trans:  0.2s ease;
+}
 
-  /* ─── Reset & Base ──────────────────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── Reset ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: var(--cream); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; }
+h1,h2,h3,h4 { font-family: 'Lora', serif; line-height: 1.3; color: var(--dark); }
+a { color: var(--terra); text-decoration: none; }
+a:hover { text-decoration: underline; }
+p { margin-bottom: .85em; }
+p:last-child { margin-bottom: 0; }
+ul,ol { padding-left: 1.4em; margin-bottom: .85em; }
 
-  html { scroll-behavior: smooth; font-size: 16px; }
+/* ── Layout ──────────────────────────────────────────────────────── */
+.container { max-width: 900px; margin: 0 auto; padding: 0 1.25rem; }
+section { padding: 2.5rem 0; }
 
-  body {
-    background: var(--cream);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.7;
-  }
+/* ── Sticky Nav ──────────────────────────────────────────────────── */
+#top-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--dark); color: var(--white);
+  padding: .75rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+#top-nav .container {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+#top-nav .nav-title { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--white); }
+#top-nav .nav-sub { font-size: .78rem; color: var(--sage); margin-left: .5rem; }
+.mode-toggle {
+  background: var(--terra); color: var(--white);
+  border: none; border-radius: var(--radius);
+  padding: .45rem 1rem; font-size: .82rem; font-weight: 600;
+  cursor: pointer; transition: background var(--trans), transform var(--trans);
+  white-space: nowrap;
+}
+.mode-toggle:hover { background: #9a3d31; transform: translateY(-1px); }
 
-  h1, h2, h3, h4 {
-    font-family: 'Lora', serif;
-    line-height: 1.3;
-    color: var(--green);
-  }
+/* ── Hero ────────────────────────────────────────────────────────── */
+#hero {
+  background: var(--dark);
+  border-left: 8px solid var(--terra);
+  padding: 3rem 0 2.5rem;
+  position: relative; overflow: hidden;
+}
+#hero::after {
+  content: ''; position: absolute; right: -60px; top: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: rgba(132,181,159,.08);
+}
+.hero-unit { font-size: .78rem; font-weight: 600; color: var(--sage); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .5rem; }
+.hero-title { font-family: 'Lora', serif; font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; color: var(--white); margin-bottom: .5rem; }
+.hero-sub { color: rgba(245,242,237,.75); font-size: 1rem; margin-bottom: 1.25rem; }
+.hero-pills { display: flex; gap: .6rem; flex-wrap: wrap; }
+.pill {
+  background: rgba(255,255,255,.12); color: var(--white);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 999px; padding: .3rem .85rem;
+  font-size: .78rem; font-weight: 500;
+}
+.pill.sage { background: rgba(132,181,159,.25); border-color: var(--sage); color: var(--sage); }
 
-  a { color: var(--terra); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+/* Teacher-mode progress bar */
+#day-progress-wrap { margin-top: 1.5rem; display: none; }
+.teacher-mode #day-progress-wrap { display: block; }
+.day-progress-label { font-size: .75rem; color: rgba(245,242,237,.6); margin-bottom: .35rem; }
+.day-progress-bar-bg { background: rgba(255,255,255,.15); border-radius: 4px; height: 8px; }
+.day-progress-bar-fill { background: var(--sage); height: 8px; border-radius: 4px; transition: width 1s linear; }
 
-  p { margin-bottom: 0.85em; }
-  p:last-child { margin-bottom: 0; }
+/* ── Section headers ─────────────────────────────────────────────── */
+.section-header {
+  display: flex; align-items: center; gap: .75rem;
+  margin-bottom: 1.5rem;
+}
+.section-header .time-badge {
+  background: var(--dark); color: var(--white);
+  font-size: .72rem; font-weight: 700; letter-spacing: .06em;
+  padding: .3rem .7rem; border-radius: var(--radius);
+  white-space: nowrap;
+}
+.section-header h2 { font-size: 1.35rem; color: var(--dark); flex: 1; }
+.section-header .complete-check {
+  width: 24px; height: 24px;
+  background: #27ae60; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: .8rem;
+  opacity: 0; transition: opacity .4s ease;
+  flex-shrink: 0;
+}
+.section-header .complete-check.visible { opacity: 1; }
 
-  ul, ol { padding-left: 1.4em; margin-bottom: 0.85em; }
-  li { margin-bottom: 0.3em; }
+/* ── Timeline ────────────────────────────────────────────────────── */
+#timeline { padding: 2rem 0; }
+.timeline-wrap {
+  display: flex; align-items: flex-start;
+  gap: 0; overflow-x: auto; padding-bottom: 1rem;
+}
+.tl-step {
+  display: flex; flex-direction: column; align-items: center;
+  flex: 1; min-width: 70px; cursor: pointer;
+  transition: transform var(--trans);
+  position: relative;
+}
+.tl-step:hover { transform: translateY(-3px); }
+.tl-step::after {
+  content: '';
+  position: absolute; top: 16px; left: 50%; right: -50%;
+  height: 2px; background: var(--border); z-index: 0;
+}
+.tl-step:last-child::after { display: none; }
+.tl-dot {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--white); border: 3px solid var(--sage);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700; color: var(--dark);
+  z-index: 1; position: relative;
+  transition: background var(--trans), border-color var(--trans);
+}
+.tl-step.break .tl-dot { border-color: var(--terra); font-size: .95rem; }
+.tl-step:hover .tl-dot { background: var(--sage); color: var(--white); }
+.tl-label { font-size: .65rem; color: var(--muted); margin-top: .4rem; text-align: center; line-height: 1.3; }
+.tl-time { font-size: .62rem; font-weight: 600; color: var(--dark); }
 
-  strong { color: var(--green); font-weight: 600; }
+/* ── Cards ───────────────────────────────────────────────────────── */
+.card {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.card.sand { background: var(--sand); }
+.card.dark { background: var(--dark); color: var(--white); }
+.card.dark h3 { color: var(--white); }
+.card.terra { background: var(--terra); color: var(--white); }
+.card.terra h3 { color: var(--white); }
+.card.sage { background: var(--sage); }
+.card.sage h3 { color: var(--dark); }
+.card-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .75rem; }
+.card-header h3 { font-size: 1.1rem; }
 
-  em { color: var(--terra); font-style: italic; }
+/* Break/lunch cards */
+.break-card {
+  background: var(--sand); border-radius: var(--radius);
+  padding: 2rem; text-align: center;
+  font-size: 1.4rem; font-family: 'Lora', serif;
+  color: var(--muted); box-shadow: var(--shadow);
+}
 
-  /* ─── Progress Bar ──────────────────────────────────────────── */
-  #progress-bar-wrap {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: rgba(29,61,47,0.12);
-    z-index: 1000;
-  }
-  #progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--terra), var(--sage));
-    width: 0%;
-    transition: width 1s linear;
-  }
-  body:not(.teacher-mode) #progress-bar-wrap { display: none; }
+/* ── Tables ──────────────────────────────────────────────────────── */
+.styled-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .9rem; }
+.styled-table th { background: var(--dark); color: var(--white); padding: .6rem .85rem; text-align: left; font-weight: 600; }
+.styled-table td { padding: .55rem .85rem; border-bottom: 1px solid var(--border); }
+.styled-table tr:nth-child(even) td { background: var(--sand); }
+.styled-table tr:last-child td { border-bottom: none; }
 
-  /* ─── Sticky Nav ─────────────────────────────────────────────── */
-  #top-nav {
-    position: sticky;
-    top: 0;
-    z-index: 900;
-    background: var(--green);
-    color: #fff;
-    padding: 0 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 56px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  }
-  #top-nav .nav-left {
-    display: flex;
-    align-items: baseline;
-    gap: 0.7rem;
-    min-width: 0;
-    flex: 1;
-  }
-  #top-nav .unit-code {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--sage);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  #top-nav .session-title {
-    font-family: 'Lora', serif;
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.9);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  #nav-links {
-    display: flex;
-    align-items: center;
-    gap: 0.2rem;
-    margin: 0 0.5rem;
-    flex-shrink: 0;
-  }
-  #nav-links a {
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.75);
-    padding: 0.3rem 0.5rem;
-    border-radius: 6px;
-    transition: background var(--trans), color var(--trans);
-    white-space: nowrap;
-    letter-spacing: 0.02em;
-  }
-  #nav-links a:hover {
-    background: rgba(255,255,255,0.12);
-    color: #fff;
-    text-decoration: none;
-  }
-  @media (max-width: 768px) { #nav-links { display: none; } }
+/* ── Flip Cards ──────────────────────────────────────────────────── */
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; margin: 1.25rem 0;
+}
+.flip-card { perspective: 900px; height: 160px; cursor: pointer; }
+.flip-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1rem; text-align: center;
+}
+.flip-front {
+  background: var(--dark); color: var(--white);
+}
+.flip-front .flip-icon { font-size: 2rem; margin-bottom: .4rem; }
+.flip-front .flip-name { font-family: 'Lora', serif; font-size: .95rem; font-weight: 600; }
+.flip-back {
+  background: var(--terra); color: var(--white);
+  transform: rotateY(180deg);
+}
+.flip-back p { font-size: .82rem; line-height: 1.5; }
+.flip-celebration {
+  display: none; text-align: center; padding: 1rem;
+  background: #e8f5e9; border-radius: var(--radius);
+  color: #27ae60; font-weight: 600; font-size: 1rem;
+  margin-top: .75rem;
+}
+.flip-celebration.show { display: block; }
 
-  /* ─── View Toggle Button ─────────────────────────────────────── */
-  #view-toggle {
-    position: fixed;
-    top: 66px;
-    right: 1rem;
-    z-index: 850;
-    background: var(--card);
-    border: 2px solid var(--green);
-    color: var(--green);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.45rem 0.85rem;
-    border-radius: 999px;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    transition: background var(--trans), color var(--trans);
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  #view-toggle:hover {
-    background: var(--green);
-    color: #fff;
-  }
+/* ── Match Game ──────────────────────────────────────────────────── */
+.match-game { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+.match-col { display: flex; flex-direction: column; gap: .5rem; }
+.match-item {
+  padding: .65rem 1rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  background: var(--white);
+  cursor: pointer;
+  font-size: .88rem;
+  transition: all var(--trans);
+  user-select: none;
+}
+.match-item:hover { border-color: var(--sage); background: rgba(132,181,159,.08); }
+.match-item.selected { border-color: var(--terra); background: rgba(184,80,66,.1); }
+.match-item.correct { border-color: #27ae60; background: rgba(39,174,96,.1); color: #1a7a3f; cursor: default; }
+.match-item.wrong { animation: shake .4s ease; border-color: var(--terra); }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.match-score { text-align: center; font-weight: 700; color: var(--dark); margin-top: .75rem; font-size: 1rem; }
 
-  /* ─── Back to Top ────────────────────────────────────────────── */
-  #back-top {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 800;
-    background: var(--green);
-    color: #fff;
-    border: none;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(29,61,47,0.3);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--trans), transform var(--trans);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  #back-top.visible { opacity: 1; pointer-events: auto; }
-  #back-top:hover { transform: translateY(-2px); }
+/* ── Scenario sorter ─────────────────────────────────────────────── */
+.scenario-card { margin-bottom: 1rem; }
+.scenario-text {
+  background: var(--sand); border-radius: var(--radius) var(--radius) 0 0;
+  padding: 1rem 1.25rem; font-style: italic; font-size: .92rem;
+}
+.scenario-btns {
+  display: flex; gap: .5rem; flex-wrap: wrap;
+  padding: .75rem 1.25rem;
+  background: var(--white); border-radius: 0 0 var(--radius) var(--radius);
+  border: 1px solid var(--border); border-top: none;
+}
+.scenario-btn {
+  padding: .4rem .9rem; border-radius: 999px;
+  border: 2px solid var(--border); background: var(--white);
+  font-size: .82rem; font-weight: 600; cursor: pointer;
+  transition: all var(--trans);
+}
+.scenario-btn:hover { border-color: var(--sage); background: rgba(132,181,159,.1); }
+.scenario-btn.correct-ans { border-color: #27ae60; background: rgba(39,174,96,.1); color: #1a7a3f; }
+.scenario-btn.wrong-ans { border-color: var(--terra); background: rgba(184,80,66,.08); color: var(--terra); animation: shake .35s ease; }
+.scenario-feedback {
+  font-size: .82rem; padding: .5rem 1.25rem .75rem;
+  background: var(--white); border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  display: none;
+}
+.scenario-feedback.show { display: block; }
+.scenario-feedback.good { color: #1a7a3f; }
+.scenario-feedback.bad { color: var(--terra); }
 
-  /* ─── Page Layout ────────────────────────────────────────────── */
-  #top-anchor { position: absolute; top: 0; }
+/* ── Iceberg SVG section ─────────────────────────────────────────── */
+.iceberg-wrap { position: relative; max-width: 520px; margin: 0 auto 1.5rem; }
+.iceberg-svg { width: 100%; height: auto; }
+.iceberg-chips-above,
+.iceberg-chips-below {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  justify-content: center; padding: .5rem 1rem;
+}
+.iceberg-chip {
+  padding: .3rem .8rem; border-radius: 999px;
+  font-size: .8rem; font-weight: 500; cursor: pointer;
+  transition: all var(--trans); position: relative;
+}
+.iceberg-chip.above {
+  background: rgba(132,181,159,.2); border: 1.5px solid var(--sage);
+  color: var(--dark);
+}
+.iceberg-chip.below {
+  background: rgba(29,61,47,.15); border: 1.5px solid var(--dark);
+  color: var(--dark);
+}
+.iceberg-chip:hover { transform: scale(1.06); }
+.iceberg-chip.active.above { background: var(--sage); color: var(--white); }
+.iceberg-chip.active.below { background: var(--dark); color: var(--white); }
+.iceberg-tooltip {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark); color: var(--white);
+  font-size: .75rem; padding: .4rem .75rem; border-radius: 6px;
+  white-space: nowrap; z-index: 10; pointer-events: none;
+  max-width: 200px; white-space: normal; text-align: center;
+  line-height: 1.4;
+}
+.iceberg-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--dark);
+}
+.iceberg-chip.active .iceberg-tooltip { display: block; }
 
-  .page-header {
-    background: var(--green);
-    color: #fff;
-    padding: 3rem 1.5rem 2.5rem;
-    text-align: center;
-  }
-  .page-header .session-badge {
-    display: inline-block;
-    background: var(--terra);
-    color: #fff;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.85rem;
-    border-radius: 999px;
-    margin-bottom: 1rem;
-  }
-  .page-header h1 {
-    color: #fff;
-    font-size: clamp(1.5rem, 4vw, 2.4rem);
-    margin-bottom: 0.5rem;
-  }
-  .page-header .subtitle {
-    color: var(--sage);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 400;
-  }
-  .page-header .meta-row {
-    margin-top: 1.2rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .meta-chip {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.88);
-    font-size: 0.78rem;
-    font-weight: 500;
-    padding: 0.3rem 0.85rem;
-    border-radius: 6px;
-    font-family: 'Inter', sans-serif;
-  }
+/* ── Iceberg Sort ────────────────────────────────────────────────── */
+.sort-card-wrap { text-align: center; }
+.sort-card-display {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 2rem;
+  font-size: 1.05rem; font-style: italic;
+  margin-bottom: 1rem; min-height: 80px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sort-btns { display: flex; gap: .75rem; justify-content: center; margin-bottom: 1rem; }
+.sort-btn {
+  padding: .6rem 1.4rem; border-radius: var(--radius);
+  border: none; font-size: .9rem; font-weight: 600; cursor: pointer;
+  transition: all var(--trans);
+}
+.sort-btn.above { background: var(--sage); color: var(--white); }
+.sort-btn.below { background: var(--dark); color: var(--white); }
+.sort-btn:hover { opacity: .85; transform: translateY(-1px); }
+.sort-feedback { min-height: 2.5rem; text-align: center; font-size: .9rem; font-weight: 500; }
+.sort-feedback.good { color: #27ae60; }
+.sort-feedback.bad { color: var(--terra); }
+.sort-progress { font-size: .82rem; color: var(--muted); text-align: center; margin-bottom: .75rem; }
+.sort-result { display: none; text-align: center; padding: 1.25rem; }
+.sort-result.show { display: block; }
 
-  main {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 2rem 1rem 5rem;
-  }
+/* ── Identity Wheel ──────────────────────────────────────────────── */
+.wheel-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: .6rem; margin: 1.25rem 0;
+}
+.wheel-seg {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: .9rem .75rem;
+  text-align: center; cursor: pointer;
+  transition: all var(--trans);
+  border: 2px solid transparent;
+  font-size: .82rem; font-weight: 500;
+}
+.wheel-seg .seg-icon { font-size: 1.5rem; display: block; margin-bottom: .3rem; }
+.wheel-seg:hover { border-color: var(--sage); transform: translateY(-2px); }
+.wheel-seg.active { border-color: var(--terra); background: rgba(184,80,66,.05); }
+.wheel-seg.saved { border-color: #27ae60; }
+.wheel-input-panel { display: none; }
+.wheel-input-panel.open { display: block; }
+.wheel-input-panel { background: var(--sand); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
+.wheel-input-panel label { font-weight: 600; font-size: .9rem; display: block; margin-bottom: .5rem; }
+.wheel-input-panel textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: 6px;
+  padding: .6rem .8rem; font-family: 'Inter', sans-serif; font-size: .88rem;
+  resize: vertical; min-height: 70px;
+  background: var(--white);
+}
+.wheel-save-btn {
+  margin-top: .6rem; background: var(--dark); color: var(--white);
+  border: none; padding: .5rem 1.2rem; border-radius: var(--radius);
+  font-weight: 600; cursor: pointer; font-size: .85rem;
+  transition: background var(--trans);
+}
+.wheel-save-btn:hover { background: #2a5840; }
 
-  /* ─── Session at a Glance ────────────────────────────────────── */
-  .glance-section {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    border-left: 5px solid var(--sage);
-  }
-  .glance-section h2 {
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    margin-bottom: 1rem;
-    color: var(--green);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+/* ── Reflection areas ────────────────────────────────────────────── */
+.reflection-block { margin-bottom: 1rem; }
+.reflection-block label {
+  display: block; font-weight: 600; font-size: .9rem;
+  margin-bottom: .4rem; color: var(--dark);
+}
+.reflection-block textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: .7rem .9rem; font-family: 'Inter', sans-serif; font-size: .88rem;
+  line-height: 1.6; resize: vertical; min-height: 80px;
+  background: var(--white); transition: border-color var(--trans);
+}
+.reflection-block textarea:focus { outline: none; border-color: var(--sage); }
 
-  /* ─── Tables ─────────────────────────────────────────────────── */
-  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
-  }
-  th {
-    background: var(--green);
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 0.78rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 0.6rem 0.85rem;
-    text-align: left;
-  }
-  td {
-    padding: 0.65rem 0.85rem;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) td { background: rgba(132,181,159,0.07); }
+/* ── AT Badge ────────────────────────────────────────────────────── */
+.at-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: rgba(132,181,159,.2); border: 1.5px solid var(--sage);
+  color: var(--dark); border-radius: 999px;
+  padding: .3rem .85rem; font-size: .78rem; font-weight: 600;
+  margin: .5rem 0;
+}
 
-  /* ─── Resource Checklist ─────────────────────────────────────── */
-  .resource-list { list-style: none; padding: 0; }
-  .resource-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 0;
-    transition: opacity var(--trans);
-  }
-  .resource-list li:last-child { border-bottom: none; }
-  .resource-list input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--green);
-    cursor: pointer;
-    flex-shrink: 0;
-    margin-top: 0.15rem;
-  }
-  .resource-list label {
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: color var(--trans);
-    flex: 1;
-  }
-  .resource-list li.checked label {
-    text-decoration: line-through;
-    color: var(--muted);
-  }
-  .resource-copies {
-    font-size: 0.78rem;
-    color: var(--muted);
-    white-space: nowrap;
-    font-weight: 500;
-  }
+/* ── Bias quiz / scenario ────────────────────────────────────────── */
+.bias-scenario { margin-bottom: 1.25rem; }
+.bias-q { background: var(--sand); padding: 1rem 1.25rem; border-radius: var(--radius) var(--radius) 0 0; font-size: .92rem; font-style: italic; }
+.bias-opts {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  padding: .75rem 1.25rem; background: var(--white);
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+.bias-opt {
+  padding: .38rem .85rem; border-radius: 999px;
+  border: 2px solid var(--border); background: var(--white);
+  font-size: .82rem; cursor: pointer; font-weight: 500;
+  transition: all var(--trans);
+}
+.bias-opt:hover { border-color: var(--sage); }
+.bias-opt.correct { border-color: #27ae60; background: rgba(39,174,96,.1); color: #1a7a3f; }
+.bias-opt.wrong { border-color: var(--terra); background: rgba(184,80,66,.08); color: var(--terra); animation: shake .35s ease; }
+.bias-expl {
+  display: none; font-size: .82rem; padding: .5rem 1.25rem .75rem;
+  background: var(--white); border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+.bias-expl.show { display: block; }
 
-  /* ─── Video Section ──────────────────────────────────────────── */
-  .video-wrap {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    border-radius: 10px;
-    margin: 1rem 0;
-    background: #000;
-  }
-  .video-wrap iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: none;
-    border-radius: 10px;
-  }
+/* ── Video ───────────────────────────────────────────────────────── */
+.video-wrap {
+  position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  margin: 1rem 0;
+}
+.video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-caption { text-align: center; font-size: .82rem; color: var(--muted); margin-top: .5rem; }
 
-  /* ─── Collapsible Blocks ─────────────────────────────────────── */
-  .time-block {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    margin-bottom: 1.25rem;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-  .block-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.1rem 1.25rem;
-    cursor: pointer;
-    background: var(--card);
-    border: none;
-    width: 100%;
-    text-align: left;
-    gap: 0.75rem;
-    transition: background var(--trans);
-    -webkit-tap-highlight-color: transparent;
-  }
-  .block-header:hover { background: rgba(132,181,159,0.1); }
-  .block-header-left {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    min-width: 0;
-    flex: 1;
-  }
-  .time-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--terra);
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .block-title {
-    font-family: 'Lora', serif;
-    font-size: 1rem;
-    color: var(--green);
-    font-weight: 600;
-    line-height: 1.3;
-    min-width: 0;
-  }
-  .block-header-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-  .chevron {
-    width: 20px;
-    height: 20px;
-    color: var(--muted);
-    transition: transform var(--trans);
-    flex-shrink: 0;
-  }
-  .time-block.open .chevron { transform: rotate(180deg); }
+/* ── Knowledge Check Quiz ────────────────────────────────────────── */
+.quiz-wrap { }
+.quiz-q-display { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; margin-bottom: .75rem; }
+.quiz-q-num { font-size: .75rem; font-weight: 700; color: var(--muted); margin-bottom: .5rem; letter-spacing: .05em; }
+.quiz-q-text { font-size: 1rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+.quiz-options { display: flex; flex-direction: column; gap: .5rem; }
+.quiz-opt {
+  padding: .65rem 1rem; border-radius: var(--radius);
+  border: 2px solid var(--border); background: var(--white);
+  cursor: pointer; font-size: .88rem; text-align: left;
+  transition: all var(--trans);
+}
+.quiz-opt:hover { border-color: var(--sage); background: rgba(132,181,159,.07); }
+.quiz-opt.correct { border-color: #27ae60; background: rgba(39,174,96,.1); color: #1a7a3f; }
+.quiz-opt.wrong { border-color: var(--terra); background: rgba(184,80,66,.08); color: var(--terra); animation: shake .35s ease; }
+.quiz-feedback { min-height: 1.8rem; font-size: .88rem; font-weight: 600; margin-bottom: .5rem; }
+.quiz-feedback.good { color: #27ae60; }
+.quiz-feedback.bad { color: var(--terra); }
+.quiz-next-btn {
+  background: var(--dark); color: var(--white); border: none;
+  padding: .55rem 1.4rem; border-radius: var(--radius);
+  font-weight: 600; cursor: pointer; font-size: .88rem;
+  transition: background var(--trans); display: none;
+}
+.quiz-next-btn.show { display: inline-block; }
+.quiz-next-btn:hover { background: #2a5840; }
+.quiz-score-display {
+  display: none; text-align: center; padding: 2rem;
+  background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.quiz-score-display.show { display: block; }
+.quiz-score-num { font-size: 3rem; font-weight: 700; color: var(--dark); font-family: 'Lora', serif; }
+.quiz-score-msg { font-size: 1rem; color: var(--muted); margin-top: .5rem; }
+.quiz-reset { margin-top: 1rem; background: var(--terra); color: var(--white); border: none; padding: .5rem 1.2rem; border-radius: var(--radius); cursor: pointer; font-weight: 600; transition: background var(--trans); }
+.quiz-reset:hover { background: #9a3d31; }
 
-  .block-body {
-    display: none;
-    padding: 0 1.5rem 1.5rem;
-    border-top: 1px solid var(--border);
-    animation: fadeIn 0.18s ease;
-  }
-  .time-block.open .block-body { display: block; }
+/* ── Exit Ticket ─────────────────────────────────────────────────── */
+.exit-ticket textarea { min-height: 65px; }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+/* ── Assessment expandable cards ─────────────────────────────────── */
+.at-expand { margin-bottom: .75rem; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.at-expand-header {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--dark); color: var(--white); padding: 1rem 1.25rem; cursor: pointer;
+  transition: background var(--trans);
+}
+.at-expand-header:hover { background: #2a5840; }
+.at-expand-header h3 { font-family: 'Lora', serif; font-size: .98rem; color: var(--white); }
+.at-expand-chevron { font-size: 1.2rem; transition: transform var(--trans); }
+.at-expand.open .at-expand-chevron { transform: rotate(180deg); }
+.at-expand-body { display: none; padding: 1.25rem; background: var(--white); }
+.at-expand.open .at-expand-body { display: block; }
 
-  /* Break / Lunch blocks */
-  .time-block.break-block .block-header { background: rgba(132,181,159,0.15); }
-  .time-block.break-block .block-title { color: var(--muted); font-style: italic; }
+/* ── End of Day Summary ──────────────────────────────────────────── */
+.summary-box {
+  background: var(--dark); color: var(--white);
+  border-radius: var(--radius); padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+.summary-box h3 { color: var(--white); margin-bottom: .75rem; }
+.summary-text { font-size: .88rem; line-height: 1.75; color: rgba(245,242,237,.88); white-space: pre-wrap; }
+.copy-btn {
+  margin-top: 1.25rem; background: var(--terra); color: var(--white);
+  border: none; padding: .6rem 1.4rem; border-radius: var(--radius);
+  font-weight: 700; cursor: pointer; font-size: .88rem;
+  transition: background var(--trans);
+}
+.copy-btn:hover { background: #9a3d31; }
+.copy-btn.copied { background: #27ae60; }
 
-  /* ─── AT Badges ──────────────────────────────────────────────── */
-  .at-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-  }
-  .at-badge {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.05em;
-    padding: 0.2rem 0.55rem;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: transform var(--trans), box-shadow var(--trans);
-    white-space: nowrap;
-    border: none;
-    background: none;
-  }
-  .at-badge:hover { transform: scale(1.08); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-  .at-badge.at1 { background: #FEF3C7; color: #92400E; }
-  .at-badge.at2 { background: #DBEAFE; color: #1E40AF; }
-  .at-badge.at3 { background: #FCE7F3; color: #9D174D; }
-  .at-badge.at4 { background: #D1FAE5; color: #065F46; }
+/* ── Teacher-only elements ───────────────────────────────────────── */
+.teacher-only { display: none; }
+.teacher-mode .teacher-only { display: block; }
+.teacher-note {
+  background: rgba(184,80,66,.07); border-left: 4px solid var(--terra);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1rem 1.25rem; margin: .75rem 0;
+  font-size: .88rem;
+}
+.teacher-note strong { color: var(--terra); }
 
-  /* ─── Section Headings inside blocks ────────────────────────── */
-  .section-heading {
-    font-family: 'Lora', serif;
-    font-size: 1.05rem;
-    color: var(--green);
-    font-weight: 600;
-    margin: 1.4rem 0 0.6rem;
-    padding-bottom: 0.3rem;
-    border-bottom: 2px solid var(--sage);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .section-heading:first-child { margin-top: 1rem; }
+/* ── Three concept cards ─────────────────────────────────────────── */
+.concept-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
+.concept-card { border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.concept-card-header { padding: .85rem 1.1rem; }
+.concept-card-header.awareness { background: var(--dark); }
+.concept-card-header.competence { background: var(--terra); }
+.concept-card-header.safety { background: #2e7d61; }
+.concept-card-header h3 { color: var(--white); font-size: .95rem; margin-bottom: .2rem; }
+.concept-card-header .concept-sub { color: rgba(255,255,255,.7); font-size: .75rem; }
+.concept-card-body { padding: 1rem 1.1rem; background: var(--white); }
+.concept-card-body p { font-size: .84rem; }
 
-  .sub-heading {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--terra);
-    margin: 1rem 0 0.4rem;
-  }
+/* ── AT Priority cards ───────────────────────────────────────────── */
+.at-priority-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.at-priority { border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.at-priority-head { padding: .75rem 1rem; }
+.at-priority-head h3 { color: var(--white); font-size: .95rem; }
+.at-priority-head.at4 { background: var(--terra); }
+.at-priority-head.at1 { background: var(--dark); }
+.at-priority-head.at2 { background: #2e7d61; }
+.at-priority-body { padding: .9rem 1rem; background: var(--white); font-size: .85rem; }
 
-  /* ─── Teacher-only blocks ────────────────────────────────────── */
-  .teacher-only {
-    background: rgba(184,80,66,0.06);
-    border-left: 4px solid var(--terra);
-    border-radius: 0 8px 8px 0;
-    padding: 0.85rem 1rem;
-    margin: 0.75rem 0;
-    font-size: 0.875rem;
-  }
-  .teacher-only .t-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--terra);
-    display: block;
-    margin-bottom: 0.35rem;
-  }
-  body:not(.teacher-mode) .teacher-only { display: none; }
+/* ── Bias audit ──────────────────────────────────────────────────── */
+.audit-form { }
+.audit-q { margin-bottom: 1.25rem; }
+.audit-q label { display: block; font-weight: 600; margin-bottom: .4rem; font-size: .9rem; color: var(--dark); }
+.audit-q p { font-size: .82rem; color: var(--muted); margin-bottom: .3rem; }
+.audit-q textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: .65rem .85rem; font-family: 'Inter', sans-serif; font-size: .88rem;
+  resize: vertical; min-height: 80px; background: var(--white);
+  transition: border-color var(--trans);
+}
+.audit-q textarea:focus { outline: none; border-color: var(--sage); }
 
-  /* ─── Callout boxes ──────────────────────────────────────────── */
-  .callout {
-    border-radius: 8px;
-    padding: 0.9rem 1.1rem;
-    margin: 0.85rem 0;
-    font-size: 0.9rem;
-    display: flex;
-    gap: 0.7rem;
-    align-items: flex-start;
-  }
-  .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
-  .callout.info { background: rgba(132,181,159,0.15); border: 1px solid rgba(132,181,159,0.4); }
-  .callout.assessment { background: rgba(254,243,199,0.6); border: 1px solid #FCD34D; }
-  .callout.bold-note { background: rgba(29,61,47,0.06); border: 1px solid rgba(29,61,47,0.15); }
+/* ── Warm-up steps ───────────────────────────────────────────────── */
+.warm-steps { counter-reset: steps; padding: 0; list-style: none; }
+.warm-steps li {
+  counter-increment: steps;
+  display: flex; gap: 1rem; align-items: flex-start;
+  margin-bottom: 1rem;
+}
+.warm-steps li::before {
+  content: counter(steps);
+  background: var(--terra); color: var(--white);
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .85rem; flex-shrink: 0; margin-top: .15rem;
+}
 
-  /* ─── Assessment Task Map ─────────────────────────────────────── */
-  .at-card {
-    border-radius: 10px;
-    padding: 1.1rem 1.25rem;
-    margin-bottom: 0.85rem;
-    border: 1px solid var(--border);
-    background: var(--card);
-    cursor: pointer;
-  }
-  .at-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0;
-  }
-  .at-card-body {
-    font-size: 0.875rem;
-    color: var(--text);
-    margin-top: 0.6rem;
-    display: none;
-    animation: fadeIn 0.15s ease;
-  }
-  .at-card.open .at-card-body { display: block; }
-  .at-card.open .at-card-chevron { transform: rotate(180deg); }
-  .at-card-chevron { transition: transform var(--trans); }
-  .at-card.at1-card { border-left: 4px solid #F59E0B; }
-  .at-card.at2-card { border-left: 4px solid #3B82F6; }
-  .at-card.at3-card { border-left: 4px solid #EC4899; }
-  .at-card.at4-card { border-left: 4px solid #10B981; }
+/* ── Back to top ─────────────────────────────────────────────────── */
+#back-to-top {
+  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
+  background: var(--dark); color: var(--white);
+  width: 42px; height: 42px; border-radius: 50%;
+  border: none; cursor: pointer; font-size: 1.1rem;
+  box-shadow: var(--shadow); transition: all var(--trans);
+  opacity: 0; pointer-events: none;
+}
+#back-to-top.visible { opacity: 1; pointer-events: all; }
+#back-to-top:hover { background: var(--terra); transform: translateY(-2px); }
 
-  /* ─── PC Table ───────────────────────────────────────────────── */
-  .pc-row td:first-child {
-    font-weight: 700;
-    color: var(--terra);
-    white-space: nowrap;
-    font-size: 0.85rem;
-  }
+/* ── Footer ──────────────────────────────────────────────────────── */
+footer {
+  background: var(--dark); color: rgba(245,242,237,.6);
+  padding: 1.75rem 0; text-align: center; font-size: .82rem;
+  margin-top: 2rem;
+}
+.reset-btn {
+  background: rgba(255,255,255,.1); color: rgba(245,242,237,.8);
+  border: 1px solid rgba(255,255,255,.2); border-radius: var(--radius);
+  padding: .45rem 1.1rem; cursor: pointer; font-size: .8rem;
+  margin-top: .75rem; transition: background var(--trans);
+}
+.reset-btn:hover { background: rgba(255,255,255,.2); }
 
-  /* ─── Teams Copy Button ──────────────────────────────────────── */
-  .teams-section {
-    background: var(--card);
-    border-radius: var(--radius);
-    border: 2px solid var(--sage);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    box-shadow: var(--shadow);
-  }
-  .teams-section h2 {
-    font-size: 1.1rem;
-    margin-bottom: 0.4rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .teams-meta {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
-  }
-  .teams-message {
-    background: #F8FAFC;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.1rem 1.25rem;
-    font-size: 0.85rem;
-    line-height: 1.7;
-    white-space: pre-wrap;
-    font-family: 'Inter', sans-serif;
-    color: var(--text);
-    max-height: 260px;
-    overflow-y: auto;
-    margin-bottom: 0.85rem;
-  }
-  #copy-btn {
-    background: var(--green);
-    color: #fff;
-    border: none;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 0.65rem 1.4rem;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: background var(--trans), transform var(--trans);
-  }
-  #copy-btn:hover { background: #2a5940; transform: translateY(-1px); }
-  #copy-btn.copied { background: #10B981; }
+/* ── Utility ──────────────────────────────────────────────────────── */
+.text-muted { color: var(--muted); }
+.text-sage { color: var(--sage); }
+.text-terra { color: var(--terra); }
+.italic { font-style: italic; }
+.mb-1 { margin-bottom: .5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mt-1 { margin-top: .5rem; }
+.mt-2 { margin-top: 1rem; }
+.bold { font-weight: 700; }
+.divider { border: none; border-top: 1.5px solid var(--border); margin: 2rem 0; }
 
-  /* ─── Section label ──────────────────────────────────────────── */
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin: 2rem 0 0.75rem;
-    padding-left: 0.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .flip-grid { grid-template-columns: 1fr; }
+  .match-game { grid-template-columns: 1fr; }
+  .concept-cards { grid-template-columns: 1fr; }
+  .at-priority-grid { grid-template-columns: 1fr; }
+  .wheel-grid { grid-template-columns: repeat(2, 1fr); }
+  .scenario-btns { flex-direction: column; }
+  .sort-btns { flex-direction: column; }
+  .hero-pills { flex-wrap: wrap; }
+  .timeline-wrap { padding-bottom: .5rem; }
+  #top-nav .nav-sub { display: none; }
+}
 
-  /* ─── Steps / Instructions ───────────────────────────────────── */
-  .steps { list-style: none; padding: 0; counter-reset: step-counter; }
-  .steps li {
-    counter-increment: step-counter;
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 0.85rem;
-    align-items: flex-start;
-  }
-  .steps li::before {
-    content: counter(step-counter);
-    background: var(--green);
-    color: #fff;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.78rem;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-    font-family: 'Inter', sans-serif;
-  }
-
-  /* ─── Quote style ─────────────────────────────────────────────── */
-  blockquote {
-    border-left: 4px solid var(--sage);
-    padding: 0.5rem 1rem;
-    margin: 0.75rem 0;
-    color: var(--green);
-    font-family: 'Lora', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    background: rgba(132,181,159,0.08);
-    border-radius: 0 6px 6px 0;
-  }
-
-  /* ─── Diversity table highlight ──────────────────────────────── */
-  .diversity-table td:first-child { font-weight: 600; color: var(--green); }
-
-  /* ─── Print Styles ───────────────────────────────────────────── */
-  @media print {
-    #top-nav, #view-toggle, #back-top, #progress-bar-wrap { display: none !important; }
-    body { background: #fff; font-size: 12pt; }
-    .time-block { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
-    .block-body { display: block !important; }
-    .page-header { background: var(--green) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    th { background: var(--green) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .teacher-only { display: block !important; }
-    #copy-btn { display: none; }
-    main { padding: 1rem 0; }
-    .glance-section { break-inside: avoid; }
-  }
-
-  /* ─── Mobile tweaks ──────────────────────────────────────────── */
-  @media (max-width: 640px) {
-    .page-header { padding: 2rem 1rem 1.75rem; }
-    main { padding: 1.25rem 0.75rem 4rem; }
-    .block-body { padding: 0 1rem 1.25rem; }
-    .block-header { padding: 0.9rem 1rem; }
-    .time-label { display: none; }
-    th, td { padding: 0.5rem 0.65rem; }
-    #view-toggle { top: 62px; right: 0.75rem; font-size: 0.75rem; padding: 0.4rem 0.7rem; }
-  }
-
-  /* ─── Utility ────────────────────────────────────────────────── */
-  .mt1 { margin-top: 0.5rem; }
-  .mt2 { margin-top: 1rem; }
-  .text-muted { color: var(--muted); font-size: 0.85rem; }
-  .text-small { font-size: 0.85rem; }
-  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+/* ── Print styles ────────────────────────────────────────────────── */
+@media print {
+  #top-nav, #back-to-top, .mode-toggle, .flip-card, .match-game,
+  .sort-btns, .scenario-btns, .bias-opts, .quiz-wrap .quiz-options,
+  .quiz-next-btn, .sort-btn, .timeline-wrap { display: none !important; }
+  body { background: white; }
+  .card, .at-expand-body { box-shadow: none; border: 1px solid #ccc; }
+  .at-expand-body { display: block !important; }
+  .teacher-only { display: block !important; }
+  textarea { border: 1px solid #ccc; min-height: 40px; }
+  section { padding: 1rem 0; }
+  a[href]::after { content: ''; }
+}
 </style>
 </head>
-<body id="top-anchor">
+<body>
 
-<!-- Progress Bar (teacher only) -->
-<div id="progress-bar-wrap"><div id="progress-bar"></div></div>
-
-<!-- Sticky Nav -->
+<!-- ═══════════════════════════════════════════════════════════════
+     STICKY NAV
+═══════════════════════════════════════════════════════════════ -->
 <nav id="top-nav">
-  <div class="nav-left">
-    <span class="unit-code">CHCDIV001</span>
-    <span class="session-title">Session 1 — Who Am I? Understanding Our Own Lens</span>
-  </div>
-  <div id="nav-links">
-    <a href="#block-nl1">9:30</a>
-    <a href="#block-act1">10:45</a>
-    <a href="#block-nl2">11:30</a>
-    <a href="#block-act2">11:50</a>
-    <a href="#block-warmup">12:45</a>
-    <a href="#block-assessment">1:15</a>
-    <a href="#block-wrapup">2:45</a>
-    <a href="#block-pc">PCs</a>
-    <a href="#at-links">ATs</a>
+  <div class="container">
+    <div>
+      <span class="nav-title">Who Am I? Understanding Our Own Lens</span>
+      <span class="nav-sub">CHCDIV001 · Session 1 of 5</span>
+    </div>
+    <button class="mode-toggle" id="modeToggle" onclick="toggleMode()">Switch to Teacher Mode</button>
   </div>
 </nav>
 
-<!-- View Toggle -->
-<button id="view-toggle" onclick="toggleView()" aria-label="Toggle view mode">
-  <span id="toggle-icon">👁</span>
-  <span id="toggle-label">Teacher View</span>
-</button>
-
-<!-- Back to Top -->
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
-
-<!-- ─── Page Header ─────────────────────────────────────────────── -->
-<header class="page-header">
-  <span class="session-badge">Session 1 of 5</span>
-  <h1>Who Am I? Understanding Our Own Lens</h1>
-  <p class="subtitle">CHCDIV001 — Work with Diverse People &nbsp;·&nbsp; CHC42021 Cert IV in Community Services</p>
-  <div class="meta-row">
-    <span class="meta-chip">📅 Date: TBC</span>
-    <span class="meta-chip">⏱ 9:30am – 3:00pm</span>
-    <span class="meta-chip">📍 Box Hill Institute</span>
-    <span class="meta-chip">Elements 1.1–1.4 &amp; 2.1 intro</span>
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <p class="hero-unit">CHCDIV001 · Certificate IV in Community Services</p>
+    <h1 class="hero-title">Who Am I? Understanding Our Own Lens</h1>
+    <p class="hero-sub">CHCDIV001 — Session 1 of 5</p>
+    <div class="hero-pills">
+      <span class="pill">4 hrs 15 min</span>
+      <span class="pill sage">Elements 1.1–1.4, 2.1</span>
+    </div>
+    <div id="day-progress-wrap" class="teacher-only">
+      <p class="day-progress-label" id="progressLabel">Day progress: calculating…</p>
+      <div class="day-progress-bar-bg">
+        <div class="day-progress-bar-fill" id="dayProgressFill" style="width:0%"></div>
+      </div>
+    </div>
   </div>
-</header>
+</section>
 
-<main>
+<!-- ═══════════════════════════════════════════════════════════════
+     TIMELINE
+═══════════════════════════════════════════════════════════════ -->
+<section id="timeline">
+  <div class="container">
+    <h2 style="margin-bottom:1.25rem;">Today's Journey</h2>
+    <div class="timeline-wrap" id="tlWrap">
+      <div class="tl-step" onclick="scrollToSection('s3')">
+        <div class="tl-dot">9:30</div>
+        <div class="tl-label"><span class="tl-time">9:30</span><br>New Learning 1</div>
+      </div>
+      <div class="tl-step break" onclick="scrollToSection('s5')">
+        <div class="tl-dot">☕</div>
+        <div class="tl-label"><span class="tl-time">10:30</span><br>Break</div>
+      </div>
+      <div class="tl-step" onclick="scrollToSection('s6')">
+        <div class="tl-dot">10:45</div>
+        <div class="tl-label"><span class="tl-time">10:45</span><br>Activity 1</div>
+      </div>
+      <div class="tl-step" onclick="scrollToSection('s7')">
+        <div class="tl-dot">11:30</div>
+        <div class="tl-label"><span class="tl-time">11:30</span><br>New Learning 2</div>
+      </div>
+      <div class="tl-step" onclick="scrollToSection('s8')">
+        <div class="tl-dot">11:50</div>
+        <div class="tl-label"><span class="tl-time">11:50</span><br>Activity 2</div>
+      </div>
+      <div class="tl-step break" onclick="scrollToSection('s9')">
+        <div class="tl-dot">🍽</div>
+        <div class="tl-label"><span class="tl-time">12:00</span><br>Lunch</div>
+      </div>
+      <div class="tl-step" onclick="scrollToSection('s10')">
+        <div class="tl-dot">12:45</div>
+        <div class="tl-label"><span class="tl-time">12:45</span><br>Warm-up</div>
+      </div>
+      <div class="tl-step" onclick="scrollToSection('s11')">
+        <div class="tl-dot">1:15</div>
+        <div class="tl-label"><span class="tl-time">1:15</span><br>Assessment</div>
+      </div>
+      <div class="tl-step break" onclick="scrollToSection('s12')">
+        <div class="tl-dot">☕</div>
+        <div class="tl-label"><span class="tl-time">2:30</span><br>Break</div>
+      </div>
+      <div class="tl-step" onclick="scrollToSection('s13')">
+        <div class="tl-dot">2:45</div>
+        <div class="tl-label"><span class="tl-time">2:45</span><br>Wrap-up</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- ─── Session at a Glance ──────────────────────────────────── -->
-  <div class="glance-section">
-    <h2>📋 Session at a Glance</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Unit</th><th>Session</th><th>Theme</th><th>Elements</th><th>Teaching time</th></tr></thead>
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 3 — KEY CONCEPTS FLIP CARDS
+═══════════════════════════════════════════════════════════════ -->
+<section id="s3">
+  <div class="container">
+    <div class="section-header">
+      <span class="time-badge">BEFORE WE START</span>
+      <h2>Key Concepts</h2>
+      <div class="complete-check" id="check-flip">✓</div>
+    </div>
+    <p>By the end of today you will be able to explain these six concepts. Click each card to flip it and test yourself.</p>
+
+    <div class="flip-grid" id="flipGrid">
+      <div class="flip-card" onclick="flipCard(this,0)" data-flipped="false">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-icon">🌍</span>
+            <span class="flip-name">Culture</span>
+          </div>
+          <div class="flip-back"><p>The shared customs, values, beliefs and practices of a group of people. Culture shapes how we see the world — often without us realising it.</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="flipCard(this,1)" data-flipped="false">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-icon">🤝</span>
+            <span class="flip-name">Diversity</span>
+          </div>
+          <div class="flip-back"><p>Differences across disability, culture, race, religion, gender, age, sexual orientation and more. In community services, understanding diversity is the work.</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="flipCard(this,2)" data-flipped="false">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-icon">🧊</span>
+            <span class="flip-name">Cultural Iceberg</span>
+          </div>
+          <div class="flip-back"><p>Culture has a visible surface (food, language, clothing) and a much larger invisible layer (values, beliefs, assumptions). Most of what shapes us sits below the waterline.</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="flipCard(this,3)" data-flipped="false">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-icon">👁</span>
+            <span class="flip-name">Cultural Awareness</span>
+          </div>
+          <div class="flip-back"><p>Understanding your own cultural background and how it shapes the way you see others. The starting point for working effectively across difference.</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="flipCard(this,4)" data-flipped="false">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-icon">⚖️</span>
+            <span class="flip-name">Cultural Competence</span>
+          </div>
+          <div class="flip-back"><p>The ability to work ethically and effectively in intercultural settings — both as an individual and within an organisation.</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="flipCard(this,5)" data-flipped="false">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-icon">🔍</span>
+            <span class="flip-name">Unconscious Bias</span>
+          </div>
+          <div class="flip-back"><p>Patterns of thought that lead us to favour or disfavour others without realising it. Not a character flaw — a feature of how every human brain works.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="flip-celebration" id="flipCelebration">
+      🎉 You've reviewed all 6 concepts! Now let's go deeper.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 4 — 9:30–10:30 NEW LEARNING 1
+═══════════════════════════════════════════════════════════════ -->
+<section id="s4">
+  <div class="container">
+    <div class="section-header">
+      <span class="time-badge">9:30–10:30</span>
+      <h2>New Learning 1: Culture, Diversity &amp; Key Concepts</h2>
+      <div class="complete-check" id="check-match">✓</div>
+    </div>
+
+    <!-- 4a Diversity Areas -->
+    <div class="card mb-2">
+      <h3 style="margin-bottom:.75rem;">What Is Diversity?</h3>
+      <p>The Australian Human Rights Commission recognises diversity across many areas of human life. As a community services worker, you will work with people from all of these groups.</p>
+      <table class="styled-table">
+        <thead><tr><th>Diversity Area</th><th>What It Covers</th></tr></thead>
         <tbody>
-          <tr>
-            <td>CHCDIV001</td>
-            <td>1 of 5</td>
-            <td>Who Am I? Understanding Our Own Lens</td>
-            <td>Element 1 (1.1–1.4), Element 2 (2.1 intro)</td>
-            <td>~4 hrs 15 min</td>
-          </tr>
+          <tr><td>Disability</td><td>Sensory, intellectual, physical, mental health and acquired brain injury</td></tr>
+          <tr><td>Culture</td><td>Customs, social norms, family practices and shared beliefs</td></tr>
+          <tr><td>Race</td><td>Genetic variation and physical characteristics</td></tr>
+          <tr><td>Ethnicity</td><td>Shared language, religion, customs and place of origin</td></tr>
+          <tr><td>Religion &amp; Spirituality</td><td>Beliefs, practices and ceremonies — distinct from each other</td></tr>
+          <tr><td>Gender identity</td><td>How a person identifies internally — not the same as biological sex</td></tr>
+          <tr><td>Intersex</td><td>Born with sex characteristics that don't fit exclusively male or female</td></tr>
+          <tr><td>Sexual Orientation</td><td>Lesbian, gay, bisexual, heterosexual and more</td></tr>
+          <tr><td>Generational</td><td>Different values and experiences across age groups</td></tr>
         </tbody>
       </table>
     </div>
-  </div>
 
-  <!-- ─── Resources — Print Before Class ──────────────────────── -->
-  <div class="section-label">Resources</div>
-  <div class="time-block open" id="block-resources">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">PREP</span>
-        <span class="block-title">🖨 Print Before Class</span>
+    <!-- Match game -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Match: Diversity Areas</h3>
       </div>
-      <div class="block-header-right">
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">Click a term, then click its matching description. Green = correct. Shake = try again.</p>
+      <div class="match-game" id="matchGame">
+        <div class="match-col" id="matchTerms"></div>
+        <div class="match-col" id="matchDescs"></div>
       </div>
-    </button>
-    <div class="block-body">
-      <ul class="resource-list" id="resource-checklist">
-        <li id="res-0">
-          <input type="checkbox" id="r0" onchange="saveCheck(0, this)">
-          <label for="r0">Social Identity Wheel Worksheet</label>
-          <span class="resource-copies">1 per student</span>
-        </li>
-        <li id="res-1">
-          <input type="checkbox" id="r1" onchange="saveCheck(1, this)">
-          <label for="r1">Cultural Iceberg Handout</label>
-          <span class="resource-copies">1 per student</span>
-        </li>
-        <li id="res-2">
-          <input type="checkbox" id="r2" onchange="saveCheck(2, this)">
-          <label for="r2">Bias Audit Reflection Sheet</label>
-          <span class="resource-copies">1 per student</span>
-        </li>
-        <li id="res-3">
-          <input type="checkbox" id="r3" onchange="saveCheck(3, this)">
-          <label for="r3">Sentence Starters for Reflective Writing</label>
-          <span class="resource-copies">1 per student</span>
-        </li>
-        <li id="res-4">
-          <input type="checkbox" id="r4" onchange="saveCheck(4, this)">
-          <label for="r4">Assessment Overview — CHCDIV001</label>
-          <span class="resource-copies">1 per student</span>
-        </li>
+      <div class="match-score" id="matchScore"></div>
+      <button class="quiz-reset mt-1" onclick="resetMatch()" style="background:var(--muted);">Reset Match</button>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 4b Three key concepts -->
+    <h3 style="margin-bottom:1rem;">Three Key Concepts</h3>
+    <div class="concept-cards">
+      <div class="concept-card">
+        <div class="concept-card-header awareness">
+          <h3>Cultural Awareness</h3>
+          <p class="concept-sub">The starting point</p>
+        </div>
+        <div class="concept-card-body">
+          <p>Understanding your own cultural background and recognising how it shapes your assumptions, judgements and interactions. You can't work across difference effectively if you haven't examined your own lens first.</p>
+          <p style="font-size:.8rem;color:var(--muted);">Example: A worker realises she assumes "professional" behaviour means direct eye contact — and that this is a cultural assumption, not a universal.</p>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-card-header competence">
+          <h3>Cultural Competence</h3>
+          <p class="concept-sub">Individual + organisational</p>
+        </div>
+        <div class="concept-card-body">
+          <p>The ability to work ethically and effectively across cultural difference — as both a practitioner and an organisation. Competence includes knowledge, skills, attitudes and systemic practices.</p>
+          <p style="font-size:.8rem;color:var(--muted);">Example: An agency revises its intake forms to include preferred pronouns and dietary requirements, and trains all staff on diverse client needs.</p>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-card-header safety">
+          <h3>Cultural Safety</h3>
+          <p class="concept-sub">The gold standard</p>
+        </div>
+        <div class="concept-card-body">
+          <p>An environment where people are not exposed to challenge or rejection because of their identity. Cultural safety goes beyond awareness — it is about the <em>experience of the client</em>, not the intentions of the worker.</p>
+          <p style="font-size:.8rem;color:var(--muted);">Example: A case worker uses a client's preferred name, avoids assumptions about family structure, and ensures the meeting space has no culturally offensive materials.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario sorter -->
+    <div class="card mt-2">
+      <div class="card-header"><h3>Scenario Sorter</h3></div>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">Read each scenario. Which concept does it describe? Click to find out.</p>
+      <div id="scenarioSorter"></div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 4c Iceberg -->
+    <h3 style="margin-bottom:.75rem;">The Cultural Iceberg</h3>
+    <p>Culture is like an iceberg: only a small part is visible. Most of what shapes how we think, feel and behave sits below the waterline — invisible even to ourselves.</p>
+
+    <div class="iceberg-wrap">
+      <svg class="iceberg-svg" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Water -->
+        <rect x="0" y="175" width="400" height="145" fill="#c9e8f5" rx="0"/>
+        <!-- Above-water berg -->
+        <polygon points="160,20 240,20 275,175 125,175" fill="#84B59F" opacity=".7" stroke="#2e7d61" stroke-width="1.5"/>
+        <!-- Below-water berg -->
+        <polygon points="125,175 275,175 310,310 90,310" fill="#1D3D2F" opacity=".55" stroke="#1D3D2F" stroke-width="1.5"/>
+        <!-- Waterline label -->
+        <text x="10" y="172" font-size="10" fill="#1a5276" font-family="Inter,sans-serif" font-weight="600">WATERLINE</text>
+        <line x1="60" y1="175" x2="400" y2="175" stroke="#1a5276" stroke-width="1" stroke-dasharray="4 3"/>
+        <!-- Above label -->
+        <text x="175" y="90" font-size="11" fill="#fff" font-family="Inter,sans-serif" font-weight="700" text-anchor="middle">VISIBLE</text>
+        <!-- Below label -->
+        <text x="200" y="250" font-size="11" fill="rgba(255,255,255,.8)" font-family="Inter,sans-serif" font-weight="700" text-anchor="middle">INVISIBLE</text>
+      </svg>
+    </div>
+
+    <p style="font-size:.88rem;color:var(--muted);text-align:center;margin-bottom:.75rem;">Click any chip to learn more</p>
+
+    <div style="background:rgba(132,181,159,.12);border-radius:var(--radius);padding:1rem;margin-bottom:.75rem;">
+      <p style="font-size:.8rem;font-weight:700;color:var(--dark);margin-bottom:.5rem;">ABOVE THE WATERLINE (Visible)</p>
+      <div class="iceberg-chips-above" id="icebergAbove"></div>
+    </div>
+    <div style="background:rgba(29,61,47,.08);border-radius:var(--radius);padding:1rem;margin-bottom:1.25rem;">
+      <p style="font-size:.8rem;font-weight:700;color:var(--dark);margin-bottom:.5rem;">BELOW THE WATERLINE (Invisible)</p>
+      <div class="iceberg-chips-below" id="icebergBelow"></div>
+    </div>
+
+    <blockquote style="font-style:italic;border-left:4px solid var(--sage);padding:.75rem 1.25rem;color:var(--muted);font-size:.92rem;margin:1rem 0;">
+      "Most of what shapes how we see the world is invisible — including to ourselves. Cultural misunderstandings happen not because people are rude, but because the invisible parts of their icebergs are different."
+    </blockquote>
+
+    <!-- Iceberg sort -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Iceberg Sort</h3>
+        <div class="complete-check" id="check-sort">✓</div>
+      </div>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">Sort these items — above or below the waterline?</p>
+      <div class="sort-progress" id="sortProgress">Item 1 of 10</div>
+      <div class="sort-card-wrap">
+        <div class="sort-card-display" id="sortCardText">Loading…</div>
+        <div class="sort-btns">
+          <button class="sort-btn above" onclick="doSort(true)">Above the waterline</button>
+          <button class="sort-btn below" onclick="doSort(false)">Below the waterline</button>
+        </div>
+        <div class="sort-feedback" id="sortFeedback"></div>
+      </div>
+      <div class="sort-result" id="sortResult">
+        <p class="quiz-score-num" id="sortScoreNum">0/10</p>
+        <p class="quiz-score-msg" id="sortScoreMsg"></p>
+        <button class="quiz-reset" onclick="resetSort()">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 5 — BREAK
+═══════════════════════════════════════════════════════════════ -->
+<section id="s5">
+  <div class="container">
+    <div class="break-card">☕ Morning tea. Back at 10:45.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 6 — ACTIVITY 1: SOCIAL IDENTITY WHEEL
+═══════════════════════════════════════════════════════════════ -->
+<section id="s6">
+  <div class="container">
+    <div class="section-header">
+      <span class="time-badge">10:45–11:30</span>
+      <h2>Activity 1: Social Identity Wheel</h2>
+      <div class="complete-check" id="check-wheel">✓</div>
+    </div>
+
+    <p>This activity helps you explore the parts of your identity that shape how you see the world — and how you work. Click each segment, type your response, and save it. Your answers are stored privately on your device.</p>
+
+    <div class="wheel-grid" id="wheelGrid"></div>
+    <div class="wheel-input-panel" id="wheelInputPanel">
+      <label id="wheelInputLabel">My identity includes:</label>
+      <textarea id="wheelInputTA" rows="3" placeholder="Type here…"></textarea>
+      <button class="wheel-save-btn" onclick="saveWheelItem()">Save ✓</button>
+    </div>
+
+    <h3 style="margin-top:1.5rem;margin-bottom:.75rem;">Reflection</h3>
+    <p style="font-size:.88rem;color:var(--muted);">Answer honestly — these are for you. They will feed directly into your AT4 Reflective Journal.</p>
+
+    <div class="reflection-block">
+      <label for="ref1">Which of your identities do you think about most often? Why?</label>
+      <textarea id="ref1" placeholder="Your reflection…" oninput="saveReflection('ref1',this.value)"></textarea>
+    </div>
+    <div class="reflection-block">
+      <label for="ref2">Which do you rarely think about — why do you think that is?</label>
+      <textarea id="ref2" placeholder="Your reflection…" oninput="saveReflection('ref2',this.value)"></textarea>
+    </div>
+    <div class="reflection-block">
+      <label for="ref3">Which aspects of your identity have shaped the way you approach helping others?</label>
+      <textarea id="ref3" placeholder="Your reflection…" oninput="saveReflection('ref3',this.value)"></textarea>
+    </div>
+
+    <span class="at-badge">💡 AT4 Part A Q1 &amp; Q2 — keep your answers here</span>
+
+    <div class="teacher-note teacher-only">
+      <strong>Teacher Note:</strong> Model briefly by sharing one item from your own wheel first. <strong>Experienced workers:</strong> ask how professional identity has shifted over time. <strong>CALD students:</strong> their cultural knowledge is a genuine academic contribution — affirm this explicitly. <strong>Quieter students:</strong> use pair-share before whole-group.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 7 — 11:30 NEW LEARNING 2: UNCONSCIOUS BIAS
+═══════════════════════════════════════════════════════════════ -->
+<section id="s7">
+  <div class="container">
+    <div class="section-header">
+      <span class="time-badge">11:30–11:50</span>
+      <h2>New Learning 2: Unconscious Bias</h2>
+    </div>
+
+    <div class="card mb-2">
+      <h3 style="margin-bottom:.75rem;">What Is Unconscious Bias?</h3>
+      <ul>
+        <li>Unconscious biases are patterns of thought that shape our judgements without us realising.</li>
+        <li>They are not the same as conscious prejudice — they are a feature of how every human brain works.</li>
+        <li>They are shaped by our upbringing, cultural background, media, lived experience and social environment.</li>
+        <li>They affect hiring decisions, service delivery, team dynamics and client outcomes.</li>
+        <li>Awareness is the first — and most important — step toward managing them.</li>
       </ul>
     </div>
-  </div>
 
-  <!-- ─── Video ─────────────────────────────────────────────────── -->
-  <div class="time-block open" id="block-video">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">PREP</span>
-        <span class="block-title">🎬 Video — Cue Up Before Class</span>
-      </div>
-      <div class="block-header-right">
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Title</th><th>Duration</th><th>When to play</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Understanding Unconscious Bias — Royal Society</td>
-              <td>~3 min</td>
-              <td>New Learning 2 (11:30am)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="video-wrap mt2">
-        <iframe src="https://www.youtube.com/embed/dVp9Z5k0dEE?rel=0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="Understanding Unconscious Bias — Royal Society"></iframe>
-      </div>
+    <h3 style="margin-bottom:.75rem;">Types of Bias</h3>
+    <table class="styled-table mb-2">
+      <thead><tr><th>Bias Type</th><th>What It Looks Like</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Affinity bias</strong></td><td>Favouring people who are similar to us in background, values or experience</td></tr>
+        <tr><td><strong>Confirmation bias</strong></td><td>Seeking evidence that confirms what we already believe about a person or group</td></tr>
+        <tr><td><strong>Attribution bias</strong></td><td>Applying different explanations to the same behaviour depending on who performs it</td></tr>
+        <tr><td><strong>Halo effect</strong></td><td>One positive trait shapes our entire view of a person</td></tr>
+        <tr><td><strong>Generational bias</strong></td><td>Making assumptions about people based on their age or generation</td></tr>
+      </tbody>
+    </table>
+
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/dVp9Z5k0dEE" allowfullscreen title="Understanding Unconscious Bias"></iframe>
+    </div>
+    <p class="video-caption">Understanding Unconscious Bias — ~3 minutes. Watch, then discuss.</p>
+
+    <!-- Bias type identifier -->
+    <div class="card mt-2">
+      <div class="card-header"><h3>Bias Type Identifier</h3></div>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">Read each scenario and select the bias type. Instant feedback provided.</p>
+      <div id="biasSorter"></div>
     </div>
   </div>
+</section>
 
-  <!-- ─── Assessment Task Map ───────────────────────────────────── -->
-  <div class="section-label" id="at-links">Assessment Task Map</div>
-  <div class="time-block open" id="block-atmap">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">CONTEXT</span>
-        <span class="block-title">🗺 What This Session Builds Toward</span>
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 8 — 11:50 ACTIVITY 2: BIAS AUDIT
+═══════════════════════════════════════════════════════════════ -->
+<section id="s8">
+  <div class="container">
+    <div class="section-header">
+      <span class="time-badge">11:50–12:00</span>
+      <h2>Activity 2: Personal Bias Audit</h2>
+      <div class="complete-check" id="check-audit">✓</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:.9rem;font-style:italic;color:var(--muted);margin-bottom:1.25rem;">This is private — it is not shared with anyone. Be as honest as you can.</p>
+      <div class="audit-form" id="auditForm">
+        <div class="audit-q">
+          <label>1. Think of a time you made an assumption about someone based on how they looked or where they were from. What was the assumption?</label>
+          <textarea id="audit1" placeholder="Your honest reflection…" oninput="saveAudit()"></textarea>
+        </div>
+        <div class="audit-q">
+          <label>2. Have you ever caught yourself feeling more comfortable with clients or colleagues who are similar to you? What did that feel like?</label>
+          <textarea id="audit2" placeholder="Your honest reflection…" oninput="saveAudit()"></textarea>
+        </div>
+        <div class="audit-q">
+          <label>3. Are there any cultural practices, beliefs or backgrounds that you find it harder to remain neutral about? What do you think is behind that?</label>
+          <textarea id="audit3" placeholder="Your honest reflection…" oninput="saveAudit()"></textarea>
+        </div>
+        <div class="audit-q">
+          <label>4. What is one bias you are willing to work on during this unit?</label>
+          <textarea id="audit4" placeholder="Your commitment…" oninput="saveAudit()"></textarea>
+        </div>
       </div>
-      <div class="block-header-right">
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-      <div id="at-cards">
-
-        <div class="at-card at1-card open" id="at1-card">
-          <div class="at-card-header" onclick="toggleATCard(this.closest('.at-card'))">
-            <span><span class="at-badge at1">AT1</span> &nbsp;Knowledge Questions</span>
-            <svg class="at-card-chevron chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="at-card-body">
-            Cultural Awareness / Competence / Cultural Safety = <strong>Q1</strong>. Unconscious bias = <strong>Q2</strong>. Diversity areas covered today = <strong>Q1 background</strong>. Take notes during New Learning 1 — these definitions are examinable.
-          </div>
-        </div>
-
-        <div class="at-card at2-card" id="at2-card">
-          <div class="at-card-header" onclick="toggleATCard(this.closest('.at-card'))">
-            <span><span class="at-badge at2">AT2</span> &nbsp;Research Report</span>
-            <svg class="at-card-chevron chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="at-card-body">
-            The Cultural Iceberg model and the diversity areas introduced today form the research framework. Start thinking about <strong>3 cultural groups in your local community</strong> that you could research for this task.
-          </div>
-        </div>
-
-        <div class="at-card at3-card" id="at3-card">
-          <div class="at-card-header" onclick="toggleATCard(this.closest('.at-card'))">
-            <span><span class="at-badge at3">AT3</span> &nbsp;Role Play</span>
-            <svg class="at-card-chevron chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="at-card-body">
-            The <strong>Team Conflict scenario</strong> directly assesses unconscious bias awareness. Your awareness of your own biases — developed in today's Bias Audit — is the foundation for performing this role play authentically.
-          </div>
-        </div>
-
-        <div class="at-card at4-card" id="at4-card">
-          <div class="at-card-header" onclick="toggleATCard(this.closest('.at-card'))">
-            <span><span class="at-badge at4">AT4</span> &nbsp;Reflective Journal</span>
-            <svg class="at-card-chevron chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="at-card-body">
-            <strong>Part A Q1 &amp; Q2</strong> → Social Identity Wheel is your source material.<br>
-            <strong>Part A Q5</strong> → Bias Audit is your starting point.<br>
-            <em>Keep both worksheets — they are direct evidence for this task.</em>
-          </div>
-        </div>
-
-      </div>
+      <span class="at-badge">💡 AT4 Part A Q5 — this is the start of your answer</span>
     </div>
   </div>
+</section>
 
-  <!-- ─── 9:30–10:30 | New Learning 1 ──────────────────────────── -->
-  <div class="section-label">Morning — New Learning</div>
-  <div class="time-block open" id="block-nl1">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">9:30–10:30</span>
-        <span class="block-title">New Learning 1: Culture, Diversity &amp; Key Concepts</span>
-      </div>
-      <div class="block-header-right">
-        <div class="at-badges">
-          <button class="at-badge at1" onclick="scrollToAT('at1-card', event)">AT1</button>
-          <button class="at-badge at2" onclick="scrollToAT('at2-card', event)">AT2</button>
-        </div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-
-      <div class="teacher-only">
-        <span class="t-label">Facilitator — Teacher Only</span>
-        Open with whiteboard prompt: <strong>"What comes to mind when you hear 'diversity'?"</strong> Write responses up. Do not evaluate — just collect. Return to this list at 2:45pm to see what has shifted.
-      </div>
-
-      <div class="section-heading">Welcome &amp; Check-In <span class="text-muted text-small">(5 min)</span></div>
-      <p>Quick round: <strong>name + one word describing your background</strong> — cultural, professional, geographic, or generational. Everyone has one.</p>
-      <blockquote>"This room already contains more diversity than most workplaces."</blockquote>
-
-      <div class="section-heading">What Do We Mean by Diversity? <span class="text-muted text-small">(10 min)</span></div>
-      <p>Diversity in community services covers the full range of human difference. You will encounter all of these in your work:</p>
-      <div class="table-wrap">
-        <table class="diversity-table">
-          <thead><tr><th>Area</th><th>Key characteristics</th></tr></thead>
-          <tbody>
-            <tr><td>Disability</td><td>Sensory, intellectual, physical, mental health, acquired brain injury</td></tr>
-            <tr><td>Culture</td><td>Customs, social norms, family practices, beliefs</td></tr>
-            <tr><td>Race</td><td>Genetic variation, physical characteristics</td></tr>
-            <tr><td>Ethnicity</td><td>Shared language, religion, customs, place of origin</td></tr>
-            <tr><td>Religion &amp; Spirituality</td><td>Beliefs, practices, ceremonies — not the same thing as each other</td></tr>
-            <tr><td>Gender &amp; Transgender</td><td>Gender identity — not the same as biological sex</td></tr>
-            <tr><td>Intersex</td><td>Born with sex characteristics not exclusively male or female</td></tr>
-            <tr><td>Sexual Orientation</td><td>Lesbian, gay, bisexual, heterosexual</td></tr>
-            <tr><td>Generational</td><td>Different values, expectations and life experiences across generations</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-heading">Three Key Concepts <span class="text-muted text-small">(20 min)</span></div>
-      <div class="callout assessment">
-        <span class="callout-icon">📝</span>
-        <div><strong>AT1 Q1 — take notes here.</strong> You will need to define and distinguish these three concepts in your knowledge questions.</div>
-      </div>
-
-      <div class="sub-heading">Cultural Awareness</div>
-      <p>Understanding your own cultural background and how it differs from others.</p>
-      <p><strong>In practice:</strong> Identify the cultural needs of clients, colleagues and families. Stay curious and open-minded — curiosity is a professional skill.</p>
-
-      <div class="sub-heading">Cultural Competence</div>
-      <p>The ability to participate ethically and effectively in intercultural settings.</p>
-      <p><strong>In practice:</strong> Ensure diversity policies are implemented; staff receive appropriate training; diverse communities are consulted in service design.</p>
-
-      <div class="sub-heading">Cultural Safety</div>
-      <p>An environment that is spiritually, socially and emotionally safe — where people are <em>not</em> exposed to assault, challenge or rejection because of who they are.</p>
-      <p><strong>In practice:</strong> Be non-judgemental. Use respectful language. Avoid stereotyping. Build trust over time — it cannot be assumed.</p>
-
-      <div class="callout info">
-        <span class="callout-icon">💬</span>
-        <div><strong>Discussion:</strong> "Which of these three do you think is hardest to achieve in a community services workplace? Why?"</div>
-      </div>
-
-      <div class="section-heading">The Cultural Iceberg <span class="text-muted text-small">(15 min)</span></div>
-      <p>Culture is like an iceberg. Most of it is invisible — including to the people who hold it.</p>
-
-      <div class="sub-heading">Above the waterline (visible)</div>
-      <p>Food, clothing, language, celebrations, art, greetings, music, dress</p>
-
-      <div class="sub-heading">Below the waterline (invisible)</div>
-      <p>Values, beliefs, assumptions, attitudes to authority, concepts of time, gender roles, communication style, notions of fairness, religious beliefs, family roles, approaches to conflict</p>
-
-      <blockquote>"Most of what shapes how we see the world is invisible — including to ourselves."</blockquote>
-
-      <div class="teacher-only">
-        <span class="t-label">Facilitator — Teacher Only</span>
-        Brief share: "Has anyone had a miscommunication with someone from a different background?" Invite 2–3 people only. Do not push. The goal is normalising, not exposing.
-      </div>
-
-    </div>
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 9 — LUNCH
+═══════════════════════════════════════════════════════════════ -->
+<section id="s9">
+  <div class="container">
+    <div class="break-card">🍽️ Lunch. Back at 12:45.</div>
   </div>
+</section>
 
-  <!-- ─── Break ─────────────────────────────────────────────────── -->
-  <div class="time-block break-block" id="block-break1">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="false">
-      <div class="block-header-left">
-        <span class="time-label">10:30–10:45</span>
-        <span class="block-title">☕ Break — 15 minutes</span>
-      </div>
-      <div class="block-header-right">
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-      <p class="text-muted">Back at 10:45am for Activity 1.</p>
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 10 — WARM-UP
+═══════════════════════════════════════════════════════════════ -->
+<section id="s10">
+  <div class="container">
+    <div class="section-header">
+      <span class="time-badge">12:45–1:15</span>
+      <h2>Warm-up: Group Iceberg Mapping</h2>
     </div>
-  </div>
 
-  <!-- ─── Activity 1 ────────────────────────────────────────────── -->
-  <div class="section-label">Activity 1</div>
-  <div class="time-block open" id="block-act1">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">10:45–11:30</span>
-        <span class="block-title">Activity 1: Social Identity Wheel</span>
-      </div>
-      <div class="block-header-right">
-        <div class="at-badges">
-          <button class="at-badge at4" onclick="scrollToAT('at4-card', event)">AT4</button>
-        </div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-
-      <div class="callout bold-note">
-        <span class="callout-icon">🎯</span>
-        <div><strong>Purpose:</strong> Explore your own identity markers and how they shape your perspective. This is direct source material for AT4 Part A Q1 and Q2.</div>
-      </div>
-
-      <div class="section-heading">Instructions</div>
-      <ol class="steps">
-        <li>Fill in your Social Identity Wheel individually — <strong>10 min</strong>. What identities do you carry? Cultural background, profession, age group, language, religion, gender, disability, family role…</li>
-        <li>Written reflection questions on the sheet — <strong>10 min</strong>:
-          <ul>
-            <li>Which identities do you think about most often? Which do you rarely think about — why?</li>
-            <li>Which have shaped how you approach helping others?</li>
-          </ul>
-        </li>
-        <li>Pair share — one thing from your wheel with a partner, <em>only what you're comfortable sharing</em> — <strong>10 min</strong></li>
-        <li>Whole group debrief — What did this exercise bring up? Any surprises? — <strong>10 min</strong></li>
+    <div class="card">
+      <p class="mb-2">This is a physical group activity. You will need butcher's paper and markers.</p>
+      <ol class="warm-steps">
+        <li>In groups of 3–4, draw a large iceberg on butcher's paper — make it big enough to write on.</li>
+        <li>Label the waterline. The top section is <strong>visible culture</strong>; the bottom is <strong>invisible culture</strong>.</li>
+        <li>Each person contributes: write 2 items <em>above</em> the waterline and 2 items <em>below</em> that reflect your own cultural background.</li>
+        <li>When everyone has contributed, look at the full iceberg together. What patterns do you notice? What surprised you?</li>
+        <li>Each group shares 1–2 observations with the whole class. Notice: what sits below the waterline is often where misunderstandings happen.</li>
       </ol>
 
-      <div class="callout assessment">
-        <span class="callout-icon">📎</span>
-        <div><strong>Keep this worksheet.</strong> It is direct source material for AT4 Part A — your reflective journal.</div>
+      <div class="teacher-note teacher-only">
+        <strong>Teacher Note:</strong> Circulate and prompt. If a group gets stuck on below-the-waterline items, ask: "What would someone have to believe about family, time, or respect for this to make sense?" This often unlocks it. <strong>CALD students:</strong> their contributions here are textbook-level content — name that explicitly. <strong>Newer students:</strong> it's fine to write things you've only recently become aware of.
       </div>
-
-      <div class="teacher-only">
-        <span class="t-label">Facilitator — Teacher Only</span>
-        <p>Model briefly by sharing one item from your own wheel first — this lowers the risk for students. Then invite pairs.</p>
-        <p><strong>Experienced workers:</strong> Ask how professional identity has shifted over time — does your sense of yourself as a worker now differ from when you started?</p>
-        <p><strong>Newer students:</strong> Reassure them that personal reflection IS a professional skill — it is literally what PC 1.1 asks for.</p>
-        <p><strong>CALD students:</strong> Their cultural knowledge is a genuine academic contribution. Name this explicitly: "What you know from your own culture is real expertise — not just personal experience."</p>
-        <p><strong>Quieter students:</strong> Pair-share before whole-group ensures everyone has something prepared before the big group. Don't skip it.</p>
-      </div>
-
     </div>
   </div>
+</section>
 
-  <!-- ─── New Learning 2 ───────────────────────────────────────── -->
-  <div class="section-label">New Learning 2</div>
-  <div class="time-block open" id="block-nl2">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">11:30–11:50</span>
-        <span class="block-title">New Learning 2: Unconscious Bias</span>
-      </div>
-      <div class="block-header-right">
-        <div class="at-badges">
-          <button class="at-badge at1" onclick="scrollToAT('at1-card', event)">AT1</button>
-          <button class="at-badge at3" onclick="scrollToAT('at3-card', event)">AT3</button>
-          <button class="at-badge at4" onclick="scrollToAT('at4-card', event)">AT4</button>
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 11 — ASSESSMENT WORK
+═══════════════════════════════════════════════════════════════ -->
+<section id="s11">
+  <div class="container">
+    <div class="section-header">
+      <span class="time-badge">1:15–2:30</span>
+      <h2>Assessment Work</h2>
+    </div>
+
+    <div class="at-priority-grid mb-2">
+      <div class="at-priority">
+        <div class="at-priority-head at4"><h3>🟥 Priority 1 — AT4 Reflective Journal</h3></div>
+        <div class="at-priority-body">
+          <p><strong>Part A, Q1–Q5:</strong> Use your Social Identity Wheel and Bias Audit answers from today. Draft your initial reflections. Focus on the "so what" — why does your identity matter for your practice?</p>
         </div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-    </button>
-    <div class="block-body">
+      <div class="at-priority">
+        <div class="at-priority-head at1"><h3>🟦 Priority 2 — AT1 Knowledge Questions</h3></div>
+        <div class="at-priority-body">
+          <p>Review Q1–Q5 of AT1, which cover definitions of diversity areas, cultural awareness/competence/safety, and unconscious bias. Today's content maps directly to these questions.</p>
+        </div>
+      </div>
+      <div class="at-priority">
+        <div class="at-priority-head at2"><h3>🟩 Priority 3 — AT2 Research Report</h3></div>
+        <div class="at-priority-body">
+          <p>Begin reading the background material for AT2. Note any connections to today's content on cultural iceberg and diversity areas.</p>
+        </div>
+      </div>
+    </div>
 
-      <div class="section-heading">What Is Unconscious Bias? <span class="text-muted text-small">(10 min)</span></div>
+    <!-- Knowledge Check Quiz -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Knowledge Check Quiz</h3>
+        <div class="complete-check" id="check-quiz">✓</div>
+      </div>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">Before you start — check your understanding. 8 questions, one at a time.</p>
+      <div class="quiz-wrap" id="quizWrap">
+        <div class="quiz-q-display" id="quizQDisplay">
+          <div class="quiz-q-num" id="quizQNum">Question 1 of 8</div>
+          <div class="quiz-q-text" id="quizQText">Loading…</div>
+          <div class="quiz-options" id="quizOptions"></div>
+        </div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-next-btn" id="quizNextBtn" onclick="quizNext()">Next →</button>
+        <div class="quiz-score-display" id="quizScoreDisplay">
+          <div class="quiz-score-num" id="quizScoreNum">0/8</div>
+          <div class="quiz-score-msg" id="quizScoreMsg"></div>
+          <button class="quiz-reset" onclick="resetQuiz()">Try Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 12 — BREAK
+═══════════════════════════════════════════════════════════════ -->
+<section id="s12">
+  <div class="container">
+    <div class="break-card">☕ Afternoon break. Back at 2:45.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 13 — WRAP-UP
+═══════════════════════════════════════════════════════════════ -->
+<section id="s13">
+  <div class="container">
+    <div class="section-header">
+      <span class="time-badge">2:45–3:00</span>
+      <h2>Group Discussion &amp; Wrap-up</h2>
+    </div>
+
+    <div class="card mb-2">
+      <h3 style="margin-bottom:.75rem;">Discussion Prompts</h3>
       <ul>
-        <li><strong>Bias</strong> = a tendency to favour or disfavour something based on background, culture, or experience</li>
-        <li><strong>Unconscious</strong> = we are not aware it is happening</li>
-        <li>Not about being a bad person — it is a feature of how the brain categorises and pattern-matches to save time</li>
-        <li><strong>Why it matters:</strong> unexamined bias directly impacts the quality of care clients receive</li>
+        <li>What is one thing from today that genuinely surprised you or made you think differently?</li>
+        <li>How does the cultural iceberg model help explain a real situation you have experienced — at work, in your community, or in your family?</li>
+        <li>Think of a time someone misunderstood you because of an invisible part of your iceberg. What was happening?</li>
+        <li>What is one concrete thing you will do differently in your practice as a result of today?</li>
       </ul>
-
-      <div class="section-heading">Common Types of Bias</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Type</th><th>What it looks like in practice</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Affinity bias</strong></td><td>Favouring people who are similar to us — in background, communication style, values</td></tr>
-            <tr><td><strong>Confirmation bias</strong></td><td>Seeking information that confirms what we already believe — ignoring contradicting evidence</td></tr>
-            <tr><td><strong>Attribution bias</strong></td><td>Explaining our own mistakes differently from how we explain others' mistakes</td></tr>
-            <tr><td><strong>Halo / horns effect</strong></td><td>One positive or negative trait colours our entire view of a person</td></tr>
-            <tr><td><strong>Generational bias</strong></td><td>Assumptions based on age — older workers can be seen as resistant to change; younger workers as inexperienced. It runs in all directions.</td></tr>
-          </tbody>
-        </table>
+      <div class="teacher-note teacher-only">
+        <strong>Teacher Note:</strong> Use pair-share first (2 min), then invite 3–4 to the whole group. Explicitly acknowledge contributions from CALD students — their examples enrich everyone's learning. If time allows, ask: "What do you want to explore more deeply in Session 2?"
       </div>
-
-      <div class="section-heading">Video + Discussion</div>
-      <div class="video-wrap">
-        <iframe src="https://www.youtube.com/embed/dVp9Z5k0dEE?rel=0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="Understanding Unconscious Bias — Royal Society"></iframe>
-      </div>
-
-      <div class="callout info">
-        <span class="callout-icon">💬</span>
-        <div>
-          <p><strong>After the video:</strong></p>
-          <ul>
-            <li>"Where have you seen this play out — in work, in community, or in yourself?"</li>
-            <li>"What might happen to a client if their support worker had an unexamined bias?"</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="callout assessment">
-        <span class="callout-icon">📝</span>
-        <div><strong>AT1 note:</strong> Unconscious bias is examined in AT1 Q2. <strong>AT4 Part A Q5</strong> asks: "What cultural biases or assumptions did you hold before undertaking this unit?" Today's learning is the start of that answer.</div>
-      </div>
-
     </div>
-  </div>
 
-  <!-- ─── Activity 2 ────────────────────────────────────────────── -->
-  <div class="time-block open" id="block-act2">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">11:50–12:00</span>
-        <span class="block-title">Activity 2: Bias Audit</span>
-      </div>
-      <div class="block-header-right">
-        <div class="at-badges">
-          <button class="at-badge at4" onclick="scrollToAT('at4-card', event)">AT4</button>
-        </div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-
-      <p><strong>Resource:</strong> Bias Audit Reflection Sheet — complete Parts 1–4 individually.</p>
-      <p>This is <em>private</em> — it is not shared with the group unless you choose to.</p>
-
-      <blockquote>"Noticing a bias and being honest about it is Performance Criterion 1.1. You have just begun your assessment work."</blockquote>
-
-      <div class="teacher-only">
-        <span class="t-label">Facilitator — Teacher Only</span>
-        For students who say "I don't have biases" — gently: <em>"The research tells us everyone does. The skill this unit builds is the willingness to look. That's what makes a safe practitioner."</em>
-      </div>
-
+    <div class="card sand mb-2">
+      <h3 style="margin-bottom:.5rem;">Next Session Preview — Session 2</h3>
+      <p><strong>Theme:</strong> Communicating Across Difference<br>
+      <strong>Focus:</strong> Elements 2.2–2.4 — communicating effectively, adapting your approach, and responding to diversity in your practice<br>
+      <strong>Bring:</strong> Your AT4 draft reflections from today</p>
     </div>
-  </div>
 
-  <!-- ─── Lunch ─────────────────────────────────────────────────── -->
-  <div class="time-block break-block" id="block-lunch">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="false">
-      <div class="block-header-left">
-        <span class="time-label">12:00–12:45</span>
-        <span class="block-title">🍽 Lunch — 45 minutes</span>
+    <!-- Exit Ticket -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Exit Ticket — Before You Go (60 seconds)</h3>
+        <div class="complete-check" id="check-exit">✓</div>
       </div>
-      <div class="block-header-right">
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="reflection-block">
+        <label for="exit1">One thing I learned today that I didn't know before:</label>
+        <textarea class="exit-ticket" id="exit1" placeholder="Your answer…" oninput="saveExit()"></textarea>
       </div>
-    </button>
-    <div class="block-body">
-      <p class="text-muted">Back at 12:45pm.</p>
-    </div>
-  </div>
-
-  <!-- ─── Warm-up ───────────────────────────────────────────────── -->
-  <div class="section-label">Afternoon</div>
-  <div class="time-block open" id="block-warmup">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">12:45–1:15</span>
-        <span class="block-title">Warm-up: Group Iceberg Mapping</span>
+      <div class="reflection-block">
+        <label for="exit2">One thing I want to understand better:</label>
+        <textarea class="exit-ticket" id="exit2" placeholder="Your answer…" oninput="saveExit()"></textarea>
       </div>
-      <div class="block-header-right">
-        <div class="at-badges">
-          <button class="at-badge at2" onclick="scrollToAT('at2-card', event)">AT2</button>
-        </div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-
-      <p>Small groups of <strong>3–4 people</strong> — mix ages and experience levels deliberately.</p>
-
-      <ol class="steps">
-        <li>Draw an iceberg on large paper — freehand is fine</li>
-        <li><strong>Above the waterline:</strong> things you'd notice about each other in the first 5 minutes</li>
-        <li><strong>Below the waterline:</strong> things that took longer to learn — or that might never be visible without trust</li>
-        <li>Each group shares <strong>one item from below the waterline</strong> with the whole class</li>
-      </ol>
-
-      <blockquote>"This is what we navigate every time we start with a new client, colleague, or family."</blockquote>
-
-      <div class="teacher-only">
-        <span class="t-label">Facilitator — Teacher Only</span>
-        Move around the room during the activity. For early finishers: <em>"What assumptions might someone make about your group just from what is above the line?"</em> The variety in the room IS the learning — call it out positively and name it as a professional asset.
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ─── Assessment Work ──────────────────────────────────────── -->
-  <div class="time-block open" id="block-assessment">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">1:15–2:30</span>
-        <span class="block-title">Assessment Work — 75 min</span>
-      </div>
-      <div class="block-header-right">
-        <div class="at-badges">
-          <button class="at-badge at1" onclick="scrollToAT('at1-card', event)">AT1</button>
-          <button class="at-badge at2" onclick="scrollToAT('at2-card', event)">AT2</button>
-          <button class="at-badge at4" onclick="scrollToAT('at4-card', event)">AT4</button>
-        </div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-
-      <div class="sub-heading">Priority — AT4 Part A (Reflective Journal)</div>
-      <p>Begin drafting using today's activities as your source material:</p>
-      <ul>
-        <li><strong>Q1:</strong> Discuss your cultural and social background → use your Social Identity Wheel</li>
-        <li><strong>Q2:</strong> How do your cultural beliefs and values affect your behaviour at work? → Identity Wheel + class discussion</li>
-        <li><strong>Q5:</strong> What cultural biases did you hold before this unit? → your Bias Audit is the starting point</li>
-      </ul>
-
-      <div class="divider"></div>
-
-      <div class="sub-heading">Alternative — AT1 Preparation</div>
-      <p>Note definitions and examples for: Cultural Awareness, Cultural Competence, Cultural Safety, and the diversity areas covered in New Learning 1.</p>
-
-      <div class="divider"></div>
-
-      <div class="sub-heading">Further Along? — AT2 Outline</div>
-      <p>Identify 3 cultural groups in your local community to research for your report. Start noting what you already know about each.</p>
-
-      <div class="teacher-only">
-        <span class="t-label">Facilitator — Teacher Only — Circulate Priorities</span>
-        <p>Check in with <strong>every student</strong> — not just the ones who look stuck. Priority order:</p>
-        <ol>
-          <li>Students new to reflective writing — offer the Sentence Starters handout actively, don't wait for them to ask</li>
-          <li>Students who seemed unsettled during the morning activities — a quiet check-in is enough</li>
-          <li>CALD students — affirm that writing from their own cultural experience is exactly what the task asks for</li>
-          <li>Experienced workers — prompt: "Think of a real workplace moment — a client interaction, a team conflict, a time you felt unsure about how to respond."</li>
-        </ol>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ─── Afternoon Break ───────────────────────────────────────── -->
-  <div class="time-block break-block" id="block-break2">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="false">
-      <div class="block-header-left">
-        <span class="time-label">2:30–2:45</span>
-        <span class="block-title">☕ Break — 15 minutes</span>
-      </div>
-      <div class="block-header-right">
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-      <p class="text-muted">Final session at 2:45pm — Group Discussion &amp; Wrap-up.</p>
-    </div>
-  </div>
-
-  <!-- ─── Wrap-up ───────────────────────────────────────────────── -->
-  <div class="time-block open" id="block-wrapup">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">2:45–3:00</span>
-        <span class="block-title">Group Discussion &amp; Wrap-up</span>
-      </div>
-      <div class="block-header-right">
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-
-      <div class="teacher-only">
-        <span class="t-label">Facilitator — Teacher Only</span>
-        Return to the whiteboard list from 9:30am. Read some of the words back. Ask: <em>"Has anyone's thinking about diversity shifted today?"</em>
-      </div>
-
-      <div class="section-heading">Discussion Prompts</div>
-      <ul>
-        <li>"What's one thing from today that stuck with you?"</li>
-        <li>"Did anything surprise you — about yourself or the content?"</li>
-        <li>"Any questions about the assessment tasks before you go?"</li>
-      </ul>
-
-      <div class="callout info">
-        <span class="callout-icon">🔜</span>
-        <div>
-          <strong>Close and preview:</strong> "Everything you reflected on today can go directly into AT4 Part A. Keep your worksheets."
-          <br><br>
-          <strong>Next session:</strong> How we communicate across difference — verbal, non-verbal, and when there's a language barrier. This connects directly to Assessment Task 3.
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ─── Performance Criteria ─────────────────────────────────── -->
-  <div class="section-label">Reference</div>
-  <div class="time-block open" id="block-pc">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">PCs</span>
-        <span class="block-title">Performance Criteria Addressed This Session</span>
-      </div>
-      <div class="block-header-right">
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>PC</th><th>Description</th><th>How addressed today</th></tr></thead>
-          <tbody class="pc-row">
-            <tr>
-              <td>1.1</td>
-              <td>Identify and reflect on own social and cultural perspectives and biases</td>
-              <td>Social Identity Wheel + Bias Audit</td>
-            </tr>
-            <tr>
-              <td>1.2</td>
-              <td>Work with awareness of own limitations in self and social awareness</td>
-              <td>Bias Audit + group debrief</td>
-            </tr>
-            <tr>
-              <td>1.3</td>
-              <td>Use reflection to support ability to work inclusively</td>
-              <td>AT4 Part A drafting during Assessment Work</td>
-            </tr>
-            <tr>
-              <td>1.4</td>
-              <td>Identify and act on ways to improve own self and social awareness</td>
-              <td>Assessment Work block + Wrap-up discussion</td>
-            </tr>
-            <tr>
-              <td>2.1</td>
-              <td>Value and respect diversity and inclusiveness across all areas of work</td>
-              <td>Cultural Iceberg activity; framing throughout the day</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="reflection-block">
+        <label for="exit3">How does today's content connect to my own work or life experience?</label>
+        <textarea class="exit-ticket" id="exit3" placeholder="Your answer…" oninput="saveExit()"></textarea>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ─── AT1 Knowledge Coverage ───────────────────────────────── -->
-  <div class="time-block open" id="block-at1note">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">AT1</span>
-        <span class="block-title">AT1 Knowledge Questions — What Was Covered Today</span>
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 14 — ASSESSMENT LINKS
+═══════════════════════════════════════════════════════════════ -->
+<section id="s14">
+  <div class="container">
+    <h2 style="margin-bottom:1rem;">Assessment Links — What Today Builds Toward</h2>
+
+    <div class="at-expand" id="atExpand1">
+      <div class="at-expand-header" onclick="toggleExpand('atExpand1')">
+        <h3>AT1 — Knowledge Questions</h3>
+        <span class="at-expand-chevron">▼</span>
       </div>
-      <div class="block-header-right">
-        <div class="at-badges">
-          <button class="at-badge at1" onclick="scrollToAT('at1-card', event)">AT1</button>
-        </div>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="at-expand-body">
+        <p>Today's content directly feeds into AT1 knowledge questions on:</p>
+        <ul>
+          <li>Definitions of diversity areas (Q1–Q3)</li>
+          <li>Cultural awareness, competence and safety (Q4–Q6)</li>
+          <li>What unconscious bias is and how it affects practice (Q7–Q8)</li>
+          <li>The cultural iceberg model (Q9)</li>
+        </ul>
+        <p>Use your flip card notes and the diversity areas table when writing your AT1 responses.</p>
       </div>
-    </button>
-    <div class="block-body">
-      <ul>
-        <li><strong>Q1 —</strong> Definitions of Cultural Awareness, Cultural Competence, Cultural Safety (New Learning 1, Three Key Concepts section)</li>
-        <li><strong>Q1 background —</strong> All diversity areas: disability, culture, race, ethnicity, religion &amp; spirituality, gender, intersex, sexual orientation, generational</li>
-        <li><strong>Q2 —</strong> Definition and types of unconscious bias (New Learning 2)</li>
-      </ul>
+    </div>
+
+    <div class="at-expand" id="atExpand2">
+      <div class="at-expand-header" onclick="toggleExpand('atExpand2')">
+        <h3>AT2 — Research Report</h3>
+        <span class="at-expand-chevron">▼</span>
+      </div>
+      <div class="at-expand-body">
+        <p>AT2 asks you to research a community services context and analyse how diversity impacts practice. Today's concepts — particularly the iceberg model and cultural competence — are the theoretical framework for your report.</p>
+        <p>Start collecting examples and evidence from today's scenarios and discussions.</p>
+      </div>
+    </div>
+
+    <div class="at-expand" id="atExpand3">
+      <div class="at-expand-header" onclick="toggleExpand('atExpand3')">
+        <h3>AT3 — Role Play / Simulation</h3>
+        <span class="at-expand-chevron">▼</span>
+      </div>
+      <div class="at-expand-body">
+        <p>AT3 involves demonstrating culturally safe practice in a simulated client interaction. Today's three key concepts (Awareness / Competence / Safety) are the evaluative criteria your assessor will use.</p>
+        <p>Notice in the scenario sorter today which behaviours were categorised as safety — those are what you will demonstrate in AT3.</p>
+      </div>
+    </div>
+
+    <div class="at-expand" id="atExpand4">
+      <div class="at-expand-header" onclick="toggleExpand('atExpand4')">
+        <h3>AT4 — Reflective Journal</h3>
+        <span class="at-expand-chevron">▼</span>
+      </div>
+      <div class="at-expand-body">
+        <p>Your Social Identity Wheel responses, reflection prompts, and Bias Audit are the raw material for AT4 Part A. You do not need to start from scratch — your work today <em>is</em> your AT4 draft.</p>
+        <p><strong>Specific questions fed by today's activities:</strong></p>
+        <ul>
+          <li>Part A Q1–Q2: Identity wheel reflections</li>
+          <li>Part A Q3–Q4: Cultural background and its impact on your practice lens</li>
+          <li>Part A Q5: Bias audit — the bias you are working on</li>
+        </ul>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- ─── Resources Checklist (repeat) ─────────────────────────── -->
-  <div class="time-block open" id="block-checklist-end">
-    <button class="block-header" onclick="toggleBlock(this)" aria-expanded="true">
-      <div class="block-header-left">
-        <span class="time-label">EOD</span>
-        <span class="block-title">Resources Checklist</span>
-      </div>
-      <div class="block-header-right">
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
-    <div class="block-body">
-      <ul style="list-style:none;padding:0;">
-        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Social Identity Wheel Worksheet — printed and distributed</li>
-        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Cultural Iceberg Handout — printed and distributed</li>
-        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Bias Audit Reflection Sheet — printed and distributed</li>
-        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Sentence Starters for Reflective Writing — printed and distributed</li>
-        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Assessment Overview — CHCDIV001 — printed and distributed</li>
-        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);">☐ Large paper + markers for Group Iceberg Mapping</li>
-        <li style="padding:0.4rem 0;">☐ YouTube video cued up: dVp9Z5k0dEE</li>
-      </ul>
-    </div>
-  </div>
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 15 — END OF DAY SUMMARY
+═══════════════════════════════════════════════════════════════ -->
+<section id="s15">
+  <div class="container">
+    <h2 style="margin-bottom:1rem;">End-of-Day Summary</h2>
+    <div class="summary-box">
+      <h3>📧 Copy &amp; Send to Students</h3>
+      <div class="summary-text" id="summaryText">Hi everyone,
 
-  <!-- ─── End-of-Day Teams Message ─────────────────────────────── -->
-  <div class="section-label">End of Day</div>
-  <div class="teams-section">
-    <h2>📧 End-of-Day Message — Copy for Teams/Email</h2>
-    <p class="teams-meta">Copy and paste into Teams or email to send to students at the end of class.</p>
-    <div class="teams-message" id="teams-message-text">Hi everyone,
+Here's a summary of everything we covered in Session 1 today — and what it means for your assessment tasks.
 
-Great work today. Here is a summary of everything we covered in Session 1, plus how today's learning connects to your assessment tasks.
-
-─────────────────────────────────
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 WHAT WE COVERED TODAY
-─────────────────────────────────
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. What diversity means in community services — the full range of diversity areas you'll encounter as a community services worker: culture, race, ethnicity, religion and spirituality, disability, gender identity, intersex, sexual orientation, and generational differences.
+1. THE NINE DIVERSITY AREAS
+We mapped the full scope of human diversity: disability, culture, race, ethnicity, religion/spirituality, gender identity, intersex, sexual orientation, and generational diversity. In community services, you will work with people from every one of these groups — often simultaneously.
 
-2. The three key concepts: Cultural Awareness, Cultural Competence, and Cultural Safety — these sit at the heart of this unit and come up directly in your assessments.
+2. THREE CORE CONCEPTS
+• Cultural Awareness: understanding your own lens — your background, assumptions and reactions — before you can work across difference with anyone else.
+• Cultural Competence: the ability to work effectively and ethically in intercultural settings, both as an individual and as part of an organisation.
+• Cultural Safety: the gold standard — ensuring clients are not exposed to challenge or rejection because of who they are. Safety is measured by the client's experience, not your intentions.
 
-3. The Cultural Iceberg — how most of what shapes our worldview is invisible, and how cultural misunderstandings happen because of those invisible parts.
+3. THE CULTURAL ICEBERG
+Culture is like an iceberg: food, language, clothing and celebrations sit above the waterline — visible. But values, beliefs, attitudes to authority, concepts of time and communication styles sit below — invisible, and far more powerful. Most cultural misunderstandings happen because two people's invisible icebergs are different.
 
-4. Unconscious bias — what it is, why it happens, and the most common types. Having bias doesn't make you a bad person — what matters is being willing to notice it.
+4. UNCONSCIOUS BIAS
+Every human brain has unconscious biases — patterns of thought that shape our judgements without us realising. We looked at five types: affinity bias, confirmation bias, attribution bias, the halo effect, and generational bias. Recognising them is not about blame — it is the starting point for change.
 
-5. Social Identity Wheel — you reflected on your own identity markers and how they shape your approach to work.
+5. YOUR OWN LENS
+Through the Social Identity Wheel and the Bias Audit, you began the most important work in this unit: examining your own background and how it shapes your practice. This is the foundation of everything else.
 
-6. Group Iceberg Mapping — exploring what is visible versus hidden, and how easy it is to make assumptions.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HOW TODAY CONNECTS TO YOUR ASSESSMENT TASKS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-7. Bias Audit — a private written reflection on your own potential biases. That took courage and honesty — that's exactly what this unit builds.
+AT1 — Knowledge Questions
+Today's content maps directly to Q1–Q9 of AT1. Review the diversity areas table and the three key concepts before you write. Use the flip cards on this page to check your understanding.
 
-─────────────────────────────────
-HOW TODAY LINKS TO YOUR ASSESSMENTS
-─────────────────────────────────
+AT4 — Reflective Journal (start today)
+Your Identity Wheel responses (on this page) are your draft answers to Part A Q1–Q2. Your Bias Audit responses are your draft answer to Part A Q5. You don't need to start from scratch — your work today IS your AT4 draft.
 
-AT1 — Knowledge Questions: Q1 asks you to define Cultural Awareness, Competence, and Safety, and describe the diversity areas. Today's content is your direct source material. Make sure you have notes.
+AT2 — Research Report
+The cultural iceberg model and the three core concepts are the theoretical framework for your AT2 report. Start noting real-world examples and evidence as you encounter them.
 
-AT2 — Research Report: The Cultural Iceberg and diversity areas are your foundation. Start thinking about 3 cultural groups in your local community.
+AT3 — Role Play
+The three concepts and the scenario sorter today show you exactly what assessors will be looking for: evidence that you practise cultural safety, not just awareness.
 
-AT3 — Role Play: The unconscious bias awareness you developed today is exactly what the Team Conflict scenario assesses.
-
-AT4 — Reflective Journal Part A: Q1 and Q2 draw directly on your Social Identity Wheel. Q5 draws on your Bias Audit. Keep both worksheets.
-
-─────────────────────────────────
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 A NOTE FOR YOUR RECORDS
-─────────────────────────────────
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Keep all of today's worksheets — Social Identity Wheel, Cultural Iceberg Handout, and Bias Audit — in your portfolio. They are evidence across multiple assessment tasks.
+Keep your Identity Wheel and Bias Audit answers — either in this page (they're saved in your browser) or copied to your own notes. These are assessable reflections, not just class activities.
 
-See you next session.
+See you next session. Stay curious about your own lens.
 </div>
-    <button id="copy-btn" onclick="copyTeamsMessage()">
-      <span id="copy-icon">📋</span>
-      <span id="copy-text">Copy for Teams</span>
-    </button>
+      <button class="copy-btn" id="copyBtn" onclick="copySummary()">Copy to Clipboard</button>
+    </div>
   </div>
+</section>
 
-</main>
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>CHCDIV001 — Certificate IV in Community Services &bull; Box Hill Institute of TAFE &bull; Session 1 of 5</p>
+    <br>
+    <button class="reset-btn" onclick="resetAll()">Reset all my answers &amp; progress</button>
+  </div>
+</footer>
 
-<!-- ─── JavaScript ──────────────────────────────────────────────── -->
+<button id="back-to-top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════════ -->
 <script>
-  // ── View Toggle ─────────────────────────────────────────────────
-  const body = document.body;
-  const toggleBtn = document.getElementById('view-toggle');
-  const toggleLabel = document.getElementById('toggle-label');
-  const toggleIcon = document.getElementById('toggle-icon');
+/* ─── Constants ─────────────────────────────────────────────── */
+const LS = 'chcdiv001_s1_';
 
-  function setView(isTeacher) {
-    if (isTeacher) {
-      body.classList.add('teacher-mode');
-      toggleLabel.textContent = 'Student View';
-      toggleIcon.textContent = '👤';
-    } else {
-      body.classList.remove('teacher-mode');
-      toggleLabel.textContent = 'Teacher View';
-      toggleIcon.textContent = '👁';
+/* ─── Mode Toggle ───────────────────────────────────────────── */
+function toggleMode() {
+  const isTeacher = document.body.classList.toggle('teacher-mode');
+  const btn = document.getElementById('modeToggle');
+  btn.textContent = isTeacher ? 'Switch to Student Mode' : 'Switch to Teacher Mode';
+  localStorage.setItem(LS+'mode', isTeacher ? 'teacher' : 'student');
+}
+
+/* ─── Day Progress Bar (teacher mode) ───────────────────────── */
+function updateDayProgress() {
+  const fill = document.getElementById('dayProgressFill');
+  const label = document.getElementById('progressLabel');
+  if (!fill) return;
+  const now = new Date();
+  const start = new Date(now); start.setHours(9,30,0,0);
+  const end   = new Date(now); end.setHours(15,0,0,0);
+  const total = end - start;
+  const elapsed = Math.max(0, Math.min(now - start, total));
+  const pct = Math.round((elapsed / total) * 100);
+  fill.style.width = pct + '%';
+  const h = now.getHours(), m = now.getMinutes().toString().padStart(2,'0');
+  label.textContent = `Day progress: ${h}:${m} — ${pct}% through the day`;
+}
+updateDayProgress();
+setInterval(updateDayProgress, 60000);
+
+/* ─── Scroll ────────────────────────────────────────────────── */
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ─── Back to top ───────────────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('back-to-top').classList.toggle('visible', window.scrollY > 400);
+});
+
+/* ─── Flip Cards ────────────────────────────────────────────── */
+let flippedCards = new Set();
+function flipCard(el, idx) {
+  el.classList.toggle('flipped');
+  if (el.classList.contains('flipped')) flippedCards.add(idx);
+  else flippedCards.delete(idx);
+  if (flippedCards.size === 6) {
+    document.getElementById('flipCelebration').classList.add('show');
+    document.getElementById('check-flip').classList.add('visible');
+    localStorage.setItem(LS+'flip_done', '1');
+  }
+}
+
+/* ─── Diversity Match Game ───────────────────────────────────── */
+const matchData = [
+  {term:'Disability', desc:'Sensory, intellectual, physical, mental health and acquired brain injury'},
+  {term:'Culture', desc:'Customs, social norms, family practices and shared beliefs'},
+  {term:'Race', desc:'Genetic variation and physical characteristics'},
+  {term:'Ethnicity', desc:'Shared language, religion, customs and place of origin'},
+  {term:'Religion & Spirituality', desc:'Beliefs, practices and ceremonies — distinct from each other'},
+  {term:'Gender identity', desc:'How a person identifies internally — not the same as biological sex'},
+  {term:'Intersex', desc:'Born with sex characteristics that don\'t fit exclusively male or female'},
+  {term:'Sexual Orientation', desc:'Lesbian, gay, bisexual, heterosexual and more'},
+  {term:'Generational', desc:'Different values and experiences across age groups'},
+];
+
+let matchState = { selectedTerm:null, selectedDesc:null, matched:0 };
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i=a.length-1;i>0;i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function buildMatch() {
+  const termsEl = document.getElementById('matchTerms');
+  const descsEl = document.getElementById('matchDescs');
+  termsEl.innerHTML = ''; descsEl.innerHTML = '';
+  matchState = { selectedTerm:null, selectedDesc:null, matched:0 };
+  document.getElementById('matchScore').textContent = '';
+
+  const shuffledTerms = shuffle(matchData);
+  const shuffledDescs = shuffle(matchData);
+
+  shuffledTerms.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.textContent = d.term;
+    el.dataset.val = d.term;
+    el.dataset.type = 'term';
+    el.onclick = () => selectMatch(el, 'term');
+    termsEl.appendChild(el);
+  });
+
+  shuffledDescs.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.textContent = d.desc;
+    el.dataset.val = d.term; // key is the term
+    el.dataset.type = 'desc';
+    el.onclick = () => selectMatch(el, 'desc');
+    descsEl.appendChild(el);
+  });
+}
+
+function selectMatch(el, type) {
+  if (el.classList.contains('correct')) return;
+
+  if (type === 'term') {
+    // deselect previous term
+    document.querySelectorAll('#matchTerms .match-item.selected').forEach(e => e.classList.remove('selected'));
+    if (matchState.selectedTerm === el) { matchState.selectedTerm = null; return; }
+    el.classList.add('selected');
+    matchState.selectedTerm = el;
+  } else {
+    document.querySelectorAll('#matchDescs .match-item.selected').forEach(e => e.classList.remove('selected'));
+    if (matchState.selectedDesc === el) { matchState.selectedDesc = null; return; }
+    el.classList.add('selected');
+    matchState.selectedDesc = el;
+  }
+
+  if (matchState.selectedTerm && matchState.selectedDesc) {
+    checkMatch();
+  }
+}
+
+function checkMatch() {
+  const t = matchState.selectedTerm;
+  const d = matchState.selectedDesc;
+  if (t.dataset.val === d.dataset.val) {
+    t.classList.remove('selected'); t.classList.add('correct'); t.textContent += ' ✓';
+    d.classList.remove('selected'); d.classList.add('correct'); d.textContent = d.textContent.replace('→','') + ' ✓';
+    t.onclick = null; d.onclick = null;
+    matchState.matched++;
+    if (matchState.matched === matchData.length) {
+      document.getElementById('matchScore').textContent = '✓ All matched! Well done.';
+      document.getElementById('check-match').classList.add('visible');
+      localStorage.setItem(LS+'match_done', '1');
     }
-    try { localStorage.setItem('div001_view', isTeacher ? 'teacher' : 'student'); } catch(e) {}
+  } else {
+    t.classList.add('wrong'); d.classList.add('wrong');
+    setTimeout(()=>{
+      t.classList.remove('selected','wrong');
+      d.classList.remove('selected','wrong');
+    }, 500);
+  }
+  matchState.selectedTerm = null;
+  matchState.selectedDesc = null;
+}
+
+function resetMatch() { buildMatch(); }
+
+/* ─── Scenario Sorter ───────────────────────────────────────── */
+const scenarios = [
+  {text:'A community worker notices she feels slightly uncomfortable when clients express religious practices different from her own. She decides to reflect on where this feeling comes from.', correct:'Awareness', explanation:'Self-reflection on your own cultural responses is the starting point of awareness.'},
+  {text:'An organisation updates its intake forms to include preferred pronouns and cultural dietary requirements, and trains all staff on diverse client needs.', correct:'Competence', explanation:'Organisational systems that enable effective cross-cultural work = competence.'},
+  {text:'A case worker uses a client\'s preferred name, avoids making assumptions about their family structure, and ensures the meeting space has no culturally offensive materials.', correct:'Safety', explanation:'Cultural safety is defined by the client\'s experience — not the worker\'s intentions.'},
+  {text:'A worker realises she assumes older clients from certain backgrounds don\'t use technology. She researches this assumption.', correct:'Awareness', explanation:'Identifying and interrogating your own assumptions is cultural awareness in action.'},
+  {text:'A service consults with the local First Nations community before designing a new outreach program.', correct:'Competence', explanation:'Systemic consultation and co-design with communities = organisational cultural competence.'},
+  {text:'A new worker is learning about the diversity areas and their definitions so she can better understand her clients.', correct:'Awareness', explanation:'Building foundational knowledge about diversity and your own lens is the beginning of awareness.'},
+];
+
+function buildScenarioSorter() {
+  const container = document.getElementById('scenarioSorter');
+  container.innerHTML = '';
+  scenarios.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'scenario-card';
+    div.innerHTML = `
+      <div class="scenario-text">"${s.text}"</div>
+      <div class="scenario-btns">
+        <button class="scenario-btn" onclick="answerScenario(${i},'Awareness',this)">Cultural Awareness</button>
+        <button class="scenario-btn" onclick="answerScenario(${i},'Competence',this)">Cultural Competence</button>
+        <button class="scenario-btn" onclick="answerScenario(${i},'Safety',this)">Cultural Safety</button>
+      </div>
+      <div class="scenario-feedback" id="sfb${i}"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function answerScenario(idx, choice, btn) {
+  const s = scenarios[idx];
+  const fbEl = document.getElementById('sfb'+idx);
+  const btns = btn.closest('.scenario-btns').querySelectorAll('.scenario-btn');
+  btns.forEach(b => b.disabled = true);
+  if (choice === s.correct) {
+    btn.classList.add('correct-ans');
+    fbEl.className = 'scenario-feedback show good';
+    fbEl.textContent = '✓ Correct — ' + s.explanation;
+  } else {
+    btn.classList.add('wrong-ans');
+    fbEl.className = 'scenario-feedback show bad';
+    fbEl.textContent = '✗ Not quite. The answer is ' + s.correct + '. ' + s.explanation;
+    btns.forEach(b => { if (b.textContent.includes(s.correct)) b.classList.add('correct-ans'); });
+  }
+}
+
+/* ─── Iceberg Chips ─────────────────────────────────────────── */
+const icebergAboveData = [
+  {label:'Food & cuisine', tip:'What people eat and how they eat is visible — though the meanings behind it often aren\'t.'},
+  {label:'Clothing', tip:'Dress is often the most immediately visible cultural marker.'},
+  {label:'Language', tip:'Which language someone speaks (or doesn\'t speak) is visible and audible.'},
+  {label:'Celebrations', tip:'Festivals, ceremonies and holidays are visible cultural expressions.'},
+  {label:'Art & music', tip:'Creative traditions are an expression of cultural identity.'},
+  {label:'Greetings', tip:'How people greet each other (handshake, bow, kiss) is visible — though what it means varies.'},
+];
+const icebergBelowData = [
+  {label:'Values & beliefs', tip:'What people believe is right, fair, or important — invisible but deeply shaping.'},
+  {label:'Attitudes to authority', tip:'How much deference is owed to parents, elders, employers or institutions varies widely.'},
+  {label:'Concepts of time', tip:'Is punctuality a virtue or is flexibility a sign of warmth? This varies by culture.'},
+  {label:'Gender role expectations', tip:'Who should speak first, who earns, who cares — these assumptions are often invisible.'},
+  {label:'Communication style', tip:'Direct vs indirect communication, silence as respect vs discomfort — invisible and powerful.'},
+  {label:'Notions of fairness', tip:'What counts as fair treatment varies significantly across cultures.'},
+  {label:'Religious beliefs', tip:'Even when visible expressions are absent, religious or spiritual values shape behaviour.'},
+];
+
+function buildIcebergChips() {
+  const aboveEl = document.getElementById('icebergAbove');
+  const belowEl = document.getElementById('icebergBelow');
+  icebergAboveData.forEach(d => {
+    aboveEl.appendChild(makeChip(d, 'above'));
+  });
+  icebergBelowData.forEach(d => {
+    belowEl.appendChild(makeChip(d, 'below'));
+  });
+}
+
+function makeChip(d, type) {
+  const chip = document.createElement('div');
+  chip.className = `iceberg-chip ${type}`;
+  chip.innerHTML = `${d.label}<span class="iceberg-tooltip">${d.tip}</span>`;
+  chip.onclick = () => chip.classList.toggle('active');
+  return chip;
+}
+
+/* ─── Iceberg Sort ──────────────────────────────────────────── */
+const sortItems = [
+  {text:'The way someone dresses for a religious ceremony', above:true, why:'Clothing and dress are visible to others — a surface expression of culture.'},
+  {text:'Believing that direct eye contact shows respect', above:false, why:'This is an invisible assumption — one that many people hold without realising it varies across cultures.'},
+  {text:'Celebrating Lunar New Year', above:true, why:'Celebrations and festivals are visible cultural expressions.'},
+  {text:'Assuming the eldest son should make family decisions', above:false, why:'This is a deeply held cultural belief about family roles — invisible, but shaping.'},
+  {text:'Speaking a language other than English at home', above:true, why:'Language use is audible and visible.'},
+  {text:'Feeling uncomfortable with silence in conversation', above:false, why:'This reaction is invisible — it\'s a cultural assumption about what silence means.'},
+  {text:'Traditional food practices', above:true, why:'Food and how it\'s prepared is visible.'},
+  {text:'Believing punctuality is a sign of respect', above:false, why:'This is a cultural value about time — invisible and deeply ingrained.'},
+  {text:'Wearing a hijab', above:true, why:'Religious dress is visible.'},
+  {text:'Preferring indirect communication to avoid conflict', above:false, why:'Communication style preferences are invisible — they operate below the waterline.'},
+];
+
+let sortState = { idx:0, score:0, shuffled:[] };
+
+function initSort() {
+  sortState.shuffled = shuffle(sortItems);
+  sortState.idx = 0; sortState.score = 0;
+  document.getElementById('sortResult').classList.remove('show');
+  document.querySelector('.sort-card-wrap').style.display = 'block';
+  renderSortCard();
+}
+
+function renderSortCard() {
+  if (sortState.idx >= sortState.shuffled.length) {
+    showSortResult(); return;
+  }
+  document.getElementById('sortCardText').textContent = '"' + sortState.shuffled[sortState.idx].text + '"';
+  document.getElementById('sortProgress').textContent = `Item ${sortState.idx + 1} of ${sortState.shuffled.length}`;
+  document.getElementById('sortFeedback').textContent = '';
+  document.getElementById('sortFeedback').className = 'sort-feedback';
+}
+
+function doSort(isAbove) {
+  const item = sortState.shuffled[sortState.idx];
+  const fb = document.getElementById('sortFeedback');
+  if (isAbove === item.above) {
+    sortState.score++;
+    fb.textContent = '✓ Correct — ' + item.why;
+    fb.className = 'sort-feedback good';
+  } else {
+    fb.textContent = '✗ ' + (isAbove ? 'Below' : 'Above') + ' the waterline — ' + item.why;
+    fb.className = 'sort-feedback bad';
+  }
+  sortState.idx++;
+  setTimeout(() => {
+    if (sortState.idx >= sortState.shuffled.length) showSortResult();
+    else renderSortCard();
+  }, 1400);
+}
+
+function showSortResult() {
+  document.querySelector('.sort-card-wrap').style.display = 'none';
+  const res = document.getElementById('sortResult');
+  res.classList.add('show');
+  document.getElementById('sortScoreNum').textContent = sortState.score + '/10';
+  let msg = '';
+  if (sortState.score >= 8) msg = '8–10: You\'ve got the iceberg! Strong foundation for AT1.';
+  else if (sortState.score >= 5) msg = '5–7: Almost there — review the examples above.';
+  else msg = 'Under 5: Head back to the iceberg diagram and try again.';
+  document.getElementById('sortScoreMsg').textContent = msg;
+  if (sortState.score >= 8) {
+    document.getElementById('check-sort').classList.add('visible');
+    localStorage.setItem(LS+'sort_done','1');
+  }
+}
+
+function resetSort() { initSort(); }
+
+/* ─── Identity Wheel ────────────────────────────────────────── */
+const wheelSegs = [
+  {icon:'🌍', label:'Cultural background', key:'wheel_cult'},
+  {icon:'👴', label:'Generation / age group', key:'wheel_gen'},
+  {icon:'💼', label:'Work / professional background', key:'wheel_work'},
+  {icon:'🕌', label:'Religion or spirituality', key:'wheel_relig'},
+  {icon:'👨‍👩‍👧', label:'Family background', key:'wheel_fam'},
+  {icon:'🌏', label:'Place of origin', key:'wheel_origin'},
+  {icon:'🎓', label:'Education background', key:'wheel_edu'},
+  {icon:'➕', label:'One more (your choice)', key:'wheel_other'},
+];
+
+let activeWheelIdx = null;
+
+function buildWheel() {
+  const grid = document.getElementById('wheelGrid');
+  grid.innerHTML = '';
+  wheelSegs.forEach((seg, i) => {
+    const div = document.createElement('div');
+    div.className = 'wheel-seg';
+    div.id = 'wseg_' + i;
+    const saved = localStorage.getItem(LS + seg.key);
+    if (saved) div.classList.add('saved');
+    div.innerHTML = `<span class="seg-icon">${seg.icon}</span>${seg.label}`;
+    div.onclick = () => openWheelPanel(i);
+    grid.appendChild(div);
+  });
+}
+
+function openWheelPanel(i) {
+  const panel = document.getElementById('wheelInputPanel');
+  const label = document.getElementById('wheelInputLabel');
+  const ta = document.getElementById('wheelInputTA');
+  activeWheelIdx = i;
+  const seg = wheelSegs[i];
+  label.textContent = `My ${seg.label} is / includes:`;
+  ta.value = localStorage.getItem(LS + seg.key) || '';
+  panel.classList.add('open');
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+  // highlight active
+  document.querySelectorAll('.wheel-seg').forEach((el,idx) => el.classList.toggle('active', idx===i));
+}
+
+function saveWheelItem() {
+  if (activeWheelIdx === null) return;
+  const seg = wheelSegs[activeWheelIdx];
+  const val = document.getElementById('wheelInputTA').value.trim();
+  if (val) {
+    localStorage.setItem(LS + seg.key, val);
+    document.getElementById('wseg_' + activeWheelIdx).classList.add('saved');
+  }
+  document.getElementById('wheelInputPanel').classList.remove('open');
+  document.querySelectorAll('.wheel-seg').forEach(el => el.classList.remove('active'));
+  activeWheelIdx = null;
+  // check all done
+  const allSaved = wheelSegs.every(s => localStorage.getItem(LS + s.key));
+  if (allSaved) {
+    document.getElementById('check-wheel').classList.add('visible');
+    localStorage.setItem(LS+'wheel_done','1');
+  }
+}
+
+function saveReflection(id, val) {
+  localStorage.setItem(LS + id, val);
+}
+
+/* ─── Bias Sorter ───────────────────────────────────────────── */
+const biasScenarios = [
+  {text:'A team leader consistently gives the best projects to staff members who went to the same university as her.', options:['Affinity bias','Confirmation bias','Attribution bias','Halo effect'], correct:'Affinity bias', expl:'Affinity bias: favouring people who are similar to us.'},
+  {text:'A worker has heard that a particular client is "difficult." When the client arrives slightly late, the worker thinks "typical — just as I expected."', options:['Affinity bias','Confirmation bias','Halo effect','Generational bias'], correct:'Confirmation bias', expl:'Confirmation bias: seeking evidence that confirms what we already believe.'},
+  {text:'When a colleague makes an error, a worker thinks "she\'s just careless." When the worker herself makes an error, she thinks "it\'s been a tough week."', options:['Affinity bias','Attribution bias','Halo effect','Generational bias'], correct:'Attribution bias', expl:'Attribution bias: applying different explanations to the same behaviour.'},
+  {text:'A supervisor meets a new client who is well-dressed and articulate. She assumes the client doesn\'t really need much support.', options:['Affinity bias','Confirmation bias','Halo effect','Generational bias'], correct:'Halo effect', expl:'Halo effect: one positive trait shapes our entire view of a person.'},
+  {text:'An experienced worker dismisses a suggestion from a 24-year-old colleague because "they just don\'t have enough life experience yet."', options:['Affinity bias','Confirmation bias','Attribution bias','Generational bias'], correct:'Generational bias', expl:'Generational bias: making assumptions based on age or generation.'},
+];
+
+function buildBiasSorter() {
+  const container = document.getElementById('biasSorter');
+  container.innerHTML = '';
+  biasScenarios.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'bias-scenario';
+    div.innerHTML = `
+      <div class="bias-q">"${s.text}"</div>
+      <div class="bias-opts">
+        ${s.options.map(o => `<button class="bias-opt" onclick="answerBias(${i},'${o}',this)">${o}</button>`).join('')}
+      </div>
+      <div class="bias-expl" id="bexp${i}"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function answerBias(idx, choice, btn) {
+  const s = biasScenarios[idx];
+  const expl = document.getElementById('bexp'+idx);
+  const btns = btn.closest('.bias-opts').querySelectorAll('.bias-opt');
+  btns.forEach(b => b.disabled = true);
+  if (choice === s.correct) {
+    btn.classList.add('correct');
+    expl.className = 'bias-expl show';
+    expl.style.color = '#1a7a3f';
+    expl.textContent = '✓ ' + s.expl;
+  } else {
+    btn.classList.add('wrong');
+    expl.className = 'bias-expl show';
+    expl.style.color = 'var(--terra)';
+    expl.textContent = '✗ Not quite. ' + s.expl;
+    btns.forEach(b => { if (b.textContent === s.correct) b.classList.add('correct'); });
+  }
+}
+
+/* ─── Audit Save ─────────────────────────────────────────────── */
+function saveAudit() {
+  ['audit1','audit2','audit3','audit4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) localStorage.setItem(LS+id, el.value);
+  });
+  // check completion
+  const allFilled = ['audit1','audit2','audit3','audit4'].every(id => {
+    const v = localStorage.getItem(LS+id);
+    return v && v.trim().length > 10;
+  });
+  if (allFilled) {
+    document.getElementById('check-audit').classList.add('visible');
+    localStorage.setItem(LS+'audit_done','1');
+  }
+}
+
+/* ─── Knowledge Check Quiz ───────────────────────────────────── */
+const quizData = [
+  {q:'Which of the following best describes Cultural Safety?', opts:['Knowing the cultural background of your clients','An environment where people are not exposed to challenge or rejection because of who they are','Being able to speak multiple languages','Following diversity policies at work'], correct:1},
+  {q:'Which diversity area refers to a person\'s internal sense of who they are, regardless of biological sex?', opts:['Sexual orientation','Intersex','Gender identity','Cultural background'], correct:2},
+  {q:'What is unconscious bias?', opts:['Deliberately treating someone unfairly','A pattern of thought that affects our judgements without us realising','A personal choice to favour certain groups','A workplace policy issue'], correct:1},
+  {q:'Which part of the cultural iceberg is visible?', opts:['Values and beliefs','Attitudes to authority','Food, clothing and language','Concepts of fairness'], correct:2},
+  {q:'A worker consistently gives more attention to clients who remind her of her own family background. This is an example of:', opts:['Confirmation bias','Attribution bias','Affinity bias','Halo effect'], correct:2},
+  {q:'Cultural Competence operates at which two levels?', opts:['Personal and cultural','Individual and organisational','Local and national','Awareness and safety'], correct:1},
+  {q:'Which assessment task asks you to reflect on your own cultural background and biases?', opts:['AT1 — Knowledge Questions','AT2 — Research Report','AT3 — Role Play','AT4 — Reflective Journal'], correct:3},
+  {q:'Which statement about unconscious bias is TRUE?', opts:['Only people with prejudiced views have unconscious bias','Unconscious bias can be eliminated with enough training','Everyone has unconscious bias — it is a feature of how the brain works','Unconscious bias only applies to racial differences'], correct:2},
+];
+
+let quizState = { idx:0, score:0, answered:false };
+
+function buildQuiz() {
+  quizState = { idx:0, score:0, answered:false };
+  document.getElementById('quizScoreDisplay').classList.remove('show');
+  document.getElementById('quizQDisplay').style.display = 'block';
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizNextBtn').classList.remove('show');
+  renderQuizQ();
+}
+
+function renderQuizQ() {
+  const q = quizData[quizState.idx];
+  document.getElementById('quizQNum').textContent = `Question ${quizState.idx + 1} of ${quizData.length}`;
+  document.getElementById('quizQText').textContent = q.q;
+  const opts = document.getElementById('quizOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = o;
+    btn.onclick = () => answerQuiz(i, btn);
+    opts.appendChild(btn);
+  });
+  quizState.answered = false;
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('quizNextBtn').classList.remove('show');
+}
+
+function answerQuiz(chosen, btn) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+  const q = quizData[quizState.idx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(b => b.disabled = true);
+  const fb = document.getElementById('quizFeedback');
+  if (chosen === q.correct) {
+    btn.classList.add('correct');
+    fb.textContent = '✓ Correct!';
+    fb.className = 'quiz-feedback good';
+    quizState.score++;
+  } else {
+    btn.classList.add('wrong');
+    opts[q.correct].classList.add('correct');
+    fb.textContent = '✗ Not quite — the correct answer is highlighted.';
+    fb.className = 'quiz-feedback bad';
+  }
+  document.getElementById('quizNextBtn').classList.add('show');
+}
+
+function quizNext() {
+  quizState.idx++;
+  if (quizState.idx >= quizData.length) {
+    showQuizResult();
+  } else {
+    renderQuizQ();
+  }
+}
+
+function showQuizResult() {
+  document.getElementById('quizQDisplay').style.display = 'none';
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizNextBtn').classList.remove('show');
+  const scoreEl = document.getElementById('quizScoreDisplay');
+  scoreEl.classList.add('show');
+  document.getElementById('quizScoreNum').textContent = quizState.score + '/8';
+  let msg = '';
+  if (quizState.score >= 7) msg = 'Excellent — you\'re well prepared for AT1.';
+  else if (quizState.score >= 5) msg = 'Good work — review the concepts you missed before writing your AT1.';
+  else msg = 'Head back through today\'s content and try again.';
+  document.getElementById('quizScoreMsg').textContent = msg;
+  if (quizState.score >= 7) {
+    document.getElementById('check-quiz').classList.add('visible');
+    localStorage.setItem(LS+'quiz_done','1');
+  }
+}
+
+function resetQuiz() { buildQuiz(); }
+
+/* ─── Exit Ticket ────────────────────────────────────────────── */
+function saveExit() {
+  ['exit1','exit2','exit3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) localStorage.setItem(LS+id, el.value);
+  });
+  const allFilled = ['exit1','exit2','exit3'].every(id => {
+    const v = localStorage.getItem(LS+id);
+    return v && v.trim().length > 5;
+  });
+  if (allFilled) {
+    document.getElementById('check-exit').classList.add('visible');
+    localStorage.setItem(LS+'exit_done','1');
+  }
+}
+
+/* ─── Expandable AT cards ────────────────────────────────────── */
+function toggleExpand(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+/* ─── Copy Summary ───────────────────────────────────────────── */
+function copySummary() {
+  const text = document.getElementById('summaryText').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.classList.remove('copied'); }, 2500);
+  });
+}
+
+/* ─── Reset All ──────────────────────────────────────────────── */
+function resetAll() {
+  if (!confirm('This will clear all your saved answers, reflections and quiz progress on this page. Are you sure?')) return;
+  Object.keys(localStorage).forEach(k => { if (k.startsWith(LS)) localStorage.removeItem(k); });
+  location.reload();
+}
+
+/* ─── Load saved data ────────────────────────────────────────── */
+function loadSaved() {
+  // Mode
+  const mode = localStorage.getItem(LS+'mode');
+  if (mode === 'teacher') {
+    document.body.classList.add('teacher-mode');
+    document.getElementById('modeToggle').textContent = 'Switch to Student Mode';
   }
 
-  function toggleView() {
-    setView(!body.classList.contains('teacher-mode'));
-  }
+  // Reflections
+  ['ref1','ref2','ref3','exit1','exit2','exit3','audit1','audit2','audit3','audit4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = localStorage.getItem(LS+id) || '';
+  });
 
-  // Load saved preference
-  (function() {
-    try {
-      const saved = localStorage.getItem('div001_view');
-      if (saved === 'teacher') setView(true);
-      else setView(false);
-    } catch(e) { setView(false); }
-  })();
+  // Checkmarks
+  if (localStorage.getItem(LS+'flip_done')) { document.getElementById('check-flip').classList.add('visible'); document.getElementById('flipCelebration').classList.add('show'); }
+  if (localStorage.getItem(LS+'match_done')) document.getElementById('check-match').classList.add('visible');
+  if (localStorage.getItem(LS+'sort_done')) document.getElementById('check-sort').classList.add('visible');
+  if (localStorage.getItem(LS+'wheel_done')) document.getElementById('check-wheel').classList.add('visible');
+  if (localStorage.getItem(LS+'audit_done')) document.getElementById('check-audit').classList.add('visible');
+  if (localStorage.getItem(LS+'quiz_done')) document.getElementById('check-quiz').classList.add('visible');
+  if (localStorage.getItem(LS+'exit_done')) document.getElementById('check-exit').classList.add('visible');
+}
 
-
-  // ── Collapsible Blocks ──────────────────────────────────────────
-  function toggleBlock(btn) {
-    const block = btn.closest('.time-block');
-    block.classList.toggle('open');
-    btn.setAttribute('aria-expanded', block.classList.contains('open'));
-  }
-
-
-  // ── AT Card Toggle ──────────────────────────────────────────────
-  function toggleATCard(card) {
-    card.classList.toggle('open');
-  }
-
-
-  // ── Scroll to AT ─────────────────────────────────────────────────
-  function scrollToAT(cardId, event) {
-    if (event) event.stopPropagation();
-    const card = document.getElementById(cardId);
-    if (!card) return;
-    // Open the parent block if closed
-    const parentBlock = document.getElementById('block-atmap');
-    if (parentBlock && !parentBlock.classList.contains('open')) {
-      parentBlock.classList.add('open');
-    }
-    // Open the card
-    card.classList.add('open');
-    setTimeout(() => {
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100);
-  }
-
-
-  // ── Resource Checklist ──────────────────────────────────────────
-  function saveCheck(idx, checkbox) {
-    const li = document.getElementById('res-' + idx);
-    if (checkbox.checked) li.classList.add('checked');
-    else li.classList.remove('checked');
-    try {
-      const checks = getChecks();
-      checks[idx] = checkbox.checked;
-      localStorage.setItem('div001_checks', JSON.stringify(checks));
-    } catch(e) {}
-  }
-
-  function getChecks() {
-    try {
-      const raw = localStorage.getItem('div001_checks');
-      return raw ? JSON.parse(raw) : {};
-    } catch(e) { return {}; }
-  }
-
-  // Restore checklist state
-  (function() {
-    const checks = getChecks();
-    for (let i = 0; i < 5; i++) {
-      if (checks[i]) {
-        const cb = document.getElementById('r' + i);
-        const li = document.getElementById('res-' + i);
-        if (cb && li) { cb.checked = true; li.classList.add('checked'); }
-      }
-    }
-  })();
-
-
-  // ── Copy Teams Message ──────────────────────────────────────────
-  function copyTeamsMessage() {
-    const text = document.getElementById('teams-message-text').innerText;
-    const btn = document.getElementById('copy-btn');
-    const icon = document.getElementById('copy-icon');
-    const label = document.getElementById('copy-text');
-
-    navigator.clipboard.writeText(text).then(() => {
-      btn.classList.add('copied');
-      icon.textContent = '✅';
-      label.textContent = 'Copied!';
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        icon.textContent = '📋';
-        label.textContent = 'Copy for Teams';
-      }, 2200);
-    }).catch(() => {
-      // Fallback for older browsers
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      btn.classList.add('copied');
-      icon.textContent = '✅';
-      label.textContent = 'Copied!';
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        icon.textContent = '📋';
-        label.textContent = 'Copy for Teams';
-      }, 2200);
-    });
-  }
-
-
-  // ── Back to Top Button ──────────────────────────────────────────
-  const backTop = document.getElementById('back-top');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) backTop.classList.add('visible');
-    else backTop.classList.remove('visible');
-  }, { passive: true });
-
-
-  // ── Progress Bar (teacher mode) ─────────────────────────────────
-  function updateProgress() {
-    const bar = document.getElementById('progress-bar');
-    if (!bar) return;
-    const now = new Date();
-    const start = new Date(now);
-    start.setHours(9, 30, 0, 0);
-    const end = new Date(now);
-    end.setHours(15, 0, 0, 0);
-    const total = end - start;
-    const elapsed = now - start;
-    const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
-    bar.style.width = pct + '%';
-  }
-
-  updateProgress();
-  setInterval(updateProgress, 60000);
+/* ─── Init ───────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  loadSaved();
+  buildMatch();
+  buildScenarioSorter();
+  buildIcebergChips();
+  initSort();
+  buildWheel();
+  buildBiasSorter();
+  buildQuiz();
+});
 </script>
-
 </body>
 </html>
