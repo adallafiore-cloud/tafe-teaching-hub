@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 — TEACHER VIEW | CHCCOM002</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --teacher: #7c2d12;
+  --teacher-lt: #fff7ed;
+  --teacher-mid: #dc6803;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --panel-w: 260px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.75; }
+
+/* ── HEADER ── */
+.top-bar { background: var(--teacher); color: white; padding: 13px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.teacher-badge { background: var(--teacher-mid); color: white; font-size: 11px; font-weight: 800; padding: 4px 11px; border-radius: 20px; letter-spacing: .5px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 1px; }
+.top-right { display: flex; align-items: center; gap: 12px; }
+.toggle-panel-btn { background: rgba(255,255,255,.2); color: white; border: 1px solid rgba(255,255,255,.3); font-size: 12px; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-family: inherit; }
+.toggle-panel-btn:hover { background: rgba(255,255,255,.3); }
+
+/* ── LAYOUT ── */
+.layout { display: flex; }
+
+/* ── TIMING SIDEBAR ── */
+.timing-sidebar { width: var(--panel-w); flex-shrink: 0; position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; background: var(--white); border-right: 1px solid var(--border); padding: 18px 0 40px; transition: width .3s, opacity .3s; }
+.timing-sidebar.collapsed { width: 0; overflow: hidden; opacity: 0; padding: 0; }
+.sidebar-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); padding: 0 16px 10px; }
+.time-block { padding: 10px 16px; border-left: 3px solid transparent; cursor: pointer; }
+.time-block:hover { background: var(--bg); }
+.time-block.active { border-left-color: var(--teacher-mid); background: var(--orange-lt); }
+.time-block.break { border-left-color: #94a3b8; background: #f1f5f9; cursor: default; }
+.tb-time { font-size: 12px; font-weight: 700; color: var(--teacher); }
+.tb-label { font-size: 13px; color: var(--text); font-weight: 600; line-height: 1.4; }
+.tb-dur { font-size: 11px; color: var(--muted); }
+.sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 8px 16px; }
+
+/* ── MAIN ── */
+.main-area { flex: 1; min-width: 0; }
+.page { max-width: 720px; margin: 0 auto; padding: 28px 20px 80px; }
+
+/* ── HERO ── */
+.hero { background: linear-gradient(135deg, var(--teacher) 0%, #9a3412 100%); color: white; padding: 36px 28px 32px; }
+.hero-teacher-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.2); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; letter-spacing: .4px; }
+.hero-title { font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 15px; opacity: .9; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 12px; padding: 4px 11px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+/* ── TIME BLOCK HEADERS ── */
+.time-block-header { display: flex; align-items: center; gap: 0; margin: 36px 0 20px; background: var(--teacher); color: white; border-radius: var(--radius); overflow: hidden; }
+.tbh-time { background: var(--teacher-mid); padding: 14px 20px; font-size: 17px; font-weight: 800; white-space: nowrap; min-width: 130px; }
+.tbh-right { padding: 12px 18px; flex: 1; }
+.tbh-label { font-size: 13px; opacity: .7; text-transform: uppercase; letter-spacing: .7px; }
+.tbh-title { font-size: 16px; font-weight: 700; }
+.tbh-dur { font-size: 12px; opacity: .6; margin-top: 2px; }
+.break-header { background: #e2e8f0; color: var(--muted); border-radius: var(--radius); padding: 12px 20px; margin: 28px 0; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 36px; }
+.section-label { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+p { margin-bottom: 12px; font-size: 16px; }
+
+/* ── FACILITATOR PANEL ── */
+.fac-panel { background: #fff7ed; border: 2px solid var(--teacher-mid); border-radius: var(--radius); margin: 16px 0; overflow: hidden; }
+.fac-panel-head { background: var(--teacher-mid); color: white; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.fac-panel-head-left { display: flex; align-items: center; gap: 10px; }
+.fac-type { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; background: rgba(255,255,255,.25); padding: 2px 8px; border-radius: 20px; }
+.fac-title-text { font-size: 14px; font-weight: 700; }
+.fac-chevron { font-size: 16px; transition: transform .25s; }
+.fac-body { padding: 16px 18px; display: none; }
+.fac-body.open { display: block; }
+.fac-body p, .fac-body li { font-size: 14.5px; }
+.fac-body ul, .fac-body ol { padding-left: 20px; margin-top: 6px; }
+.fac-body li { margin-bottom: 7px; }
+.fac-say { background: #fff; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px 15px; margin: 10px 0; font-size: 14px; color: var(--teacher); font-style: italic; }
+.fac-say::before { content: '🗣 Say: '; font-style: normal; font-weight: 700; }
+.fac-tip { background: #fef9c3; border-left: 3px solid #eab308; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-tip::before { content: '💡 Tip: '; font-weight: 700; }
+.fac-lln { background: #f0fdfa; border-left: 3px solid var(--teal); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-lln::before { content: '♿ LLN: '; font-weight: 700; color: var(--teal); }
+.fac-answer { background: var(--green-lt); border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 15px; margin: 10px 0; font-size: 14px; }
+.fac-answer-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: var(--green); margin-bottom: 6px; }
+
+/* ── STANDARD BOXES ── */
+.box { border-radius: var(--radius); padding: 16px 18px; margin: 14px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-navy .box-label { color: var(--navy); }
+.box p, .box li { font-size: 14.5px; }
+
+/* ── CONCEPT CARDS ── */
+.concept-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 16px 0; }
+.concept-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; position: relative; overflow: hidden; }
+.concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.cc-aw::before { background: var(--teal); }
+.cc-co::before { background: var(--orange); }
+.cc-sa::before { background: var(--green); }
+.cc-pu::before { background: var(--purple); }
+.cc-nv::before { background: var(--navy); }
+.concept-num { font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 5px; }
+.cc-aw .concept-num { color: var(--teal); }
+.cc-co .concept-num { color: var(--orange); }
+.cc-sa .concept-num { color: var(--green); }
+.cc-pu .concept-num { color: var(--purple); }
+.cc-nv .concept-num { color: var(--navy); }
+.concept-name { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 7px; }
+.concept-def { font-size: 15px; color: var(--text); margin-bottom: 10px; }
+.concept-eg { font-size: 13.5px; color: var(--muted); font-style: italic; padding: 7px 11px; background: var(--bg); border-radius: 6px; }
+
+/* ── STYLES GRID ── */
+.styles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; }
+.style-card { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 11px 13px; }
+.style-card .ico { font-size: 18px; margin-bottom: 4px; display: block; }
+.style-name { font-size: 13px; font-weight: 700; color: var(--navy); }
+.style-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.style-card.highlight { border-color: var(--green); background: var(--green-lt); }
+.style-card.highlight .style-name { color: var(--green); }
+.style-card.warning { border-color: #dc2626; background: #fef2f2; }
+.style-card.warning .style-name { color: #dc2626; }
+
+/* ── CYCLE DIAGRAM ── */
+.cycle-wrap { background: linear-gradient(135deg, #1a3a5c 0%, #0e7490 100%); border-radius: var(--radius); padding: 22px 20px; margin: 14px 0; }
+.cycle-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: rgba(255,255,255,.7); margin-bottom: 14px; }
+.cycle-steps { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.cycle-step { background: rgba(255,255,255,.18); color: white; font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,.3); }
+.cycle-arrow { color: rgba(255,255,255,.6); font-size: 16px; }
+.cycle-note { margin-top: 12px; font-size: 13px; color: rgba(255,255,255,.8); font-style: italic; }
+
+/* ── BIAS TABLE / GENERAL TABLE ── */
+table { width: 100%; border-collapse: collapse; margin: 14px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 10px 13px; text-align: left; font-size: 13px; }
+td { padding: 10px 13px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+/* ── VIDEO ── */
+.video-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; margin: 14px 0; }
+.video-thumb { width: 90px; flex-shrink: 0; background: #e50914; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-size: 11px; gap: 5px; }
+.video-play { font-size: 24px; }
+.video-body { padding: 13px 16px; flex: 1; }
+.video-badge { font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: #e50914; margin-bottom: 3px; }
+.video-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.btn-watch { display: inline-block; background: #e50914; color: white; font-size: 12px; font-weight: 700; padding: 6px 13px; border-radius: 5px; text-decoration: none; }
+
+/* ── AT TABLE ── */
+.at-table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+.at-table th { background: var(--teacher); color: white; padding: 10px 13px; font-size: 13px; text-align: left; }
+.at-table td { padding: 10px 13px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+.at-table tr:nth-child(even) td { background: #fef9f6; }
+
+/* ── CHECKLIST ── */
+.checklist { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.checklist h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.checklist label { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; cursor: pointer; font-size: 14.5px; }
+.checklist input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--teacher); }
+.checklist span.done { text-decoration: line-through; color: var(--muted); }
+
+/* ── END OF DAY SUMMARY ── */
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 24px; margin: 14px 0; }
+.summary-box h3 { color: white; font-size: 16px; margin-bottom: 6px; }
+.summary-box .summary-sub { color: rgba(255,255,255,.7); font-size: 13px; margin-bottom: 16px; }
+.summary-content { background: rgba(255,255,255,.07); border-radius: 8px; padding: 16px 18px; font-size: 14px; color: rgba(255,255,255,.9); line-height: 1.8; white-space: pre-wrap; font-family: inherit; }
+.btn-copy { display: inline-flex; align-items: center; gap: 7px; background: var(--teacher-mid); color: white; border: none; font-size: 13px; font-weight: 700; padding: 9px 18px; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: 14px; }
+.btn-copy:hover { background: var(--teacher); }
+
+/* ── SCROLL ── */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--teacher); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+
+/* ── KE BADGE ROW ── */
+.ke-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
+.ke-badge { background: var(--purple-lt); color: var(--purple); border: 1px solid #c4b5fd; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+
+@media (max-width: 768px) {
+  .timing-sidebar { display: none; }
+  .styles-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="teacher-badge">🍎 TEACHER VIEW</span>
+    <div>
+      <div class="top-title">CHCCOM002 · Session 1 — Facilitator Guide</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;·&nbsp; Certificate IV Community Services &nbsp;·&nbsp; Mon 20 April 2026</div>
+    </div>
+  </div>
+  <div class="top-right">
+    <button class="toggle-panel-btn" onclick="toggleSidebar()">⏱ Timing</button>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- TIMING SIDEBAR -->
+<aside class="timing-sidebar" id="timingSidebar">
+  <div class="sidebar-title">Session Timeline</div>
+
+  <div class="time-block active" onclick="scrollToId('tb-930')">
+    <div class="tb-time">9:30</div>
+    <div class="tb-label">Welcome & Icebreaker</div>
+    <div class="tb-dur">30 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1000')">
+    <div class="tb-time">10:00</div>
+    <div class="tb-label">New Learning 1: Comm Process</div>
+    <div class="tb-dur">30 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">10:30</div>
+    <div class="tb-label">☕ Break</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1045')">
+    <div class="tb-time">10:45</div>
+    <div class="tb-label">New Learning 2: Non-Verbal &amp; Styles</div>
+    <div class="tb-dur">45 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1130')">
+    <div class="tb-time">11:30</div>
+    <div class="tb-label">Activity 1: Worksheet</div>
+    <div class="tb-dur">30 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">12:00</div>
+    <div class="tb-label">🍽 Lunch</div>
+    <div class="tb-dur">45 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1245')">
+    <div class="tb-time">12:45</div>
+    <div class="tb-label">Warm-Up: Card Sort</div>
+    <div class="tb-dur">30 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-115')">
+    <div class="tb-time">1:15</div>
+    <div class="tb-label">Assessment Work</div>
+    <div class="tb-dur">75 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">2:30</div>
+    <div class="tb-label">☕ Break</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-245')">
+    <div class="tb-time">2:45</div>
+    <div class="tb-label">Wrap-Up</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-area">
+<div class="hero">
+  <div class="hero-teacher-tag">🍎 Teacher View — Not for Students</div>
+  <div class="hero-title">Session 1 — Interpersonal Communication Skills</div>
+  <div class="hero-sub">Monday 20 April 2026 · 9:30am – 3:00pm</div>
+  <div class="hero-chips">
+    <span class="chip">Session 1 of 6</span>
+    <span class="chip">CHCCOM002</span>
+    <span class="chip">20 April 2026</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- PRE-CLASS CHECKLIST -->
+<div class="section">
+  <div class="section-label">Before Class</div>
+  <div class="section-title">✅ Pre-Class Checklist</div>
+  <div class="checklist">
+    <h3>Print &amp; Prepare</h3>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Print Key Activity Worksheets (1 per student)</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Print Key Model Handouts (1 per student)</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Prepare 7 communication style cards + 7 scenario strips for card sort activity</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Distribute AT1 and AT2 assessment documents to students</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Sticky notes for icebreaker (enough for 2 per student)</span></label>
+    <h3 style="margin-top:14px;">Tech &amp; Video</h3>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Cue YouTube: Interpersonal Communication in Workplace — <a href="https://www.youtube.com/watch?v=_tG9YHeZT2A" target="_blank">youtube.com/watch?v=_tG9YHeZT2A</a> — test audio!</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Cue YouTube: Non-Verbal Communication Guide — <a href="https://www.youtube.com/watch?v=XIIW7lhEdzQ" target="_blank">youtube.com/watch?v=XIIW7lhEdzQ</a></span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Cue YouTube: Assertive vs Aggressive Behaviour — <a href="https://www.youtube.com/watch?v=3ejpy9HB1y4" target="_blank">youtube.com/watch?v=3ejpy9HB1y4</a></span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Student HTML open and ready to share via Teams: session1_student.html</span></label>
+  </div>
+</div>
+
+<!-- ═══════ 9:30 BLOCK ═══════ -->
+<div id="tb-930" class="time-block-header">
+  <div class="tbh-time">9:30 – 10:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Welcome</div>
+    <div class="tbh-title">Welcome &amp; Icebreaker</div>
+    <div class="tbh-dur">30 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">9:30 – 10:00 (30 min)</div>
+  <div class="section-title"><span>👋</span> Welcome &amp; Icebreaker</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Opening Script</span><span class="fac-title-text">What to say — word for word</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Before we start — take 30 seconds, tell the person next to you: what's ONE thing you're already good at when it comes to communication? And one thing you'd like to work on."</div>
+      <p>Give pairs 2 minutes. Take 3–4 responses from the whole group — brief, no pressure.</p>
+      <div class="fac-say">"Everything we do in community services depends on communication. Not just what we say — but how we say it, how we listen, how we respond. Today we build the foundation."</div>
+      <p><strong>Icebreaker activity:</strong> Distribute sticky notes. Students write two communication strengths and two growth areas. These are private — not shared whole-group. Collect them if students want, or let them keep.</p>
+      <div class="fac-tip">For CALD students — communicating in more than one language IS an advanced communication skill. Acknowledge this explicitly: "If you navigate more than one language or cultural context in your daily life, that is a genuine professional asset in community services."</div>
+      <div class="fac-lln">For quieter students: pair-share before whole-group gives everyone a safe entry point. Never cold-call.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 10:00 BLOCK ═══════ -->
+<div id="tb-1000" class="time-block-header">
+  <div class="tbh-time">10:00 – 10:30</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 1</div>
+    <div class="tbh-title">The Communication Process</div>
+    <div class="tbh-dur">30 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">10:00 – 10:30 (30 min)</div>
+  <div class="section-title"><span>🔄</span> The Communication Process</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Content Notes</span><span class="fac-title-text">Key concepts to cover + what to say</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <p><strong>Walk through Key Model Handout with the group.</strong> Cover in order:</p>
+      <ol>
+        <li><strong>Interpersonal skills — definition and why they matter.</strong> Three core strategies: self-reflection, empathy, building diverse relationships.</li>
+        <li><strong>The communication cycle.</strong> Sender → Message → Channel → Receiver → Feedback.</li>
+        <li><strong>Noise and interference</strong> — anything that disrupts the cycle.</li>
+      </ol>
+      <div class="fac-say">"Communication isn't one-directional. It's a cycle. When I send a message, I'm not done — I need to check it was received AND understood. That's where active listening comes in."</div>
+      <p><strong>Learner Guide reference:</strong> Ch 1.1–1.2, pp. 5–11.</p>
+    </div>
+  </div>
+
+  <p><strong>The Communication Cycle:</strong></p>
+  <div class="cycle-wrap">
+    <div class="cycle-label">The Communication Cycle — Sender to Feedback</div>
+    <div class="cycle-steps">
+      <div class="cycle-step">📤 Sender</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">💬 Message</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">📡 Channel</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">👂 Receiver</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">↩ Feedback</div>
+    </div>
+    <div class="cycle-note">Noise and interference can disrupt any point in this cycle. Our job is to minimise it.</div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">📋 Interpersonal Skills — 3 Key Strategies</div>
+    <ul style="padding-left:18px;">
+      <li><strong>Self-reflection</strong> — awareness of your own communication style and its impact on others</li>
+      <li><strong>Empathy</strong> — understanding and sharing another person's perspective and emotional experience</li>
+      <li><strong>Build diverse relationships</strong> — actively seek out and value connections with people from different backgrounds</li>
+    </ul>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Discussion Prompt</span><span class="fac-title-text">Noise — discussion prompt + model answers</span></div>
+      <span class="fac-chevron">▸</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"What's an example of 'noise' that you've experienced in a community services context — something that got in the way of communication?"</div>
+      <p>Take 3–4 responses. Prompt if needed.</p>
+      <div class="fac-answer">
+        <div class="fac-answer-label">✅ Strong model answers</div>
+        <ul>
+          <li>Physical noise — crowded waiting room, TV on in background, phone interruptions</li>
+          <li>Emotional noise — client is distressed, anxious, angry, or overwhelmed</li>
+          <li>Language barriers — different first languages, unfamiliar terminology, jargon</li>
+          <li>Power imbalance — client feels they can't speak freely or challenge the worker</li>
+          <li>Cognitive noise — worker is distracted, preoccupied, or making assumptions</li>
+        </ul>
+      </div>
+      <div class="fac-tip">Draw a simple cycle on the whiteboard and mark where noise can enter — students find this visual memorable for AT1.</div>
+      <div class="fac-lln">Slower students: "Noise just means anything that gets in the way. What gets in the way when you're trying to talk to someone?" Keep it practical.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-header">☕ 10:30 – 10:45 &nbsp;|&nbsp; Break — 15 minutes</div>
+
+<!-- ═══════ 10:45 BLOCK ═══════ -->
+<div id="tb-1045" class="time-block-header">
+  <div class="tbh-time">10:45 – 11:30</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 2</div>
+    <div class="tbh-title">Non-Verbal Communication, Listening &amp; Styles</div>
+    <div class="tbh-dur">45 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">10:45 – 11:30 (45 min)</div>
+  <div class="section-title"><span>🤝</span> Non-Verbal, Listening &amp; Communication Styles</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Content Notes</span><span class="fac-title-text">What to cover — in order</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <p>Cover the following in order. This block covers Ch 1.3–1.7, pp. 12–30 of the Learner Guide.</p>
+      <ol>
+        <li><strong>Non-verbal communication:</strong> body language, eye contact, facial expression, gestures, personal space, appearance</li>
+        <li><strong>Cultural influences on non-verbal communication</strong> — explicitly discuss with the cohort. Non-verbal norms vary (eye contact, silence, physical distance). This is high-value content for AT2.</li>
+        <li><strong>Active listening:</strong> paraphrasing, summarising, nodding, mirroring</li>
+        <li><strong>Questioning skills:</strong> open, closed, clarifying, probing — and when to use each</li>
+        <li><strong>Barriers to communication</strong> — full list (build from morning discussion)</li>
+        <li><strong>7 communication styles</strong> — introduce before card sort activity</li>
+      </ol>
+      <div class="fac-tip">Communication styles vary across cultures — affirm CALD students' cultural communication knowledge as genuinely valuable, not as a deficit to overcome. "The way you communicate at home, in your first language, in your community — that is sophisticated knowledge. Bring it."</div>
+    </div>
+  </div>
+
+  <p><strong>Non-Verbal Communication — key elements:</strong></p>
+  <table>
+    <thead><tr><th>Element</th><th>What to watch for in community services</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Body language</strong></td><td>Open posture signals safety; crossed arms can signal defensiveness</td></tr>
+      <tr><td><strong>Eye contact</strong></td><td>Culturally variable — direct eye contact = respect in some cultures, disrespect in others</td></tr>
+      <tr><td><strong>Facial expression</strong></td><td>Warmth, concern, neutrality — clients read this constantly</td></tr>
+      <tr><td><strong>Gestures</strong></td><td>Meanings vary across cultures — be cautious</td></tr>
+      <tr><td><strong>Personal space</strong></td><td>Comfortable distance varies by culture, gender, relationship</td></tr>
+      <tr><td><strong>Appearance</strong></td><td>Professional dress communicates respect for the client and the role</td></tr>
+    </tbody>
+  </table>
+
+  <div class="video-card">
+    <div class="video-thumb"><div class="video-play">▶</div><div>~4 min</div></div>
+    <div class="video-body">
+      <div class="video-badge">▶ Video 1 — Play now</div>
+      <div class="video-title">Non-Verbal Communication Guide</div>
+      <a class="btn-watch" href="https://www.youtube.com/watch?v=XIIW7lhEdzQ" target="_blank">Open YouTube ↗</a>
+    </div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Before &amp; After Video 1</span><span class="fac-title-text">What to say + discussion prompt</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Watch for two things — what's shown as 'good' non-verbal communication, and whether you think it applies universally."</div>
+      <p>Play video (~4 min). Then:</p>
+      <div class="fac-say">"In your cultural background — is there a non-verbal cue that means something different from what was shown? A gesture, eye contact, silence?"</div>
+      <p>Take 3–4 responses. This is where CALD students have the most to contribute — actively invite their knowledge.</p>
+      <div class="fac-tip">Don't correct — affirm. Every response is evidence of the diversity in the room. "This is exactly why community services workers need to be curious, not assume."</div>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <div class="video-thumb"><div class="video-play">▶</div><div>~1 min</div></div>
+    <div class="video-body">
+      <div class="video-badge">▶ Video 2 — Play now</div>
+      <div class="video-title">Assertive vs Aggressive Behaviour</div>
+      <a class="btn-watch" href="https://www.youtube.com/watch?v=3ejpy9HB1y4" target="_blank">Open YouTube ↗</a>
+    </div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Before &amp; After Video 2</span><span class="fac-title-text">What to say + discussion prompt</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"This is short — but watch the difference in body language, not just words. What's different in how the two people hold themselves?"</div>
+      <p>Play video (~1 min). Then:</p>
+      <div class="fac-say">"What's the difference in physical presence between assertive and aggressive? What did you notice?"</div>
+      <div class="fac-answer">
+        <div class="fac-answer-label">✅ Strong responses to affirm</div>
+        <ul>
+          <li>Assertive: calm, steady, direct — aggressive: tense, leaning forward, louder</li>
+          <li>Assertive: "I" statements — aggressive: blaming "you" language</li>
+          <li>Assertive stance is open — aggressive is closed or invading personal space</li>
+          <li>Facial expression: assertive is neutral/warm — aggressive is tight, frowning</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <p><strong>The 7 Communication Styles:</strong></p>
+  <div class="styles-grid">
+    <div class="style-card highlight">
+      <span class="ico">✅</span>
+      <div class="style-name">Assertive</div>
+      <div class="style-desc">Direct, honest, respectful — professional standard</div>
+    </div>
+    <div class="style-card warning">
+      <span class="ico">⚠️</span>
+      <div class="style-name">Aggressive</div>
+      <div class="style-desc">Forceful, disrespectful, intimidating — damages trust</div>
+    </div>
+    <div class="style-card warning">
+      <span class="ico">⚠️</span>
+      <div class="style-name">Passive-Aggressive</div>
+      <div class="style-desc">Indirect hostility — undermines relationships over time</div>
+    </div>
+    <div class="style-card">
+      <span class="ico">😶</span>
+      <div class="style-name">Passive</div>
+      <div class="style-desc">Avoids conflict, but needs go unmet — can build resentment</div>
+    </div>
+    <div class="style-card">
+      <span class="ico">🤝</span>
+      <div class="style-name">Submissive</div>
+      <div class="style-desc">Defers to others excessively — can compromise the work</div>
+    </div>
+    <div class="style-card">
+      <span class="ico">🎭</span>
+      <div class="style-name">Manipulative</div>
+      <div class="style-desc">Indirect, uses guilt or deception — breaks professional trust</div>
+    </div>
+    <div class="style-card">
+      <span class="ico">📊</span>
+      <div class="style-name">Analytical</div>
+      <div class="style-desc">Logical, detail-focused — valuable but can feel cold if overused</div>
+    </div>
+  </div>
+  <p style="font-size:13px; color:var(--muted);">Assertive communication is the professional standard in community services. Card sort activity (12:45pm) will reinforce this.</p>
+
+  <div class="box box-navy">
+    <div class="box-label">Barriers to Communication — Full List</div>
+    <ul style="padding-left:18px; font-size:14px;">
+      <li>Language and literacy differences</li>
+      <li>Cultural differences in communication norms</li>
+      <li>Physical environment (noise, privacy, comfort)</li>
+      <li>Emotional state (client or worker)</li>
+      <li>Power imbalance between worker and client</li>
+      <li>Assumptions and stereotyping</li>
+      <li>Physical or sensory disability</li>
+      <li>Technology limitations (poor phone connection, unfamiliar platforms)</li>
+      <li>Time pressure and workload</li>
+      <li>Lack of trust or rapport</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════ 11:30 BLOCK ═══════ -->
+<div id="tb-1130" class="time-block-header">
+  <div class="tbh-time">11:30 – 12:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Activity 1</div>
+    <div class="tbh-title">Key Activity Worksheet</div>
+    <div class="tbh-dur">30 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">11:30 – 12:00 (30 min)</div>
+  <div class="section-title"><span>📝</span> Key Activity Worksheet</div>
+
+  <div class="box box-orange">
+    <div class="box-label">📋 AT Connection</div>
+    <p>Worksheet responses feed directly into <strong>AT1 Q1–6</strong>. Tell students to keep their worksheets — they are source material, not just practice.</p>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Full Instructions</span><span class="fac-title-text">Worksheet — step by step facilitation</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Work through the worksheet individually — Parts 1 to 4. Use the Key Model Handout as a reference. You have about 25 minutes, then we'll share a couple of responses before lunch."</div>
+      <p><strong>Circulate — look for:</strong></p>
+      <ul>
+        <li>Students leaving sections blank — prompt: "Which concept from this morning connects to this question?"</li>
+        <li>Experienced workers — ask them to use real workplace examples. "Think of a client interaction you remember. What type of noise was present? What style did you use?"</li>
+        <li>LLN support — sit with students who need help with Part 4 (communication styles). Read the options aloud if needed.</li>
+      </ul>
+      <p><strong>Part 4 (communication styles):</strong> Have students share responses in pairs before whole-group. Take 2–3 volunteers for the whole group debrief.</p>
+      <div class="fac-tip">Newer students: reassure them this is not a test. "There are no wrong answers — I want to know what you think, based on what we covered this morning."</div>
+      <div class="fac-lln">CALD students can give examples from their cultural context — these are valid. "How is this handled in the communities you know? That's relevant information."</div>
+    </div>
+  </div>
+</div>
+
+<!-- LUNCH -->
+<div class="break-header">🍽 12:00 – 12:45 &nbsp;|&nbsp; Lunch — 45 minutes</div>
+
+<!-- ═══════ 12:45 BLOCK ═══════ -->
+<div id="tb-1245" class="time-block-header">
+  <div class="tbh-time">12:45 – 1:15</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Warm-Up</div>
+    <div class="tbh-title">Communication Styles Card Sort</div>
+    <div class="tbh-dur">30 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">12:45 – 1:15 (30 min)</div>
+  <div class="section-title"><span>🃏</span> Communication Styles Card Sort</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Full Instructions</span><span class="fac-title-text">Card Sort — purpose, setup, facilitation, debrief</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <p><strong>Setup:</strong> 7 style cards + 7 scenario strips (prepared before class). Distribute one set per pair or small group.</p>
+      <p><strong>In pairs:</strong> students match each scenario strip to the communication style they think it represents, then justify their answer to their partner.</p>
+      <div class="fac-say">"Match each scenario to the communication style. Then — tell your partner why you chose that one. What in the scenario gave it away?"</div>
+      <p>Allow 15 minutes for matching + pair discussion. Then debrief whole group (15 min).</p>
+      <p><strong>Debrief questions — use these in order:</strong></p>
+      <ul>
+        <li>"Which styles are most common in community services work — from your experience?"</li>
+        <li>"Which styles are most damaging — to the worker, to the client, to the relationship?"</li>
+        <li>"What did you notice about the scenarios? Were any hard to identify? Why?"</li>
+      </ul>
+      <div class="fac-answer">
+        <div class="fac-answer-label">✅ Model answers for debrief</div>
+        <ul>
+          <li>Aggressive and passive-aggressive are most damaging — they erode trust and can cause client harm</li>
+          <li>Assertive is the professional standard — it balances honesty with respect</li>
+          <li>Passive can be hard to spot — it often looks like agreeableness but leads to unmet needs</li>
+          <li>Manipulative is most insidious — it's hard for clients to identify and respond to</li>
+        </ul>
+      </div>
+      <div class="fac-tip">Move around during the matching phase — give energy to quiet pairs. If a group finishes early: "What would the assertive version of this scenario look like?"</div>
+      <div class="fac-lln">For students who are uncertain — prompt: "Which style makes the other person feel heard? Which one makes them feel threatened?" Often the emotional cue is more accessible than the label.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 1:15 BLOCK ═══════ -->
+<div id="tb-115" class="time-block-header">
+  <div class="tbh-time">1:15 – 2:30</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Assessment Work</div>
+    <div class="tbh-title">Self-Directed &amp; Supported Work Time</div>
+    <div class="tbh-dur">75 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">1:15 – 2:30 (75 min)</div>
+  <div class="section-title"><span>📋</span> Assessment Work — AT1 &amp; AT2 Introduction</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Setup Instructions</span><span class="fac-title-text">What to say at 1:15pm + how to launch work time</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Open your AT1 document. Questions 1–6 are directly related to what we covered today. Start drafting. You don't need to finalise — just get your thinking down."</div>
+      <div class="fac-say">"Then, when you're ready, have a read of AT2 — Cherie's Story. Familiarise yourself with the scenario. We'll build on it across all four teaching sessions, so get to know it well."</div>
+      <p>Allow students 5 minutes to find documents and settle. Then circulate.</p>
+    </div>
+  </div>
+
+  <div class="box box-navy">
+    <div class="box-label">📋 What students work on — in priority order</div>
+    <ul style="padding-left:18px;">
+      <li><strong>Priority — AT1 Q1–6:</strong> definitions and explanations of interpersonal skills, the communication cycle, non-verbal communication, barriers, questioning types, communication styles — all covered today</li>
+      <li><strong>Secondary — AT2 Part A:</strong> read Cherie's Story scenario and identify her communication needs and any barriers present</li>
+      <li><strong>Further along:</strong> begin drafting AT2 Part A responses using the strategies and models from today</li>
+    </ul>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Teacher Circulating</span><span class="fac-title-text">Priority check-in groups + prompts</span></div>
+      <span class="fac-chevron">▸</span>
+    </div>
+    <div class="fac-body">
+      <p><strong>Priority check-ins during work time:</strong></p>
+      <ul>
+        <li><strong>Students unsure how to interpret AT1 Q1–6</strong> — read the question aloud with them. "Which concept from today does this question connect to?"</li>
+        <li><strong>Stuck students</strong> — prompt: "Tell me in one sentence what interpersonal communication means to you. Now write that down. That's your starting point."</li>
+        <li><strong>CALD / LLN students</strong> — read questions aloud if needed. Remind them their cultural knowledge is relevant and appropriate to include.</li>
+        <li><strong>Experienced workers</strong> — prompt them to use real workplace examples in their AT1 responses. "Assessment markers love concrete examples — use what you've actually seen."</li>
+        <li><strong>Students rushing</strong> — "AT1 is marked on accuracy and depth. Make sure your definition is complete — not just a phrase, but an explanation of why it matters."</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-header">☕ 2:30 – 2:45 &nbsp;|&nbsp; Break — 15 minutes</div>
+
+<!-- ═══════ 2:45 BLOCK ═══════ -->
+<div id="tb-245" class="time-block-header">
+  <div class="tbh-time">2:45 – 3:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Close</div>
+    <div class="tbh-title">Group Discussion &amp; Wrap-Up</div>
+    <div class="tbh-dur">15 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">2:45 – 3:00 (15 min)</div>
+  <div class="section-title"><span>🎯</span> Group Discussion &amp; Wrap-Up</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Wrap-Up Script</span><span class="fac-title-text">Discussion prompts, key learnings, preview</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <p><strong>Discussion prompts — use 1–2, don't rush through all of them:</strong></p>
+      <ul>
+        <li>"What's one thing you learned today that surprised you?"</li>
+        <li>"What's one communication habit you want to work on — based on what we covered?"</li>
+      </ul>
+      <p>Take 3–4 responses. Brief — no pressure to dig deep at end of day.</p>
+      <p><strong>Key learnings to name aloud — read these out:</strong></p>
+      <ul>
+        <li>Interpersonal skills are the foundation of community services work</li>
+        <li>Communication is a two-way cycle — it's not done until feedback comes back</li>
+        <li>Non-verbal cues often carry more weight than words</li>
+        <li>Active listening and open questions are your core professional tools</li>
+        <li>Barriers exist — it's our job to identify and reduce them</li>
+        <li>Assertive communication is the professional standard in community services</li>
+      </ul>
+      <div class="fac-say">"Tuesday we look at communication in difficult situations — conflict, boundaries, and how to stay person-centred when things get hard. Keep your worksheets — they're source material for your assessment."</div>
+      <div class="fac-tip">End with something positive. "This cohort has a lot of real-world communication experience in this room. Today we gave it a framework. That framework is what the assessments ask for."</div>
+    </div>
+  </div>
+</div>
+
+<!-- PERFORMANCE CRITERIA MAP -->
+<hr style="margin: 36px 0; border-color: var(--border);">
+<div class="section">
+  <div class="section-label">RTO Compliance</div>
+  <div class="section-title">📊 Performance Criteria Covered This Session</div>
+
+  <table class="at-table">
+    <thead>
+      <tr>
+        <th>PC</th>
+        <th>Description</th>
+        <th>How Addressed Today</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>PC1.1</strong></td>
+        <td>Identify communication needs of the other person</td>
+        <td>Key Model Handout; communication cycle content; AT2 scenario introduction</td>
+      </tr>
+      <tr>
+        <td><strong>PC1.2</strong></td>
+        <td>Communicate in a way that meets those needs</td>
+        <td>Communication styles activity; video discussion; assertive vs aggressive</td>
+      </tr>
+      <tr>
+        <td><strong>PC2.1</strong></td>
+        <td>Provide information suited to the individual</td>
+        <td>Barriers discussion; differentiation content; CALD differentiation throughout</td>
+      </tr>
+      <tr>
+        <td><strong>PC2.2</strong></td>
+        <td>Use verbal and non-verbal communication to build rapport</td>
+        <td>Non-verbal communication content block; Video 1 discussion</td>
+      </tr>
+      <tr>
+        <td><strong>PC2.3</strong></td>
+        <td>Use active listening techniques</td>
+        <td>Content block (listening + questioning); Video 2 debrief; worksheet Part 3</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-purple">
+    <div class="box-label">KE Covered Today</div>
+    <div class="ke-row">
+      <span class="ke-badge">KE2.1</span>
+      <span class="ke-badge">KE2.3</span>
+      <span class="ke-badge">KE2.4</span>
+      <span class="ke-badge">KE2.7</span>
+      <span class="ke-badge">KE3.1</span>
+      <span class="ke-badge">KE3.5</span>
+      <span class="ke-badge">KE4</span>
+      <span class="ke-badge">KE5</span>
+    </div>
+  </div>
+</div>
+
+<!-- END OF DAY LEARNING SUMMARY -->
+<div class="section">
+  <div class="section-label">Teacher Reference</div>
+  <div class="section-title">📧 End-of-Day Learning Summary</div>
+
+  <div class="summary-box">
+    <h3>End-of-Day Summary — Teacher Perspective</h3>
+    <div class="summary-sub">What was taught, why it matters, how it links to assessment</div>
+    <div class="summary-content" id="summaryContent">WHAT WAS TAUGHT TODAY — Session 1: Interpersonal Communication Skills (Learner Guide Ch 1.1–1.7)
+
+Students covered:
+1. The definition of interpersonal skills and why they matter in community services — including the three core strategies: self-reflection, empathy, and building diverse relationships.
+2. The communication cycle: Sender → Message → Channel → Receiver → Feedback. Key point: communication is not complete until feedback is received and understood.
+3. Noise and interference — anything that disrupts the communication cycle. Students identified real examples from community services contexts.
+4. Non-verbal communication: body language, eye contact, facial expression, gestures, personal space, and appearance — with explicit discussion of cultural variation in non-verbal norms.
+5. Active listening techniques: paraphrasing, summarising, nodding, and mirroring.
+6. Questioning skills: open, closed, clarifying, and probing questions — and when to use each.
+7. Barriers to communication — full list including language, culture, environment, power imbalance, emotional state, and assumptions.
+8. The 7 communication styles — with a focus on assertive communication as the professional standard in community services.
+
+WHY IT MATTERS:
+This is foundational content for CHCCOM002. Without understanding how communication works — and what breaks it — students cannot apply it in difficult situations, formal meetings, or written contexts. All remaining sessions build on this base.
+
+HOW IT LINKS TO ASSESSMENT:
+- AT1 Q1–6 are directly answered by today's content. Students have source material from the worksheet and the Key Model Handout.
+- AT2 (Cherie's Story) Part A requires students to identify Cherie's communication needs and apply appropriate strategies — both draw on today's learning. Students have been introduced to the scenario and should be familiar with the character before Session 2.</div>
+    <button class="btn-copy" onclick="copySummary()">📋 Copy Summary</button>
+  </div>
+
+  <div class="summary-box" style="margin-top:14px;">
+    <h3>Student-Facing Version — Send via Teams</h3>
+    <div class="summary-sub">Copy and paste into a Teams message or email at end of class</div>
+    <div class="summary-content" id="studentSummaryContent">Hi everyone,
+
+Here's a summary of everything we covered today — Session 1 of CHCCOM002.
+
+WHAT WE COVERED TODAY:
+
+1. What interpersonal skills are — and why they matter in community services. Key strategies: self-reflection (knowing how your communication lands), empathy (understanding others' perspectives), and building diverse relationships.
+
+2. The communication cycle — Sender → Message → Channel → Receiver → Feedback. The big idea: communication isn't finished until the other person has understood AND responded. It's a two-way street.
+
+3. Noise and interference — anything that gets in the way of communication. In community services, this includes emotional distress, language differences, power imbalance, and the physical environment.
+
+4. Non-verbal communication — body language, eye contact, facial expression, gestures, personal space, and appearance. These often communicate more than words. And they vary significantly across cultures — which is why cultural awareness matters so much in this work.
+
+5. Active listening — paraphrasing, summarising, nodding, mirroring. This is one of your most powerful tools as a community services worker.
+
+6. Questioning skills — open questions invite people to share. Closed questions clarify facts. Knowing which to use (and when) is a core professional skill.
+
+7. Barriers to communication — full list in your Key Model Handout.
+
+8. The 7 communication styles — and why assertive communication is the professional standard. Aggressive and passive-aggressive styles are the most damaging to client relationships.
+
+HOW TODAY LINKS TO YOUR ASSESSMENT TASKS:
+
+AT1 (Knowledge Questions): Questions 1–6 are directly based on today's content. Your worksheet and Key Model Handout are your best references. Start drafting if you haven't already.
+
+AT2 (Cherie's Story): You've been introduced to the scenario. Part A asks you to identify Cherie's communication needs and the barriers she faces — today's content on the communication cycle, barriers, and listening skills is exactly what you need.
+
+A NOTE FOR YOUR RECORDS:
+Keep your Key Activity Worksheet and Key Model Handout. They are source material for your assessment — not just class notes.
+
+See you Tuesday for Session 2 — Communication in Difficult Situations.</div>
+    <button class="btn-copy" onclick="copyStudentSummary()">📋 Copy Student Summary</button>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleSidebar() {
+  document.getElementById('timingSidebar').classList.toggle('collapsed');
+}
+function toggleFac(head) {
+  const body = head.nextElementSibling;
+  const ch = head.querySelector('.fac-chevron');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  ch.textContent = open ? '▸' : '▾';
+}
+function scrollToId(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+function toggleDone(cb) {
+  const span = cb.nextElementSibling;
+  span.classList.toggle('done', cb.checked);
+}
+function copySummary() {
+  const text = document.getElementById('summaryContent').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+function copyStudentSummary() {
+  const text = document.getElementById('studentSummaryContent').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 400);
+  const blocks = ['tb-930','tb-1000','tb-1045','tb-1130','tb-1245','tb-115','tb-245'];
+  const sideItems = document.querySelectorAll('.timing-sidebar .time-block:not(.break)');
+  let cur = 0;
+  blocks.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) cur = i;
+  });
+  sideItems.forEach((s, i) => s.classList.toggle('active', i === cur));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 6 — AT4: Facilitate Communications | CHCCOM002 Teacher</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --yellow: #854d0e;
+  --yellow-lt: #fefce8;
+  --red: #991b1b;
+  --red-lt: #fef2f2;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --sidebar-w: 230px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.75; }
+
+/* TOP BAR */
+.top-bar { background: #0f2236; color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 60; }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.tag { background: #dc2626; color: white; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+/* LAYOUT */
+.layout { display: flex; min-height: calc(100vh - 56px); }
+
+/* SIDEBAR */
+.sidebar { width: var(--sidebar-w); background: #0f2236; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; flex-shrink: 0; }
+.sb-header { padding: 18px 16px 10px; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); }
+.sb-item { display: block; padding: 10px 16px; font-size: 13px; color: rgba(255,255,255,.75); cursor: pointer; border-left: 3px solid transparent; transition: all .15s; text-decoration: none; line-height: 1.4; }
+.sb-item:hover { background: rgba(255,255,255,.07); color: white; border-left-color: var(--orange); }
+.sb-item.active { background: rgba(234,108,26,.15); color: white; border-left-color: var(--orange); }
+.sb-time { font-size: 11px; color: rgba(255,255,255,.35); display: block; margin-top: 2px; }
+.sb-divider { height: 1px; background: rgba(255,255,255,.08); margin: 6px 0; }
+
+/* MAIN CONTENT */
+.main { flex: 1; min-width: 0; }
+
+/* HERO */
+.hero { background: linear-gradient(135deg, #0f2236 0%, #1a3a5c 100%); color: white; padding: 36px 32px; }
+.hero-badge { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .6; margin-bottom: 8px; }
+.hero-title { font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 6px; }
+.hero-sub { font-size: 15px; opacity: .8; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip { background: rgba(255,255,255,.12); color: white; font-size: 12px; padding: 4px 11px; border-radius: 20px; border: 1px solid rgba(255,255,255,.2); }
+
+/* PAGE */
+.page { max-width: 820px; margin: 0 auto; padding: 32px 28px 80px; }
+.section { margin-bottom: 52px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { font-size: 22px; }
+
+p { margin-bottom: 14px; font-size: 16.5px; }
+hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+/* CALLOUT BOXES */
+.box { border-radius: var(--radius); padding: 18px 20px; margin: 16px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-yellow { background: var(--yellow-lt); border-left: 4px solid #eab308; }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-red { background: var(--red-lt); border-left: 4px solid #dc2626; }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-yellow .box-label { color: var(--yellow); }
+.box-navy .box-label { color: var(--navy); }
+.box-red .box-label { color: #dc2626; }
+.box p, .box li { font-size: 15.5px; }
+
+/* TABLES */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 11px 14px; text-align: left; font-size: 14px; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+/* FACILITATION PANEL */
+.fac-panel { background: #0f2236; border-radius: var(--radius); padding: 24px 26px; margin: 18px 0; color: white; }
+.fac-panel-title { font-size: 12px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.fac-script { background: rgba(255,255,255,.08); border-left: 3px solid var(--orange); border-radius: 0 8px 8px 0; padding: 14px 16px; margin-bottom: 12px; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,.95); }
+.fac-script:last-child { margin-bottom: 0; }
+.fac-cue { display: inline; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: var(--orange); background: rgba(234,108,26,.2); padding: 1px 7px; border-radius: 4px; margin-right: 8px; }
+.fac-note { background: rgba(255,255,255,.05); border-radius: 8px; padding: 12px 14px; margin-top: 12px; font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.6; }
+.fac-note strong { color: rgba(255,255,255,.9); }
+
+/* TIME BLOCK HEADER */
+.time-block { background: var(--navy); color: white; border-radius: var(--radius); padding: 16px 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+.time-block-time { font-size: 15px; font-weight: 800; white-space: nowrap; }
+.time-block-title { font-size: 16px; font-weight: 700; }
+.time-block-dur { font-size: 13px; opacity: .65; margin-top: 2px; }
+.break-block { background: #1e3a5f; border-radius: var(--radius); padding: 12px 22px; text-align: center; color: rgba(255,255,255,.7); font-size: 15px; margin: 8px 0; }
+
+/* CHECKLIST */
+.checklist { list-style: none; padding: 0; margin: 12px 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; font-size: 15px; cursor: pointer; transition: background .15s; user-select: none; }
+.checklist li:hover { background: var(--green-lt); }
+.checklist li.checked { background: var(--green-lt); border-color: #16a34a; }
+.check-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.checklist li.checked .check-box { background: #16a34a; border-color: #16a34a; color: white; }
+
+/* OBSERVER CHECKLIST (styled as assessor tool) */
+.observer-wrap { background: var(--white); border: 2px solid var(--navy); border-radius: var(--radius); padding: 22px 24px; margin: 14px 0; }
+.observer-title { font-size: 13px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; color: var(--navy); margin-bottom: 14px; }
+.obs-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 7px; font-size: 15px; cursor: pointer; transition: all .15s; user-select: none; }
+.obs-item:hover { background: var(--green-lt); }
+.obs-item.checked { background: var(--green-lt); border-color: #16a34a; }
+.obs-box { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.obs-item.checked .obs-box { background: #16a34a; border-color: #16a34a; color: white; }
+.obs-reset { background: var(--navy); color: white; border: none; padding: 8px 16px; border-radius: 7px; font-size: 12px; font-weight: 700; cursor: pointer; margin-top: 8px; font-family: inherit; }
+
+/* PC MAP */
+.pc-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.pc-table th { background: var(--navy); color: white; padding: 9px 12px; text-align: left; }
+.pc-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.pc-badge { display: inline-block; background: var(--teal); color: white; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 12px; margin-right: 4px; margin-bottom: 3px; }
+.pc-badge-pe { background: var(--purple); }
+.pc-badge-ke { background: var(--green); }
+.pc-badge-ac { background: var(--orange); }
+
+/* SCRIPT BLOCK */
+.script-block { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin: 14px 0; }
+.script-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+.script-line { font-size: 15px; line-height: 1.7; color: var(--text); margin-bottom: 12px; padding-left: 14px; border-left: 3px solid var(--teal); }
+.script-line:last-of-type { margin-bottom: 0; }
+.script-cue { display: inline; font-size: 12px; font-weight: 800; color: var(--orange); background: var(--orange-lt); padding: 1px 7px; border-radius: 4px; margin-right: 7px; }
+.script-cue-b { background: var(--purple-lt); color: var(--purple); }
+
+/* REF CARD */
+.ref-card { background: var(--white); border: 2px solid var(--teal); border-radius: var(--radius); padding: 20px 22px; margin: 14px 0; }
+.ref-card-b { border-color: var(--purple); }
+.ref-card-title { font-size: 13px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.ref-card-b .ref-card-title { color: var(--purple); }
+.ref-list { list-style: none; padding: 0; }
+.ref-list li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+.ref-list li:last-child { border-bottom: none; }
+.ref-num { background: var(--teal); color: white; font-size: 12px; font-weight: 700; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.ref-num-b { background: var(--purple); }
+
+/* CALD NOTE */
+.cald-box { background: #fffbeb; border: 2px solid #d97706; border-radius: var(--radius); padding: 16px 20px; margin: 14px 0; }
+.cald-label { font-size: 11px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; color: #d97706; margin-bottom: 6px; }
+
+/* BTN COPY */
+.btn-copy { background: var(--orange); color: white; border: none; font-size: 13px; font-weight: 700; padding: 9px 20px; border-radius: 8px; cursor: pointer; margin-top: 12px; font-family: inherit; display: inline-flex; align-items: center; gap: 7px; }
+.btn-copy:hover { background: #d45a10; }
+.copy-confirm { font-size: 12px; color: var(--green); margin-top: 7px; display: none; font-weight: 600; }
+.copy-confirm.show { display: block; }
+
+/* SCROLL TOP */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+#scrollTop:hover { background: var(--orange); }
+
+/* SUMMARY BOX */
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 26px; color: white; }
+.summary-box h3 { font-size: 17px; margin-bottom: 14px; }
+.summary-text { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,.9); white-space: pre-wrap; font-family: inherit; }
+
+/* PART HEADER */
+.part-header { color: white; border-radius: var(--radius); padding: 20px 24px; margin-bottom: 22px; }
+.part-header-a { background: linear-gradient(135deg, var(--teal) 0%, #0a5a70 100%); }
+.part-header-b { background: linear-gradient(135deg, var(--purple) 0%, #4c1d95 100%); }
+.part-badge { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .75; margin-bottom: 5px; }
+.part-title { font-size: 19px; font-weight: 800; line-height: 1.3; }
+.part-sub { font-size: 14px; opacity: .85; margin-top: 5px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .layout { display: block; }
+  .page { padding: 20px 16px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="tag">TEACHER</span>
+    <div>
+      <div class="top-title">CHCCOM002 — Session 6 | AT4: Facilitate Communications</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;&middot;&nbsp; Tuesday 5 May 2026 &nbsp;&middot;&nbsp; Teacher view only</div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sb-header">Today's Schedule</div>
+  <a class="sb-item active" onclick="scrollTo('t-checklist')">Pre-Class Checklist<span class="sb-time">Before 9:30</span></a>
+  <div class="sb-divider"></div>
+  <a class="sb-item" onclick="scrollTo('t-briefing')">Briefing — Both Scenarios<span class="sb-time">9:30 – 10:00</span></a>
+  <a class="sb-item" onclick="scrollTo('t-prep')">Individual Prep Time<span class="sb-time">10:00 – 10:30</span></a>
+  <div class="sb-divider"></div>
+  <a class="sb-item" onclick="scrollTo('t-partA')">AT4 Part A Role Plays<span class="sb-time">10:30 – 12:00</span></a>
+  <a class="sb-item" onclick="scrollTo('t-obsA')">Observer Checklist — Part A</a>
+  <div class="sb-divider"></div>
+  <a class="sb-item" onclick="scrollTo('t-lunch')" style="opacity:.5;">Lunch<span class="sb-time">12:00 – 12:45</span></a>
+  <div class="sb-divider"></div>
+  <a class="sb-item" onclick="scrollTo('t-partB')">AT4 Part B Role Plays<span class="sb-time">12:45 – 2:30</span></a>
+  <a class="sb-item" onclick="scrollTo('t-obsB')">Observer Checklist — Part B</a>
+  <div class="sb-divider"></div>
+  <a class="sb-item" onclick="scrollTo('t-wrapup')">Final Wrap-Up<span class="sb-time">2:45 – 3:00</span></a>
+  <a class="sb-item" onclick="scrollTo('t-pcmap')">PC Map</a>
+  <a class="sb-item" onclick="scrollTo('t-summary')">End-of-Day Summary</a>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+<div class="hero">
+  <div class="hero-badge">Teacher View &nbsp;&middot;&nbsp; Session 6 &nbsp;&middot;&nbsp; Final Assessment Day</div>
+  <div class="hero-title">AT4: Facilitate Communications — Full Day Guide</div>
+  <div class="hero-sub">Two assessed role plays. Part A: Conflict resolution. Part B: Interpreter facilitation. Full facilitation scripts, observer checklists, and PC coverage below.</div>
+  <div class="hero-chips">
+    <span class="chip">AT4 Part A — Love at First Access</span>
+    <span class="chip">AT4 Part B — Accessing an Interpreter</span>
+    <span class="chip">PC 1.1–1.4 &nbsp;&#183;&nbsp; 2.1–2.5 &nbsp;&#183;&nbsp; 3.1–3.9</span>
+    <span class="chip">PE 1–4 &nbsp;&#183;&nbsp; AC 1–2</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ========== PRE-CLASS CHECKLIST ========== -->
+<div class="section" id="t-checklist">
+  <div class="section-label">Before Class</div>
+  <div class="section-title"><span class="ico">&#9989;</span>Pre-Class Checklist</div>
+
+  <div class="box box-red">
+    <div class="box-label">Critical — Complete Before Students Arrive</div>
+    <p style="margin-bottom:0;">Both room setups must be done before 9:30. Assessor checklists must be printed.</p>
+  </div>
+
+  <ul class="checklist" id="preChecklist">
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Print AT4 official assessment documents — both Part A and Part B</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Print Part A scenario brief cards (one per student taking that role)</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Print Part B scenario brief cards (one per student taking that role)</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Set up Part A room — two chairs facing each other, third chair for worker</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Set up Part B room — three chairs in a triangle (worker, client, phone in centre)</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Print assessor observer checklists — one per student for each part</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Confirm AT1 and AT2 submission logistics with students (if not yet submitted)</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Cue up student HTML page on classroom screen for briefing</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Test phone/speaker setup for interpreter role (Part B)</li>
+  </ul>
+</div>
+
+<hr>
+
+<!-- ========== BRIEFING ========== -->
+<div class="section" id="t-briefing">
+  <div class="time-block">
+    <div>
+      <div class="time-block-time">9:30 – 10:00</div>
+      <div class="time-block-title">Briefing — Both Scenarios</div>
+      <div class="time-block-dur">30 minutes</div>
+    </div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Facilitation Script — Opening</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Good morning everyone. Today is our final session for CHCCOM002 — and it is an assessment day. Before you feel any nerves, I want to say this: you have spent six sessions building exactly the skills that this assessment is testing. You are more ready than you think."</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Today you'll complete AT4 — two role plays. Part A is a conflict resolution scenario. Part B is an interpreter facilitation. You are the support worker in both. I'll be playing one of the clients, and a peer will play the other."</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"I'm going to walk through both scenarios now so there are no surprises. Then you'll have 30 minutes of individual prep time before we start Part A."</div>
+    <div class="fac-note"><strong>Note:</strong> Display the student HTML page on screen. Walk through the scenario brief, the scripts, and the self-assessment checklists together. Normalise nerves — role plays feel exposing. Remind students the assessor is looking for competency, not perfection.</div>
+  </div>
+
+  <div class="section-label" style="margin-top:20px;">Part A Scenario Brief — Walk Through This With Students</div>
+
+  <div class="box box-navy">
+    <div class="box-label">Scenario — "Love at First Access"</div>
+    <p>Worker arrives at First Access reception. Two clients are in conflict:</p>
+    <ul style="padding-left:18px; font-size:15.5px; margin-bottom:10px;">
+      <li style="margin-bottom:5px;"><strong>Marcus</strong> — believes Diane shared his personal housing information with another client. Loud, agitated.</li>
+      <li><strong>Diane</strong> — denies it completely. Defensive and upset.</li>
+    </ul>
+    <p style="margin-bottom:0;">Student plays the worker. Teacher and/or peer play Marcus and Diane.</p>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Script — Briefing Part A</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"In Part A, you'll walk into a reception area where Marcus and Diane are already in a heated argument. Your job is not to decide who's right — it's to de-escalate, make both people feel heard, and work toward a resolution. If you feel genuinely out of your depth, that's okay — the right answer is to involve a supervisor."</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Take a look at your script on the student page. Those are your suggested lines — you don't have to memorise them word for word, but know the shape of the conversation."</div>
+    <div class="fac-note"><strong>Tip:</strong> Read through Marcus and Diane's scripts aloud so students know what escalation sounds like. Let them hear the tone, not just the words.</div>
+  </div>
+
+  <div class="section-label" style="margin-top:20px;">Part B Scenario Brief — Walk Through This With Students</div>
+
+  <div class="box box-navy">
+    <div class="box-label">Scenario — "Accessing an Interpreter"</div>
+    <p><strong>Amara</strong> — new client. Recently arrived from Somalia. Limited English. A professional interpreter joins by phone.</p>
+    <p><strong>Meeting purpose:</strong> explain the First Access intake process and gather Amara's support needs.</p>
+    <p style="margin-bottom:0;">Student plays the worker. Teacher plays Amara. A peer (or teacher again) plays the interpreter.</p>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Script — Briefing Part B</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Part B is quieter but just as important. You'll be conducting an intake meeting with Amara, who has recently arrived in Australia. A phone interpreter will be present. The key thing you're being assessed on is not the content of what you say — it's how you say it. Always speak TO Amara, not to the interpreter. Short sentences. Pause after each one. Check understanding regularly."</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"There are seven interpreter protocols listed on your student page. I'd encourage you to have that reference card in front of you during prep time."</div>
+    <div class="fac-note"><strong>Tip:</strong> Model good interpreter protocol briefly — demonstrate speaking to a 'client' (chair in the corner) while 'interpreter' is on the phone. Show what it looks like when done well.</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== PREP TIME ========== -->
+<div class="section" id="t-prep">
+  <div class="time-block">
+    <div>
+      <div class="time-block-time">10:00 – 10:30</div>
+      <div class="time-block-title">Individual Prep Time</div>
+      <div class="time-block-dur">30 minutes — students use their student HTML page</div>
+    </div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Script — Launching Prep Time</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"You have 30 minutes to prepare. Use the student page — the scenario briefs, scripts, interactive activities and practice checklists are all there. Work through the activities, fill in the blanks, run through the quick-fire prompts. If you want to practise out loud with a partner, absolutely do that."</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"At 10:30 we'll start Part A. I'll call you through one at a time. While you're waiting, stay on the student page — keep reviewing."</div>
+    <div class="fac-note"><strong>While students prep:</strong> Confirm the order students will go. Set up the Part A space. Have your Marcus and Diane scripts ready. If you have a large group, consider who will play the peer roles.</div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">Differentiation — Prep Time</div>
+    <ul style="padding-left:18px; font-size:15.5px;">
+      <li style="margin-bottom:5px;"><strong>Newer students:</strong> Sit with them briefly. Walk through the scenario brief together. Point to the "I'm Ready" checklist as a structure.</li>
+      <li style="margin-bottom:5px;"><strong>Experienced workers:</strong> Prompt them to connect to real workplace situations — have they experienced something like Part A before? What did they do?</li>
+      <li><strong>CALD students:</strong> Some may have personal experience with interpreter services from the other side. Acknowledge this as genuine expertise before Part B begins.</li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== PART A ========== -->
+<div class="section" id="t-partA">
+  <div class="time-block" style="background: linear-gradient(135deg, var(--teal) 0%, #0a5a70 100%);">
+    <div>
+      <div class="time-block-time">10:30 – 12:00</div>
+      <div class="time-block-title">AT4 Part A Role Plays — Conflict Resolution</div>
+      <div class="time-block-dur">90 minutes — students take turns as the worker</div>
+    </div>
+  </div>
+
+  <div class="part-header part-header-a">
+    <div class="part-badge">AT4 Part A</div>
+    <div class="part-title">Conflict Resolution — "Love at First Access"</div>
+    <div class="part-sub">You play Marcus and Diane. Each student has approximately 10–15 minutes.</div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Script — Calling Each Student In</div>
+    <div class="fac-script"><span class="fac-cue">SAY TO STUDENT</span>"Okay [name], you're up. Before we start — take a breath. You know this. When you're ready, walk in as if you've just arrived at reception and found Marcus and Diane already arguing. I'll start the scene once you enter."</div>
+    <div class="fac-script"><span class="fac-cue">TO START SCENE</span>[As Marcus, loudly] "She told people about my housing situation! I heard it from another client. That's MY information! I'm not coming back if this is how things work!"</div>
+    <div class="fac-note"><strong>Assessor note:</strong> Start with genuine escalation so the student has to de-escalate. Dial back if the student does well. If the student freezes, reduce intensity — "lower" your voice slightly to give them an entry point.</div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Full Role Play Scripts</div>
+    <div class="fac-script"><span class="fac-cue">MARCUS</span>[Opening] "She told people about my housing situation! I heard it from another client. That's MY information! I'm not coming back if this is how things work!"</div>
+    <div class="fac-script"><span class="fac-cue">MARCUS</span>[If de-escalated] "...Fine. I just want to know it won't happen again. And I want an apology."</div>
+    <div class="fac-script"><span class="fac-cue">DIANE</span>[Opening] "That is NOT true. I never said anything about Marcus. I don't even know his situation. This is unfair!"</div>
+    <div class="fac-script"><span class="fac-cue">DIANE</span>[If given space] "...I understand he's upset. But I genuinely didn't say anything. Can we at least find out if it was actually me?"</div>
+    <div class="fac-note"><strong>Tips for playing Marcus:</strong> Raise voice on entry. Cross arms. Use frustration, not aggression. If student uses de-escalation well, gradually soften. If student uses "you" blame language or takes sides, escalate briefly so they have to self-correct.<br><br><strong>Tips for playing Diane:</strong> Be defensive but not aggressive. Give openings — she wants to be believed. If the student gives her genuine space, shift to a more conciliatory tone.</div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Script — After Each Role Play</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Thank you [name]. Take a moment. I want to give you some brief feedback before you go back out."</div>
+    <div class="fac-script"><span class="fac-cue">SAY (STRENGTH FIRST)</span>"What I noticed that worked well was... [specific observation]"</div>
+    <div class="fac-script"><span class="fac-cue">SAY (GROWTH)</span>"One thing to think about for your practice going forward... [brief, specific]"</div>
+    <div class="fac-note"><strong>Keep feedback brief.</strong> This is an assessment — the student needs to know the outcome, not a full debrief right now. Save extended feedback for after all role plays are complete if time allows.</div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">Differentiation — During Part A</div>
+    <ul style="padding-left:18px; font-size:15.5px;">
+      <li style="margin-bottom:5px;"><strong>Newer students:</strong> Reduce intensity on entry if they look overwhelmed. You can give a brief in-scene prompt as Marcus: "Look — I just want someone to listen to me."</li>
+      <li style="margin-bottom:5px;"><strong>Experienced workers:</strong> Give full escalation. They can handle it, and it makes the assessment more meaningful for them.</li>
+      <li><strong>Quieter students:</strong> Remind them before entry — "You don't need to have all the answers. Your job is to make both people feel heard."</li>
+    </ul>
+  </div>
+</div>
+
+<!-- OBSERVER CHECKLIST A -->
+<div class="section" id="t-obsA">
+  <div class="section-label">Assessment Tool</div>
+  <div class="section-title"><span class="ico">&#128203;</span>Observer Checklist — Part A</div>
+  <p style="font-size:15px; color:var(--muted);">Use this during each Part A role play. Reset between students.</p>
+
+  <div class="observer-wrap">
+    <div class="observer-title">&#128203; Part A — Conflict Resolution Criteria</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Acknowledged both parties' feelings without taking sides</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Used de-escalation language and techniques</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Gave each person uninterrupted space to speak</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Remained person-centred throughout</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Identified a path to resolution</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Demonstrated awareness of when to involve a supervisor</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Maintained a professional tone throughout</div>
+    <button class="obs-reset" onclick="resetObs('obsA')">Reset for Next Student</button>
+  </div>
+</div>
+
+<hr>
+
+<!-- LUNCH -->
+<div class="section" id="t-lunch">
+  <div class="break-block">&#127829; Lunch — 12:00 to 12:45. Encourage students to review their Part B notes and scripts over lunch.</div>
+</div>
+
+<hr>
+
+<!-- ========== PART B ========== -->
+<div class="section" id="t-partB">
+  <div class="time-block" style="background: linear-gradient(135deg, var(--purple) 0%, #4c1d95 100%);">
+    <div>
+      <div class="time-block-time">12:45 – 2:30</div>
+      <div class="time-block-title">AT4 Part B Role Plays — Interpreter Facilitation</div>
+      <div class="time-block-dur">105 minutes — students take turns as the worker</div>
+    </div>
+  </div>
+
+  <div class="part-header part-header-b">
+    <div class="part-badge">AT4 Part B</div>
+    <div class="part-title">Interpreter Facilitation — "Accessing an Interpreter"</div>
+    <div class="part-sub">You play Amara and (optionally) the interpreter. Each student approximately 12–15 minutes.</div>
+  </div>
+
+  <div class="cald-box">
+    <div class="cald-label">CALD Note — Before Starting Part B</div>
+    <p style="font-size:15.5px; margin-bottom:0;">Some students in your cohort may have lived experience with interpreter services — as clients, as family members, or as workers. Before beginning Part B, say: "Some of you may have real experience with interpreter services from the other side. That experience is genuinely valuable expertise — if you're comfortable sharing a brief observation before we begin, I'd love to hear it." Do not require this. Simply open the door.</p>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Script — Launching Part B</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"We're moving into Part B now — interpreter facilitation. Same process: you'll come in one at a time. I'll play Amara. [name/peer] will play the interpreter — either by phone or in person, depending on your setup. Take your time. The protocols are on the student page if you need a quick refresher before you go in."</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Remember: the key things I'm watching for are whether you speak to Amara directly, whether you pause after each sentence, and whether you check understanding. Everything else flows from those three things."</div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Full Role Play Scripts — Part B</div>
+    <div class="fac-script"><span class="fac-cue">AMARA (you)</span>[Initial] "Yes... I am looking for... housing help. And my children school. I don't understand — what is intake?"</div>
+    <div class="fac-script"><span class="fac-cue">AMARA</span>[After understanding is checked] "Ah, I understand now. One question — will same person help me each time?"</div>
+    <div class="fac-script"><span class="fac-cue">INTERPRETER</span>"Amara says she is looking for housing assistance and help enrolling her children in school."</div>
+    <div class="fac-script"><span class="fac-cue">INTERPRETER</span>"Amara says she didn't understand the word intake."</div>
+    <div class="fac-script"><span class="fac-cue">INTERPRETER</span>"Amara asks whether she'll have consistent support."</div>
+    <div class="fac-note"><strong>Tips for playing Amara:</strong> Speak slowly. Use simple words and some gestures. Show warmth but also some anxiety — this is her first contact with an Australian service. If the student speaks to the interpreter instead of you, hold eye contact with the phone/interpreter to gently signal the issue.<br><br><strong>If student makes a protocol error:</strong> Don't break scene immediately. Stay in character and let the student self-correct. Only intervene if the error persists or significantly disrupts the meeting.</div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Script — After Each Part B Role Play</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Well done, [name]. How did that feel from your end?"</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"What I observed was... [strength]. Something to keep building on is... [one growth point]."</div>
+    <div class="fac-note"><strong>Watch for these common errors:</strong> Speaking to the interpreter instead of the client. Asking compound questions (too many parts at once). Using jargon without realising — "intake", "assessment", "referral". Rushing through without pausing for interpretation. Excellent practice opportunity to name these gently.</div>
+  </div>
+
+  <div class="box box-purple">
+    <div class="box-label">Differentiation — During Part B</div>
+    <ul style="padding-left:18px; font-size:15.5px;">
+      <li style="margin-bottom:5px;"><strong>Newer students:</strong> If they freeze after the opening, prompt gently as Amara: "It is okay. I am happy to answer questions."</li>
+      <li style="margin-bottom:5px;"><strong>Experienced workers:</strong> You can add a complexity — Amara asks a question the worker isn't sure about. Watch how they handle uncertainty professionally.</li>
+      <li><strong>CALD students:</strong> Affirm lived experience as expertise. If they nail the protocols, name it: "That's exactly right — and some of you may already know this from your own experience."</li>
+    </ul>
+  </div>
+</div>
+
+<!-- OBSERVER CHECKLIST B -->
+<div class="section" id="t-obsB">
+  <div class="section-label">Assessment Tool</div>
+  <div class="section-title"><span class="ico">&#128203;</span>Observer Checklist — Part B</div>
+
+  <div class="observer-wrap">
+    <div class="observer-title">&#128203; Part B — Interpreter Facilitation Criteria</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Introduced themselves and the interpreter to the client</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Spoke TO the client, not to the interpreter</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Used short, clear sentences</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Paused after each sentence for interpretation</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Checked understanding regularly</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Avoided jargon and idioms</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Maintained eye contact with the client</div>
+    <div class="obs-item" onclick="obsToggle(this)"><div class="obs-box"></div>Culturally respectful and sensitive throughout</div>
+    <button class="obs-reset" onclick="resetObs('obsB')">Reset for Next Student</button>
+  </div>
+</div>
+
+<hr>
+
+<!-- BREAK -->
+<div class="section">
+  <div class="break-block">&#9749; Break — 2:30 to 2:45</div>
+</div>
+
+<hr>
+
+<!-- ========== WRAP UP ========== -->
+<div class="section" id="t-wrapup">
+  <div class="time-block">
+    <div>
+      <div class="time-block-time">2:45 – 3:00</div>
+      <div class="time-block-title">Final Wrap-Up and Unit Celebration</div>
+      <div class="time-block-dur">15 minutes</div>
+    </div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#127881; Closing Ceremony — Word-for-Word Script</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Before you go — I want to take a moment to acknowledge the work you've done in this unit. Communication sounds simple. But what you've practised across these six sessions is genuinely complex."</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Think about what you've covered: how to listen actively. How to communicate across difference. How to de-escalate conflict. How to facilitate a meeting. How to write a case note, an incident report, an email that is professional and clear. How to work with an interpreter and maintain dignity and respect for every client."</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"Every client you work with in the future will benefit from these skills. These aren't just assessment competencies — they are the foundation of safe, ethical, person-centred practice. Be proud of what you've built."</div>
+    <div class="fac-script"><span class="fac-cue">SAY</span>"We'll be in touch soon with outcomes for AT4. If you have any questions about the other assessment tasks, come and see me. Otherwise — thank you for a great term. Well done."</div>
+    <div class="fac-note"><strong>Optional:</strong> Allow students a moment to share one thing they're taking away from the unit. Keep it brief and positive. Don't force contributions — a simple round of "one word that describes what communication means to you now" works well.</div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-title">&#128172; Discussion Prompts — If You Have Time</div>
+    <div class="fac-script">"What was the hardest communication challenge you practised this term — and what did you learn from it?"</div>
+    <div class="fac-script">"Think about a client you might work with in the future. How will what you've learnt in CHCCOM002 change how you show up for them?"</div>
+    <div class="fac-script">"What's one communication skill you feel most confident about now that you weren't sure of at the start?"</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== PC MAP ========== -->
+<div class="section" id="t-pcmap">
+  <div class="section-label">Compliance</div>
+  <div class="section-title"><span class="ico">&#128203;</span>Performance Criteria Coverage — Session 6</div>
+
+  <table class="pc-table">
+    <tr>
+      <th>Element / PC</th>
+      <th>Description</th>
+      <th>How Addressed Today</th>
+    </tr>
+    <tr>
+      <td><span class="pc-badge">PC 1.1</span><span class="pc-badge">PC 1.2</span></td>
+      <td>Identify communication needs; use appropriate communication strategies</td>
+      <td>AT4 Part A and B — student must identify needs of each client and adapt communication accordingly</td>
+    </tr>
+    <tr>
+      <td><span class="pc-badge">PC 1.3</span><span class="pc-badge">PC 1.4</span></td>
+      <td>Seek feedback; adapt communication style</td>
+      <td>Checking understanding in Part B; de-escalation and adjustment in Part A</td>
+    </tr>
+    <tr>
+      <td><span class="pc-badge">PC 2.1</span><span class="pc-badge">PC 2.2</span><span class="pc-badge">PC 2.3</span></td>
+      <td>Establish rapport; use active listening; demonstrate empathy</td>
+      <td>Both role plays — student must demonstrate all three throughout</td>
+    </tr>
+    <tr>
+      <td><span class="pc-badge">PC 2.4</span><span class="pc-badge">PC 2.5</span></td>
+      <td>Maintain professional boundaries; person-centred approach</td>
+      <td>Part A — not taking sides; Part B — client dignity and cultural safety</td>
+    </tr>
+    <tr>
+      <td><span class="pc-badge">PC 3.1</span><span class="pc-badge">PC 3.2</span><span class="pc-badge">PC 3.3</span></td>
+      <td>Identify and respond to conflict; use dispute resolution strategies; involve appropriate people</td>
+      <td>AT4 Part A specifically — full conflict resolution process observed</td>
+    </tr>
+    <tr>
+      <td><span class="pc-badge">PC 3.4</span><span class="pc-badge">PC 3.5</span></td>
+      <td>Communicate with people from diverse backgrounds; use interpreters appropriately</td>
+      <td>AT4 Part B specifically — interpreter protocols and cultural safety observed</td>
+    </tr>
+    <tr>
+      <td><span class="pc-badge">PC 3.6</span><span class="pc-badge">PC 3.7</span><span class="pc-badge">PC 3.8</span><span class="pc-badge">PC 3.9</span></td>
+      <td>Facilitate meetings; record decisions; produce written communications; report incidents</td>
+      <td>Covered across Sessions 4 and 5 (not directly assessed today)</td>
+    </tr>
+    <tr>
+      <td><span class="pc-badge pc-badge-pe">PE 1</span><span class="pc-badge pc-badge-pe">PE 2</span><span class="pc-badge pc-badge-pe">PE 3</span><span class="pc-badge pc-badge-pe">PE 4</span></td>
+      <td>Performance Evidence — complete role plays demonstrating communication competency</td>
+      <td>AT4 Part A and Part B — both observed performances provide full PE coverage</td>
+    </tr>
+    <tr>
+      <td><span class="pc-badge pc-badge-ac">AC 1</span><span class="pc-badge pc-badge-ac">AC 2</span></td>
+      <td>Assessment Conditions — real or simulated workplace; appropriate resources</td>
+      <td>Simulated First Access environment; appropriate client scenarios; professional observer</td>
+    </tr>
+  </table>
+</div>
+
+<hr>
+
+<!-- ========== END OF DAY SUMMARY ========== -->
+<div class="section" id="t-summary">
+  <div class="section-label">Teacher Perspective</div>
+  <div class="section-title"><span class="ico">&#128221;</span>End-of-Unit Learning Summary</div>
+
+  <div class="box box-navy">
+    <div class="box-label">What Was Taught — Teacher's Record</div>
+    <p><strong>Session 6 completed CHCCOM002 with the final assessed role plays for AT4.</strong></p>
+    <p><strong>Part A (Conflict Resolution):</strong> Students demonstrated their ability to enter a live conflict, de-escalate, hold space for both parties without taking sides, identify a path forward, and recognise when to escalate to a supervisor. This tested PCs 2.1–2.5, 3.1–3.3 and core professional values around person-centred practice and rights-based approaches.</p>
+    <p><strong>Part B (Interpreter Facilitation):</strong> Students demonstrated correct use of professional interpreters — speaking directly to the client, using short sentences with pauses, avoiding jargon, checking understanding, and maintaining cultural safety throughout. This tested PCs 3.4–3.5 and Performance Evidence requirements for working with diverse populations.</p>
+    <p><strong>Why it matters:</strong> CALD clients are a significant portion of the community services sector. Professional interpreter use is not optional — it is a legal, ethical and quality-of-care requirement. Conflict is present in every workplace. De-escalation is a daily practice skill, not a specialist one. Both today's tasks connect directly to students' future professional identity.</p>
+    <p style="margin-bottom:0;"><strong>Unit links:</strong> AT4 Part A draws on content from Sessions 1 (interpersonal skills), 2 (active listening), 5 (conflict and dispute resolution). AT4 Part B draws on Session 3 (communication across difference, professional boundaries) and Session 2 (person-centred approach). The complete unit has provided coherent, cumulative skill development toward these final performances.</p>
+  </div>
+
+  <div class="section-label" style="margin-top:24px;">Student-Facing Summary</div>
+  <div class="summary-box">
+    <h3>&#128140; Copy to Send to Students</h3>
+    <div class="summary-text" id="teacherSummary">Hi everyone,
+
+Today was our final session for CHCCOM002 — Use Communication to Build Relationships.
+
+WHAT YOU DID TODAY
+
+You completed AT4: Facilitate Communications — two assessed role plays that brought together everything you've learnt across this unit.
+
+Part A — Conflict Resolution ("Love at First Access")
+You practised stepping into a live conflict situation, de-escalating two clients (Marcus and Diane), and finding a person-centred path forward without taking sides. This draws on active listening, emotional regulation, professional boundaries, and knowing when to involve a supervisor.
+
+Part B — Interpreter Facilitation ("Accessing an Interpreter")
+You conducted an intake meeting with a new client (Amara) using a professional phone interpreter. This required following interpreter protocols — speaking directly to the client, using short clear sentences, pausing for interpretation, checking understanding, and maintaining cultural respect.
+
+WHY THIS MATTERS FOR YOUR CAREER
+
+In community services, you will regularly work with clients in distress and with clients from culturally and linguistically diverse backgrounds. The skills you demonstrated today — de-escalation, professional communication, interpreter protocols — keep clients safe and supported.
+
+HOW TODAY LINKS TO YOUR ASSESSMENTS
+
+AT4 Part A: Observed today — conflict resolution role play.
+AT4 Part B: Observed today — interpreter facilitation role play.
+AT1 and AT2: All content from all six sessions supports your knowledge and skills assessments.
+
+A NOTE FOR YOUR RECORDS
+
+Keep your self-assessment checklists from today. They record the skills you demonstrated in AT4 and are a useful reference for future practice.
+
+You have completed CHCCOM002. Be proud of the work you have done this term.</div>
+    <button class="btn-copy" onclick="copySummary()">&#128203; Copy to Clipboard</button>
+    <div class="copy-confirm" id="cc_summary">Copied!</div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+</div><!-- end .main -->
+</div><!-- end .layout -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+// SIDEBAR SCROLL
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.sb-item').forEach(s => s.classList.remove('active'));
+}
+
+// SCROLL TOP
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 400);
+});
+
+// CHECKLIST
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  li.querySelector('.check-box').textContent = li.classList.contains('checked') ? '\u2713' : '';
+}
+
+// OBSERVER CHECKLIST
+function obsToggle(el) {
+  el.classList.toggle('checked');
+  el.querySelector('.obs-box').textContent = el.classList.contains('checked') ? '\u2713' : '';
+}
+function resetObs(id) {
+  document.querySelectorAll('.obs-item').forEach(el => {
+    el.classList.remove('checked');
+    el.querySelector('.obs-box').textContent = '';
+  });
+}
+
+// COPY SUMMARY
+function copySummary() {
+  navigator.clipboard.writeText(document.getElementById('teacherSummary').textContent.trim())
+    .then(() => {
+      const el = document.getElementById('cc_summary');
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 2500);
+    });
+}
+
+// SIDEBAR ACTIVE ON SCROLL
+const sections = ['t-checklist','t-briefing','t-prep','t-partA','t-obsA','t-lunch','t-partB','t-obsB','t-wrapup','t-pcmap','t-summary'];
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  document.querySelectorAll('.sb-item').forEach(item => {
+    item.classList.remove('active');
+    if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(current)) {
+      item.classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 4 — TEACHER VIEW | CHCCOM002</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --teacher: #7c2d12;
+  --teacher-lt: #fff7ed;
+  --teacher-mid: #dc6803;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --panel-w: 260px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.75; }
+
+/* ── HEADER ── */
+.top-bar { background: var(--teacher); color: white; padding: 13px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.teacher-badge { background: var(--teacher-mid); color: white; font-size: 11px; font-weight: 800; padding: 4px 11px; border-radius: 20px; letter-spacing: .5px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 1px; }
+.top-right { display: flex; align-items: center; gap: 12px; }
+.toggle-panel-btn { background: rgba(255,255,255,.2); color: white; border: 1px solid rgba(255,255,255,.3); font-size: 12px; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-family: inherit; }
+.toggle-panel-btn:hover { background: rgba(255,255,255,.3); }
+
+/* ── LAYOUT ── */
+.layout { display: flex; }
+
+/* ── TIMING SIDEBAR ── */
+.timing-sidebar { width: var(--panel-w); flex-shrink: 0; position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; background: var(--white); border-right: 1px solid var(--border); padding: 18px 0 40px; transition: width .3s, opacity .3s; }
+.timing-sidebar.collapsed { width: 0; overflow: hidden; opacity: 0; padding: 0; }
+.sidebar-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); padding: 0 16px 10px; }
+.time-block { padding: 10px 16px; border-left: 3px solid transparent; cursor: pointer; }
+.time-block:hover { background: var(--bg); }
+.time-block.active { border-left-color: var(--teacher-mid); background: var(--orange-lt); }
+.time-block.break { border-left-color: #94a3b8; background: #f1f5f9; cursor: default; }
+.tb-time { font-size: 12px; font-weight: 700; color: var(--teacher); }
+.tb-label { font-size: 13px; color: var(--text); font-weight: 600; line-height: 1.4; }
+.tb-dur { font-size: 11px; color: var(--muted); }
+.sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 8px 16px; }
+
+/* ── MAIN ── */
+.main-area { flex: 1; min-width: 0; }
+.page { max-width: 720px; margin: 0 auto; padding: 28px 20px 80px; }
+
+/* ── HERO ── */
+.hero { background: linear-gradient(135deg, var(--teacher) 0%, #9a3412 100%); color: white; padding: 36px 28px 32px; }
+.hero-teacher-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.2); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; letter-spacing: .4px; }
+.hero-title { font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 15px; opacity: .9; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 12px; padding: 4px 11px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+.chip-final { background: rgba(234,108,26,.5); border-color: rgba(234,108,26,.8); font-weight: 700; }
+
+/* ── TIME BLOCK HEADERS ── */
+.time-block-header { display: flex; align-items: center; gap: 0; margin: 36px 0 20px; background: var(--teacher); color: white; border-radius: var(--radius); overflow: hidden; }
+.tbh-time { background: var(--teacher-mid); padding: 14px 20px; font-size: 17px; font-weight: 800; white-space: nowrap; min-width: 130px; }
+.tbh-right { padding: 12px 18px; flex: 1; }
+.tbh-label { font-size: 13px; opacity: .7; text-transform: uppercase; letter-spacing: .7px; }
+.tbh-title { font-size: 16px; font-weight: 700; }
+.tbh-dur { font-size: 12px; opacity: .6; margin-top: 2px; }
+.break-header { background: #e2e8f0; color: var(--muted); border-radius: var(--radius); padding: 12px 20px; margin: 28px 0; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 36px; }
+.section-label { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+p { margin-bottom: 12px; font-size: 16px; }
+
+/* ── FACILITATOR PANEL ── */
+.fac-panel { background: #fff7ed; border: 2px solid var(--teacher-mid); border-radius: var(--radius); margin: 16px 0; overflow: hidden; }
+.fac-panel-head { background: var(--teacher-mid); color: white; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.fac-panel-head-left { display: flex; align-items: center; gap: 10px; }
+.fac-type { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; background: rgba(255,255,255,.25); padding: 2px 8px; border-radius: 20px; }
+.fac-title-text { font-size: 14px; font-weight: 700; }
+.fac-chevron { font-size: 16px; transition: transform .25s; }
+.fac-body { padding: 16px 18px; display: none; }
+.fac-body.open { display: block; }
+.fac-body p, .fac-body li { font-size: 14.5px; }
+.fac-body ul, .fac-body ol { padding-left: 20px; margin-top: 6px; }
+.fac-body li { margin-bottom: 7px; }
+.fac-say { background: #fff; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px 15px; margin: 10px 0; font-size: 14px; color: var(--teacher); font-style: italic; }
+.fac-say::before { content: '🗣 Say: '; font-style: normal; font-weight: 700; }
+.fac-tip { background: #fef9c3; border-left: 3px solid #eab308; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-tip::before { content: '💡 Tip: '; font-weight: 700; }
+.fac-lln { background: #f0fdfa; border-left: 3px solid var(--teal); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-lln::before { content: '♿ LLN: '; font-weight: 700; color: var(--teal); }
+.fac-cald { background: var(--purple-lt); border-left: 3px solid var(--purple); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-cald::before { content: '🌏 CALD: '; font-weight: 700; color: var(--purple); }
+.fac-answer { background: var(--green-lt); border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 15px; margin: 10px 0; font-size: 14px; }
+.fac-answer-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: var(--green); margin-bottom: 6px; }
+
+/* ── STANDARD BOXES ── */
+.box { border-radius: var(--radius); padding: 16px 18px; margin: 14px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-red { background: #fef2f2; border-left: 4px solid #dc2626; }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-navy .box-label { color: var(--navy); }
+.box-red .box-label { color: #dc2626; }
+.box p, .box li { font-size: 14.5px; }
+
+/* ── CONCEPT CARDS ── */
+.concept-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 16px 0; }
+.concept-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; position: relative; overflow: hidden; }
+.concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.cc-aw::before { background: var(--teal); }
+.cc-co::before { background: var(--orange); }
+.cc-sa::before { background: var(--green); }
+.concept-num { font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 5px; }
+.cc-aw .concept-num { color: var(--teal); }
+.cc-co .concept-num { color: var(--orange); }
+.cc-sa .concept-num { color: var(--green); }
+.concept-name { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 7px; }
+.concept-def { font-size: 15px; color: var(--text); margin-bottom: 10px; }
+.concept-eg { font-size: 13.5px; color: var(--muted); font-style: italic; padding: 7px 11px; background: var(--bg); border-radius: 6px; }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; margin: 14px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 10px 13px; text-align: left; font-size: 13px; }
+td { padding: 10px 13px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+/* ── AT TABLE ── */
+.at-table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+.at-table th { background: var(--teacher); color: white; padding: 10px 13px; font-size: 13px; text-align: left; }
+.at-table td { padding: 10px 13px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+.at-table tr:nth-child(even) td { background: #fef9f6; }
+
+/* ── CHECKLIST ── */
+.checklist { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.checklist h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.checklist label { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; cursor: pointer; font-size: 14.5px; }
+.checklist input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--teacher); }
+.checklist span.done { text-decoration: line-through; color: var(--muted); }
+
+/* ── KE BADGE ROW ── */
+.ke-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
+.ke-badge { background: var(--purple-lt); color: var(--purple); border: 1px solid #c4b5fd; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+
+/* ── END OF DAY SUMMARY ── */
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 24px; margin: 14px 0; }
+.summary-box h3 { color: white; font-size: 16px; margin-bottom: 6px; }
+.summary-box .summary-sub { color: rgba(255,255,255,.7); font-size: 13px; margin-bottom: 16px; }
+.summary-content { background: rgba(255,255,255,.07); border-radius: 8px; padding: 16px 18px; font-size: 14px; color: rgba(255,255,255,.9); line-height: 1.8; white-space: pre-wrap; font-family: inherit; }
+.btn-copy { display: inline-flex; align-items: center; gap: 7px; background: var(--teacher-mid); color: white; border: none; font-size: 13px; font-weight: 700; padding: 9px 18px; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: 14px; }
+.btn-copy:hover { background: var(--teacher); }
+.copy-confirm { font-size: 13px; color: #4ade80; margin-top: 8px; display: none; }
+.copy-confirm.show { display: block; }
+
+/* ── TEACHER ALERT ── */
+.alert-box { background: #fef2f2; border: 2px solid #dc2626; border-radius: var(--radius); padding: 16px 18px; margin: 16px 0; }
+.alert-box .alert-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .7px; color: #dc2626; margin-bottom: 6px; }
+.alert-box p, .alert-box li { font-size: 14.5px; }
+
+/* ── QUIZ ANSWERS ── */
+.quiz-answers { background: var(--green-lt); border: 1.5px solid #86efac; border-radius: var(--radius); padding: 18px 20px; margin: 14px 0; }
+.quiz-answers h4 { font-size: 14px; font-weight: 800; color: var(--green); margin-bottom: 12px; }
+.qa-item { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+.qa-q { font-size: 13px; font-weight: 700; color: var(--navy); min-width: 28px; }
+.qa-a { font-size: 13.5px; color: var(--text); }
+.qa-correct { color: var(--green); font-weight: 700; }
+
+/* ── SCROLL ── */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--teacher); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+
+@media (max-width: 768px) {
+  .timing-sidebar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="teacher-badge">🍎 TEACHER VIEW</span>
+    <div>
+      <div class="top-title">CHCCOM002 · Session 4 — Facilitator Guide</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;·&nbsp; Certificate IV Community Services &nbsp;·&nbsp; Tue 28 April 2026</div>
+    </div>
+  </div>
+  <div class="top-right">
+    <button class="toggle-panel-btn" onclick="toggleSidebar()">⏱ Timing</button>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- TIMING SIDEBAR -->
+<aside class="timing-sidebar" id="timingSidebar">
+  <div class="sidebar-title">Session Timeline</div>
+
+  <div class="time-block active" onclick="scrollToId('tb-930')">
+    <div class="tb-time">9:30</div>
+    <div class="tb-label">Warm-Up: Think &amp; Share</div>
+    <div class="tb-dur">10 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-940')">
+    <div class="tb-time">9:40</div>
+    <div class="tb-label">Technology in the Workplace</div>
+    <div class="tb-dur">20 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1000')">
+    <div class="tb-time">10:00</div>
+    <div class="tb-label">Written Communication Principles</div>
+    <div class="tb-dur">20 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1020')">
+    <div class="tb-time">10:20</div>
+    <div class="tb-label">Professional Emails</div>
+    <div class="tb-dur">10 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">10:30</div>
+    <div class="tb-label">☕ Break</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1045')">
+    <div class="tb-time">10:45</div>
+    <div class="tb-label">Case Notes</div>
+    <div class="tb-dur">20 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1105')">
+    <div class="tb-time">11:05</div>
+    <div class="tb-label">Incident Reports</div>
+    <div class="tb-dur">20 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1125')">
+    <div class="tb-time">11:25</div>
+    <div class="tb-label">Writing Workshop</div>
+    <div class="tb-dur">35 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">12:00</div>
+    <div class="tb-label">🍽 Lunch</div>
+    <div class="tb-dur">45 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1245')">
+    <div class="tb-time">12:45</div>
+    <div class="tb-label">Warm-Up: Fix-It Activity</div>
+    <div class="tb-dur">30 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-115')">
+    <div class="tb-time">1:15</div>
+    <div class="tb-label">Assessment Finalisation</div>
+    <div class="tb-dur">75 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">2:30</div>
+    <div class="tb-label">☕ Break</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-245')">
+    <div class="tb-time">2:45</div>
+    <div class="tb-label">Wrap-Up &amp; Role Play Prep</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-area">
+<div class="hero">
+  <div class="hero-teacher-tag">🍎 Teacher View — Not for Students</div>
+  <div class="hero-title">Session 4 — Digital Media and Written Communication</div>
+  <div class="hero-sub">Tuesday 28 April 2026 · 9:30am – 3:00pm</div>
+  <div class="hero-chips">
+    <span class="chip chip-final">Final Teaching Session</span>
+    <span class="chip">Session 4 of 6</span>
+    <span class="chip">CHCCOM002</span>
+    <span class="chip">28 April 2026</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- PRE-CLASS CHECKLIST -->
+<div class="section">
+  <div class="section-label">Before Class</div>
+  <div class="section-title">✅ Pre-Class Checklist</div>
+  <div class="checklist">
+    <h3>Print &amp; Prepare</h3>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Print annotated email example (1 per student)</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Print case note / incident report example (1 per student)</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Prepare 5 'Fix-It' examples on card or paper for post-lunch warm-up</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Confirm AT3 groups and roles — have list ready</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Have all assessment documents (AT1, AT2, AT3, AT4) available for reference</span></label>
+    <h3 style="margin-top:14px;">Tech &amp; Video</h3>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Bookmark NDIS progress notes resource: <a href="https://www.brevity.com.au/blog/ndis-progress-notes/" target="_blank">brevity.com.au/blog/ndis-progress-notes</a></span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Student HTML open and ready to share via Teams: session4_student.html</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Test audio and display before students arrive</span></label>
+  </div>
+</div>
+
+<!-- ALERT: FINAL SESSION -->
+<div class="alert-box">
+  <div class="alert-label">Critical — Final Content Session</div>
+  <p>After today, there is no more new content. Sessions 5 and 6 are role play assessment days. <strong>Every student must leave today with AT1 and AT2 substantially complete.</strong></p>
+  <ul style="padding-left:20px; margin-top:6px;">
+    <li>Identify any student who is significantly behind and have a plan before they leave</li>
+    <li>Confirm AT3 group assignments today — students need to know their roles before Monday</li>
+    <li>AT4 students should also know what to expect on Tuesday (two role plays)</li>
+  </ul>
+</div>
+
+<!-- PC / KE MAP -->
+<div class="section">
+  <div class="section-label">Unit Compliance</div>
+  <div class="section-title">📊 Performance Criteria Map</div>
+
+  <table class="at-table">
+    <thead>
+      <tr>
+        <th>Reference</th>
+        <th>Description</th>
+        <th>How addressed today</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>PC 2.5</td>
+        <td>Document communication clearly according to organisational requirements</td>
+        <td>Case notes, incident reports, email structure — entire session</td>
+      </tr>
+      <tr>
+        <td>PE 1</td>
+        <td>Produce written documents that are factual, objective, and clear</td>
+        <td>Fix-It activity, email builder, writing workshop</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="ke-row">
+    <span class="ke-badge">KE 7.1</span>
+    <span class="ke-badge">KE 7.2</span>
+    <span class="ke-badge">KE 7.3</span>
+    <span class="ke-badge">KE 7.4</span>
+    <span class="ke-badge">KE 7.5</span>
+    <span class="ke-badge">KE 7.6</span>
+    <span class="ke-badge">KE 7.7</span>
+    <span class="ke-badge">KE 8</span>
+    <span class="ke-badge">AC 1</span>
+    <span class="ke-badge">AC 2</span>
+  </div>
+</div>
+
+<!-- ═══════ 9:30 BLOCK ═══════ -->
+<div id="tb-930" class="time-block-header">
+  <div class="tbh-time">9:30 – 9:40</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Warm-Up</div>
+    <div class="tbh-title">Think &amp; Share — Final Session Check-In</div>
+    <div class="tbh-dur">10 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Opening Script</span><span class="fac-title-text">Word-for-word opening</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"This is our last content session. After today — role plays. So use today well. Before we start: think of one piece of professional communication you have written — or received — that left you thinking 'that was clear and well done.' Turn to the person next to you and describe it in 30 seconds."</div>
+      <p>Take 2–3 brief responses. This warms the room and surfaces real-world experience before you deliver content.</p>
+      <div class="fac-say">"Everything we document in community services is a professional and legal record. Today we focus on the written side — emails, case notes, incident reports. If you're going into this sector, this isn't optional."</div>
+      <div class="fac-tip">This session tends to produce the 'light bulb' moment for students who have been in the sector but never had to think about WHY documentation standards are what they are. Lean into that — use their examples.</div>
+      <div class="fac-lln">For quieter students: the pair-share gives everyone a safe entry point before the whole-group discussion. Never cold-call on the first block of the day.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 9:40 BLOCK ═══════ -->
+<div id="tb-940" class="time-block-header">
+  <div class="tbh-time">9:40 – 10:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 1</div>
+    <div class="tbh-title">Technology in the Workplace</div>
+    <div class="tbh-dur">20 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <p>Cover digital tools used in community services, and establish the key principle: digital communication is permanent.</p>
+
+  <div class="box box-navy">
+    <div class="box-label">Key Points to Cover</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li>Email, Microsoft Teams/Zoom — communication channels</li>
+      <li>Case management systems: Brevity, CareVision, Lumary — records management</li>
+      <li>Privacy and confidentiality apply regardless of the medium</li>
+      <li><strong>Digital permanence:</strong> what you write can be forwarded, screenshots, audited, or subpoenaed</li>
+    </ul>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Discussion Prompt</span><span class="fac-title-text">Activate prior knowledge</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"Has anyone here worked in a place that uses a case management system? What did it look like — what could you see in someone else's notes?"</div>
+      <p>This surfaces the reality of shared record access. Experienced workers in the room may have strong examples — invite them to share briefly.</p>
+      <div class="fac-say">"Here's a question: if you sent a text message to a colleague about a client right now — who might be able to read that message? Think about your workplace phone policy."</div>
+      <p>Expected answers: supervisor, IT team, legal proceedings, Freedom of Information requests. Extend as needed.</p>
+      <div class="fac-cald">For CALD students: digital communication norms and privacy law differ significantly across countries. Be explicit that Australian workplace law and the Privacy Act 1988 apply here — this is not assumed knowledge from home-country experience.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 10:00 BLOCK ═══════ -->
+<div id="tb-1000" class="time-block-header">
+  <div class="tbh-time">10:00 – 10:20</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 2</div>
+    <div class="tbh-title">Written Communication Principles</div>
+    <div class="tbh-dur">20 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <p>The five principles: Clarity, Accuracy, Brevity, Tone, Audience Awareness. Teach these as a framework students can apply to any piece of written communication — not just academic writing.</p>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Teaching the five principles</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"I want to start with something that surprises a lot of students. Professional writing is not about big vocabulary. It's about being clear, accurate, and easy to understand. If you use a complex word when a simple one works, you've made your reader's job harder — not easier."</div>
+      <p>Walk through each principle with a brief example:</p>
+      <ul>
+        <li><strong>Clarity</strong> — "The meeting will be at 10am on Thursday" vs "The meeting will occur at the abovementioned time." Which is clearer?</li>
+        <li><strong>Accuracy</strong> — "Client stated she had not eaten today" (accurate) vs "Client seemed hungry" (interpretation).</li>
+        <li><strong>Brevity</strong> — Say what you need to say. Stop. Don't add filler.</li>
+        <li><strong>Tone</strong> — A formal incident report reads differently from a supportive email to a client. Both are professional. Different tone, same quality standards.</li>
+        <li><strong>Audience Awareness</strong> — Write for the reader. A case note is read by your supervisor, a legal team, or an auditor — not by the client.</li>
+      </ul>
+      <div class="fac-say">"So here is the single most important question to ask before you write anything: who is going to read this, and what do they need to understand from it?"</div>
+      <div class="fac-cald">For CALD students: written professionalism norms vary across cultures. In some contexts, formal writing means very elaborate language — in Australian professional settings, the standard is the opposite: plain, direct, simple. This is not a lower standard. It's a different one. And it's one they can absolutely meet.</div>
+      <div class="fac-lln">Allow verbal drafting before written — student talks through what they want to say, then writes. This is especially effective during the Fix-It activity later.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 10:20 BLOCK ═══════ -->
+<div id="tb-1020" class="time-block-header">
+  <div class="tbh-time">10:20 – 10:30</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 3</div>
+    <div class="tbh-title">Professional Emails — Structure and Tone</div>
+    <div class="tbh-dur">10 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="box box-navy">
+    <div class="box-label">Email Structure to Cover</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li><strong>Subject line</strong> — specific, clear, professional. Not "FYI" or "Urgent!!!"</li>
+      <li><strong>Greeting</strong> — Dear [Name] or Hi [Name] depending on relationship/context</li>
+      <li><strong>Purpose statement</strong> — first sentence tells the reader exactly why you are writing</li>
+      <li><strong>Body</strong> — factual, concise, no opinion</li>
+      <li><strong>Close</strong> — Kind regards / Yours sincerely / Thanks</li>
+      <li><strong>Signature</strong> — full name, role, organisation</li>
+    </ul>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Before / After Demo</span><span class="fac-title-text">Project this on screen</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <p>Project the Before &amp; After comparison from the student HTML. Read both versions aloud. Ask:</p>
+      <div class="fac-say">"What is wrong with the first version? Give me three specific things — not just 'it's unprofessional.'"</div>
+      <div class="fac-answer">
+        <div class="fac-answer-label">Expected answers (model answers)</div>
+        <ul>
+          <li>Abbreviation ('u') — not appropriate in professional communication</li>
+          <li>"Pretty upset" and "a bit messy" — subjective language, no factual detail</li>
+          <li>No clear subject or purpose — "Can we have a meeting or something?" is vague</li>
+          <li>No formal greeting or close</li>
+        </ul>
+      </div>
+      <p>Then show the After version. Point out: same situation, same facts — completely different impression and professionalism.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-header">☕ Break — 10:30 to 10:45 (15 min)</div>
+
+<!-- ═══════ 10:45 BLOCK ═══════ -->
+<div id="tb-1045" class="time-block-header">
+  <div class="tbh-time">10:45 – 11:05</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 4</div>
+    <div class="tbh-title">Case Notes — What They Are and How to Write Them</div>
+    <div class="tbh-dur">20 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Word-for-word teaching script</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"A case note is a running record of your interactions with a client. Every significant interaction should be documented. And when I say significant — I mean any interaction that might need to be referred to later."</div>
+      <p>Cover the required elements of a case note:</p>
+      <ul>
+        <li><strong>Who</strong> — client name, worker name, anyone else present</li>
+        <li><strong>What</strong> — what happened, what was said (quote directly where possible)</li>
+        <li><strong>When</strong> — date and time</li>
+        <li><strong>Where</strong> — location or context</li>
+        <li><strong>Outcome</strong> — what was agreed, decided, or noted</li>
+        <li><strong>Follow-up</strong> — what happens next and who is responsible</li>
+      </ul>
+      <div class="fac-say">"Now here is the critical rule — and this is the one most people get wrong. A case note must never contain your opinion about the client, your interpretation of why they did something, or your prediction about what will happen. Record ONLY what you observed or what was directly stated."</div>
+      <div class="fac-say">"The test I want you to use for every sentence you write: could I defend this in a courtroom? If the answer is 'I think so' — rewrite it. It needs to be an unambiguous yes."</div>
+      <div class="fac-tip">For experienced workers: ask "Have you ever had to refer back to a case note that someone else wrote and found it was useless because it was vague or full of their opinions?" This almost always gets strong engagement.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 11:05 BLOCK ═══════ -->
+<div id="tb-1105" class="time-block-header">
+  <div class="tbh-time">11:05 – 11:25</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 5</div>
+    <div class="tbh-title">Incident Reports — When and How</div>
+    <div class="tbh-dur">20 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Word-for-word teaching script</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"An incident report is different from a case note. It's not a routine record of an interaction. It's a formal document triggered by something going wrong — or nearly going wrong."</div>
+      <div class="fac-say">"When do you write one? Whenever something deviates from normal operations. That could be a client becoming distressed in a way that was unsafe, a fall, a medication error, a situation where someone was at risk. You don't have to wait for an injury — if it was risky, it gets documented."</div>
+      <p>Cover the key structural requirements of an incident report:</p>
+      <ul>
+        <li>Chronological order — what happened first, what happened next</li>
+        <li>Facts only — what you observed directly</li>
+        <li>No interpretation of why it happened</li>
+        <li>Client and worker details, date, time, location</li>
+        <li>Actions taken immediately</li>
+        <li>Persons notified</li>
+        <li>Outcome and follow-up</li>
+      </ul>
+      <div class="fac-say">"Notice what's not in that list? 'What I think caused it.' 'What I think the client was feeling.' 'What I think should happen.' Your job in an incident report is to record what happened — not to analyse it."</div>
+      <p>Now present the Case Note vs Incident Report comparison table. Go through each row. Pause on the 'Includes opinion? Never' row — this always prompts questions.</p>
+      <div class="fac-tip">Students often ask: "What if I was worried about the client — shouldn't I write that?" Answer: You document the observable indicators of risk — not your feeling of worry. "Client stated they had not eaten in two days" is better than "I was worried the client might be at risk of not eating."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 11:25 BLOCK ═══════ -->
+<div id="tb-1125" class="time-block-header">
+  <div class="tbh-time">11:25 – 12:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Activity</div>
+    <div class="tbh-title">Writing Workshop — Pairs Practice</div>
+    <div class="tbh-dur">35 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Instructions</span><span class="fac-title-text">Workshop setup and facilitation</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"Right — let's put this into practice. In pairs, I want you to do two things. First, open the Email Builder in the student page and build an email from a community services worker to their supervisor requesting a meeting about a client incident. Second, write a four-sentence case note about a check-in appointment with a client who mentioned they hadn't been sleeping well."</div>
+      <p><strong>Circulate during the activity. Watch for:</strong></p>
+      <ul>
+        <li>Vague subject lines in emails ("RE: client")</li>
+        <li>Opinion language in case notes ("seemed sad", "appeared stressed")</li>
+        <li>Missing elements — no date/time, no follow-up stated</li>
+        <li>Mixing observation with assumption in the same sentence</li>
+      </ul>
+      <p><strong>At 11:50:</strong> Bring the group together. Ask one pair to read out their case note. The group checks it against the 'legal test' — could every sentence be defended?</p>
+      <div class="fac-answer">
+        <div class="fac-answer-label">Model case note example</div>
+        <p>Date: 28 April 2026, 10:15am. Location: Client's home, 14 Smith St. Worker: [Name], Support Worker.<br>
+        Client stated she had not slept well over the past three nights. Client stated she was unsure of the reason. No visible distress observed. Worker advised client to contact GP if sleeplessness continued beyond this week. Worker will follow up at next scheduled visit on 5 May 2026.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LUNCH -->
+<div class="break-header">🍽 Lunch — 12:00 to 12:45 (45 min)</div>
+
+<!-- ═══════ 12:45 BLOCK ═══════ -->
+<div id="tb-1245" class="time-block-header">
+  <div class="tbh-time">12:45 – 1:15</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Warm-Up (Post-Lunch)</div>
+    <div class="tbh-title">Fix-It Activity</div>
+    <div class="tbh-dur">30 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Instructions</span><span class="fac-title-text">Running the Fix-It warm-up</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"Welcome back. We're going to shake off the lunch break with a quick Fix-It activity. I'm going to read five poorly written examples from documentation. Your job is to rewrite each one as a factual, professional statement. You have two minutes per example. Go."</div>
+      <p>Read each bad example aloud, clearly and without editorialising. Give students 2 minutes to rewrite. Then:</p>
+      <div class="fac-say">"Swap with your partner. Read their rewrite. Does it pass the legal test? Is there anything that could still be called an opinion or an assumption?"</div>
+      <p><strong>Debrief question for the whole group:</strong></p>
+      <div class="fac-say">"What was the most common type of error across all five examples?"</div>
+      <div class="fac-answer">
+        <div class="fac-answer-label">Expected debrief answer</div>
+        <p>The most common error is subjectivity — using opinion words ('angry', 'difficult', 'happy', 'worried') rather than observable facts. The second most common is vagueness — insufficient detail about who, what, when, and what happens next.</p>
+      </div>
+      <div class="fac-tip">Students who have worked in the sector often have strong instincts here — they've seen bad documentation in practice. Let them lead the debrief. Your role is to confirm and extend, not to dominate.</div>
+      <div class="fac-lln">For LLN students: allow verbal corrections first — "Tell me what you'd write, then I'll help you get it onto paper." This separates the thinking task (identifying the error) from the writing task (correcting it).</div>
+    </div>
+  </div>
+
+  <div class="box box-navy" style="margin-top:16px;">
+    <div class="box-label">Fix-It Answers — Model Rewrites</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li><strong>1.</strong> "During the 10:00am check-in appointment, Cherie raised her voice and stood up from her chair. Cherie then ended the appointment by leaving the room."</li>
+      <li><strong>2.</strong> "Team meeting held on 28 April 2026 at 10:00am. All team members attended. Agenda items were discussed and action items were allocated. [List actions if known.]"</li>
+      <li><strong>3.</strong> "Client's facial expression changed and client began to cry. Client stated, 'My family situation has been stressful lately.'"</li>
+      <li><strong>4.</strong> "Client stated they had not eaten since yesterday morning. Client stated they had no food at home. Worker contacted case manager [Name] at 11:20am to report. Worker noted this as a potential food security concern."</li>
+      <li><strong>5.</strong> "Worker spoke with client John [Surname], who is a NDIS participant, by phone on 28 April 2026 at 2:15pm. Client stated he was managing his daily tasks independently. Worker will follow up at next scheduled check-in on 5 May 2026."</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════ 1:15 BLOCK ═══════ -->
+<div id="tb-115" class="time-block-header">
+  <div class="tbh-time">1:15 – 2:30</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Assessment Work</div>
+    <div class="tbh-title">Assessment Finalisation</div>
+    <div class="tbh-dur">75 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Instructions</span><span class="fac-title-text">Circulate priorities and support</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"For the next 75 minutes, this is your assessment time. AT1 and AT2 need to be finalised before next session. Use me — I'm circulating."</div>
+      <p><strong>Circulate priorities (in order):</strong></p>
+      <ol>
+        <li><strong>AT1</strong> — Any remaining unanswered questions. Check students haven't skipped questions with the intention of coming back later. "Come back later" never happens.</li>
+        <li><strong>AT2 Part B</strong> — Watch for subjective language. "Cherie seemed upset" needs to become "Cherie raised her voice and stood up from her chair." This is the single most common error in this task.</li>
+        <li><strong>AT2 Part C</strong> — Check that students produce an actual agenda format, not just a written description of what a meeting agenda would look like. They need: agenda item, who presents it, time allocated.</li>
+        <li><strong>AT3 role confirmation</strong> — Confirm each student knows their role in the team meeting role play. Have the group list ready. Anyone who doesn't know their role leaves today knowing it.</li>
+      </ol>
+      <div class="fac-tip">Any student who is significantly behind on AT1 and AT2 needs an individual conversation today — not next week. Identify them in the first 15 minutes of this block and speak to them privately about a plan.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-header">☕ Break — 2:30 to 2:45 (15 min)</div>
+
+<!-- ═══════ 2:45 BLOCK ═══════ -->
+<div id="tb-245" class="time-block-header">
+  <div class="tbh-time">2:45 – 3:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Wrap-Up</div>
+    <div class="tbh-title">Group Discussion, Role Play Briefing &amp; Close</div>
+    <div class="tbh-dur">15 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Closing Script</span><span class="fac-title-text">Discussion prompts and close</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"Before we finish — one reflection question. In your own words: what is the difference between an observation and an opinion in documentation? Give me two sentences."</div>
+      <p>Take 3–4 responses. You are checking that the core principle has landed. Confirm and correct as needed.</p>
+      <div class="fac-say">"Now for the next two sessions. Session 5 — Monday — is AT3 role play day. That's the team meeting. Check your group and your role. Preparation is on you. Session 6 — Tuesday — is AT4 role play day. Two role plays: one with Cherie, one with an interpreter. You'll get a briefing at the start of the day."</div>
+      <div class="fac-say">"AT1 and AT2 should be ready to submit. If they're not, your window is this weekend. Any questions about those tasks — Teams message me or come early on Monday."</div>
+      <div class="fac-say">"Great work today. Written communication is the thing that follows you — it's in the record long after the interaction is over. You now know how to do it properly. See you Monday."</div>
+      <div class="fac-tip">After class: send the end-of-day summary via Teams using the copy button in the student HTML. Include the AT3 group allocations in your Teams message if possible.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER END-OF-DAY SUMMARY -->
+<div class="section">
+  <div class="section-label">After Class</div>
+  <div class="section-title">📋 End-of-Day Summary — Teacher Notes</div>
+
+  <div class="alert-box">
+    <div class="alert-label">Critical Actions Before Monday</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li><strong>Final content session complete.</strong> All elements, PCs, and KEs have now been introduced across Sessions 1–4.</li>
+      <li><strong>AT1 and AT2 finalisation:</strong> Students need these ready before Session 5. Any student significantly behind needs an individual support plan — note names today.</li>
+      <li><strong>AT3 role play day is Monday (Session 5):</strong> Confirm group assignments and individual roles before leaving today. Any student not knowing their role is at risk of failing AT3.</li>
+      <li><strong>AT4 role play day is Tuesday (Session 6):</strong> Two role plays. Students need to know what to expect.</li>
+      <li>Any student not ready for role play needs an individual support plan — identify and contact them before Monday.</li>
+    </ul>
+  </div>
+
+  <div class="summary-box">
+    <h3>End-of-Day Summary — Copy to send to students</h3>
+    <div class="summary-sub">Copy this and send via Teams after class</div>
+    <div class="summary-content" id="teacherSummary">Hi everyone,
+
+Session 4 summary — and our last teaching session!
+
+What we covered today:
+
+1. Technology in the workplace — digital tools (email, Teams, case management systems) are everywhere in community services. Anything you write digitally is permanent and could be reviewed by supervisors, auditors, or legal teams. Privacy and confidentiality always apply.
+
+2. Written communication principles — clarity, accuracy, brevity, tone, audience awareness. Good professional writing isn't about vocabulary size — it's about being clear and easy to understand.
+
+3. Professional emails — structure: subject line, greeting, purpose, body, close, signature. Tone: formal enough to be professional, direct enough to be clear.
+
+4. Case notes — factual record of client interactions. Include: who, what, when, where, outcome, follow-up. Exclude: opinions, assumptions, personal judgements.
+
+5. Incident reports — formal documentation of anything that deviates from normal operations or poses a risk. Factual, objective, chronological. This format is exactly what AT2 Part B requires.
+
+Before Sessions 5 and 6:
+- AT1 and AT2 should be finalised and ready to submit
+- Read your AT3 document and know your role in the team meeting role play
+- For AT4: review conflict management (Session 2) and think about the interpreter role play
+
+Assessment links:
+- AT2 Part B: Observations only. 'Cherie seemed angry' → 'Cherie raised her voice and stood up from her chair.'
+- AT2 Part C: Professional email + agenda structure.
+- AT3: Monday is role play day — know your role.
+- AT4: Tuesday is role play day — two role plays, briefing at start of day.</div>
+    <button class="btn-copy" onclick="copyTeacherSummary()">📋 Copy to clipboard</button>
+    <div class="copy-confirm" id="teacherCopyConfirm">Copied! Paste into Teams.</div>
+  </div>
+</div>
+
+<!-- QUIZ ANSWERS -->
+<div class="section">
+  <div class="section-label">Quiz Reference</div>
+  <div class="section-title">✅ Quiz Answers (Revealed)</div>
+
+  <div class="quiz-answers">
+    <h4>Correct answers for the student self-check quiz</h4>
+    <div class="qa-item">
+      <div class="qa-q">Q1</div>
+      <div class="qa-a"><span class="qa-correct">B — Whenever something deviates from normal operations or poses a risk.</span> Not only for injuries — any deviation or risk triggers an incident report.</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">Q2</div>
+      <div class="qa-a"><span class="qa-correct">B — "Client stated they had not contacted their GP this week."</span> This is a direct, objective, factual observation — exactly what belongs in a case note. All other options contain opinions or subjective language.</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">Q3</div>
+      <div class="qa-a"><span class="qa-correct">C — "Request for team meeting — client incident 28 April 2026."</span> Specific, professional, gives the reader everything they need before opening the email.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+</div><!-- end .main-area -->
+</div><!-- end .layout -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+// ── SIDEBAR TOGGLE ──
+function toggleSidebar() {
+  document.getElementById('timingSidebar').classList.toggle('collapsed');
+}
+
+// ── SCROLL TO ID ──
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ── FAC PANEL TOGGLE ──
+function toggleFac(head) {
+  const body = head.nextElementSibling;
+  body.classList.toggle('open');
+  head.querySelector('.fac-chevron').style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+
+// ── CHECKLIST ──
+function toggleDone(cb) {
+  const span = cb.nextElementSibling;
+  span.classList.toggle('done', cb.checked);
+}
+
+// ── SIDEBAR ACTIVE STATE ──
+const sidebarBlocks = document.querySelectorAll('.timing-sidebar .time-block:not(.break)');
+const blockIds = ['tb-930','tb-940','tb-1000','tb-1020','tb-1045','tb-1105','tb-1125','tb-1245','tb-115','tb-245'];
+
+window.addEventListener('scroll', () => {
+  let active = 0;
+  blockIds.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 120) active = i;
+  });
+  sidebarBlocks.forEach((b,i) => {
+    b.classList.toggle('active', i === active);
+  });
+  document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 400);
+});
+
+// ── COPY SUMMARY ──
+function copyTeacherSummary() {
+  const text = document.getElementById('teacherSummary').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const c = document.getElementById('teacherCopyConfirm');
+    c.classList.add('show');
+    setTimeout(() => c.classList.remove('show'), 3000);
+  });
+}
+</script>
+</body>
+</html>

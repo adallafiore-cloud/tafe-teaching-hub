@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 6 — AT4: Facilitate Communications | CHCCOM002 Student</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --yellow: #854d0e;
+  --yellow-lt: #fefce8;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.75; }
+
+.top-bar { background: var(--navy); color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.tag { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+.progress-wrap { background: var(--navy); padding: 0 24px 12px; }
+.progress-steps { display: flex; gap: 6px; }
+.step { flex: 1; height: 5px; background: rgba(255,255,255,.2); border-radius: 3px; cursor: pointer; transition: background .2s; }
+.step.done { background: var(--orange); }
+.step.active { background: rgba(255,255,255,.7); }
+
+.hero { background: linear-gradient(135deg, var(--navy) 0%, #0e4d7d 100%); color: white; padding: 40px 28px 36px; }
+.hero-badge { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+.hero-title { font-size: 26px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 16px; opacity: .85; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+.page { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; }
+.section { margin-bottom: 48px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 21px; font-weight: 800; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { font-size: 24px; }
+
+p { margin-bottom: 14px; font-size: 17px; }
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+.box { border-radius: var(--radius); padding: 18px 20px; margin: 18px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-yellow { background: var(--yellow-lt); border-left: 4px solid #eab308; }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-yellow .box-label { color: var(--yellow); }
+.box-navy .box-label { color: var(--navy); }
+.box p, .box li { font-size: 15.5px; }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 11px 14px; text-align: left; font-size: 14px; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+.part-header { color: white; border-radius: var(--radius); padding: 22px 24px; margin-bottom: 24px; }
+.part-header-a { background: linear-gradient(135deg, var(--teal) 0%, #0a5a70 100%); }
+.part-header-b { background: linear-gradient(135deg, var(--purple) 0%, #4c1d95 100%); }
+.part-badge { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .75; margin-bottom: 6px; }
+.part-title { font-size: 20px; font-weight: 800; line-height: 1.3; }
+.part-sub { font-size: 14.5px; opacity: .85; margin-top: 6px; }
+
+.script-block { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin: 14px 0; }
+.script-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+.script-line { font-size: 15px; line-height: 1.7; color: var(--text); margin-bottom: 12px; padding-left: 14px; border-left: 3px solid var(--teal); }
+.script-line:last-of-type { margin-bottom: 0; }
+.script-cue { display: inline; font-size: 12px; font-weight: 800; color: var(--orange); background: var(--orange-lt); padding: 1px 7px; border-radius: 4px; margin-right: 7px; }
+.script-cue-b { background: var(--purple-lt); color: var(--purple); }
+
+.ref-card { background: var(--white); border: 2px solid var(--teal); border-radius: var(--radius); padding: 20px 22px; margin: 14px 0; }
+.ref-card-b { border-color: var(--purple); }
+.ref-card-title { font-size: 13px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.ref-card-b .ref-card-title { color: var(--purple); }
+.ref-list { list-style: none; padding: 0; }
+.ref-list li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+.ref-list li:last-child { border-bottom: none; }
+.ref-num { background: var(--teal); color: white; font-size: 12px; font-weight: 700; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.ref-num-b { background: var(--purple); }
+
+.checklist { list-style: none; padding: 0; margin: 12px 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; font-size: 15px; cursor: pointer; transition: background .15s; user-select: none; }
+.checklist li:hover { background: var(--green-lt); }
+.checklist li.checked { background: var(--green-lt); border-color: #16a34a; }
+.check-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.checklist li.checked .check-box { background: #16a34a; border-color: #16a34a; color: white; }
+
+.fill-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 12px 0 5px; }
+.fill-area { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; color: var(--text); resize: vertical; min-height: 110px; font-family: inherit; transition: border .2s; }
+.fill-area:focus { outline: none; border-color: var(--teal); background: var(--white); }
+.save-note { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+
+.btn-copy { background: var(--orange); color: white; border: none; font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; cursor: pointer; margin-top: 14px; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+.btn-copy:hover { background: #d45a10; }
+.copy-confirm { font-size: 13px; color: var(--green); margin-top: 8px; display: none; font-weight: 600; }
+.copy-confirm.show { display: block; }
+
+.match-game { margin: 14px 0; }
+.match-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.match-col-label { font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.match-item { background: var(--white); border: 2px solid var(--border); border-radius: 9px; padding: 12px 14px; margin-bottom: 8px; cursor: pointer; font-size: 14px; line-height: 1.5; transition: all .15s; }
+.match-item:hover { border-color: var(--teal); }
+.match-item.selected { border-color: var(--orange); background: var(--orange-lt); }
+.match-item.correct { border-color: #16a34a; background: var(--green-lt); cursor: default; }
+.match-item.wrong { border-color: #ef4444; background: #fef2f2; animation: shake .3s; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+.match-reset { background: var(--navy); color: white; border: none; padding: 9px 20px; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 10px; font-family: inherit; }
+.match-feedback { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--green); }
+
+.fitb-wrap { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 22px; margin: 14px 0; }
+.fitb-q { margin-bottom: 20px; }
+.fitb-q:last-child { margin-bottom: 0; }
+.fitb-text { font-size: 15.5px; color: var(--text); line-height: 2; margin-bottom: 8px; }
+.fitb-input { border: 1.5px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 14px; font-family: inherit; color: var(--text); width: 110px; transition: border .15s; vertical-align: middle; }
+.fitb-input:focus { outline: none; border-color: var(--teal); }
+.fitb-input.correct { border-color: #16a34a; background: var(--green-lt); }
+.fitb-input.wrong { border-color: #ef4444; background: #fef2f2; }
+.fitb-check-btn { background: var(--teal); color: white; border: none; padding: 8px 18px; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 10px; display: block; }
+.fitb-feedback { font-size: 13px; margin-top: 8px; font-weight: 600; display: none; }
+.fitb-feedback.show { display: block; }
+.fitb-feedback.correct { color: var(--green); }
+.fitb-feedback.wrong { color: #dc2626; }
+
+.qf-wrap { background: var(--navy); border-radius: var(--radius); padding: 24px; margin: 14px 0; }
+.qf-wrap-b { background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%); }
+.qf-label { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 10px; }
+.qf-situation { font-size: 16px; font-weight: 700; color: white; line-height: 1.5; min-height: 52px; }
+.qf-reveal { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 8px; padding: 14px 16px; margin-top: 14px; display: none; }
+.qf-reveal.show { display: block; }
+.qf-reveal-text { font-size: 14.5px; color: rgba(255,255,255,.95); line-height: 1.65; }
+.qf-btn-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.qf-btn { background: var(--orange); color: white; border: none; padding: 9px 18px; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.qf-btn-ghost { background: rgba(255,255,255,.1); color: white; border: 1px solid rgba(255,255,255,.25); padding: 9px 18px; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.qf-counter { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 10px; }
+
+.quiz-wrap { background: var(--navy); border-radius: var(--radius); padding: 26px; margin-top: 10px; }
+.quiz-wrap h3 { color: white; font-size: 18px; margin-bottom: 18px; }
+.quiz-q { background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; margin-bottom: 12px; }
+.quiz-q-num { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: .5px; margin-bottom: 5px; }
+.quiz-q-text { font-size: 15px; color: white; font-weight: 600; margin-bottom: 12px; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 7px; padding: 10px 14px; cursor: pointer; transition: all .15s; }
+.quiz-opt:hover { background: rgba(255,255,255,.15); }
+.quiz-opt.correct { background: rgba(22,163,74,.3); border-color: #4ade80; }
+.quiz-opt.wrong { background: rgba(239,68,68,.25); border-color: #f87171; }
+.quiz-opt .opt-text { font-size: 14.5px; color: white; }
+.quiz-opt .feedback-text { font-size: 12px; color: rgba(255,255,255,.8); margin-top: 5px; display: none; font-style: italic; }
+.quiz-opt.correct .feedback-text, .quiz-opt.wrong .feedback-text { display: block; }
+
+.at-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.at-card { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 15px; }
+.at-num { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+.at-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.at-link { font-size: 13px; color: var(--muted); }
+
+.practice-ta { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 15px; color: var(--text); resize: vertical; min-height: 90px; font-family: inherit; transition: border .2s; }
+.practice-ta:focus { outline: none; border-color: var(--teal); background: var(--white); }
+
+.celebration-box { background: var(--navy); border-radius: var(--radius); padding: 32px 28px; margin: 24px 0; color: white; text-align: center; }
+.celebration-box h2 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+.celebration-box .cel-sub { font-size: 15px; opacity: .75; margin-bottom: 16px; }
+.celebration-box p { font-size: 15.5px; line-height: 1.75; color: rgba(255,255,255,.9); margin-bottom: 0; }
+.ctags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; justify-content: center; }
+.ctag { background: rgba(255,255,255,.15); color: white; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 28px; margin-top: 10px; color: white; }
+.summary-box h3 { font-size: 18px; margin-bottom: 16px; color: white; }
+.summary-text { font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,.9); white-space: pre-wrap; font-family: inherit; }
+
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+#scrollTop:hover { background: var(--orange); }
+
+@media (max-width: 600px) {
+  .at-grid, .match-cols { grid-template-columns: 1fr; }
+  .hero-title { font-size: 21px; }
+  .page { padding: 20px 14px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="tag">STUDENT</span>
+    <div>
+      <div class="top-title">CHCCOM002 — Use Communication to Build Relationships</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;&middot;&nbsp; Certificate IV Community Services</div>
+    </div>
+  </div>
+  <span style="font-size:13px; opacity:.7; white-space:nowrap;">Tue 5 May 2026</span>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step done" onclick="document.getElementById('s-overview').scrollIntoView({behavior:'smooth'})"></div>
+    <div class="step done" onclick="document.getElementById('s-partA').scrollIntoView({behavior:'smooth'})"></div>
+    <div class="step active" onclick="document.getElementById('s-partAact').scrollIntoView({behavior:'smooth'})"></div>
+    <div class="step" onclick="document.getElementById('s-partB').scrollIntoView({behavior:'smooth'})"></div>
+    <div class="step" onclick="document.getElementById('s-partBact').scrollIntoView({behavior:'smooth'})"></div>
+    <div class="step" onclick="document.getElementById('s-practice').scrollIntoView({behavior:'smooth'})"></div>
+    <div class="step" onclick="document.getElementById('s-celebrate').scrollIntoView({behavior:'smooth'})"></div>
+    <div class="step" onclick="document.getElementById('s-summary').scrollIntoView({behavior:'smooth'})"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Session 6 &nbsp;&middot;&nbsp; Final Assessment Day</div>
+  <div class="hero-title">AT4: Facilitate Communications</div>
+  <div class="hero-sub">Two role plays today. You are the worker in both. Take your time — you have built these skills across six sessions.</div>
+  <div class="hero-chips">
+    <span class="chip">Part A — Conflict Resolution</span>
+    <span class="chip">Part B — Interpreter Facilitation</span>
+    <span class="chip">Observed Assessment</span>
+    <span class="chip">Session 6 of 6</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ========== OVERVIEW ========== -->
+<div class="section" id="s-overview">
+  <div class="section-label">Assessment Overview</div>
+  <div class="section-title"><span class="ico">&#127917;</span>What's Happening Today</div>
+
+  <div class="box box-orange">
+    <div class="box-label">AT4 — Two Role Plays</div>
+    <p><strong>Part A: Conflict Resolution</strong> — "Love at First Access." You manage a heated dispute between two clients at reception.</p>
+    <p><strong>Part B: Interpreter Facilitation</strong> — "Accessing an Interpreter." You run an intake meeting with a new client using a professional phone interpreter.</p>
+    <p style="margin-bottom:0;"><strong>Your role in both:</strong> the support worker. Your teacher and/or a peer plays the clients.</p>
+  </div>
+
+  <table>
+    <tr><th>Time</th><th>What's happening</th></tr>
+    <tr><td>9:30 – 10:00</td><td>Briefing — your teacher walks through both scenarios</td></tr>
+    <tr><td>10:00 – 10:30</td><td>Individual prep time — use this page to review</td></tr>
+    <tr><td>10:30 – 12:00</td><td>AT4 Part A role plays (taking turns)</td></tr>
+    <tr><td>12:00 – 12:45</td><td>Lunch</td></tr>
+    <tr><td>12:45 – 2:30</td><td>AT4 Part B role plays (taking turns)</td></tr>
+    <tr><td>2:30 – 2:45</td><td>Break</td></tr>
+    <tr><td>2:45 – 3:00</td><td>Final wrap-up and unit celebration</td></tr>
+  </table>
+
+  <div class="box box-teal">
+    <div class="box-label">How to Use This Page</div>
+    <p>Use the Part A and Part B sections to review the scenario, read your script, and practise with the interactive activities.</p>
+    <p style="margin-bottom:0;">Your notes save automatically as you type. The Practice section at the bottom has your opening lines ready to copy.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== PART A ========== -->
+<div class="section" id="s-partA">
+  <div class="part-header part-header-a">
+    <div class="part-badge">AT4 Part A</div>
+    <div class="part-title">Conflict Resolution — "Love at First Access"</div>
+    <div class="part-sub">You arrive at First Access reception to find two clients in a heated argument. Your job: slow things down and find a path forward.</div>
+  </div>
+
+  <div class="section-label">The Scenario</div>
+  <div class="section-title"><span class="ico">&#128203;</span>Situation Brief</div>
+
+  <div class="box box-navy">
+    <div class="box-label">What Has Happened</div>
+    <p>You're a support worker at First Access. You arrive at the reception area to find:</p>
+    <ul style="padding-left:18px; font-size:15.5px; margin-bottom:0;">
+      <li style="margin-bottom:6px;"><strong>Marcus</strong> — loud, agitated. He believes Diane shared his personal housing information with another client.</li>
+      <li><strong>Diane</strong> — defensive, denying it. She says she never discussed Marcus with anyone.</li>
+    </ul>
+  </div>
+  <div class="box box-orange">
+    <div class="box-label">Your Job</div>
+    <p style="margin-bottom:0;">Step in calmly. Make both people feel heard. Work toward a resolution without taking sides. Know when to involve your supervisor.</p>
+  </div>
+
+  <div class="fill-label">My Prep Notes — Part A</div>
+  <textarea class="fill-area" id="ta_parta" placeholder="Jot down anything you want to remember — phrases to use, things to avoid, how you'll open..."></textarea>
+  <div class="save-note">&#128190; Saved automatically</div>
+
+  <!-- Worker script -->
+  <div class="section-label" style="margin-top:24px;">Your Script</div>
+  <div class="section-title"><span class="ico">&#128172;</span>Worker Script — Part A</div>
+
+  <div class="script-block">
+    <div class="script-label">Your lines — formatted for easy reading</div>
+    <div class="script-line"><span class="script-cue">OPENING</span>"Hi Marcus, hi Diane. My name is [your name]. I can see this is really difficult for both of you, and I want to make sure you're both heard. Let's slow things down. Marcus — I'd like to hear from you first. Can you tell me calmly what's happened?"</div>
+    <div class="script-line"><span class="script-cue">AFTER MARCUS</span>"Thank you Marcus. I hear you — that would feel like a serious breach of trust. Diane, I want to hear your side too. Can you tell me what happened?"</div>
+    <div class="script-line"><span class="script-cue">IF VOICES RISE</span>"I'm going to need us to pause for a moment. I want to help, but I need us to be able to hear each other. Let's take a breath. [pause] Thank you. Marcus, please continue."</div>
+    <div class="script-line"><span class="script-cue">PATH FORWARD</span>"What I'm hearing is [summary]. You both value your privacy and dignity here. I'd like to suggest [action — e.g., separate conversations with supervisor, formal mediation]. Does that seem fair?"</div>
+    <div class="script-line"><span class="script-cue">ESCALATION</span>"This is important and I want to handle it properly. I'm going to involve my supervisor to make sure you both get the right support. Is that okay?"</div>
+    <button class="btn-copy" onclick="copyEl('hidden_scriptA','ccA')">&#128203; Copy Script</button>
+    <div class="copy-confirm" id="ccA">Copied to clipboard!</div>
+  </div>
+  <div id="hidden_scriptA" style="display:none;">OPENING: "Hi Marcus, hi Diane. My name is [your name]. I can see this is really difficult for both of you, and I want to make sure you're both heard. Let's slow things down. Marcus — I'd like to hear from you first. Can you tell me calmly what's happened?"
+
+AFTER MARCUS: "Thank you Marcus. I hear you — that would feel like a serious breach of trust. Diane, I want to hear your side too. Can you tell me what happened?"
+
+IF VOICES RISE: "I'm going to need us to pause for a moment. I want to help, but I need us to be able to hear each other. Let's take a breath. [pause] Thank you. Marcus, please continue."
+
+PATH FORWARD: "What I'm hearing is [summary]. You both value your privacy and dignity here. I'd like to suggest [action]. Does that seem fair?"
+
+ESCALATION: "This is important and I want to handle it properly. I'm going to involve my supervisor to make sure you both get the right support. Is that okay?"</div>
+
+  <!-- De-escalation quick ref -->
+  <div class="ref-card">
+    <div class="ref-card-title">&#9889; De-Escalation Quick Reference</div>
+    <ul class="ref-list">
+      <li><span class="ref-num">1</span><span><strong>Lower your voice</strong> — don't match their energy. Calm is contagious.</span></li>
+      <li><span class="ref-num">2</span><span><strong>Slow your pace</strong> — take a beat before you respond.</span></li>
+      <li><span class="ref-num">3</span><span><strong>Open body language</strong> — face both people, arms uncrossed, stay grounded.</span></li>
+      <li><span class="ref-num">4</span><span><strong>Name the emotion</strong> — "I can see this is really frustrating for you."</span></li>
+      <li><span class="ref-num">5</span><span><strong>Avoid 'you' blame statements</strong> — say "what happened" not "what you did".</span></li>
+      <li><span class="ref-num">6</span><span><strong>Give space</strong> — don't rush to fix it. Let people finish speaking.</span></li>
+      <li><span class="ref-num">7</span><span><strong>Summarise what you heard</strong> — show both people you were listening.</span></li>
+    </ul>
+  </div>
+
+  <!-- Other role scripts -->
+  <div class="section-label" style="margin-top:24px;">Other Characters — Know What to Expect</div>
+
+  <div class="box box-yellow">
+    <div class="box-label">Marcus Script — played by your teacher or peer</div>
+    <p><strong>Opening:</strong> "She told people about my housing situation! I heard it from another client. That's MY information! I'm not coming back if this is how things work!"</p>
+    <p style="margin-bottom:0;"><strong>If de-escalated:</strong> "...Fine. I just want to know it won't happen again. And I want an apology."</p>
+  </div>
+
+  <div class="box box-purple">
+    <div class="box-label">Diane Script — played by your teacher or peer</div>
+    <p><strong>Opening:</strong> "That is NOT true. I never said anything about Marcus. I don't even know his situation. This is unfair!"</p>
+    <p style="margin-bottom:0;"><strong>If given space:</strong> "...I understand he's upset. But I genuinely didn't say anything. Can we at least find out if it was actually me?"</p>
+  </div>
+
+  <!-- Self-assessment checklist A -->
+  <div class="section-label" style="margin-top:24px;">After Your Role Play</div>
+  <div class="section-title"><span class="ico">&#10003;</span>Part A Self-Assessment</div>
+  <p style="font-size:15px; color:var(--muted);">Tick these honestly after your role play — these are what your assessor is looking for.</p>
+  <ul class="checklist" id="clA">
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Acknowledged both feelings without taking sides</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Used de-escalation techniques (lower voice, slow pace, open body)</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Gave each person uninterrupted space to speak</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Stayed person-centred throughout</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Identified a path forward or resolution</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Knew when to involve a supervisor</li>
+  </ul>
+</div>
+
+<hr>
+
+<!-- ========== PART A ACTIVITIES ========== -->
+<div class="section" id="s-partAact">
+  <div class="section-label">Interactive Practice — Part A</div>
+  <div class="section-title"><span class="ico">&#127919;</span>Sharpen Your Skills Before the Assessment</div>
+
+  <!-- Match game -->
+  <div class="box box-teal">
+    <div class="box-label">Activity 1 — De-Escalation Match</div>
+    <p style="margin-bottom:0;">Click a situation on the left, then click the matching response on the right. Green = correct. Red shake = try again.</p>
+  </div>
+
+  <div class="match-game">
+    <div class="match-cols">
+      <div>
+        <div class="match-col-label">Situation</div>
+        <div class="match-item" id="mA_s1" data-type="sit" data-id="1" onclick="matchClick('A',this)">Marcus raises his voice again</div>
+        <div class="match-item" id="mA_s2" data-type="sit" data-id="2" onclick="matchClick('A',this)">Diane bursts into tears</div>
+        <div class="match-item" id="mA_s3" data-type="sit" data-id="3" onclick="matchClick('A',this)">Both talk at once</div>
+        <div class="match-item" id="mA_s4" data-type="sit" data-id="4" onclick="matchClick('A',this)">You feel out of your depth</div>
+        <div class="match-item" id="mA_s5" data-type="sit" data-id="5" onclick="matchClick('A',this)">Marcus refuses to engage</div>
+      </div>
+      <div>
+        <div class="match-col-label">Response</div>
+        <div class="match-item" id="mA_r2" data-type="res" data-id="2" onclick="matchClick('A',this)">"Acknowledge: 'I can see this is really distressing. Your feelings are valid.'"</div>
+        <div class="match-item" id="mA_r4" data-type="res" data-id="4" onclick="matchClick('A',this)">"'I want to make sure this is handled properly. I'll involve my supervisor.'"</div>
+        <div class="match-item" id="mA_r1" data-type="res" data-id="1" onclick="matchClick('A',this)">"Lower your voice. 'Let's take a breath together.'"</div>
+        <div class="match-item" id="mA_r5" data-type="res" data-id="5" onclick="matchClick('A',this)">"'I can see this is really hard. We don't have to resolve everything today — I just want you to feel heard.'"</div>
+        <div class="match-item" id="mA_r3" data-type="res" data-id="3" onclick="matchClick('A',this)">"Gently: 'Let's take it one at a time. Marcus first.'"</div>
+      </div>
+    </div>
+    <button class="match-reset" onclick="resetMatch('A')">Reset Game</button>
+    <div class="match-feedback" id="mA_fb"></div>
+  </div>
+
+  <!-- Fill in blank A -->
+  <div class="box box-teal" style="margin-top:24px;">
+    <div class="box-label">Activity 2 — Fill in the Blanks</div>
+    <p style="margin-bottom:0;">Complete each sentence. Type your answer then press Check.</p>
+  </div>
+
+  <div class="fitb-wrap">
+    <div class="fitb-q">
+      <div class="fitb-text">When de-escalating, you should <input class="fitb-input" id="fA1a" placeholder="word"> your voice (not raise it) and <input class="fitb-input" id="fA1b" placeholder="word"> your pace.</div>
+      <button class="fitb-check-btn" onclick="chkA1()">Check</button>
+      <div class="fitb-feedback" id="ffA1"></div>
+    </div>
+    <div class="fitb-q">
+      <div class="fitb-text">In conflict, the goal is to make both parties feel <input class="fitb-input" id="fA2" placeholder="word">.</div>
+      <button class="fitb-check-btn" onclick="chkA2()">Check</button>
+      <div class="fitb-feedback" id="ffA2"></div>
+    </div>
+    <div class="fitb-q">
+      <div class="fitb-text">If you're unsure how to resolve the situation, the right step is to involve your <input class="fitb-input" id="fA3" placeholder="word">.</div>
+      <button class="fitb-check-btn" onclick="chkA3()">Check</button>
+      <div class="fitb-feedback" id="ffA3"></div>
+    </div>
+  </div>
+
+  <!-- Quick-fire A -->
+  <div class="box box-teal" style="margin-top:24px;">
+    <div class="box-label">Activity 3 — Quick-Fire Practice Prompts</div>
+    <p style="margin-bottom:0;">Read the situation. Think of your response first. Then click Reveal.</p>
+  </div>
+
+  <div class="qf-wrap" id="qfA">
+    <div class="qf-label">Situation — what would you say or do?</div>
+    <div class="qf-situation" id="qfA_sit"></div>
+    <div class="qf-reveal" id="qfA_rev"><div class="qf-reveal-text" id="qfA_text"></div></div>
+    <div class="qf-btn-row">
+      <button class="qf-btn" onclick="revealA()">Reveal Answer</button>
+      <button class="qf-btn-ghost" onclick="nextA()">Next Prompt &#8594;</button>
+    </div>
+    <div class="qf-counter" id="qfA_count"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== PART B ========== -->
+<div class="section" id="s-partB">
+  <div class="part-header part-header-b">
+    <div class="part-badge">AT4 Part B</div>
+    <div class="part-title">Interpreter Facilitation — "Accessing an Interpreter"</div>
+    <div class="part-sub">You meet new client Amara using a professional phone interpreter. Your job: conduct the intake process with cultural safety and correct protocols.</div>
+  </div>
+
+  <div class="section-label">The Scenario</div>
+  <div class="section-title"><span class="ico">&#128203;</span>Situation Brief</div>
+
+  <div class="box box-navy">
+    <div class="box-label">What's Happening</div>
+    <p><strong>Amara</strong> has recently arrived in Australia. She speaks limited English — her first language is Somali. A professional interpreter is joining by phone.</p>
+    <p><strong>Meeting purpose:</strong> explain the First Access intake process and gather Amara's support needs.</p>
+    <p style="margin-bottom:0;"><strong>Your job:</strong> run the meeting using correct interpreter protocols. Speak to Amara, not the interpreter. Keep it clear, respectful and culturally safe.</p>
+  </div>
+
+  <div class="fill-label">My Prep Notes — Part B</div>
+  <textarea class="fill-area" id="ta_partb" placeholder="Key protocols to remember, phrases to practise, anything that helps you feel ready..."></textarea>
+  <div class="save-note">&#128190; Saved automatically</div>
+
+  <!-- Interpreter protocols ref card -->
+  <div class="ref-card ref-card-b">
+    <div class="ref-card-title">&#128203; Interpreter Protocol — Quick Reference Card</div>
+    <ul class="ref-list">
+      <li><span class="ref-num ref-num-b">1</span><span><strong>Introduce yourself AND the interpreter</strong> to the client at the start of the meeting.</span></li>
+      <li><span class="ref-num ref-num-b">2</span><span><strong>Always speak TO the client</strong> — not to the interpreter. Say "Amara, can you tell me..." not "Can you ask her..."</span></li>
+      <li><span class="ref-num ref-num-b">3</span><span><strong>Short, clear sentences</strong> — one sentence at a time, then pause for interpretation.</span></li>
+      <li><span class="ref-num ref-num-b">4</span><span><strong>No jargon or idioms</strong> — avoid phrases like "touch base", "ballpark", or "in the loop".</span></li>
+      <li><span class="ref-num ref-num-b">5</span><span><strong>Check understanding regularly</strong> — "Can you ask Amara if she has any questions?"</span></li>
+      <li><span class="ref-num ref-num-b">6</span><span><strong>Eye contact with the client</strong> — look at Amara, not the phone.</span></li>
+      <li><span class="ref-num ref-num-b">7</span><span><strong>Allow extra time</strong> — interpreted meetings take longer. That is normal and okay.</span></li>
+    </ul>
+  </div>
+
+  <!-- Worker script B -->
+  <div class="section-label" style="margin-top:24px;">Your Script</div>
+  <div class="section-title"><span class="ico">&#128172;</span>Worker Script — Part B</div>
+
+  <div class="script-block">
+    <div class="script-label">Opening</div>
+    <div class="script-line"><span class="script-cue script-cue-b">TO AMARA</span>"Good morning Amara, welcome to First Access. My name is [your name] and I'm your support worker today."</div>
+    <div class="script-line"><span class="script-cue script-cue-b">TO INTERPRETER</span>"Thank you for joining us."</div>
+    <div class="script-line"><span class="script-cue script-cue-b">TO AMARA</span>"I've arranged an interpreter to help us communicate today. Everything we discuss is confidential."</div>
+  </div>
+
+  <div class="script-block" style="margin-top:10px;">
+    <div class="script-label">Intake Questions — pause after each for interpretation</div>
+    <div class="script-line">"Amara, I'd like to ask you some questions to understand how we can best support you. Is that okay?"</div>
+    <div class="script-line">"Can you tell me a little about your current situation — what kind of support are you looking for?"</div>
+    <div class="script-line">"Have you received any services in Australia before?"</div>
+    <div class="script-line">"Is there anything you're worried about, or anything you'd like me to know?"</div>
+    <div class="script-line"><span class="script-cue script-cue-b">CHECK</span>"Before we move on — can you ask Amara if she has any questions about what I've explained, and whether she feels comfortable continuing?"</div>
+    <div class="script-line"><span class="script-cue script-cue-b">CLOSING</span>"Amara, thank you so much for your time. We'll be in touch soon with next steps. Do you have any final questions? [pause] It was wonderful to meet you. We're here to support you."</div>
+    <button class="btn-copy" onclick="copyEl('hidden_scriptB','ccB')">&#128203; Copy Script</button>
+    <div class="copy-confirm" id="ccB">Copied to clipboard!</div>
+  </div>
+  <div id="hidden_scriptB" style="display:none;">TO AMARA: "Good morning Amara, welcome to First Access. My name is [your name] and I'm your support worker today."
+TO INTERPRETER: "Thank you for joining us."
+TO AMARA: "I've arranged an interpreter to help us communicate today. Everything we discuss is confidential."
+
+INTAKE QUESTIONS (pause after each):
+"Amara, I'd like to ask you some questions to understand how we can best support you. Is that okay?"
+"Can you tell me a little about your current situation — what kind of support are you looking for?"
+"Have you received any services in Australia before?"
+"Is there anything you're worried about, or anything you'd like me to know?"
+
+CHECK: "Before we move on — can you ask Amara if she has any questions about what I've explained, and whether she feels comfortable continuing?"
+
+CLOSING: "Amara, thank you so much for your time. We'll be in touch soon with next steps. Do you have any final questions? [pause] It was wonderful to meet you. We're here to support you."</div>
+
+  <!-- Other character scripts B -->
+  <div class="section-label" style="margin-top:24px;">Other Characters — Know What to Expect</div>
+
+  <div class="box box-purple">
+    <div class="box-label">Amara Script — played by your teacher or peer</div>
+    <p><strong>Initial response (simple English or gestures):</strong> "Yes... I am looking for... housing help. And my children school. I don't understand — what is intake?"</p>
+    <p style="margin-bottom:0;"><strong>After checking understanding:</strong> "Ah, I understand now. One question — will same person help me each time?"</p>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">Interpreter Script — played by your teacher or peer</div>
+    <p>"Amara says she is looking for housing assistance and help enrolling her children in school."</p>
+    <p>"Amara says she didn't understand the word intake."</p>
+    <p style="margin-bottom:0;">"Amara asks whether she'll have consistent support."</p>
+  </div>
+
+  <!-- Self-assessment B -->
+  <div class="section-label" style="margin-top:24px;">After Your Role Play</div>
+  <div class="section-title"><span class="ico">&#10003;</span>Part B Self-Assessment</div>
+  <ul class="checklist" id="clB">
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Introduced myself and the interpreter to Amara</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Spoke TO the client (Amara), not to the interpreter</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Used short, clear sentences</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Paused after each sentence for interpretation</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Checked understanding regularly</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Avoided jargon and idioms</li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div>Maintained eye contact with Amara</li>
+  </ul>
+</div>
+
+<hr>
+
+<!-- ========== PART B ACTIVITIES ========== -->
+<div class="section" id="s-partBact">
+  <div class="section-label">Interactive Practice — Part B</div>
+  <div class="section-title"><span class="ico">&#127919;</span>Interpreter Protocol Practice</div>
+
+  <!-- Quiz B -->
+  <div class="box box-purple">
+    <div class="box-label">Activity 1 — Protocol Knowledge Check</div>
+    <p style="margin-bottom:0;">Click your answer. Instant feedback with emoji.</p>
+  </div>
+
+  <div class="quiz-wrap">
+    <h3>&#10067; Interpreter Protocol Quiz</h3>
+
+    <div class="quiz-q" id="bq1">
+      <div class="quiz-q-num">QUESTION 1 OF 4</div>
+      <div class="quiz-q-text">You want to ask Amara about her housing needs. You say:</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizB(1,'a',this)">
+          <div class="opt-text">a) "Can you ask her about her housing needs?"</div>
+          <div class="feedback-text">&#10060; This addresses the interpreter, not Amara. Always speak directly to your client.</div>
+        </div>
+        <div class="quiz-opt" onclick="quizB(1,'b',this)">
+          <div class="opt-text">b) "Amara, can you tell me about your housing situation?"</div>
+          <div class="feedback-text">&#9989; Correct! Speaking directly to Amara respects her dignity and follows correct protocol.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="bq2">
+      <div class="quiz-q-num">QUESTION 2 OF 4</div>
+      <div class="quiz-q-text">Amara looks confused. You:</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizB(2,'a',this)">
+          <div class="opt-text">a) Repeat it louder</div>
+          <div class="feedback-text">&#10060; Volume doesn't help understanding. Simplify your language and check in with the interpreter.</div>
+        </div>
+        <div class="quiz-opt" onclick="quizB(2,'b',this)">
+          <div class="opt-text">b) Ask the interpreter to check understanding, then simplify your wording</div>
+          <div class="feedback-text">&#9989; Correct! Check in, then rephrase using simpler, shorter words.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="bq3">
+      <div class="quiz-q-num">QUESTION 3 OF 4</div>
+      <div class="quiz-q-text">How long before you pause for interpretation?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizB(3,'a',this)">
+          <div class="opt-text">a) After each sentence</div>
+          <div class="feedback-text">&#9989; Correct! One sentence, then pause. This allows accurate interpretation.</div>
+        </div>
+        <div class="quiz-opt" onclick="quizB(3,'b',this)">
+          <div class="opt-text">b) After a few paragraphs</div>
+          <div class="feedback-text">&#10060; Too long — the interpreter cannot accurately remember that much. One sentence at a time.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="bq4">
+      <div class="quiz-q-num">QUESTION 4 OF 4</div>
+      <div class="quiz-q-text">During the meeting, your eye contact should be:</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="quizB(4,'a',this)">
+          <div class="opt-text">a) With the interpreter (or the phone)</div>
+          <div class="feedback-text">&#10060; The interpreter bridges language — your relationship is with Amara. Look at her.</div>
+        </div>
+        <div class="quiz-opt" onclick="quizB(4,'b',this)">
+          <div class="opt-text">b) With Amara</div>
+          <div class="feedback-text">&#9989; Correct! Eye contact with Amara shows respect and builds rapport.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fill in blank B -->
+  <div class="box box-purple" style="margin-top:24px;">
+    <div class="box-label">Activity 2 — Fill in the Blanks</div>
+    <p style="margin-bottom:0;">Complete each sentence about interpreter protocols.</p>
+  </div>
+
+  <div class="fitb-wrap">
+    <div class="fitb-q">
+      <div class="fitb-text">When using an interpreter, always speak <input class="fitb-input" id="fB1" placeholder="word"> the client, not to the interpreter.</div>
+      <button class="fitb-check-btn" onclick="chkB1()" style="background:var(--purple);">Check</button>
+      <div class="fitb-feedback" id="ffB1"></div>
+    </div>
+    <div class="fitb-q">
+      <div class="fitb-text">Use <input class="fitb-input" id="fB2a" placeholder="word 1">, <input class="fitb-input" id="fB2b" placeholder="word 2"> sentences and pause after each for interpretation.</div>
+      <button class="fitb-check-btn" onclick="chkB2()" style="background:var(--purple);">Check</button>
+      <div class="fitb-feedback" id="ffB2"></div>
+    </div>
+    <div class="fitb-q">
+      <div class="fitb-text">Avoid <input class="fitb-input" id="fB3" placeholder="word"> and idioms that may not translate well.</div>
+      <button class="fitb-check-btn" onclick="chkB3()" style="background:var(--purple);">Check</button>
+      <div class="fitb-feedback" id="ffB3"></div>
+    </div>
+  </div>
+
+  <!-- Quick-fire B -->
+  <div class="box box-purple" style="margin-top:24px;">
+    <div class="box-label">Activity 3 — Scenario Quick-Fire Prompts</div>
+    <p style="margin-bottom:0;">Read each situation and think: what do you do? Then reveal the suggested response.</p>
+  </div>
+
+  <div class="qf-wrap qf-wrap-b" id="qfB">
+    <div class="qf-label">Situation — what would you do?</div>
+    <div class="qf-situation" id="qfB_sit"></div>
+    <div class="qf-reveal" id="qfB_rev"><div class="qf-reveal-text" id="qfB_text"></div></div>
+    <div class="qf-btn-row">
+      <button class="qf-btn" onclick="revealB()">Reveal Answer</button>
+      <button class="qf-btn-ghost" onclick="nextB()">Next Prompt &#8594;</button>
+    </div>
+    <div class="qf-counter" id="qfB_count"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== PRACTICE ========== -->
+<div class="section" id="s-practice">
+  <div class="section-label">Before You Go In</div>
+  <div class="section-title"><span class="ico">&#127917;</span>Practise Before the Assessment</div>
+
+  <div class="box box-teal">
+    <div class="box-label">Part A — My Opening Line</div>
+    <p style="font-size:14.5px; margin-bottom:10px;">Edit this to feel natural in your own voice. Then copy it to review just before your role play.</p>
+    <textarea class="practice-ta" id="pl_a">"Hi Marcus, hi Diane. My name is [your name]. I can see this is really difficult for both of you, and I want to make sure you're both heard. Let's slow things down. Marcus — I'd like to hear from you first. Can you tell me calmly what's happened?"</textarea>
+    <button class="btn-copy" onclick="copyTa('pl_a','cc_pla')" style="font-size:13px; padding:8px 18px; margin-top:10px;">&#128203; Copy</button>
+    <div class="copy-confirm" id="cc_pla">Copied!</div>
+  </div>
+
+  <div class="box box-teal" style="margin-top:6px;">
+    <div class="box-label">Part A — I'm Ready Checklist</div>
+    <ul class="checklist" id="rdyA">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I know the Part A scenario (Marcus, Diane, privacy dispute)</li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I have my opening line ready</li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I know the de-escalation steps</li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I know when to involve a supervisor</li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I'll stay person-centred and not take sides</li>
+    </ul>
+  </div>
+
+  <div class="box box-purple" style="margin-top:18px;">
+    <div class="box-label">Part B — My Opening Line</div>
+    <p style="font-size:14.5px; margin-bottom:10px;">Edit to feel natural. Remember: speak to Amara, not the interpreter.</p>
+    <textarea class="practice-ta" id="pl_b">"Good morning Amara, welcome to First Access. My name is [your name] and I'm your support worker today. [To interpreter] Thank you for joining us. [To Amara] I've arranged an interpreter to help us communicate today. Everything we discuss is confidential."</textarea>
+    <button class="btn-copy" onclick="copyTa('pl_b','cc_plb')" style="font-size:13px; padding:8px 18px; margin-top:10px;">&#128203; Copy</button>
+    <div class="copy-confirm" id="cc_plb">Copied!</div>
+  </div>
+
+  <div class="box box-purple" style="margin-top:6px;">
+    <div class="box-label">Part B — I'm Ready Checklist</div>
+    <ul class="checklist" id="rdyB">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I know the Part B scenario (Amara, intake, phone interpreter)</li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I'll speak TO Amara, not to the interpreter</li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I'll use short sentences and pause after each one</li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I know the 7 interpreter protocols</li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div>I've read the Amara and interpreter scripts</li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== CELEBRATION ========== -->
+<div class="section" id="s-celebrate">
+  <div class="celebration-box">
+    <h2>&#127881; You've Completed CHCCOM002</h2>
+    <div class="cel-sub">Use Communication to Build Relationships</div>
+    <div class="ctags">
+      <span class="ctag">Interpersonal skills</span>
+      <span class="ctag">Communication process</span>
+      <span class="ctag">Non-verbal communication</span>
+      <span class="ctag">Active listening</span>
+      <span class="ctag">Barriers to communication</span>
+      <span class="ctag">Communication styles</span>
+      <span class="ctag">Professionalism</span>
+      <span class="ctag">Professional boundaries</span>
+      <span class="ctag">Person-centred practice</span>
+      <span class="ctag">Rights-based approach</span>
+      <span class="ctag">Conflict management</span>
+      <span class="ctag">Dispute resolution</span>
+      <span class="ctag">Facilitating meetings</span>
+      <span class="ctag">Meeting minutes</span>
+      <span class="ctag">Written communication</span>
+      <span class="ctag">Emails &amp; case notes</span>
+      <span class="ctag">Incident reports</span>
+    </div>
+    <p>The skills you've built here are the core of community services practice. Every client you work with in the future will benefit from these skills. Be proud of what you've done.</p>
+  </div>
+</div>
+
+<!-- ASSESSMENT CONNECTIONS -->
+<div class="section">
+  <div class="section-label">Assessment</div>
+  <div class="section-title"><span class="ico">&#128203;</span>Assessment Connections</div>
+  <div class="at-grid">
+    <div class="at-card">
+      <div class="at-num">AT4 Part A</div>
+      <div class="at-name">Conflict Resolution Role Play</div>
+      <div class="at-link">Observed today — "Love at First Access"</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT4 Part B</div>
+      <div class="at-name">Interpreter Facilitation Role Play</div>
+      <div class="at-link">Observed today — "Accessing an Interpreter"</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== SUMMARY ========== -->
+<div class="section" id="s-summary">
+  <div class="section-label">End of Unit Summary</div>
+  <div class="section-title"><span class="ico">&#128140;</span>Copy and Send to Yourself</div>
+
+  <div class="summary-box">
+    <h3>&#128140; CHCCOM002 — Session 6 Summary</h3>
+    <div class="summary-text" id="summaryText">Hi everyone,
+
+Today was our final session for CHCCOM002 — Use Communication to Build Relationships.
+
+WHAT YOU DID TODAY
+
+You completed AT4: Facilitate Communications — two assessed role plays that brought together everything you've learnt across this unit.
+
+Part A — Conflict Resolution ("Love at First Access")
+You practised stepping into a live conflict situation, de-escalating two clients (Marcus and Diane), and finding a person-centred path forward without taking sides. This draws on active listening, emotional regulation, professional boundaries, and knowing when to involve a supervisor.
+
+Part B — Interpreter Facilitation ("Accessing an Interpreter")
+You conducted an intake meeting with a new client (Amara) using a professional phone interpreter. This required following interpreter protocols — speaking directly to the client, using short clear sentences, pausing for interpretation, checking understanding, and maintaining cultural respect.
+
+WHY THIS MATTERS FOR YOUR CAREER
+
+In community services, you will regularly work with clients in distress and with clients from culturally and linguistically diverse backgrounds. The skills you demonstrated today — de-escalation, professional communication, interpreter protocols — keep clients safe and supported.
+
+HOW TODAY LINKS TO YOUR ASSESSMENTS
+
+AT4 Part A: Observed today — conflict resolution role play.
+AT4 Part B: Observed today — interpreter facilitation role play.
+AT1 and AT2: All content from all six sessions supports your knowledge and skills assessments.
+
+A NOTE FOR YOUR RECORDS
+
+Keep your self-assessment checklists from today. They record the skills you demonstrated in AT4 and are a useful reference for future practice.
+
+You have completed CHCCOM002. Be proud of the work you have done this term.</div>
+    <button class="btn-copy" onclick="copySummary()">&#128203; Copy to Clipboard</button>
+    <div class="copy-confirm" id="cc_summary">Copied! Paste into Teams or an email.</div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+// =============================================
+// LOCAL STORAGE
+// =============================================
+const LS = {
+  ta_parta: 'chccom002_s6_parta_notes',
+  ta_partb: 'chccom002_s6_partb_notes',
+  pl_a: 'chccom002_s6_practice_a',
+  pl_b: 'chccom002_s6_practice_b'
+};
+Object.entries(LS).forEach(([id, key]) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const saved = localStorage.getItem(key);
+  if (saved) el.value = saved;
+  el.addEventListener('input', () => localStorage.setItem(key, el.value));
+});
+
+// =============================================
+// SCROLL TOP
+// =============================================
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 400);
+});
+
+// =============================================
+// CHECKLIST
+// =============================================
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  li.querySelector('.check-box').textContent = li.classList.contains('checked') ? '&#10003;' : '';
+}
+
+// =============================================
+// COPY HELPERS
+// =============================================
+function flashConfirm(id) {
+  const el = document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+function copyEl(hiddenId, confirmId) {
+  navigator.clipboard.writeText(document.getElementById(hiddenId).textContent.trim())
+    .then(() => flashConfirm(confirmId));
+}
+function copyTa(taId, confirmId) {
+  navigator.clipboard.writeText(document.getElementById(taId).value.trim())
+    .then(() => flashConfirm(confirmId));
+}
+function copySummary() {
+  navigator.clipboard.writeText(document.getElementById('summaryText').textContent.trim())
+    .then(() => flashConfirm('cc_summary'));
+}
+
+// =============================================
+// MATCH GAME — Part A
+// =============================================
+const mPairs = {1:1, 2:2, 3:3, 4:4, 5:5};
+let mSelA = {sit: null, res: null};
+let mSolvedA = new Set();
+
+function matchClick(game, el) {
+  if (game !== 'A') return;
+  if (el.classList.contains('correct')) return;
+  const type = el.dataset.type;
+  const id = el.dataset.id;
+
+  if (mSelA[type]) {
+    const prev = document.querySelector(`[data-type="${type}"][data-id="${mSelA[type]}"]`);
+    if (prev) prev.classList.remove('selected');
+  }
+  mSelA[type] = id;
+  el.classList.add('selected');
+
+  if (mSelA.sit && mSelA.res) {
+    const s = mSelA.sit, r = mSelA.res;
+    const sEl = document.querySelector(`[data-type="sit"][data-id="${s}"]`);
+    const rEl = document.querySelector(`[data-type="res"][data-id="${r}"]`);
+    if (s === r) {
+      [sEl, rEl].forEach(e => { e.classList.remove('selected'); e.classList.add('correct'); });
+      mSolvedA.add(s);
+      if (mSolvedA.size === 5) document.getElementById('mA_fb').textContent = '&#10003; All matched! Excellent work.';
+    } else {
+      [sEl, rEl].forEach(e => {
+        e.classList.add('wrong');
+        setTimeout(() => e.classList.remove('wrong', 'selected'), 700);
+      });
+    }
+    mSelA = {sit: null, res: null};
+  }
+}
+
+function resetMatch(game) {
+  mSelA = {sit: null, res: null};
+  mSolvedA = new Set();
+  document.querySelectorAll('.match-item').forEach(e => e.classList.remove('correct','wrong','selected'));
+  document.getElementById('mA_fb').textContent = '';
+}
+
+// =============================================
+// FILL IN BLANK — Part A
+// =============================================
+function nv(id) { return document.getElementById(id).value.trim().toLowerCase(); }
+function setFb(inId, fbId, ok, hint) {
+  const inp = document.getElementById(inId);
+  inp.classList.remove('correct','wrong');
+  inp.classList.add(ok ? 'correct' : 'wrong');
+  const fb = document.getElementById(fbId);
+  fb.className = 'fitb-feedback show ' + (ok ? 'correct' : 'wrong');
+  fb.textContent = ok ? '&#10003; Correct!' : '&#10007; Try again — hint: ' + hint;
+}
+function chkA1() {
+  const a = nv('fA1a'), b = nv('fA1b');
+  const ok = a.includes('lower') && b.includes('slow');
+  setFb('fA1a','ffA1', ok, '"lower" and "slow"');
+}
+function chkA2() { setFb('fA2','ffA2', nv('fA2').includes('heard') || nv('fA2').includes('listen'), '"heard"'); }
+function chkA3() { setFb('fA3','ffA3', nv('fA3').includes('supervisor'), '"supervisor"'); }
+
+// FILL IN BLANK — Part B
+function chkB1() { setFb('fB1','ffB1', nv('fB1') === 'to' || nv('fB1').includes('toward'), '"to"'); }
+function chkB2() { setFb('fB2a','ffB2', nv('fB2a').includes('short') && nv('fB2b').includes('clear'), '"short" and "clear"'); }
+function chkB3() { setFb('fB3','ffB3', nv('fB3').includes('jargon'), '"jargon"'); }
+
+// =============================================
+// QUICK FIRE — Part A
+// =============================================
+const qfAData = [
+  { s: 'Marcus raises his voice again after you\'ve started talking.',
+    a: 'Lower your voice. "Marcus, I hear you. Let\'s take a breath together." Give him space — don\'t match his energy.' },
+  { s: 'Diane says "I can\'t believe I\'m being accused — this is so unfair."',
+    a: '"Diane, I hear that this feels really unfair. Your feelings are valid. I want to make sure you get a chance to share your side too."' },
+  { s: 'Both clients start talking at once.',
+    a: 'Gently raise a hand. "I want to hear both of you. Let\'s take it one at a time — Marcus first, then Diane."' },
+  { s: 'You genuinely don\'t know how to resolve this.',
+    a: 'That\'s okay. "I want to make sure this is handled properly. I\'m going to involve my supervisor to make sure you both get the right support."' },
+  { s: 'The situation is resolved but Marcus is still unhappy.',
+    a: '"I understand you\'re still frustrated, and that\'s understandable. What matters is that we\'ve heard both sides and there\'s a path forward."' }
+];
+let qfAi = 0;
+function renderA() {
+  document.getElementById('qfA_sit').textContent = qfAData[qfAi].s;
+  document.getElementById('qfA_rev').classList.remove('show');
+  document.getElementById('qfA_count').textContent = (qfAi+1) + ' / ' + qfAData.length;
+}
+function revealA() {
+  document.getElementById('qfA_text').textContent = qfAData[qfAi].a;
+  document.getElementById('qfA_rev').classList.add('show');
+}
+function nextA() { qfAi = (qfAi+1) % qfAData.length; renderA(); }
+renderA();
+
+// =============================================
+// QUICK FIRE — Part B
+// =============================================
+const qfBData = [
+  { s: 'You accidentally say "Let\'s touch base on this next week."',
+    a: 'That\'s an idiom — rephrase: "We will speak again next week. I will contact you." Keep it literal and direct.' },
+  { s: 'You realise you\'ve been looking at the interpreter (the phone), not Amara.',
+    a: 'Shift your eye contact to Amara now. Continue addressing her directly. Just correct it calmly — it\'s okay.' },
+  { s: 'Amara seems hesitant to answer a question.',
+    a: 'Give her time. Don\'t fill the silence. "Take your time — there is no rush." Silence is normal in interpreted meetings.' },
+  { s: 'The interpreter says "She doesn\'t really understand that question."',
+    a: 'Thank the interpreter and simplify. "Amara, let me say that differently..." Break it into smaller parts.' }
+];
+let qfBi = 0;
+function renderB() {
+  document.getElementById('qfB_sit').textContent = qfBData[qfBi].s;
+  document.getElementById('qfB_rev').classList.remove('show');
+  document.getElementById('qfB_count').textContent = (qfBi+1) + ' / ' + qfBData.length;
+}
+function revealB() {
+  document.getElementById('qfB_text').textContent = qfBData[qfBi].a;
+  document.getElementById('qfB_rev').classList.add('show');
+}
+function nextB() { qfBi = (qfBi+1) % qfBData.length; renderB(); }
+renderB();
+
+// =============================================
+// QUIZ — Part B
+// =============================================
+const bqAns = {1:'b', 2:'b', 3:'a', 4:'b'};
+function quizB(n, choice, optEl) {
+  const qEl = document.getElementById('bq'+n);
+  if (qEl.dataset.done) return;
+  qEl.dataset.done = '1';
+  const opts = qEl.querySelectorAll('.quiz-opt');
+  opts.forEach((o, i) => {
+    const letter = i === 0 ? 'a' : 'b';
+    if (letter === bqAns[n]) o.classList.add('correct');
+    else if (letter === choice) o.classList.add('wrong');
+    o.style.cursor = 'default';
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 4 — Digital Media and Written Communication | CHCCOM002 Student</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --yellow: #854d0e;
+  --yellow-lt: #fefce8;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.75; }
+
+/* -- HEADER -- */
+.top-bar { background: var(--navy); color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.tag { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+/* -- PROGRESS -- */
+.progress-wrap { background: var(--navy); padding: 0 24px 12px; }
+.progress-steps { display: flex; gap: 6px; }
+.step { flex: 1; height: 5px; background: rgba(255,255,255,.2); border-radius: 3px; cursor: pointer; transition: background .2s; }
+.step.done { background: var(--orange); }
+.step.active { background: rgba(255,255,255,.7); }
+
+/* -- HERO -- */
+.hero { background: linear-gradient(135deg, var(--navy) 0%, #0e4d7d 100%); color: white; padding: 40px 28px 36px; }
+.hero-badge { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+.hero-title { font-size: 26px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 16px; opacity: .85; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+.chip-final { background: rgba(234,108,26,.5); border-color: var(--orange); font-weight: 700; }
+
+/* -- MAIN -- */
+.page { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* -- SECTION -- */
+.section { margin-bottom: 48px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 21px; font-weight: 800; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { font-size: 24px; }
+
+/* -- TEXT -- */
+p { margin-bottom: 14px; font-size: 17px; }
+.big { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.plain { font-size: 16px; color: var(--muted); }
+
+/* -- DIVIDER -- */
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* -- CALLOUT BOXES -- */
+.box { border-radius: var(--radius); padding: 18px 20px; margin: 18px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-yellow { background: var(--yellow-lt); border-left: 4px solid #eab308; }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-red { background: #fef2f2; border-left: 4px solid #dc2626; }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-yellow .box-label { color: var(--yellow); }
+.box-navy .box-label { color: var(--navy); }
+.box-red .box-label { color: #dc2626; }
+.box p, .box li { font-size: 15.5px; }
+
+/* -- CONCEPT CARDS -- */
+.concept-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0; }
+.concept-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; position: relative; overflow: hidden; }
+.concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.cc-aw::before { background: var(--teal); }
+.cc-co::before { background: var(--orange); }
+.cc-sa::before { background: var(--green); }
+.cc-pu::before { background: var(--purple); }
+.cc-nv::before { background: var(--navy); }
+.concept-num { font-size: 12px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 6px; }
+.cc-aw .concept-num { color: var(--teal); }
+.cc-co .concept-num { color: var(--orange); }
+.cc-sa .concept-num { color: var(--green); }
+.cc-pu .concept-num { color: var(--purple); }
+.cc-nv .concept-num { color: var(--navy); }
+.concept-name { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.concept-def { font-size: 15.5px; color: var(--text); margin-bottom: 10px; }
+.concept-eg { font-size: 14px; color: var(--muted); font-style: italic; padding: 8px 12px; background: var(--bg); border-radius: 6px; }
+
+/* -- QUIZ -- */
+.quiz-wrap { background: var(--navy); border-radius: var(--radius); padding: 26px; margin-top: 10px; }
+.quiz-wrap h3 { color: white; font-size: 18px; margin-bottom: 18px; }
+.quiz-q { background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; margin-bottom: 12px; }
+.quiz-q-num { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: .5px; margin-bottom: 5px; }
+.quiz-q-text { font-size: 15px; color: white; font-weight: 600; margin-bottom: 12px; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt { display: flex; align-items: flex-start; gap: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 7px; padding: 10px 14px; cursor: pointer; transition: all .15s; }
+.quiz-opt:hover { background: rgba(255,255,255,.15); }
+.quiz-opt.selected { background: rgba(234,108,26,.3); border-color: var(--orange); }
+.quiz-opt.correct { background: rgba(22,163,74,.3); border-color: #4ade80; }
+.quiz-opt.wrong { background: rgba(239,68,68,.25); border-color: #f87171; }
+.quiz-opt input { display: none; }
+.quiz-opt span { font-size: 14.5px; color: white; }
+.quiz-opt .feedback-text { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 2px; display: none; }
+.quiz-opt.correct .feedback-text, .quiz-opt.wrong .feedback-text { display: block; }
+.quiz-submit { background: var(--orange); color: white; border: none; font-size: 15px; font-weight: 700; padding: 12px 28px; border-radius: 8px; cursor: pointer; margin-top: 14px; font-family: inherit; }
+.quiz-submit:hover { background: #d45a10; }
+.quiz-result { display: none; margin-top: 16px; background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; color: white; font-size: 14.5px; }
+.quiz-result.show { display: block; }
+
+/* -- FILL-IN AREAS -- */
+.fill-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 12px 0 5px; }
+.fill-area { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; color: var(--text); resize: vertical; min-height: 90px; font-family: inherit; transition: border .2s; }
+.fill-area:focus { outline: none; border-color: var(--teal); background: var(--white); }
+.save-note { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+
+/* -- ASSESSMENT LINKS -- */
+.at-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.at-card { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 15px; }
+.at-num { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+.at-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.at-link { font-size: 13px; color: var(--muted); }
+
+/* -- GLOSSARY -- */
+.gloss-item { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 16px; margin-bottom: 10px; }
+.gloss-term { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.gloss-def { font-size: 14.5px; color: var(--text); }
+.gloss-eg { font-size: 13px; color: var(--muted); font-style: italic; margin-top: 5px; }
+
+/* -- END OF DAY SUMMARY -- */
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 28px; margin-top: 10px; color: white; }
+.summary-box h3 { font-size: 18px; margin-bottom: 16px; color: white; }
+.summary-text { font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,.9); white-space: pre-wrap; font-family: inherit; }
+.btn-copy { background: var(--orange); color: white; border: none; font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; cursor: pointer; margin-top: 18px; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+.btn-copy:hover { background: #d45a10; }
+.copy-confirm { font-size: 13px; color: #4ade80; margin-top: 10px; display: none; }
+.copy-confirm.show { display: block; }
+
+/* -- SCROLL TOP -- */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+#scrollTop:hover { background: var(--orange); }
+
+/* -- TABLE -- */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 11px 14px; text-align: left; font-size: 14px; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+/* -- EMAIL BUILDER -- */
+.email-builder { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 22px 24px; margin: 18px 0; }
+.email-builder h3 { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 16px; }
+.email-row { margin-bottom: 14px; }
+.email-row label { display: block; font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+.email-row input, .email-row select, .email-row textarea { width: 100%; border: 1.5px solid var(--border); border-radius: 7px; padding: 9px 12px; font-size: 15px; font-family: inherit; color: var(--text); background: var(--bg); transition: border .2s; }
+.email-row input:focus, .email-row select:focus, .email-row textarea:focus { outline: none; border-color: var(--teal); background: white; }
+.email-row textarea { min-height: 80px; resize: vertical; }
+.btn-generate { background: var(--teal); color: white; border: none; font-size: 15px; font-weight: 700; padding: 12px 28px; border-radius: 8px; cursor: pointer; font-family: inherit; margin-top: 6px; }
+.btn-generate:hover { background: #0c6378; }
+.email-output { display: none; margin-top: 20px; background: #f0fdfa; border: 1.5px solid var(--teal); border-radius: var(--radius); padding: 20px 22px; }
+.email-output.show { display: block; }
+.email-output-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; color: var(--teal); margin-bottom: 12px; }
+.email-rendered { font-size: 15px; line-height: 1.85; color: var(--text); white-space: pre-wrap; font-family: 'Segoe UI', Arial, sans-serif; }
+.btn-copy-email { background: var(--orange); color: white; border: none; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: 14px; }
+.btn-copy-email:hover { background: #d45a10; }
+
+/* -- BEFORE/AFTER -- */
+.ba-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0; }
+.ba-card { border-radius: var(--radius); padding: 16px 18px; }
+.ba-before { background: #fef2f2; border: 1.5px solid #fca5a5; }
+.ba-after { background: var(--green-lt); border: 1.5px solid #86efac; }
+.ba-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 9px; }
+.ba-before .ba-label { color: #dc2626; }
+.ba-after .ba-label { color: var(--green); }
+.ba-text { font-size: 14.5px; line-height: 1.65; color: var(--text); }
+
+/* -- FIX-IT ACTIVITY -- */
+.fixit-item { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px; }
+.fixit-num { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .7px; color: var(--muted); margin-bottom: 8px; }
+.fixit-bad { background: #fef2f2; border: 1.5px solid #fca5a5; border-radius: 8px; padding: 12px 15px; font-size: 15px; color: #991b1b; font-style: italic; margin-bottom: 12px; }
+.hint-btn { background: none; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; color: var(--muted); padding: 5px 12px; cursor: pointer; font-family: inherit; margin-bottom: 10px; }
+.hint-btn:hover { background: var(--bg); }
+.hint-text { display: none; font-size: 14px; color: var(--yellow); background: var(--yellow-lt); border-left: 3px solid #eab308; padding: 10px 14px; border-radius: 0 6px 6px 0; margin-bottom: 10px; }
+.hint-text.show { display: block; }
+
+/* -- RESPONSIVE -- */
+@media (max-width: 600px) {
+  .at-grid, .ba-wrap { grid-template-columns: 1fr; }
+  .hero-title { font-size: 21px; }
+  .page { padding: 20px 14px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="tag">STUDENT</span>
+    <div>
+      <div class="top-title">CHCCOM002 — Use Communication to Build Relationships</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;&middot;&nbsp; Certificate IV Community Services</div>
+    </div>
+  </div>
+  <span style="font-size:13px; opacity:.7; white-space:nowrap;">Tue 28 April 2026</span>
+</div>
+
+<!-- PROGRESS STEPS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step active" onclick="scrollToSection('s-intro')" title="Intro"></div>
+    <div class="step" onclick="scrollToSection('s-concepts')" title="Key Concepts"></div>
+    <div class="step" onclick="scrollToSection('s-email')" title="Email Builder"></div>
+    <div class="step" onclick="scrollToSection('s-casenote')" title="Case Notes vs Incident Reports"></div>
+    <div class="step" onclick="scrollToSection('s-fixit')" title="Fix-It Activity"></div>
+    <div class="step" onclick="scrollToSection('s-quiz')" title="Quiz"></div>
+    <div class="step" onclick="scrollToSection('s-reflection')" title="Reflection"></div>
+    <div class="step" onclick="scrollToSection('s-glossary')" title="Glossary"></div>
+    <div class="step" onclick="scrollToSection('s-assessment')" title="Assessment Links"></div>
+    <div class="step" onclick="scrollToSection('s-handouts')" title="Digital Handouts"></div>
+    <div class="step" onclick="scrollToSection('s-summary')" title="End of Day Summary"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Session 4 of 6</div>
+  <div class="hero-title">Digital Media and Written Communication</div>
+  <div class="hero-sub">How do we communicate professionally in writing — and why does it matter?</div>
+  <div class="hero-chips">
+    <span class="chip chip-final">Final Teaching Session</span>
+    <span class="chip">Technology</span>
+    <span class="chip">Written Communication</span>
+    <span class="chip">Emails</span>
+    <span class="chip">Case Notes</span>
+    <span class="chip">Incident Reports</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- INTRO -->
+<div id="s-intro" class="section">
+  <div class="section-label">Getting Started</div>
+  <div class="section-title"><span class="ico">✍️</span> Welcome to Session 4</div>
+
+  <div class="box box-orange">
+    <div class="box-label">Final Teaching Session</div>
+    <p>This is the last content session. Sessions 5 and 6 are assessment role play days. All written work (AT1 and AT2) should be close to done by end of today.</p>
+    <p style="margin-bottom:0;"><strong>Use today well.</strong> Written communication is not optional in community services — it is a legal and professional responsibility.</p>
+  </div>
+
+  <div class="box box-navy">
+    <div class="box-label">Today you will learn to:</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li>Describe how digital tools are used in community services workplaces</li>
+      <li>Apply the five principles of written communication</li>
+      <li>Write a professional email with correct structure and tone</li>
+      <li>Distinguish between case notes and incident reports</li>
+      <li>Write factual, objective documentation — no opinions, no assumptions</li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<!-- KEY CONCEPTS -->
+<div id="s-concepts" class="section">
+  <div class="section-label">Part 1 — Core Content</div>
+  <div class="section-title"><span class="ico">💡</span> Key Concepts</div>
+
+  <div class="concept-grid">
+
+    <div class="concept-card cc-aw">
+      <div class="concept-num">Concept 1</div>
+      <div class="concept-name">Technology in the Workplace</div>
+      <div class="concept-def">Digital tools in community services include email, Microsoft Teams / Zoom, and case management systems such as Brevity and CareVision. Privacy and confidentiality always apply — just because it's digital doesn't mean it's private.</div>
+      <div class="concept-eg">"What you write digitally is permanent, can be forwarded, and may be read by supervisors, auditors, or legal teams."</div>
+    </div>
+
+    <div class="concept-card cc-co">
+      <div class="concept-num">Concept 2</div>
+      <div class="concept-name">Written Communication Principles</div>
+      <div class="concept-def">
+        <strong>Clarity</strong> — say what you mean simply.<br>
+        <strong>Accuracy</strong> — facts only, no opinions.<br>
+        <strong>Brevity</strong> — as short as possible while complete.<br>
+        <strong>Tone</strong> — match to your audience and purpose.<br>
+        <strong>Audience Awareness</strong> — write for the reader, not yourself.
+      </div>
+      <div class="concept-eg">"Professional writing is not about big words — it's about being clear, accurate, and easy to understand."</div>
+    </div>
+
+    <div class="concept-card cc-sa">
+      <div class="concept-num">Concept 3</div>
+      <div class="concept-name">Case Notes vs Incident Reports</div>
+      <div class="concept-def">
+        <strong>Case notes</strong> = ongoing record of client interactions. Written after each significant interaction.<br><br>
+        <strong>Incident reports</strong> = formal documentation of something that deviated from normal operations or posed a risk.<br><br>
+        Both must be: factual, objective, no opinions, no assumptions.
+      </div>
+      <div class="concept-eg">"The test: could you defend everything you wrote in a legal proceeding? If not, rewrite it."</div>
+    </div>
+
+  </div>
+</div>
+
+<hr>
+
+<!-- EMAIL BUILDER -->
+<div id="s-email" class="section">
+  <div class="section-label">Part 2 — Interactive Activity</div>
+  <div class="section-title"><span class="ico">📧</span> Professional Email Builder</div>
+
+  <p>Use the form below to build a professional email. Once you hit Generate, your email will appear formatted and ready to review.</p>
+
+  <div class="email-builder">
+    <h3>Build Your Email</h3>
+    <div class="email-row">
+      <label for="em-to">To (recipient name or role)</label>
+      <input type="text" id="em-to" placeholder="e.g. Supervisor / Team Leader">
+    </div>
+    <div class="email-row">
+      <label for="em-subject">Subject line</label>
+      <input type="text" id="em-subject" placeholder="e.g. Request for team meeting — client incident 28 April 2026">
+    </div>
+    <div class="email-row">
+      <label for="em-greeting">Greeting</label>
+      <select id="em-greeting">
+        <option value="Dear">Dear [Name],</option>
+        <option value="Hi">Hi [Name],</option>
+      </select>
+    </div>
+    <div class="email-row">
+      <label for="em-purpose">Purpose statement (first sentence)</label>
+      <input type="text" id="em-purpose" placeholder="e.g. I am writing to inform you of an incident involving client Cherie...">
+    </div>
+    <div class="email-row">
+      <label for="em-body">Body (main message)</label>
+      <textarea id="em-body" placeholder="Provide the key information clearly and concisely..."></textarea>
+    </div>
+    <div class="email-row">
+      <label for="em-close">Close</label>
+      <select id="em-close">
+        <option value="Kind regards">Kind regards,</option>
+        <option value="Yours sincerely">Yours sincerely,</option>
+        <option value="Thanks">Thanks,</option>
+      </select>
+    </div>
+    <div class="email-row">
+      <label for="em-name">Your name</label>
+      <input type="text" id="em-name" placeholder="Your name">
+    </div>
+    <button class="btn-generate" onclick="generateEmail()">Generate Email</button>
+  </div>
+
+  <div class="email-output" id="emailOutput">
+    <div class="email-output-label">Your Professional Email</div>
+    <div class="email-rendered" id="emailRendered"></div>
+    <button class="btn-copy-email" onclick="copyEmail()">Copy to clipboard</button>
+    <div class="copy-confirm" id="emailCopyConfirm">Copied!</div>
+  </div>
+
+  <div class="box box-teal" style="margin-top:28px;">
+    <div class="box-label">Before &amp; After — Same Message, Different Professionalism</div>
+    <p style="margin-bottom:14px; font-size:15px;">Look at how an unprofessional message becomes a professional one. The facts are the same — the presentation is completely different.</p>
+  </div>
+
+  <div class="ba-wrap">
+    <div class="ba-card ba-before">
+      <div class="ba-label">Before — Unprofessional</div>
+      <div class="ba-text">"Hey, just wanted to let u know about Cherie. She was pretty upset today and things got a bit messy. Can we have a meeting or something?"</div>
+    </div>
+    <div class="ba-card ba-after">
+      <div class="ba-label">After — Professional</div>
+      <div class="ba-text">"Dear [Supervisor name],<br><br>I am writing to inform you of an incident involving client Cherie that occurred during today's check-in appointment. I would like to request a team meeting at your earliest convenience to discuss an appropriate response.<br><br>Please let me know a suitable time.<br><br>Kind regards,<br>[Worker name]"</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- CASE NOTES VS INCIDENT REPORTS -->
+<div id="s-casenote" class="section">
+  <div class="section-label">Part 3 — Documentation</div>
+  <div class="section-title"><span class="ico">📋</span> Case Notes vs Incident Reports</div>
+
+  <p>Both are legal documents. Both require factual, objective writing. The key difference is purpose and timing.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Case Note</th>
+        <th>Incident Report</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Purpose</strong></td>
+        <td>Ongoing record of client interactions</td>
+        <td>Formal record of an incident</td>
+      </tr>
+      <tr>
+        <td><strong>When written</strong></td>
+        <td>After each significant interaction</td>
+        <td>When something deviates from normal operations or poses a risk</td>
+      </tr>
+      <tr>
+        <td><strong>Tone</strong></td>
+        <td>Factual, objective</td>
+        <td>Factual, objective, chronological</td>
+      </tr>
+      <tr>
+        <td><strong>Includes opinion?</strong></td>
+        <td>Never</td>
+        <td>Never</td>
+      </tr>
+      <tr>
+        <td><strong>Legal status?</strong></td>
+        <td>Yes</td>
+        <td>Yes</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-orange">
+    <div class="box-label">The Legal Test</div>
+    <p style="margin-bottom:0;">Ask yourself: could you defend <em>every sentence you wrote</em> in a legal proceeding? If the answer is no — or even maybe — rewrite it. Remove anything that is an opinion, assumption, or interpretation. Record only what you observed or what was directly stated.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- FIX-IT ACTIVITY -->
+<div id="s-fixit" class="section">
+  <div class="section-label">Part 4 — Fix-It Activity</div>
+  <div class="section-title"><span class="ico">🔧</span> Fix the Documentation</div>
+
+  <p>Each example below contains a problem — opinion, assumption, vague language, or missing information. Rewrite it as a factual, professional statement in the text box. Your corrections are saved automatically.</p>
+
+  <!-- Item 1 -->
+  <div class="fixit-item">
+    <div class="fixit-num">Example 1</div>
+    <div class="fixit-bad">"Cherie seemed really angry and was being difficult."</div>
+    <button class="hint-btn" onclick="toggleHint('hint1')">What's wrong with this?</button>
+    <div class="hint-text" id="hint1">'Seemed' and 'difficult' are opinions and judgements. Write what you observed: what did Cherie actually say or do?</div>
+    <div class="fill-label">Your correction</div>
+    <textarea class="fill-area" id="fixit1" placeholder="Rewrite this as a factual observation..." oninput="saveFixit('fixit1')"></textarea>
+  </div>
+
+  <!-- Item 2 -->
+  <div class="fixit-item">
+    <div class="fixit-num">Example 2</div>
+    <div class="fixit-bad">"We had a great meeting today and everyone was happy."</div>
+    <button class="hint-btn" onclick="toggleHint('hint2')">What's wrong with this?</button>
+    <div class="hint-text" id="hint2">'Great' and 'happy' are subjective — you cannot know how someone else feels. Record what happened and what was said, not your interpretation of the atmosphere.</div>
+    <div class="fill-label">Your correction</div>
+    <textarea class="fill-area" id="fixit2" placeholder="Rewrite this as a factual observation..." oninput="saveFixit('fixit2')"></textarea>
+  </div>
+
+  <!-- Item 3 -->
+  <div class="fixit-item">
+    <div class="fixit-num">Example 3</div>
+    <div class="fixit-bad">"Client appeared upset (observation) due to family stress (assumption)."</div>
+    <button class="hint-btn" onclick="toggleHint('hint3')">What's wrong with this?</button>
+    <div class="hint-text" id="hint3">Never mix observation and assumption in the same sentence. Record the observation only. If the client told you about family stress, record that as a client statement — not as a fact you are asserting.</div>
+    <div class="fill-label">Your correction</div>
+    <textarea class="fill-area" id="fixit3" placeholder="Rewrite this as a factual observation..." oninput="saveFixit('fixit3')"></textarea>
+  </div>
+
+  <!-- Item 4 -->
+  <div class="fixit-item">
+    <div class="fixit-num">Example 4</div>
+    <div class="fixit-bad">"I think the client might be at risk."</div>
+    <button class="hint-btn" onclick="toggleHint('hint4')">What's wrong with this?</button>
+    <div class="hint-text" id="hint4">'I think' and 'might' are vague and subjective. Be specific: what did you observe that indicated risk? Document the specific behaviour, statement, or situation — then report it through the correct channel.</div>
+    <div class="fill-label">Your correction</div>
+    <textarea class="fill-area" id="fixit4" placeholder="Rewrite this as a factual observation..." oninput="saveFixit('fixit4')"></textarea>
+  </div>
+
+  <!-- Item 5 -->
+  <div class="fixit-item">
+    <div class="fixit-num">Example 5</div>
+    <div class="fixit-bad">"Spoke to John re: his situation. Will follow up."</div>
+    <button class="hint-btn" onclick="toggleHint('hint5')">What's wrong with this?</button>
+    <div class="hint-text" id="hint5">Too vague — who is John (client/colleague/other)? What situation? What was the outcome of the conversation? What follow-up, and when? Documentation must answer: who, what, when, where, outcome, next action.</div>
+    <div class="fill-label">Your correction</div>
+    <textarea class="fill-area" id="fixit5" placeholder="Rewrite this as a factual observation..." oninput="saveFixit('fixit5')"></textarea>
+  </div>
+
+  <div class="save-note">&#128190; Your corrections are saved automatically in your browser.</div>
+</div>
+
+<hr>
+
+<!-- QUIZ -->
+<div id="s-quiz" class="section">
+  <div class="section-label">Check Your Understanding</div>
+  <div class="section-title"><span class="ico">✅</span> Self-Check Quiz</div>
+
+  <div class="quiz-wrap">
+    <h3>Three quick questions — check your understanding</h3>
+
+    <!-- Q1 -->
+    <div class="quiz-q" id="qq1">
+      <div class="quiz-q-num">Question 1 of 3</div>
+      <div class="quiz-q-text">An incident report should be written:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1',false,'Any deviation from normal operations or risk must be reported — not just injuries.')">
+          <input type="radio" name="q1"><span>a) Only if someone is injured</span>
+          <div class="feedback-text">Any deviation from normal operations or risk must be reported — not just injuries.</div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1',true,'Correct. Any deviation from normal operations or situation that poses a risk requires an incident report.')">
+          <input type="radio" name="q1"><span>b) Whenever something deviates from normal operations or poses a risk</span>
+          <div class="feedback-text">Correct. Any deviation from normal operations or situation that poses a risk requires an incident report.</div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1',false,'Client complaints are one trigger, but not the only one.')">
+          <input type="radio" name="q1"><span>c) Only when a client complains</span>
+          <div class="feedback-text">Client complaints are one trigger, but not the only one.</div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1',false,'Incident reports are written when an incident occurs, not as a routine end-of-shift summary.')">
+          <input type="radio" name="q1"><span>d) At the end of each shift</span>
+          <div class="feedback-text">Incident reports are written when an incident occurs, not as a routine end-of-shift summary.</div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-q" id="qq2">
+      <div class="quiz-q-num">Question 2 of 3</div>
+      <div class="quiz-q-text">Which of the following belongs in a case note?</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2',false,'This is an opinion. Case notes must be objective — never include feelings or interpretations about honesty.')">
+          <input type="radio" name="q2"><span>a) "I felt the client was not being honest with me."</span>
+          <div class="feedback-text">This is an opinion. Case notes must be objective — never include feelings or interpretations about honesty.</div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2',true,'Correct. This is a factual, objective observation — exactly what belongs in a case note.')">
+          <input type="radio" name="q2"><span>b) "Client stated they had not contacted their GP this week."</span>
+          <div class="feedback-text">Correct. This is a factual, objective observation — exactly what belongs in a case note.</div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2',false,'"Seems to be improving" is subjective — you cannot verify internal improvement. Record observable facts.')">
+          <input type="radio" name="q2"><span>c) "Client seems to be improving."</span>
+          <div class="feedback-text">"Seems to be improving" is subjective — you cannot verify internal improvement. Record observable facts.</div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2',false,'Worry is your feeling — not a factual observation about the client.')">
+          <input type="radio" name="q2"><span>d) "I'm worried about this client."</span>
+          <div class="feedback-text">Worry is your feeling — not a factual observation about the client.</div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-q" id="qq3">
+      <div class="quiz-q-num">Question 3 of 3</div>
+      <div class="quiz-q-text">The best subject line for a professional email about a client incident is:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3',false,'Vague — the recipient has no idea what the email is about or how urgent it is.')">
+          <input type="radio" name="q3"><span>a) "FYI"</span>
+          <div class="feedback-text">Vague — the recipient has no idea what the email is about or how urgent it is.</div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3',false,'Multiple exclamation marks are unprofessional. Urgency should be conveyed through clear language, not punctuation.')">
+          <input type="radio" name="q3"><span>b) "Urgent!!!"</span>
+          <div class="feedback-text">Multiple exclamation marks are unprofessional. Urgency should be conveyed through clear language, not punctuation.</div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3',true,'Correct. Clear, specific, professional. The recipient knows exactly what it is about before opening it.')">
+          <input type="radio" name="q3"><span>c) "Request for team meeting — client incident 28 April 2026"</span>
+          <div class="feedback-text">Correct. Clear, specific, professional. The recipient knows exactly what it is about before opening it.</div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3',false,'Vague and informal — does not communicate the purpose or urgency of the email.')">
+          <input type="radio" name="q3"><span>d) "Just wanted to chat"</span>
+          <div class="feedback-text">Vague and informal — does not communicate the purpose or urgency of the email.</div>
+        </label>
+      </div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">Check My Answers</button>
+    <div class="quiz-result" id="quizResult"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- REFLECTION -->
+<div id="s-reflection" class="section">
+  <div class="section-label">Reflection</div>
+  <div class="section-title"><span class="ico">💭</span> Your Reflection</div>
+
+  <div class="box box-teal">
+    <div class="box-label">Reflection Prompt</div>
+    <p style="margin-bottom:0;">Look at your AT2 Part B incident report draft. Find one sentence that includes an opinion or assumption. Rewrite it here as a factual observation — record only what you actually observed or what was directly stated.</p>
+  </div>
+
+  <div class="fill-label">My rewritten sentence</div>
+  <textarea class="fill-area" id="s4reflect" placeholder="Original sentence: ...\n\nRewritten as a factual observation: ..." oninput="saveReflect()" style="min-height:130px;"></textarea>
+  <div class="save-note">&#128190; Saved automatically to your browser.</div>
+</div>
+
+<hr>
+
+<!-- GLOSSARY -->
+<div id="s-glossary" class="section">
+  <div class="section-label">Key Terms</div>
+  <div class="section-title"><span class="ico">📖</span> Glossary</div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Case Note</div>
+    <div class="gloss-def">A written record of a significant interaction with a client. Factual and objective — no opinions or assumptions. Completed after each relevant interaction.</div>
+    <div class="gloss-eg">Example: "Client attended appointment at 10:00am. Client stated they had not yet contacted their GP."</div>
+  </div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Incident Report</div>
+    <div class="gloss-def">Formal documentation of any event that deviates from normal operations or poses a risk. Chronological, factual, and objective. Has legal standing.</div>
+    <div class="gloss-eg">Example: Used when a client behaves in a way that poses a safety risk, or when an accident or near-miss occurs.</div>
+  </div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Written Communication</div>
+    <div class="gloss-def">Any message conveyed in written form — emails, texts, reports, case notes, letters. In community services, written communication is always professional and may be legally reviewed.</div>
+  </div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Style Guide</div>
+    <div class="gloss-def">An organisation's rules about how written documents should look and sound — including formatting, tone, and required information fields.</div>
+  </div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Tone</div>
+    <div class="gloss-def">The feeling or attitude conveyed in writing. In professional communication, tone should match the purpose and audience — formal for incident reports, direct but warm for client-facing letters.</div>
+  </div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Audience Awareness</div>
+    <div class="gloss-def">Thinking about who will read your writing and adjusting language, detail, and format accordingly. Writing for a supervisor is different from writing for a client.</div>
+  </div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Confidentiality (Digital)</div>
+    <div class="gloss-def">The obligation to protect client information in all digital formats — email, case management systems, messaging apps, and cloud storage. Digital information is permanent and can be forwarded.</div>
+  </div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Case Management System</div>
+    <div class="gloss-def">Software used by community services organisations to record and track client information, case notes, incidents, and service delivery. Examples: Brevity, CareVision, Lumary.</div>
+  </div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Factual vs Subjective Writing</div>
+    <div class="gloss-def">Factual writing records what can be observed, measured, or directly quoted. Subjective writing includes opinions, feelings, interpretations, or assumptions — these do not belong in professional documentation.</div>
+    <div class="gloss-eg">Factual: "Client raised their voice and stood up from their chair." Subjective: "Client was angry and difficult."</div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- ASSESSMENT CONNECTIONS -->
+<div id="s-assessment" class="section">
+  <div class="section-label">Assessment</div>
+  <div class="section-title"><span class="ico">🎯</span> Assessment Connections</div>
+
+  <p>Today's content is directly assessed in multiple tasks. Here is how each task connects to what we covered.</p>
+
+  <div class="at-grid">
+    <div class="at-card">
+      <div class="at-num">AT1</div>
+      <div class="at-name">Knowledge Questions</div>
+      <div class="at-link">All content is now covered. Finalise your drafts before Session 5. Today feeds KE7 and KE8 — written communication standards and digital tools.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT2 Part B</div>
+      <div class="at-name">Incident Report</div>
+      <div class="at-link">Factual, objective, chronological. Today's standard applies directly: "Cherie seemed upset" must become "Cherie raised her voice and stood up from her chair."</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT2 Part C</div>
+      <div class="at-name">Professional Email</div>
+      <div class="at-link">Your email needs a clear subject line, professional tone, and a proposed meeting agenda. Use today's email builder as practice.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT3 Part A</div>
+      <div class="at-name">Meeting Minutes</div>
+      <div class="at-link">Meeting minutes are a written record — today's written communication standards apply. Factual, objective, no opinions in the record.</div>
+    </div>
+  </div>
+
+  <div class="box box-orange" style="margin-top:16px;">
+    <div class="box-label">Before Sessions 5 and 6</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li>AT1 and AT2 should be finalised and ready to submit</li>
+      <li>Read your AT3 document and know your role in the team meeting role play</li>
+      <li>For AT4: review conflict management (Session 2) and think about your interpreter role play</li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<!-- DIGITAL HANDOUTS -->
+<div id="s-handouts" class="section">
+  <div class="section-label">Digital Handouts</div>
+  <div class="section-title"><span class="ico">📋</span> Fill In on This Page</div>
+
+  <!-- HANDOUT 1: Incident Report Draft -->
+  <div class="concept-card cc-nv" style="margin-bottom:28px;">
+    <div class="concept-num">Handout 1</div>
+    <div class="concept-name">Incident Report Draft — Cherie's Story (AT2 Part B)</div>
+    <p style="font-size:15px; margin-bottom:16px;">Use this to draft your AT2 Part B incident report. Your draft saves automatically.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Date of Incident</label>
+        <input id="ir-date" class="form-input" type="text" placeholder="e.g. 28 April 2026" oninput="saveLSField('chccom002_s4_ir_date','ir-date')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Time of Incident</label>
+        <input id="ir-time" class="form-input" type="text" placeholder="e.g. 2:00pm" oninput="saveLSField('chccom002_s4_ir_time','ir-time')">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Location</label>
+      <input id="ir-location" class="form-input" type="text" placeholder="e.g. Interview Room 1, Box Hill Community Services" oninput="saveLSField('chccom002_s4_ir_location','ir-location')">
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Worker Name</label>
+        <input id="ir-worker" class="form-input" type="text" placeholder="Your name" oninput="saveLSField('chccom002_s4_ir_worker','ir-worker')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Client Name</label>
+        <input id="ir-client" class="form-input" type="text" value="Cherie" oninput="saveLSField('chccom002_s4_ir_client','ir-client')">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">People Present</label>
+      <textarea id="ir-present" class="fill-area" style="min-height:55px;" placeholder="List all people present during the incident" oninput="saveLSField('chccom002_s4_ir_present','ir-present')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Description of Incident</label>
+      <textarea id="ir-description" class="fill-area" placeholder="Describe what happened — factual observations only. No opinions or assumptions." oninput="saveLSField('chccom002_s4_ir_description','ir-description')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Client's Statements</label>
+      <textarea id="ir-statements" class="fill-area" placeholder="What did the client say? Use direct quotes where possible." oninput="saveLSField('chccom002_s4_ir_statements','ir-statements')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Actions Taken</label>
+      <textarea id="ir-actions" class="fill-area" placeholder="What steps did you take during or immediately after the incident?" oninput="saveLSField('chccom002_s4_ir_actions','ir-actions')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Follow-up Required</label>
+      <textarea id="ir-followup" class="fill-area" placeholder="What needs to happen next? Who needs to be informed?" oninput="saveLSField('chccom002_s4_ir_followup','ir-followup')"></textarea>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Reported To</label>
+        <input id="ir-reportedto" class="form-input" type="text" placeholder="Name and role of person reported to" oninput="saveLSField('chccom002_s4_ir_reportedto','ir-reportedto')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Worker Signature / Name</label>
+        <input id="ir-signature" class="form-input" type="text" placeholder="Your name" oninput="saveLSField('chccom002_s4_ir_signature','ir-signature')">
+      </div>
+    </div>
+    <button class="btn-gen" style="margin-top:8px;" onclick="window.print()">Print / Save as PDF</button>
+    <div class="save-note" style="margin-top:10px;">&#128190; All fields save automatically to your browser.</div>
+  </div>
+
+  <!-- HANDOUT 2: Professional Email Draft -->
+  <div class="concept-card cc-co" style="margin-bottom:28px;">
+    <div class="concept-num">Handout 2</div>
+    <div class="concept-name">Professional Email Draft — AT2 Part C</div>
+    <p style="font-size:15px; margin-bottom:16px;">Draft the email for AT2 Part C here. Your draft saves automatically.</p>
+
+    <div class="form-row">
+      <label class="form-label">To:</label>
+      <input id="draft-to" class="form-input" type="text" placeholder="Recipient name and role" oninput="saveLSField('chccom002_s4_email_to','draft-to')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Subject:</label>
+      <input id="draft-subject" class="form-input" type="text" placeholder="e.g. Request for team meeting — client incident 28 April 2026" oninput="saveLSField('chccom002_s4_email_subject','draft-subject')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Greeting</label>
+      <input id="draft-greeting" class="form-input" type="text" placeholder="e.g. Dear [Name]," oninput="saveLSField('chccom002_s4_email_greeting','draft-greeting')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Paragraph 1 — Purpose of email</label>
+      <textarea id="draft-para1" class="fill-area" placeholder="State clearly why you are writing..." oninput="saveLSField('chccom002_s4_email_para1','draft-para1')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Paragraph 2 — What happened / what you are requesting</label>
+      <textarea id="draft-para2" class="fill-area" placeholder="Describe the incident or request clearly and factually..." oninput="saveLSField('chccom002_s4_email_para2','draft-para2')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Paragraph 3 — Proposed agenda items for the meeting</label>
+      <textarea id="draft-para3" class="fill-area" placeholder="List what you would like to discuss in the meeting..." oninput="saveLSField('chccom002_s4_email_para3','draft-para3')"></textarea>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Close</label>
+        <input id="draft-close" class="form-input" type="text" placeholder="e.g. Kind regards," oninput="saveLSField('chccom002_s4_email_close','draft-close')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Name</label>
+        <input id="draft-name" class="form-input" type="text" placeholder="Your name" oninput="saveLSField('chccom002_s4_email_name','draft-name')">
+      </div>
+    </div>
+    <button class="btn-gen" style="background:var(--teal);" onclick="generateEmailDraft()">Generate Preview</button>
+
+    <div id="email-draft-output" style="display:none; margin-top:18px; background:#f0fdfa; border:1.5px solid var(--teal); border-radius:var(--radius); padding:20px 22px;">
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--teal);margin-bottom:12px;">Your Email Preview</div>
+      <div id="email-draft-rendered" style="font-size:15px;line-height:1.85;color:var(--text);white-space:pre-wrap;font-family:'Segoe UI',Arial,sans-serif;"></div>
+      <button class="btn-gen" style="background:var(--orange);margin-top:14px;font-size:13px;padding:9px 18px;" onclick="copyEmailDraft()">Copy to clipboard</button>
+      <div id="email-draft-copied" style="font-size:13px;color:var(--green);margin-top:8px;display:none;">Copied!</div>
+    </div>
+    <div class="save-note" style="margin-top:10px;">&#128190; All fields save automatically to your browser.</div>
+  </div>
+
+  <!-- ACTIVITY: Professional Writing Bingo -->
+  <div class="concept-card cc-pu" style="margin-bottom:28px;">
+    <div class="concept-num">Interactive Activity 1</div>
+    <div class="concept-name">Professional Writing Bingo</div>
+    <p style="font-size:15px; margin-bottom:4px;">Your teacher will read out definitions. Click the matching term on your card to mark it.</p>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">First to complete a full row (across, down, or diagonal) wins! Marked cells turn orange.</p>
+
+    <div id="bingo-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:12px;"></div>
+    <button class="btn-gen" style="background:var(--muted);font-size:13px;padding:9px 18px;" onclick="resetBingo()">Reset Card</button>
+  </div>
+
+  <!-- ACTIVITY: Fact or Opinion Sorter -->
+  <div class="concept-card cc-sa" style="margin-bottom:28px;">
+    <div class="concept-num">Interactive Activity 2</div>
+    <div class="concept-name">Fact or Opinion?</div>
+    <p style="font-size:15px; margin-bottom:4px;">Read each statement. Click FACT or OPINION. Get instant feedback.</p>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">Score shown at the end.</p>
+
+    <div id="fact-opinion-items"></div>
+    <div id="fact-opinion-score" style="display:none; margin-top:14px; padding:14px 16px; background:var(--bg); border-radius:9px; border:1.5px solid var(--border); font-size:14px; font-weight:700; color:var(--navy);"></div>
+    <button class="btn-gen" style="background:var(--muted);font-size:13px;padding:9px 18px;margin-top:12px;" onclick="resetFactOpinion()">Reset</button>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- END OF DAY SUMMARY -->
+<div id="s-summary" class="section">
+  <div class="section-label">End of Day</div>
+  <div class="section-title"><span class="ico">📤</span> Session Summary</div>
+
+  <p>Use the button below to copy the summary — paste it into Teams, your email, or your notes.</p>
+
+  <div class="summary-box">
+    <h3>Session 4 Summary — Copy and Share</h3>
+    <div class="summary-text" id="summaryText">Hi everyone,
+
+Session 4 summary — and our last teaching session!
+
+What we covered today:
+
+1. Technology in the workplace — digital tools (email, Teams, case management systems) are everywhere in community services. Anything you write digitally is permanent and could be reviewed by supervisors, auditors, or legal teams. Privacy and confidentiality always apply.
+
+2. Written communication principles — clarity, accuracy, brevity, tone, audience awareness. Good professional writing isn't about vocabulary size — it's about being clear and easy to understand.
+
+3. Professional emails — structure: subject line, greeting, purpose, body, close, signature. Tone: formal enough to be professional, direct enough to be clear.
+
+4. Case notes — factual record of client interactions. Include: who, what, when, where, outcome, follow-up. Exclude: opinions, assumptions, personal judgements.
+
+5. Incident reports — formal documentation of anything that deviates from normal operations or poses a risk. Factual, objective, chronological. This format is exactly what AT2 Part B requires.
+
+Before Sessions 5 and 6:
+- AT1 and AT2 should be finalised and ready to submit
+- Read your AT3 document and know your role in the team meeting role play
+- For AT4: review conflict management (Session 2) and think about the interpreter role play
+
+Assessment links:
+- AT2 Part B: Observations only. 'Cherie seemed angry' → 'Cherie raised her voice and stood up from her chair.'
+- AT2 Part C: Professional email + agenda structure.
+- AT3: Monday is role play day — know your role.
+- AT4: Tuesday is role play day — two role plays, briefing at start of day.</div>
+    <button class="btn-copy" onclick="copySummary()">&#128203; Copy to clipboard</button>
+    <div class="copy-confirm" id="copyConfirm">Copied! Paste into Teams or your email.</div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+// ── PROGRESS STEPS ──
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth'});
+}
+
+const sections = ['s-intro','s-concepts','s-email','s-casenote','s-fixit','s-quiz','s-reflection','s-glossary','s-assessment','s-handouts','s-summary'];
+const steps = document.querySelectorAll('.step');
+
+function updateProgress() {
+  let active = 0;
+  sections.forEach((id,i) => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < window.innerHeight * 0.5) active = i;
+  });
+  steps.forEach((s,i) => {
+    s.classList.remove('active','done');
+    if (i < active) s.classList.add('done');
+    else if (i === active) s.classList.add('active');
+  });
+}
+window.addEventListener('scroll', updateProgress);
+updateProgress();
+
+// ── SCROLL TOP BUTTON ──
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 400);
+});
+
+// ── EMAIL BUILDER ──
+function generateEmail() {
+  const to = document.getElementById('em-to').value.trim() || '[Recipient]';
+  const subject = document.getElementById('em-subject').value.trim() || '[Subject]';
+  const greeting = document.getElementById('em-greeting').value;
+  const purpose = document.getElementById('em-purpose').value.trim() || '[Purpose statement]';
+  const body = document.getElementById('em-body').value.trim() || '[Body]';
+  const close = document.getElementById('em-close').value;
+  const name = document.getElementById('em-name').value.trim() || '[Your name]';
+
+  const text = `To: ${to}\nSubject: ${subject}\n\n${greeting} ${to},\n\n${purpose}\n\n${body}\n\n${close},\n${name}`;
+  document.getElementById('emailRendered').textContent = text;
+  const out = document.getElementById('emailOutput');
+  out.classList.add('show');
+  out.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function copyEmail() {
+  const text = document.getElementById('emailRendered').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const c = document.getElementById('emailCopyConfirm');
+    c.classList.add('show');
+    setTimeout(() => c.classList.remove('show'), 2500);
+  });
+}
+
+// ── HINT TOGGLES ──
+function toggleHint(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('show');
+}
+
+// ── FIX-IT SAVE ──
+function saveFixit(id) {
+  localStorage.setItem('chccom002_s4_' + id, document.getElementById(id).value);
+}
+
+// ── REFLECTION SAVE ──
+function saveReflect() {
+  localStorage.setItem('chccom002_s4_reflection', document.getElementById('s4reflect').value);
+}
+
+// ── RESTORE FROM LOCALSTORAGE ──
+window.addEventListener('DOMContentLoaded', () => {
+  ['fixit1','fixit2','fixit3','fixit4','fixit5'].forEach(id => {
+    const saved = localStorage.getItem('chccom002_s4_' + id);
+    if (saved) document.getElementById(id).value = saved;
+  });
+  const ref = localStorage.getItem('chccom002_s4_reflection');
+  if (ref) document.getElementById('s4reflect').value = ref;
+});
+
+// ── QUIZ ──
+function selectOpt(el, qid, isCorrect, feedback) {
+  const q = document.getElementById(qid);
+  q.querySelectorAll('.quiz-opt').forEach(o => {
+    o.classList.remove('selected','correct','wrong');
+  });
+  el.classList.add(isCorrect ? 'correct' : 'wrong');
+}
+
+function submitQuiz() {
+  let score = 0;
+  let total = 3;
+  ['qq1','qq2','qq3'].forEach(qid => {
+    const q = document.getElementById(qid);
+    if (q.querySelector('.quiz-opt.correct')) score++;
+  });
+  const res = document.getElementById('quizResult');
+  res.classList.add('show');
+  if (score === 3) {
+    res.innerHTML = '<strong>&#127881; Perfect score — 3 out of 3!</strong> You have a solid understanding of professional written communication and documentation standards.';
+  } else if (score === 2) {
+    res.innerHTML = '<strong>2 out of 3.</strong> Good work — review the explanation on the question you missed. The key is the difference between factual observation and opinion.';
+  } else {
+    res.innerHTML = '<strong>' + score + ' out of 3.</strong> Review the concept cards on Case Notes vs Incident Reports and Written Communication Principles, then try again.';
+  }
+}
+
+// ── COPY SUMMARY ──
+function copySummary() {
+  const text = document.getElementById('summaryText').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const c = document.getElementById('copyConfirm');
+    c.classList.add('show');
+    setTimeout(() => c.classList.remove('show'), 3000);
+  });
+}
+
+// ── LOCALSTORAGE HELPERS ──
+function saveLSField(key, id) {
+  const el = document.getElementById(id);
+  if (el) localStorage.setItem(key, el.value);
+}
+function loadLSField(key, id) {
+  const val = localStorage.getItem(key);
+  const el = document.getElementById(id);
+  if (val !== null && el) el.value = val;
+}
+
+// ── EMAIL DRAFT GENERATOR ──
+function generateEmailDraft() {
+  const to = document.getElementById('draft-to').value.trim() || '[Recipient]';
+  const subject = document.getElementById('draft-subject').value.trim() || '[Subject]';
+  const greeting = document.getElementById('draft-greeting').value.trim() || 'Dear [Name],';
+  const p1 = document.getElementById('draft-para1').value.trim() || '[Purpose of email]';
+  const p2 = document.getElementById('draft-para2').value.trim() || '[What happened / your request]';
+  const p3 = document.getElementById('draft-para3').value.trim() || '[Proposed agenda items]';
+  const close = document.getElementById('draft-close').value.trim() || 'Kind regards,';
+  const name = document.getElementById('draft-name').value.trim() || '[Your name]';
+  const rendered = `To: ${to}\nSubject: ${subject}\n\n${greeting}\n\n${p1}\n\n${p2}\n\n${p3}\n\n${close}\n${name}`;
+  document.getElementById('email-draft-rendered').textContent = rendered;
+  const out = document.getElementById('email-draft-output');
+  out.style.display = 'block';
+  out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function copyEmailDraft() {
+  const text = document.getElementById('email-draft-rendered').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    const c = document.getElementById('email-draft-copied');
+    c.style.display = 'block';
+    setTimeout(function() { c.style.display = 'none'; }, 2500);
+  });
+}
+
+// ── BINGO ──
+const bingoTerms = ['clarity','accuracy','brevity','tone','audience','jargon','confidentiality','case note','incident','objective','subjective','factual','style guide','formal','protocol','evidence'];
+function buildBingo() {
+  const grid = document.getElementById('bingo-grid');
+  bingoTerms.forEach(function(term) {
+    const cell = document.createElement('button');
+    cell.textContent = term;
+    cell.style.cssText = 'padding:10px 6px;border:1.5px solid var(--border);border-radius:8px;background:var(--white);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--navy);min-height:56px;line-height:1.3;text-align:center;';
+    cell.onclick = function() {
+      if (cell.dataset.marked === '1') {
+        cell.dataset.marked = '0';
+        cell.style.background = 'var(--white)';
+        cell.style.color = 'var(--navy)';
+        cell.style.borderColor = 'var(--border)';
+      } else {
+        cell.dataset.marked = '1';
+        cell.style.background = 'var(--orange)';
+        cell.style.color = 'white';
+        cell.style.borderColor = 'var(--orange)';
+      }
+    };
+    grid.appendChild(cell);
+  });
+}
+function resetBingo() {
+  document.getElementById('bingo-grid').innerHTML = '';
+  buildBingo();
+}
+
+// ── FACT OR OPINION ──
+const factOpinionItems = [
+  { text: 'The client arrived 10 minutes late to the appointment.', answer: 'FACT' },
+  { text: 'The client seemed unmotivated.', answer: 'OPINION' },
+  { text: 'The client stated they had not eaten today.', answer: 'FACT' },
+  { text: 'The client appeared to be lying.', answer: 'OPINION' },
+  { text: 'The client left the building at 2:15pm.', answer: 'FACT' },
+  { text: 'The client is making good progress.', answer: 'OPINION' },
+  { text: 'The client raised their voice during the meeting.', answer: 'FACT' },
+  { text: 'The incident was caused by poor communication.', answer: 'OPINION' },
+  { text: 'The worker documented the interaction in the case management system at 3:00pm.', answer: 'FACT' },
+  { text: 'The client needs more support than they\'re getting.', answer: 'OPINION' }
+];
+let foAnswered = 0;
+let foScore = 0;
+function buildFactOpinion() {
+  const container = document.getElementById('fact-opinion-items');
+  factOpinionItems.forEach(function(item, i) {
+    const div = document.createElement('div');
+    div.id = 'fo-item-' + i;
+    div.style.cssText = 'background:var(--white);border:1.5px solid var(--border);border-radius:9px;padding:14px 16px;margin-bottom:10px;';
+    div.innerHTML = `
+      <p style="font-size:14.5px;font-style:italic;margin-bottom:10px;">"${item.text}"</p>
+      <div style="display:flex;gap:8px;">
+        <button id="fo-fact-${i}" onclick="answerFO(${i},'FACT')" style="padding:8px 18px;border:1.5px solid #16a34a;border-radius:7px;background:var(--green-lt);color:var(--green);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">FACT ✅</button>
+        <button id="fo-opinion-${i}" onclick="answerFO(${i},'OPINION')" style="padding:8px 18px;border:1.5px solid #dc2626;border-radius:7px;background:#fef2f2;color:#dc2626;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">OPINION ❌</button>
+      </div>
+      <div id="fo-fb-${i}" style="font-size:13px;margin-top:8px;display:none;"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+function answerFO(idx, answer) {
+  const item = factOpinionItems[idx];
+  const fb = document.getElementById('fo-fb-' + idx);
+  if (fb.style.display !== 'none') return;
+  document.getElementById('fo-fact-' + idx).disabled = true;
+  document.getElementById('fo-opinion-' + idx).disabled = true;
+  foAnswered++;
+  if (answer === item.answer) {
+    foScore++;
+    fb.textContent = 'Correct! This is a ' + item.answer.toLowerCase() + '.';
+    fb.style.color = 'var(--green)';
+    const btn = document.getElementById(answer === 'FACT' ? 'fo-fact-' + idx : 'fo-opinion-' + idx);
+    btn.style.background = 'var(--green-lt)';
+    btn.style.borderColor = '#16a34a';
+  } else {
+    fb.textContent = 'Not quite — this is a ' + item.answer.toLowerCase() + '. ' + (item.answer === 'FACT' ? 'It is an observable, verifiable statement.' : 'It includes an interpretation or assumption.');
+    fb.style.color = '#dc2626';
+    const wrongBtn = document.getElementById(answer === 'FACT' ? 'fo-fact-' + idx : 'fo-opinion-' + idx);
+    wrongBtn.style.background = '#fef2f2';
+    wrongBtn.style.borderColor = '#fca5a5';
+  }
+  fb.style.display = 'block';
+  if (foAnswered === factOpinionItems.length) {
+    const scoreEl = document.getElementById('fact-opinion-score');
+    scoreEl.textContent = 'You scored ' + foScore + ' out of ' + factOpinionItems.length + '. ' + (foScore === 10 ? 'Perfect score!' : foScore >= 7 ? 'Great work!' : 'Review the examples you missed — the key is: can you observe and verify it?');
+    scoreEl.style.display = 'block';
+  }
+}
+function resetFactOpinion() {
+  foAnswered = 0;
+  foScore = 0;
+  document.getElementById('fact-opinion-items').innerHTML = '';
+  document.getElementById('fact-opinion-score').style.display = 'none';
+  buildFactOpinion();
+}
+
+// ── RESTORE HANDOUT FIELDS ON LOAD ──
+window.addEventListener('DOMContentLoaded', function() {
+  // Incident report fields
+  ['ir-date','ir-time','ir-location','ir-worker','ir-client','ir-present','ir-description','ir-statements','ir-actions','ir-followup','ir-reportedto','ir-signature'].forEach(function(id) {
+    loadLSField('chccom002_s4_' + id.replace(/-/g,'_'), id);
+  });
+  // Email draft fields
+  ['draft-to','draft-subject','draft-greeting','draft-para1','draft-para2','draft-para3','draft-close','draft-name'].forEach(function(id) {
+    const key = 'chccom002_s4_email_' + id.replace('draft-','');
+    loadLSField(key, id);
+  });
+  buildBingo();
+  buildFactOpinion();
+});
+</script>
+</body>
+</html>

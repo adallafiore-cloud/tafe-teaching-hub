@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 3 — Facilitating Workplace Meetings | CHCCOM002 Student</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --yellow: #854d0e;
+  --yellow-lt: #fefce8;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.75; }
+
+/* -- HEADER -- */
+.top-bar { background: var(--navy); color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.tag { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+/* -- PROGRESS -- */
+.progress-wrap { background: var(--navy); padding: 0 24px 12px; }
+.progress-steps { display: flex; gap: 6px; }
+.step { flex: 1; height: 5px; background: rgba(255,255,255,.2); border-radius: 3px; cursor: pointer; transition: background .2s; }
+.step.done { background: var(--orange); }
+.step.active { background: rgba(255,255,255,.7); }
+
+/* -- HERO -- */
+.hero { background: linear-gradient(135deg, var(--navy) 0%, #0e4d7d 100%); color: white; padding: 40px 28px 36px; }
+.hero-badge { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+.hero-title { font-size: 26px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 16px; opacity: .85; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+/* -- MAIN -- */
+.page { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* -- SECTION -- */
+.section { margin-bottom: 48px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 21px; font-weight: 800; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { font-size: 24px; }
+
+/* -- TEXT -- */
+p { margin-bottom: 14px; font-size: 17px; }
+.big { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.plain { font-size: 16px; color: var(--muted); }
+
+/* -- DIVIDER -- */
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* -- CALLOUT BOXES -- */
+.box { border-radius: var(--radius); padding: 18px 20px; margin: 18px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-yellow { background: var(--yellow-lt); border-left: 4px solid #eab308; }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-yellow .box-label { color: var(--yellow); }
+.box-navy .box-label { color: var(--navy); }
+.box p, .box li { font-size: 15.5px; }
+
+/* -- CONCEPT CARDS -- */
+.concept-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0; }
+.concept-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; position: relative; overflow: hidden; }
+.concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.cc-aw::before { background: var(--teal); }
+.cc-co::before { background: var(--orange); }
+.cc-sa::before { background: var(--green); }
+.cc-pu::before { background: var(--purple); }
+.cc-nv::before { background: var(--navy); }
+.concept-num { font-size: 12px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 6px; }
+.cc-aw .concept-num { color: var(--teal); }
+.cc-co .concept-num { color: var(--orange); }
+.cc-sa .concept-num { color: var(--green); }
+.cc-pu .concept-num { color: var(--purple); }
+.cc-nv .concept-num { color: var(--navy); }
+.concept-name { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.concept-def { font-size: 15.5px; color: var(--text); margin-bottom: 10px; }
+.concept-eg { font-size: 14px; color: var(--muted); font-style: italic; padding: 8px 12px; background: var(--bg); border-radius: 6px; }
+
+/* -- TUCKMAN TIMELINE -- */
+.tuckman-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0; }
+.tuck-stage { border-radius: var(--radius); padding: 16px 14px; text-align: center; position: relative; }
+.tuck-forming { background: #eff6ff; border: 2px solid #3b82f6; }
+.tuck-storming { background: #fff1f2; border: 2px solid #f43f5e; }
+.tuck-norming { background: #fefce8; border: 2px solid #eab308; }
+.tuck-performing { background: var(--green-lt); border: 2px solid #16a34a; }
+.tuck-name { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+.tuck-forming .tuck-name { color: #1d4ed8; }
+.tuck-storming .tuck-name { color: #be123c; }
+.tuck-norming .tuck-name { color: #92400e; }
+.tuck-performing .tuck-name { color: var(--green); }
+.tuck-desc { font-size: 12.5px; color: var(--text); line-height: 1.5; margin-bottom: 6px; }
+.tuck-eg { font-size: 11.5px; color: var(--muted); font-style: italic; }
+.tuck-arrow { display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--muted); padding-top: 20px; }
+
+/* -- AGENDA BUILDER -- */
+.agenda-builder { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 22px; margin: 18px 0; }
+.agenda-builder h3 { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.form-row { margin-bottom: 12px; }
+.form-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 4px; display: block; }
+.form-input { width: 100%; border: 1.5px solid var(--border); border-radius: 7px; padding: 9px 13px; font-size: 15px; font-family: inherit; color: var(--text); background: var(--bg); transition: border .2s; }
+.form-input:focus { outline: none; border-color: var(--teal); background: var(--white); }
+.agenda-item-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start; margin-bottom: 8px; }
+select.form-input { cursor: pointer; }
+.btn-gen { background: var(--navy); color: white; border: none; font-size: 15px; font-weight: 700; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-family: inherit; margin-top: 8px; }
+.btn-gen:hover { background: var(--teal); }
+.agenda-output { display: none; margin-top: 18px; background: #f0fdfa; border: 1.5px solid var(--teal); border-radius: var(--radius); padding: 20px; }
+.agenda-output.show { display: block; }
+.agenda-output pre { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14.5px; white-space: pre-wrap; color: var(--text); line-height: 1.8; }
+.btn-copy-agenda { background: var(--teal); color: white; border: none; font-size: 13px; font-weight: 700; padding: 9px 20px; border-radius: 7px; cursor: pointer; font-family: inherit; margin-top: 12px; display: inline-flex; align-items: center; gap: 7px; }
+.btn-copy-agenda:hover { background: var(--navy); }
+
+/* -- QUIZ -- */
+.quiz-wrap { background: var(--navy); border-radius: var(--radius); padding: 26px; margin-top: 10px; }
+.quiz-wrap h3 { color: white; font-size: 18px; margin-bottom: 18px; }
+.quiz-q { background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; margin-bottom: 12px; }
+.quiz-q-num { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: .5px; margin-bottom: 5px; }
+.quiz-q-text { font-size: 15px; color: white; font-weight: 600; margin-bottom: 12px; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt { display: flex; align-items: flex-start; gap: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 7px; padding: 10px 14px; cursor: pointer; transition: all .15s; }
+.quiz-opt:hover { background: rgba(255,255,255,.15); }
+.quiz-opt.selected { background: rgba(234,108,26,.3); border-color: var(--orange); }
+.quiz-opt.correct { background: rgba(22,163,74,.3); border-color: #4ade80; }
+.quiz-opt.wrong { background: rgba(239,68,68,.25); border-color: #f87171; }
+.quiz-opt input { display: none; }
+.quiz-opt-letter { font-size: 12px; font-weight: 800; color: rgba(255,255,255,.5); flex-shrink: 0; padding-top: 2px; }
+.quiz-opt-body { flex: 1; }
+.quiz-opt span { font-size: 14.5px; color: white; display: block; }
+.quiz-opt .feedback-text { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 3px; display: none; }
+.quiz-opt.correct .feedback-text, .quiz-opt.wrong .feedback-text { display: block; }
+.quiz-submit { background: var(--orange); color: white; border: none; font-size: 15px; font-weight: 700; padding: 12px 28px; border-radius: 8px; cursor: pointer; margin-top: 14px; font-family: inherit; }
+.quiz-submit:hover { background: #d45a10; }
+.quiz-result { display: none; margin-top: 16px; background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; color: white; font-size: 14.5px; }
+.quiz-result.show { display: block; }
+
+/* -- FILL-IN AREAS -- */
+.fill-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 12px 0 5px; }
+.fill-area { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; color: var(--text); resize: vertical; min-height: 100px; font-family: inherit; transition: border .2s; }
+.fill-area:focus { outline: none; border-color: var(--teal); background: var(--white); }
+.save-note { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+
+/* -- ASSESSMENT LINKS -- */
+.at-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.at-card { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 15px; }
+.at-num { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+.at-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.at-link { font-size: 13px; color: var(--muted); }
+
+/* -- GLOSSARY -- */
+.gloss-item { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 16px; margin-bottom: 10px; }
+.gloss-term { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.gloss-def { font-size: 14.5px; color: var(--text); }
+.gloss-eg { font-size: 13px; color: var(--muted); font-style: italic; margin-top: 5px; }
+
+/* -- END OF DAY SUMMARY -- */
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 28px; margin-top: 10px; color: white; }
+.summary-box h3 { font-size: 18px; margin-bottom: 16px; color: white; }
+.summary-text { font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,.9); white-space: pre-wrap; font-family: inherit; }
+.btn-copy { background: var(--orange); color: white; border: none; font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; cursor: pointer; margin-top: 18px; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+.btn-copy:hover { background: #d45a10; }
+.copy-confirm { font-size: 13px; color: #4ade80; margin-top: 10px; display: none; }
+.copy-confirm.show { display: block; }
+
+/* -- SCROLL TOP -- */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+#scrollTop:hover { background: var(--orange); }
+
+/* -- TABLE -- */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 11px 14px; text-align: left; font-size: 14px; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+/* -- RESPONSIVE -- */
+@media (max-width: 600px) {
+  .at-grid { grid-template-columns: 1fr; }
+  .tuckman-row { grid-template-columns: 1fr 1fr; }
+  .hero-title { font-size: 21px; }
+  .page { padding: 20px 14px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="tag">STUDENT</span>
+    <div>
+      <div class="top-title">CHCCOM002 — Use Communication to Build Relationships</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;&middot;&nbsp; Certificate IV Community Services</div>
+    </div>
+  </div>
+  <span style="font-size:13px; opacity:.7; white-space:nowrap;">Mon 27 April 2026</span>
+</div>
+
+<!-- PROGRESS STEPS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step active" onclick="scrollToSection('s-intro')" title="Intro"></div>
+    <div class="step" onclick="scrollToSection('s-concepts')" title="Meeting Types &amp; Agenda"></div>
+    <div class="step" onclick="scrollToSection('s-builder')" title="Agenda Builder"></div>
+    <div class="step" onclick="scrollToSection('s-tuckman')" title="Group Dynamics"></div>
+    <div class="step" onclick="scrollToSection('s-quiz')" title="Quiz"></div>
+    <div class="step" onclick="scrollToSection('s-reflection')" title="Reflection"></div>
+    <div class="step" onclick="scrollToSection('s-glossary')" title="Glossary"></div>
+    <div class="step" onclick="scrollToSection('s-assessment')" title="Assessment"></div>
+    <div class="step" onclick="scrollToSection('s-handouts')" title="Digital Handouts"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Session 3 of 6</div>
+  <div class="hero-title">Facilitating Workplace Meetings</div>
+  <div class="hero-sub">How do we plan, run, and record a meeting that actually works?</div>
+  <div class="hero-chips">
+    <span class="chip">Meeting Types</span>
+    <span class="chip">Agenda</span>
+    <span class="chip">Facilitation</span>
+    <span class="chip">Group Dynamics</span>
+    <span class="chip">Minutes</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- INTRO -->
+<div id="s-intro" class="section">
+  <div class="section-label">Getting Started</div>
+  <div class="section-title"><span class="ico">👋</span> Welcome to Session 3</div>
+
+  <p>Meetings are one of the most common forms of communication in community services. Case conferences, team check-ins, client reviews — they happen constantly. And when they're run well, they get things done.</p>
+  <p>Today you'll learn what makes a meeting work — from planning an agenda before it starts, to writing accurate minutes after it ends, to managing group dynamics while it's happening.</p>
+
+  <div class="box box-orange">
+    <div class="box-label">Today you will learn to:</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li>Identify different <strong>types of meetings</strong> and their purpose</li>
+      <li>Prepare a <strong>meeting agenda</strong> that respects everyone's time</li>
+      <li>Understand <strong>Tuckman's stages</strong> of group development</li>
+      <li>Use <strong>facilitation skills</strong> to keep a meeting on track</li>
+      <li>Write accurate, objective <strong>meeting minutes</strong></li>
+    </ul>
+  </div>
+
+  <div class="box box-navy">
+    <div class="box-label">Assessment note</div>
+    <p>Today's content feeds directly into <strong>AT2 Part C</strong> (plan a team meeting), <strong>AT3 Part A</strong> (role play — facilitated team meeting), and <strong>AT3 Part C</strong> (reflect on meeting effectiveness). Use the interactive agenda builder and keep your notes.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- CONCEPT CARDS -->
+<div id="s-concepts" class="section">
+  <div class="section-label">Part 1 — Key Concepts</div>
+  <div class="section-title"><span class="ico">📋</span> Types of Meetings, Agendas &amp; Minutes</div>
+
+  <p>Before you can facilitate a meeting, you need to understand what kind of meeting it is, why it needs an agenda, and what a record of it looks like.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card cc-aw">
+      <div class="concept-num">Concept 1</div>
+      <div class="concept-name">Types of Meetings</div>
+      <div class="concept-def">
+        <strong>Formal</strong> — AGMs, board meetings. Structured, agenda required, minutes recorded, quorum needed.<br><br>
+        <strong>Informal</strong> — team check-ins, case conferences. Flexible but still purposeful — they have a goal and someone is responsible for keeping things on track.<br><br>
+        <strong>Online</strong> — Zoom, Teams. Same principles as in-person, different logistics. Camera norms, muting, managing participation, handling tech issues all need deliberate attention.
+      </div>
+      <div class="concept-eg">"Every meeting needs a purpose. If you can't say what the meeting is FOR, it probably shouldn't be a meeting."</div>
+    </div>
+
+    <div class="concept-card cc-co">
+      <div class="concept-num">Concept 2</div>
+      <div class="concept-name">The Agenda</div>
+      <div class="concept-def">
+        A written plan for the meeting, distributed <strong>in advance</strong> so people can prepare. A good agenda includes:<br><br>
+        &bull; Date, time, and venue<br>
+        &bull; List of attendees and apologies<br>
+        &bull; Agenda items with time allocations<br>
+        &bull; AOB (Any Other Business) at the end<br><br>
+        An agenda keeps the meeting focused. Without one, meetings drift, run over time, and people leave unsure what was decided.
+      </div>
+      <div class="concept-eg">"An agenda isn't bureaucracy — it's respect for everyone's time."</div>
+    </div>
+
+    <div class="concept-card cc-sa">
+      <div class="concept-num">Concept 3</div>
+      <div class="concept-name">Meeting Minutes</div>
+      <div class="concept-def">
+        A formal written record of what happened in the meeting. Good minutes record:<br><br>
+        &bull; Who attended (and who sent apologies)<br>
+        &bull; What was discussed (summary, not transcript)<br>
+        &bull; What was <strong>decided</strong><br>
+        &bull; Who is responsible for each <strong>action item</strong> and by when<br>
+        &bull; Date and time of the next meeting<br><br>
+        Minutes are a <strong>legal record</strong>. They must be factual, objective, and distributed promptly after the meeting.
+      </div>
+      <div class="concept-eg">"What gets written in the minutes is what officially happened."</div>
+    </div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">Remote meeting tips</div>
+    <p>Online meetings need extra structure. Agree on camera norms before you start. Assign someone to manage the chat. Use the 'raise hand' feature so everyone gets a turn. Have a backup plan for tech failures. The same principles — agenda, facilitation, minutes — apply exactly as they do in person.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- AGENDA BUILDER -->
+<div id="s-builder" class="section">
+  <div class="section-label">Interactive Activity — AT2 Part C Tool</div>
+  <div class="section-title"><span class="ico">🛠️</span> Build Your Agenda</div>
+
+  <p>Use this tool to practice building a meeting agenda. Fill in the fields and click Generate — your completed agenda will appear below, ready to copy into your assessment.</p>
+
+  <div class="agenda-builder">
+    <h3>📝 Agenda Builder</h3>
+    <div class="form-row">
+      <label class="form-label">Meeting Name / Purpose</label>
+      <input id="ab-name" class="form-input" type="text" placeholder="e.g. Team Communication Review Meeting">
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Date</label>
+        <input id="ab-date" class="form-input" type="text" placeholder="e.g. 27 April 2026">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Time</label>
+        <input id="ab-time" class="form-input" type="text" placeholder="e.g. 10:00am">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Venue / Location</label>
+      <input id="ab-venue" class="form-input" type="text" placeholder="e.g. Meeting Room 2B / Zoom">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Attendees</label>
+      <input id="ab-attendees" class="form-input" type="text" placeholder="e.g. Alex, Jordan, Sam, Priya">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Apologies</label>
+      <input id="ab-apologies" class="form-input" type="text" placeholder="e.g. Marcus (leave) — or 'None'">
+    </div>
+
+    <div style="margin-top:14px;">
+      <label class="form-label">Agenda Items (add up to 3)</label>
+      <div class="agenda-item-row">
+        <input id="ai-1" class="form-input" type="text" placeholder="Item 1 — e.g. Review last meeting's actions">
+        <select id="ai-1-time" class="form-input" style="width:110px;">
+          <option>5 min</option>
+          <option>10 min</option>
+          <option selected>15 min</option>
+          <option>20 min</option>
+          <option>30 min</option>
+        </select>
+      </div>
+      <div class="agenda-item-row">
+        <input id="ai-2" class="form-input" type="text" placeholder="Item 2 — e.g. Discuss client communication protocols">
+        <select id="ai-2-time" class="form-input" style="width:110px;">
+          <option>5 min</option>
+          <option>10 min</option>
+          <option selected>15 min</option>
+          <option>20 min</option>
+          <option>30 min</option>
+        </select>
+      </div>
+      <div class="agenda-item-row">
+        <input id="ai-3" class="form-input" type="text" placeholder="Item 3 — e.g. Planning next case conference">
+        <select id="ai-3-time" class="form-input" style="width:110px;">
+          <option>5 min</option>
+          <option>10 min</option>
+          <option selected>15 min</option>
+          <option>20 min</option>
+          <option>30 min</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row" style="margin-top:10px;">
+      <label style="display:flex; align-items:center; gap:10px; font-size:15px; cursor:pointer;">
+        <input id="ab-aob" type="checkbox" checked style="width:18px; height:18px; accent-color: var(--teal);">
+        Include AOB (Any Other Business)
+      </label>
+    </div>
+
+    <button class="btn-gen" onclick="generateAgenda()">Generate Agenda</button>
+
+    <div id="agenda-output" class="agenda-output">
+      <div style="font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--teal); margin-bottom:12px;">Your Agenda</div>
+      <pre id="agenda-text"></pre>
+      <button class="btn-copy-agenda" onclick="copyAgenda()">📋 Copy Agenda</button>
+      <div id="agenda-copy-confirm" style="font-size:12px; color:var(--green); margin-top:8px; display:none;">Copied to clipboard!</div>
+    </div>
+  </div>
+
+  <div class="box box-orange">
+    <div class="box-label">Assessment tip — AT2 Part C</div>
+    <p>Your AT2 Part C task asks you to plan a team meeting in response to an email. Use this builder to draft your agenda, then copy it into your assessment response. Make sure every field is filled in — the marker will check that your agenda is complete and professional.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- TUCKMAN'S STAGES -->
+<div id="s-tuckman" class="section">
+  <div class="section-label">Part 2 — Group Dynamics</div>
+  <div class="section-title"><span class="ico">👥</span> Tuckman's Stages of Group Development</div>
+
+  <p>Every group goes through stages as it develops. Understanding where your team is helps you respond as a facilitator — and explain what you're seeing as a worker.</p>
+
+  <div class="tuckman-row">
+    <div class="tuck-stage tuck-forming">
+      <div style="font-size:22px; margin-bottom:6px;">🌱</div>
+      <div class="tuck-name">Forming</div>
+      <div class="tuck-desc">Group comes together. Polite, unsure, getting to know each other. Roles are unclear.</div>
+      <div class="tuck-eg">Eg: First session with a new team at a community services organisation.</div>
+    </div>
+    <div class="tuck-stage tuck-storming">
+      <div style="font-size:22px; margin-bottom:6px;">⚡</div>
+      <div class="tuck-name">Storming</div>
+      <div class="tuck-desc">Roles and ideas clash. Tension, conflict, testing boundaries. Normal — and necessary.</div>
+      <div class="tuck-eg">Eg: Team disagrees on the right approach to case management for a client.</div>
+    </div>
+    <div class="tuck-stage tuck-norming">
+      <div style="font-size:22px; margin-bottom:6px;">🤝</div>
+      <div class="tuck-name">Norming</div>
+      <div class="tuck-desc">Group settles into agreed ways of working. Trust builds. Roles become clearer.</div>
+      <div class="tuck-eg">Eg: Team develops shared protocols for how they communicate with clients.</div>
+    </div>
+    <div class="tuck-stage tuck-performing">
+      <div style="font-size:22px; margin-bottom:6px;">🚀</div>
+      <div class="tuck-name">Performing</div>
+      <div class="tuck-desc">Group is highly effective. Focused on goals, collaborative, handles challenges well.</div>
+      <div class="tuck-eg">Eg: Team smoothly manages complex cases together with minimal conflict.</div>
+    </div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">As a facilitator — read the room</div>
+    <p>If your team is in <strong>storming</strong>, don't panic. Your job is to hold the space — acknowledge the tension, redirect to the agenda, and draw out different perspectives calmly. Conflict handled well leads to norming. Conflict avoided just delays it.</p>
+  </div>
+
+  <div class="box box-purple">
+    <div class="box-label">PREP structure for presentations</div>
+    <p>When you need to present a point of view clearly in a meeting, use PREP:</p>
+    <ul style="padding-left:20px; margin-top:8px;">
+      <li><strong>P</strong>oint — state your main point</li>
+      <li><strong>R</strong>eason — explain why</li>
+      <li><strong>E</strong>xample — give a specific example</li>
+      <li><strong>P</strong>oint — restate your point to finish</li>
+    </ul>
+    <p style="margin-top:10px; font-size:15px; color:var(--muted);">Example: "I think we should hold the meeting online [Point] because several team members are working from home that day [Reason]. Last month we used Zoom successfully for our case conference [Example]. Online would be the most inclusive option [Point]."</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- QUIZ -->
+<div id="s-quiz" class="section">
+  <div class="section-label">Check Your Learning</div>
+  <div class="section-title"><span class="ico">✅</span> Self-Check Quiz</div>
+  <p>Answer all four questions, then click Submit to check your answers.</p>
+
+  <div class="quiz-wrap">
+    <h3>Session 3 — Quick Quiz</h3>
+
+    <!-- Q1 -->
+    <div class="quiz-q" id="qq1">
+      <div class="quiz-q-num">Question 1 of 4</div>
+      <div class="quiz-q-text">An agenda should be distributed:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this, 'q1')">
+          <input type="radio" name="q1">
+          <span class="quiz-opt-letter">A</span>
+          <div class="quiz-opt-body">
+            <span>At the start of the meeting</span>
+            <span class="feedback-text">Incorrect — if people receive it at the start, they have no time to prepare.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" data-correct onclick="selectOpt(this, 'q1')">
+          <input type="radio" name="q1">
+          <span class="quiz-opt-letter">B</span>
+          <div class="quiz-opt-body">
+            <span>In advance of the meeting</span>
+            <span class="feedback-text">Correct — distributing the agenda in advance lets everyone prepare and contributes to a more effective meeting.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this, 'q1')">
+          <input type="radio" name="q1">
+          <span class="quiz-opt-letter">C</span>
+          <div class="quiz-opt-body">
+            <span>After the meeting</span>
+            <span class="feedback-text">Incorrect — that would be the minutes, not the agenda.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this, 'q1')">
+          <input type="radio" name="q1">
+          <span class="quiz-opt-letter">D</span>
+          <div class="quiz-opt-body">
+            <span>Only to the facilitator</span>
+            <span class="feedback-text">Incorrect — all attendees should receive the agenda in advance.</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-q" id="qq2">
+      <div class="quiz-q-num">Question 2 of 4</div>
+      <div class="quiz-q-text">The MAIN role of the meeting facilitator is to:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this, 'q2')">
+          <input type="radio" name="q2">
+          <span class="quiz-opt-letter">A</span>
+          <div class="quiz-opt-body">
+            <span>Make all the decisions</span>
+            <span class="feedback-text">Incorrect — the facilitator guides the process; decisions belong to the group.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this, 'q2')">
+          <input type="radio" name="q2">
+          <span class="quiz-opt-letter">B</span>
+          <div class="quiz-opt-body">
+            <span>Talk the most to keep the meeting moving</span>
+            <span class="feedback-text">Incorrect — a good facilitator draws others out, not dominates the conversation.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" data-correct onclick="selectOpt(this, 'q2')">
+          <input type="radio" name="q2">
+          <span class="quiz-opt-letter">C</span>
+          <div class="quiz-opt-body">
+            <span>Manage the flow and ensure everyone contributes</span>
+            <span class="feedback-text">Correct — the facilitator keeps the meeting on track, on time, and ensures all voices are heard.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this, 'q2')">
+          <input type="radio" name="q2">
+          <span class="quiz-opt-letter">D</span>
+          <div class="quiz-opt-body">
+            <span>Write the minutes</span>
+            <span class="feedback-text">Incorrect — writing the minutes is the note-taker's role; the facilitator focuses on the room.</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-q" id="qq3">
+      <div class="quiz-q-num">Question 3 of 4</div>
+      <div class="quiz-q-text">Meeting minutes should be:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this, 'q3')">
+          <input type="radio" name="q3">
+          <span class="quiz-opt-letter">A</span>
+          <div class="quiz-opt-body">
+            <span>A word-for-word transcript of everything said</span>
+            <span class="feedback-text">Incorrect — a transcript is impractical and not the purpose of minutes.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" data-correct onclick="selectOpt(this, 'q3')">
+          <input type="radio" name="q3">
+          <span class="quiz-opt-letter">B</span>
+          <div class="quiz-opt-body">
+            <span>A factual, objective record of decisions and actions</span>
+            <span class="feedback-text">Correct — minutes record what was decided and who is responsible for what, not the full conversation.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this, 'q3')">
+          <input type="radio" name="q3">
+          <span class="quiz-opt-letter">C</span>
+          <div class="quiz-opt-body">
+            <span>Written only if something goes wrong</span>
+            <span class="feedback-text">Incorrect — minutes are written for every meeting as a standard record.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this, 'q3')">
+          <input type="radio" name="q3">
+          <span class="quiz-opt-letter">D</span>
+          <div class="quiz-opt-body">
+            <span>The facilitator's personal opinion of what happened</span>
+            <span class="feedback-text">Incorrect — minutes must be objective and factual, not personal opinion.</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-q" id="qq4">
+      <div class="quiz-q-num">Question 4 of 4</div>
+      <div class="quiz-q-text">A team is arguing about everything and struggling to work together. According to Tuckman, they are likely in the:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this, 'q4')">
+          <input type="radio" name="q4">
+          <span class="quiz-opt-letter">A</span>
+          <div class="quiz-opt-body">
+            <span>Forming stage</span>
+            <span class="feedback-text">Incorrect — forming is polite and uncertain, not openly conflicted.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" data-correct onclick="selectOpt(this, 'q4')">
+          <input type="radio" name="q4">
+          <span class="quiz-opt-letter">B</span>
+          <div class="quiz-opt-body">
+            <span>Storming stage</span>
+            <span class="feedback-text">Correct — storming is characterised by conflict, competing ideas, and tension. It is a normal part of group development.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this, 'q4')">
+          <input type="radio" name="q4">
+          <span class="quiz-opt-letter">C</span>
+          <div class="quiz-opt-body">
+            <span>Norming stage</span>
+            <span class="feedback-text">Incorrect — norming is when the group has moved past conflict and is developing agreed ways of working.</span>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this, 'q4')">
+          <input type="radio" name="q4">
+          <span class="quiz-opt-letter">D</span>
+          <div class="quiz-opt-body">
+            <span>Performing stage</span>
+            <span class="feedback-text">Incorrect — performing is highly effective and collaborative.</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">Submit Answers</button>
+    <div id="quiz-result" class="quiz-result">
+      <strong>Your score: <span id="quiz-score"></span> / 4</strong>
+      <p id="quiz-msg" style="margin-top:8px; font-size:14px;"></p>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- REFLECTION -->
+<div id="s-reflection" class="section">
+  <div class="section-label">Reflection Activity</div>
+  <div class="section-title"><span class="ico">💭</span> Your Meeting Reflection</div>
+
+  <p>Think about a meeting you've been in — at work, in your studies, or in the community. It might have been a team meeting, a case conference, a community group meeting, or a family decision-making conversation.</p>
+
+  <div class="box box-teal">
+    <div class="box-label">Reflection prompt</div>
+    <p>What made the meeting effective or ineffective? What role did the facilitator play — or what was missing if there was no facilitator? How did the group dynamics affect the outcome?</p>
+  </div>
+
+  <div class="fill-label">Your reflection (saved automatically)</div>
+  <textarea class="fill-area" id="s3-reflection" placeholder="Write your reflection here. Think about purpose, agenda, facilitation, group dynamics, and minutes..." oninput="saveReflection()"></textarea>
+  <div class="save-note">
+    <span>&#128190;</span>
+    <span>Your response saves automatically in this browser. It will be here when you come back.</span>
+  </div>
+</div>
+
+<hr>
+
+<!-- GLOSSARY -->
+<div id="s-glossary" class="section">
+  <div class="section-label">Key Vocabulary</div>
+  <div class="section-title"><span class="ico">📖</span> Glossary</div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Agenda</div>
+    <div class="gloss-def">A written plan for a meeting, distributed in advance. Lists items to be discussed with time allocations.</div>
+    <div class="gloss-eg">In community services: "The team leader emailed the agenda two days before the case conference."</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Minutes</div>
+    <div class="gloss-def">A formal, written record of a meeting — who attended, what was discussed, what was decided, and who is responsible for each action.</div>
+    <div class="gloss-eg">In community services: "The minutes confirmed that Priya would follow up with the client by Friday."</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Facilitator</div>
+    <div class="gloss-def">The person who manages the flow of a meeting — keeps it on track, on time, and ensures everyone has the opportunity to contribute.</div>
+    <div class="gloss-eg">In community services: "As team leader, Alex facilitated the monthly case review meeting."</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Quorum</div>
+    <div class="gloss-def">The minimum number of people required to be present for a meeting to be officially valid and decisions to be binding.</div>
+    <div class="gloss-eg">In community services: "The board meeting could not proceed because they did not have a quorum."</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">AOB (Any Other Business)</div>
+    <div class="gloss-def">A standing item at the end of a meeting agenda where attendees can raise matters not already on the agenda.</div>
+    <div class="gloss-eg">In community services: "Under AOB, the team mentioned the upcoming training day."</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Tuckman's Stages</div>
+    <div class="gloss-def">A model describing how groups develop through four stages: Forming, Storming, Norming, and Performing. Developed by Bruce Tuckman in 1965.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Forming</div>
+    <div class="gloss-def">The first stage — the group is new, members are polite and cautious, roles are unclear.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Storming</div>
+    <div class="gloss-def">The second stage — conflict and tension emerge as members assert ideas and test roles. Normal and necessary.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Norming</div>
+    <div class="gloss-def">The third stage — the group establishes agreed ways of working. Trust develops and productivity increases.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Performing</div>
+    <div class="gloss-def">The fourth stage — the group is cohesive, effective, and focused on shared goals.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Accessibility (meeting context)</div>
+    <div class="gloss-def">Ensuring meetings are inclusive — considering location, timing, format, language, and participation methods so all members can fully contribute.</div>
+    <div class="gloss-eg">In community services: "The meeting was held online to ensure the team member on medical leave could still attend."</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ASSESSMENT CONNECTIONS -->
+<div id="s-assessment" class="section">
+  <div class="section-label">Your Assessment</div>
+  <div class="section-title"><span class="ico">📝</span> How Today Links to Your Assessment</div>
+
+  <div class="at-grid">
+    <div class="at-card">
+      <div class="at-num">AT2 Part C</div>
+      <div class="at-name">Plan a Team Meeting</div>
+      <div class="at-link">You need to plan a team meeting in response to an email. Use the agenda format from today's interactive builder. Include all required elements: date, time, venue, attendees, agenda items with time allocations, and AOB.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT3 Part A</div>
+      <div class="at-name">Role Play — Safety &amp; Respect Meeting</div>
+      <div class="at-link">The team meeting role play assesses every skill from today — agenda preparation, facilitation skills, managing group dynamics, and taking minutes. Today is your preparation session.</div>
+    </div>
+  </div>
+  <div style="background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 15px; margin-top: 10px;">
+    <div class="at-num">AT3 Part C</div>
+    <div class="at-name">Reflective Questions — Meeting Effectiveness</div>
+    <div class="at-link" style="font-size:13px; color:var(--muted); margin-top:4px;">Reflection questions ask you to evaluate meeting effectiveness. Use today's framework: Was there an agenda? Did the facilitator manage group dynamics? Were minutes taken and distributed? What stage of Tuckman's model was the group at?</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- DIGITAL HANDOUTS -->
+<div id="s-handouts" class="section">
+  <div class="section-label">Digital Handouts</div>
+  <div class="section-title"><span class="ico">📋</span> Fill In on This Page</div>
+
+  <!-- HANDOUT 1: Meeting Minutes Template -->
+  <div class="concept-card cc-nv" style="margin-bottom:28px;">
+    <div class="concept-num">Handout 1</div>
+    <div class="concept-name">Meeting Minutes Template</div>
+    <p style="font-size:15px; margin-bottom:16px;">Use this template during or after the practice meeting. Your notes save automatically.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Date</label>
+        <input id="min-date" class="form-input" type="text" placeholder="e.g. 27 April 2026" oninput="saveMin('min-date','chccom002_s3_min_date')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Time</label>
+        <input id="min-time" class="form-input" type="text" placeholder="e.g. 10:00am" oninput="saveMin('min-time','chccom002_s3_min_time')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Venue</label>
+        <input id="min-venue" class="form-input" type="text" placeholder="e.g. Room 2B" oninput="saveMin('min-venue','chccom002_s3_min_venue')">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Meeting Name</label>
+      <input id="min-name" class="form-input" type="text" placeholder="e.g. Team Communication Review" oninput="saveMin('min-name','chccom002_s3_min_name')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Facilitator</label>
+      <input id="min-facilitator" class="form-input" type="text" placeholder="Name of facilitator" oninput="saveMin('min-facilitator','chccom002_s3_min_facilitator')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Attendees</label>
+      <textarea id="min-attendees" class="fill-area" style="min-height:60px;" placeholder="List all attendees" oninput="saveMin('min-attendees','chccom002_s3_min_attendees')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Apologies</label>
+      <input id="min-apologies" class="form-input" type="text" placeholder="Names of those who sent apologies — or 'None'" oninput="saveMin('min-apologies','chccom002_s3_min_apologies')">
+    </div>
+
+    <div style="margin:20px 0 10px; font-size:14px; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.5px;">Agenda Items</div>
+    <p style="font-size:14px; color:var(--muted); margin-bottom:12px;">Click "Add Agenda Item" to expand each item block and fill in the details.</p>
+
+    <div id="min-agenda-items">
+      <!-- Items inserted by JS -->
+    </div>
+    <button class="btn-gen" style="background:var(--teal); margin-bottom:16px;" onclick="addAgendaItem()">+ Add Agenda Item</button>
+
+    <div class="form-row" style="margin-top:8px;">
+      <label class="form-label">Next Meeting Date</label>
+      <input id="min-nextdate" class="form-input" type="text" placeholder="e.g. 4 May 2026 — or 'TBC'" oninput="saveMin('min-nextdate','chccom002_s3_min_nextdate')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Notes Closed By</label>
+      <input id="min-closedby" class="form-input" type="text" placeholder="Name of note-taker" oninput="saveMin('min-closedby','chccom002_s3_min_closedby')">
+    </div>
+
+    <button class="btn-gen" style="margin-top:8px;" onclick="window.print()">Print / Save as PDF</button>
+    <div class="save-note" style="margin-top:10px;">&#128190; All fields save automatically to your browser.</div>
+  </div>
+
+  <!-- HANDOUT 2: Meeting Effectiveness Evaluation -->
+  <div class="concept-card cc-sa" style="margin-bottom:28px;">
+    <div class="concept-num">Handout 2</div>
+    <div class="concept-name">Meeting Effectiveness Evaluation</div>
+    <p style="font-size:15px; margin-bottom:16px;">After the practice meeting, rate your meeting on each criterion. Tap a number (1 = needs work, 5 = excellent).</p>
+
+    <div id="eval-criteria"></div>
+
+    <div style="margin:18px 0 8px; padding:14px 16px; background:var(--bg); border-radius:9px; border:1.5px solid var(--border);">
+      <div style="font-size:14px; font-weight:800; color:var(--navy);">Total Score: <span id="eval-total">0</span> / 25</div>
+    </div>
+
+    <div class="form-row" style="margin-top:16px;">
+      <label class="form-label">What would you do differently?</label>
+      <textarea id="eval-improve" class="fill-area" placeholder="Write your reflection here..." oninput="saveLS('chccom002_s3_eval_improve','eval-improve')"></textarea>
+    </div>
+    <div class="save-note">&#128190; Ratings and notes save automatically.</div>
+  </div>
+
+  <!-- ACTIVITY: Meeting Roles Mix-and-Match -->
+  <div class="concept-card cc-co" style="margin-bottom:28px;">
+    <div class="concept-num">Interactive Activity 1</div>
+    <div class="concept-name">Who does what in a meeting?</div>
+    <p style="font-size:15px; margin-bottom:4px;">Click a role on the left, then click the matching description on the right.</p>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">Match all 6 pairs correctly to complete the activity.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;" id="matchgame">
+      <div>
+        <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); margin-bottom:8px;">Roles</div>
+        <div id="match-roles"></div>
+      </div>
+      <div>
+        <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); margin-bottom:8px;">Descriptions</div>
+        <div id="match-descs"></div>
+      </div>
+    </div>
+    <div id="match-result" style="margin-top:12px; font-size:14px; font-weight:700; color:var(--green); display:none;"></div>
+    <button class="btn-gen" style="background:var(--muted); margin-top:12px; font-size:13px; padding:9px 18px;" onclick="resetMatch()">Reset</button>
+  </div>
+
+  <!-- ACTIVITY: Tuckman's Stages Sorter -->
+  <div class="concept-card cc-pu" style="margin-bottom:28px;">
+    <div class="concept-num">Interactive Activity 2</div>
+    <div class="concept-name">Which stage is this team in?</div>
+    <p style="font-size:15px; margin-bottom:4px;">Read each scenario. Click the Tuckman stage you think it matches.</p>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">Green = correct, Red = incorrect (correct answer revealed).</p>
+
+    <div id="tuckman-scenarios"></div>
+    <div id="tuckman-score" style="margin-top:14px; padding:12px 16px; background:var(--bg); border-radius:9px; border:1.5px solid var(--border); font-size:14px; font-weight:700; color:var(--navy); display:none;"></div>
+    <button class="btn-gen" style="background:var(--muted); margin-top:12px; font-size:13px; padding:9px 18px;" onclick="resetTuckman()">Reset</button>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- END OF DAY SUMMARY -->
+<div class="section">
+  <div class="section-label">End of Day</div>
+  <div class="section-title"><span class="ico">📬</span> Today's Summary — Copy to Teams</div>
+  <p>Copy and paste the message below into Teams or email to keep a record of today's learning.</p>
+
+  <div class="summary-box">
+    <h3>Session 3 Summary</h3>
+    <div class="summary-text" id="eod-text">Hi everyone,
+
+Session 3 summary — Facilitating Workplace Meetings. Monday 27 April 2026.
+
+What we covered today:
+
+1. Types of meetings — formal (AGMs, board meetings — structured, agenda required, quorum needed), informal (team check-ins, case conferences — flexible but still purposeful), and online (Zoom/Teams — same principles, different logistics). The key rule: every meeting needs a clear purpose. If you can't say what the meeting is for, it probably shouldn't be a meeting.
+
+2. Preparing an agenda — a written plan distributed before the meeting. Includes date/time/venue, attendees, apologies, agenda items with time allocations, and AOB (Any Other Business). An agenda is respect for everyone's time — and it's a key requirement in your assessment.
+
+3. Remote meeting etiquette — agree on camera norms in advance, manage participation, use the raise hand function, assign someone to monitor chat, have a tech backup plan. Same principles as in-person, just different logistics.
+
+4. Group dynamics — Tuckman's model: Forming (polite, unsure), Storming (conflict and tension — normal!), Norming (agreed ways of working develop), Performing (effective and collaborative). As a facilitator, your job is to read where the group is and respond accordingly.
+
+5. Facilitation — manage the flow, keep on track, draw out every voice. Use PREP for presentations: Point, Reason, Example, Point.
+
+6. Meeting minutes — a legal record of decisions and actions. Must be factual, objective, and distributed promptly. What's in the minutes is what officially happened.
+
+Assessment links:
+- AT2 Part C: Plan a team meeting using an agenda. Use today's format from the interactive builder.
+- AT3 Part A: Your role play IS a facilitated team meeting. Agenda, facilitation, and minutes are all assessed.
+- AT3 Part C: Evaluate your meeting's effectiveness using today's framework.
+
+Keep your completed agenda from today's builder — you can use it as a model for your assessment work.</div>
+    <button class="btn-copy" onclick="copyEOD()">📋 Copy to clipboard</button>
+    <div id="eod-confirm" class="copy-confirm">Copied! Paste into Teams or email.</div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+// ── PROGRESS BAR ──
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+window.addEventListener('scroll', function() {
+  const btn = document.getElementById('scrollTop');
+  if (window.scrollY > 300) btn.classList.add('vis'); else btn.classList.remove('vis');
+  updateProgress();
+});
+
+function updateProgress() {
+  const sections = ['s-intro','s-concepts','s-builder','s-tuckman','s-quiz','s-reflection','s-glossary','s-assessment','s-handouts'];
+  const steps = document.querySelectorAll('.step');
+  sections.forEach(function(id, i) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.5) {
+      steps[i].classList.remove('active');
+      steps[i].classList.add('done');
+    }
+  });
+}
+
+// ── QUIZ ──
+function selectOpt(el, name) {
+  document.querySelectorAll('[name="' + name + '"]').forEach(function(r) {
+    r.closest('.quiz-opt').classList.remove('selected');
+  });
+  el.classList.add('selected');
+}
+
+function submitQuiz() {
+  const answers = { q1: null, q2: null, q3: null, q4: null };
+  ['q1','q2','q3','q4'].forEach(function(name) {
+    const selected = document.querySelector('[name="' + name + '"].selected');
+    if (selected) answers[name] = selected;
+  });
+
+  let score = 0;
+  ['q1','q2','q3','q4'].forEach(function(name) {
+    const opts = document.querySelectorAll('[name="' + name + '"]');
+    opts.forEach(function(r) {
+      const label = r.closest('.quiz-opt');
+      if (label.hasAttribute('data-correct')) {
+        label.classList.add('correct');
+      }
+    });
+    if (answers[name]) {
+      if (answers[name].hasAttribute('data-correct')) {
+        score++;
+      } else {
+        answers[name].classList.add('wrong');
+      }
+    }
+  });
+
+  const result = document.getElementById('quiz-result');
+  document.getElementById('quiz-score').textContent = score;
+  const msgs = ['Keep going — review the concept cards and try again.', 'A good start — review the areas you missed.', 'Almost there — one more to check!', 'Excellent — full marks! You are ready for assessment work.'];
+  document.getElementById('quiz-msg').textContent = msgs[score];
+  result.classList.add('show');
+}
+
+// ── REFLECTION — localStorage ──
+const REFL_KEY = 'chccom002_s3_reflection';
+window.addEventListener('load', function() {
+  const saved = localStorage.getItem(REFL_KEY);
+  if (saved) document.getElementById('s3-reflection').value = saved;
+});
+function saveReflection() {
+  localStorage.setItem(REFL_KEY, document.getElementById('s3-reflection').value);
+}
+
+// ── AGENDA BUILDER ──
+function generateAgenda() {
+  const name = document.getElementById('ab-name').value.trim() || '[Meeting Name]';
+  const date = document.getElementById('ab-date').value.trim() || '[Date]';
+  const time = document.getElementById('ab-time').value.trim() || '[Time]';
+  const venue = document.getElementById('ab-venue').value.trim() || '[Venue]';
+  const attendees = document.getElementById('ab-attendees').value.trim() || '[Attendees]';
+  const apologies = document.getElementById('ab-apologies').value.trim() || 'None';
+
+  const items = [];
+  for (let i = 1; i <= 3; i++) {
+    const item = document.getElementById('ai-' + i).value.trim();
+    const t = document.getElementById('ai-' + i + '-time').value;
+    if (item) items.push({ text: item, time: t });
+  }
+
+  const aob = document.getElementById('ab-aob').checked;
+
+  let agenda = '';
+  agenda += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+  agenda += '         MEETING AGENDA\n';
+  agenda += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+  agenda += 'Meeting:    ' + name + '\n';
+  agenda += 'Date:       ' + date + '\n';
+  agenda += 'Time:       ' + time + '\n';
+  agenda += 'Venue:      ' + venue + '\n\n';
+  agenda += 'Attendees:  ' + attendees + '\n';
+  agenda += 'Apologies:  ' + apologies + '\n\n';
+  agenda += '───────────────────────────────────────\n';
+  agenda += 'AGENDA ITEMS\n';
+  agenda += '───────────────────────────────────────\n\n';
+
+  if (items.length === 0) {
+    agenda += '1.  [No items entered]\n';
+  } else {
+    items.forEach(function(item, idx) {
+      agenda += (idx + 1) + '.  ' + item.text + '  (' + item.time + ')\n';
+    });
+  }
+
+  if (aob) {
+    agenda += '\n' + (items.length + 1) + '.  Any Other Business (AOB)  (5 min)\n';
+  }
+
+  agenda += '\n───────────────────────────────────────\n';
+  agenda += 'Next meeting: [Date TBC]\n';
+  agenda += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━';
+
+  document.getElementById('agenda-text').textContent = agenda;
+  const output = document.getElementById('agenda-output');
+  output.classList.add('show');
+  output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyAgenda() {
+  const text = document.getElementById('agenda-text').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    const confirm = document.getElementById('agenda-copy-confirm');
+    confirm.style.display = 'block';
+    setTimeout(function() { confirm.style.display = 'none'; }, 2500);
+  });
+}
+
+// ── END OF DAY COPY ──
+function copyEOD() {
+  const text = document.getElementById('eod-text').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    const el = document.getElementById('eod-confirm');
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 3000);
+  });
+}
+
+// ── LOCALSTORAGE HELPERS ──
+function saveMin(id, key) {
+  const el = document.getElementById(id);
+  if (el) localStorage.setItem(key, el.value);
+}
+function saveLS(key, id) {
+  const el = document.getElementById(id);
+  if (el) localStorage.setItem(key, el.value);
+}
+function loadLS(key, id) {
+  const val = localStorage.getItem(key);
+  const el = document.getElementById(id);
+  if (val && el) { el.value = val; }
+}
+
+// ── MEETING MINUTES AGENDA ITEMS ──
+let agendaItemCount = 0;
+function addAgendaItem() {
+  if (agendaItemCount >= 4) { alert('Maximum 4 agenda items added.'); return; }
+  agendaItemCount++;
+  const n = agendaItemCount;
+  const container = document.getElementById('min-agenda-items');
+  const div = document.createElement('div');
+  div.id = 'min-item-block-' + n;
+  div.style.cssText = 'background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:14px 16px;margin-bottom:12px;';
+  div.innerHTML = `
+    <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:10px;">Agenda Item ${n}</div>
+    <div class="form-row">
+      <label class="form-label">Item Title</label>
+      <input id="min-item${n}-title" class="form-input" type="text" placeholder="e.g. Review last meeting's actions" oninput="saveMin('min-item${n}-title','chccom002_s3_min_item${n}_title')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Discussion Summary</label>
+      <textarea id="min-item${n}-disc" class="fill-area" style="min-height:60px;" placeholder="Summary of what was discussed..." oninput="saveMin('min-item${n}-disc','chccom002_s3_min_item${n}_disc')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Decision Reached</label>
+      <input id="min-item${n}-decision" class="form-input" type="text" placeholder="What was decided?" oninput="saveMin('min-item${n}-decision','chccom002_s3_min_item${n}_decision')">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Action Item</label>
+        <input id="min-item${n}-action" class="form-input" type="text" placeholder="What needs to be done?" oninput="saveMin('min-item${n}-action','chccom002_s3_min_item${n}_action')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Responsible Person</label>
+        <input id="min-item${n}-person" class="form-input" type="text" placeholder="Who is responsible?" oninput="saveMin('min-item${n}-person','chccom002_s3_min_item${n}_person')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Due Date</label>
+        <input id="min-item${n}-due" class="form-input" type="text" placeholder="e.g. 4 May 2026" oninput="saveMin('min-item${n}-due','chccom002_s3_min_item${n}_due')">
+      </div>
+    </div>
+  `;
+  container.appendChild(div);
+  // restore saved values
+  ['title','disc','decision','action','person','due'].forEach(function(f) {
+    loadLS('chccom002_s3_min_item' + n + '_' + f, 'min-item' + n + '-' + f);
+  });
+}
+
+// ── MEETING EFFECTIVENESS EVALUATION ──
+const evalCriteria = [
+  'Clear purpose and agenda',
+  'Everyone had a chance to contribute',
+  'Facilitator managed time effectively',
+  'Decisions were made and recorded',
+  'The meeting achieved its purpose'
+];
+function buildEval() {
+  const container = document.getElementById('eval-criteria');
+  evalCriteria.forEach(function(crit, idx) {
+    const i = idx + 1;
+    const saved = localStorage.getItem('chccom002_s3_eval_rating_' + i) || '0';
+    const savedComment = localStorage.getItem('chccom002_s3_eval_comment_' + i) || '';
+    let ratingHTML = '';
+    for (let r = 1; r <= 5; r++) {
+      const active = parseInt(saved) === r ? 'background:var(--teal);color:white;border-color:var(--teal);' : '';
+      ratingHTML += `<button id="eval-btn-${i}-${r}" onclick="setRating(${i},${r})" style="width:36px;height:36px;border:1.5px solid var(--border);border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin-right:5px;${active}font-family:inherit;">${r}</button>`;
+    }
+    const div = document.createElement('div');
+    div.style.cssText = 'margin-bottom:16px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1.5px solid var(--border);';
+    div.innerHTML = `
+      <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px;">${i}. ${crit}</div>
+      <div style="margin-bottom:8px;">${ratingHTML}</div>
+      <input id="eval-comment-${i}" class="form-input" type="text" placeholder="Optional comment..." value="${savedComment.replace(/"/g,'&quot;')}" oninput="saveEvalComment(${i})">
+    `;
+    container.appendChild(div);
+  });
+  updateEvalTotal();
+}
+function setRating(criterion, value) {
+  localStorage.setItem('chccom002_s3_eval_rating_' + criterion, value);
+  // update button styles
+  for (let r = 1; r <= 5; r++) {
+    const btn = document.getElementById('eval-btn-' + criterion + '-' + r);
+    if (btn) {
+      btn.style.background = r === value ? 'var(--teal)' : '';
+      btn.style.color = r === value ? 'white' : '';
+      btn.style.borderColor = r === value ? 'var(--teal)' : 'var(--border)';
+    }
+  }
+  updateEvalTotal();
+}
+function saveEvalComment(criterion) {
+  const el = document.getElementById('eval-comment-' + criterion);
+  if (el) localStorage.setItem('chccom002_s3_eval_comment_' + criterion, el.value);
+}
+function updateEvalTotal() {
+  let total = 0;
+  for (let i = 1; i <= 5; i++) {
+    total += parseInt(localStorage.getItem('chccom002_s3_eval_rating_' + i) || '0');
+  }
+  const el = document.getElementById('eval-total');
+  if (el) el.textContent = total;
+}
+
+// ── MIX-AND-MATCH ──
+const matchPairs = [
+  { role: 'Facilitator', desc: 'Manages the flow and ensures everyone contributes' },
+  { role: 'Note-taker', desc: 'Records decisions, actions, and who is responsible' },
+  { role: 'Timekeeper', desc: 'Monitors time and signals when items are running over' },
+  { role: 'Presenter', desc: 'Delivers a prepared item on the agenda' },
+  { role: 'Observer', desc: 'Provides feedback on meeting effectiveness (optional role)' },
+  { role: 'Chairperson', desc: 'Has formal authority in a formal meeting (e.g. AGM)' }
+];
+let matchSelected = null;
+let matchCompleted = 0;
+function buildMatch() {
+  const roles = document.getElementById('match-roles');
+  const descs = document.getElementById('match-descs');
+  // shuffle descriptions
+  const shuffled = matchPairs.map(function(p,i){ return {desc:p.desc, idx:i}; });
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  matchPairs.forEach(function(p, i) {
+    const btn = document.createElement('button');
+    btn.id = 'role-' + i;
+    btn.dataset.idx = i;
+    btn.textContent = p.role;
+    btn.style.cssText = 'display:block;width:100%;text-align:left;padding:10px 13px;margin-bottom:8px;border:1.5px solid var(--border);border-radius:8px;background:var(--white);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--navy);';
+    btn.onclick = function() { selectRole(i); };
+    roles.appendChild(btn);
+  });
+  shuffled.forEach(function(s) {
+    const btn = document.createElement('button');
+    btn.id = 'desc-' + s.idx;
+    btn.dataset.idx = s.idx;
+    btn.textContent = s.desc;
+    btn.style.cssText = 'display:block;width:100%;text-align:left;padding:10px 13px;margin-bottom:8px;border:1.5px solid var(--border);border-radius:8px;background:var(--white);font-size:13px;cursor:pointer;font-family:inherit;color:var(--text);line-height:1.5;';
+    btn.onclick = function() { selectDesc(s.idx); };
+    descs.appendChild(btn);
+  });
+}
+function selectRole(idx) {
+  if (document.getElementById('role-' + idx).disabled) return;
+  document.querySelectorAll('#match-roles button').forEach(function(b) { if (!b.disabled) b.style.background = 'var(--white)'; b.style.borderColor = 'var(--border)'; });
+  const btn = document.getElementById('role-' + idx);
+  btn.style.background = 'var(--orange-lt)';
+  btn.style.borderColor = 'var(--orange)';
+  matchSelected = idx;
+}
+function selectDesc(idx) {
+  if (matchSelected === null) return;
+  if (document.getElementById('desc-' + idx).disabled) return;
+  const roleBtn = document.getElementById('role-' + matchSelected);
+  const descBtn = document.getElementById('desc-' + idx);
+  if (matchSelected === idx) {
+    // correct
+    roleBtn.style.background = 'var(--green-lt)';
+    roleBtn.style.borderColor = '#16a34a';
+    roleBtn.style.color = 'var(--green)';
+    roleBtn.disabled = true;
+    descBtn.style.background = 'var(--green-lt)';
+    descBtn.style.borderColor = '#16a34a';
+    descBtn.style.color = 'var(--green)';
+    descBtn.disabled = true;
+    matchCompleted++;
+    if (matchCompleted === matchPairs.length) {
+      const res = document.getElementById('match-result');
+      res.textContent = 'Excellent! All 6 roles matched correctly.';
+      res.style.display = 'block';
+    }
+  } else {
+    // incorrect
+    roleBtn.style.background = '#fef2f2';
+    roleBtn.style.borderColor = '#fca5a5';
+    descBtn.style.background = '#fef2f2';
+    descBtn.style.borderColor = '#fca5a5';
+    setTimeout(function() {
+      if (!roleBtn.disabled) { roleBtn.style.background = 'var(--white)'; roleBtn.style.borderColor = 'var(--border)'; }
+      if (!descBtn.disabled) { descBtn.style.background = 'var(--white)'; descBtn.style.borderColor = 'var(--border)'; }
+    }, 700);
+  }
+  matchSelected = null;
+  document.querySelectorAll('#match-roles button').forEach(function(b) { if (!b.disabled) { b.style.background = 'var(--white)'; b.style.borderColor = 'var(--border)'; } });
+}
+function resetMatch() {
+  matchSelected = null;
+  matchCompleted = 0;
+  document.getElementById('match-roles').innerHTML = '';
+  document.getElementById('match-descs').innerHTML = '';
+  document.getElementById('match-result').style.display = 'none';
+  buildMatch();
+}
+
+// ── TUCKMAN SORTER ──
+const tuckScenarios = [
+  { text: 'The team just formed. Everyone is polite and a bit unsure of their role.', answer: 'Forming' },
+  { text: 'Two team members keep disagreeing about the case management approach.', answer: 'Storming' },
+  { text: 'The team has found a rhythm — they communicate openly and get things done.', answer: 'Performing' },
+  { text: 'After some early conflict, the team has agreed on how they\'ll work together.', answer: 'Norming' },
+  { text: 'A new worker just joined an experienced team. The group is being reintroduced.', answer: 'Forming' },
+  { text: 'The team disagrees strongly about priorities and some members are frustrated.', answer: 'Storming' },
+  { text: 'The team handles complex cases smoothly with little direction needed.', answer: 'Performing' },
+  { text: 'The team has set ground rules and everyone knows their responsibilities.', answer: 'Norming' }
+];
+const tuckStages = ['Forming', 'Storming', 'Norming', 'Performing'];
+const tuckColors = { Forming: '#3b82f6', Storming: '#f43f5e', Norming: '#eab308', Performing: '#16a34a' };
+function buildTuckman() {
+  const container = document.getElementById('tuckman-scenarios');
+  tuckScenarios.forEach(function(sc, i) {
+    const div = document.createElement('div');
+    div.id = 'tuck-sc-' + i;
+    div.style.cssText = 'background:var(--white);border:1.5px solid var(--border);border-radius:9px;padding:14px 16px;margin-bottom:12px;';
+    let btnHTML = '';
+    tuckStages.forEach(function(stage) {
+      btnHTML += `<button onclick="answerTuck(${i},'${stage}')" id="tuck-btn-${i}-${stage}" style="margin-right:6px;margin-bottom:6px;padding:7px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;background:var(--white);color:var(--navy);">${stage}</button>`;
+    });
+    div.innerHTML = `<p style="font-size:14.5px;font-style:italic;margin-bottom:10px;">"${sc.text}"</p><div>${btnHTML}</div><div id="tuck-fb-${i}" style="font-size:13px;margin-top:6px;display:none;"></div>`;
+    container.appendChild(div);
+  });
+}
+let tuckAnswered = 0;
+function answerTuck(idx, stage) {
+  const sc = tuckScenarios[idx];
+  const fb = document.getElementById('tuck-fb-' + idx);
+  if (fb.style.display !== 'none') return; // already answered
+  tuckStages.forEach(function(s) {
+    const btn = document.getElementById('tuck-btn-' + idx + '-' + s);
+    if (btn) btn.disabled = true;
+  });
+  const btn = document.getElementById('tuck-btn-' + idx + '-' + stage);
+  if (stage === sc.answer) {
+    btn.style.background = 'var(--green-lt)';
+    btn.style.borderColor = '#16a34a';
+    btn.style.color = 'var(--green)';
+    fb.textContent = 'Correct! This is the ' + sc.answer + ' stage.';
+    fb.style.color = 'var(--green)';
+  } else {
+    btn.style.background = '#fef2f2';
+    btn.style.borderColor = '#fca5a5';
+    btn.style.color = '#dc2626';
+    const correctBtn = document.getElementById('tuck-btn-' + idx + '-' + sc.answer);
+    if (correctBtn) { correctBtn.style.background = 'var(--green-lt)'; correctBtn.style.borderColor = '#16a34a'; correctBtn.style.color = 'var(--green)'; }
+    fb.textContent = 'Not quite. This scenario is in the ' + sc.answer + ' stage.';
+    fb.style.color = '#dc2626';
+  }
+  fb.style.display = 'block';
+  tuckAnswered++;
+  if (tuckAnswered === tuckScenarios.length) {
+    const scoreEl = document.getElementById('tuckman-score');
+    let correct = 0;
+    tuckScenarios.forEach(function(s, i) {
+      const fb2 = document.getElementById('tuck-fb-' + i);
+      if (fb2 && fb2.style.color === 'var(--green)') correct++;
+    });
+    scoreEl.textContent = 'You answered ' + correct + ' out of ' + tuckScenarios.length + ' correctly.';
+    scoreEl.style.display = 'block';
+  }
+}
+function resetTuckman() {
+  tuckAnswered = 0;
+  document.getElementById('tuckman-scenarios').innerHTML = '';
+  document.getElementById('tuckman-score').style.display = 'none';
+  buildTuckman();
+}
+
+// ── INIT HANDOUT SECTION ──
+window.addEventListener('DOMContentLoaded', function() {
+  // restore basic minutes fields
+  ['min-name','min-date','min-time','min-venue','min-facilitator','min-apologies','min-nextdate','min-closedby'].forEach(function(id) {
+    loadLS('chccom002_s3_' + id.replace(/-/g,'_'), id);
+  });
+  loadLS('chccom002_s3_min_attendees', 'min-attendees');
+  loadLS('chccom002_s3_eval_improve', 'eval-improve');
+  buildEval();
+  buildMatch();
+  buildTuckman();
+});
+</script>
+</body>
+</html>

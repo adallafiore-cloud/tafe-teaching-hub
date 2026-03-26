@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 5 — AT3 Role Play Day | CHCCOM002 Student</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --yellow: #854d0e;
+  --yellow-lt: #fefce8;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.75; }
+
+.top-bar { background: var(--navy); color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.tag { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+.progress-wrap { background: var(--navy); padding: 0 24px 12px; }
+.progress-steps { display: flex; gap: 6px; }
+.step { flex: 1; height: 5px; background: rgba(255,255,255,.2); border-radius: 3px; }
+.step.done { background: var(--orange); }
+.step.active { background: rgba(255,255,255,.7); }
+
+.hero { background: linear-gradient(135deg, var(--navy) 0%, #0e4d7d 100%); color: white; padding: 40px 28px 36px; }
+.hero-badge { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+.hero-title { font-size: 26px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 16px; opacity: .85; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+.page { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; }
+.section { margin-bottom: 48px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 21px; font-weight: 800; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { font-size: 24px; }
+p { margin-bottom: 14px; font-size: 17px; }
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+.box { border-radius: var(--radius); padding: 18px 20px; margin: 18px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-yellow { background: var(--yellow-lt); border-left: 4px solid #eab308; }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-yellow .box-label { color: var(--yellow); }
+.box-navy .box-label { color: var(--navy); }
+.box p, .box li { font-size: 15.5px; }
+
+.flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0; }
+.flip-wrap { perspective: 800px; }
+.flip-card { width: 100%; min-height: 160px; position: relative; transform-style: preserve-3d; transition: transform .45s ease; cursor: pointer; }
+.flip-card.flipped { transform: rotateY(180deg); }
+.flip-front, .flip-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; text-align: center; border: 1.5px solid var(--border); }
+.flip-front { background: var(--navy); color: white; }
+.flip-back { background: var(--white); color: var(--text); transform: rotateY(180deg); }
+.flip-front-label { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; opacity: .6; margin-bottom: 10px; }
+.flip-front-term { font-size: 17px; font-weight: 800; line-height: 1.3; }
+.flip-hint { font-size: 11px; opacity: .5; margin-top: 12px; }
+.flip-back-def { font-size: 14px; line-height: 1.6; color: var(--text); }
+.flip-back-eg { font-size: 12.5px; color: var(--muted); font-style: italic; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 8px; }
+
+.fill-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 12px 0 5px; }
+.fill-area { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; color: var(--text); resize: vertical; min-height: 100px; font-family: inherit; transition: border .2s; }
+.fill-area:focus { outline: none; border-color: var(--teal); background: var(--white); }
+.fill-input { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 9px 14px; font-size: 15px; color: var(--text); font-family: inherit; transition: border .2s; }
+.fill-input:focus { outline: none; border-color: var(--teal); background: var(--white); }
+.save-note { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+
+.accordion { border: 1.5px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; }
+.accordion-header { background: var(--white); padding: 16px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 16px; font-weight: 700; color: var(--navy); user-select: none; }
+.accordion-header:hover { background: var(--bg); }
+.accordion-arrow { font-size: 14px; transition: transform .25s; }
+.accordion.open .accordion-arrow { transform: rotate(90deg); }
+.accordion-body { display: none; padding: 20px; border-top: 1px solid var(--border); background: var(--white); }
+.accordion.open .accordion-body { display: block; }
+
+.role-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: .7px; margin-bottom: 12px; }
+.rb-facilitator { background: #dbeafe; color: #1e40af; }
+.rb-notetaker { background: #d1fae5; color: #065f46; }
+.rb-memberA { background: #ede9fe; color: #5b21b6; }
+.rb-memberB { background: #fef9c3; color: #78350f; }
+.rb-memberC { background: #fee2e2; color: #991b1b; }
+
+.script-box { background: #f1f5f9; border-left: 3px solid var(--teal); border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 12px 0; font-size: 14.5px; font-style: italic; color: var(--text); line-height: 1.7; }
+.script-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; font-style: normal; }
+
+.must-list { list-style: none; padding: 0; margin: 10px 0; }
+.must-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; margin-bottom: 8px; }
+.must-list li::before { content: '\2713'; background: var(--green); color: white; font-size: 11px; font-weight: 900; min-width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 3px; }
+
+.match-wrap { margin: 18px 0; }
+.match-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.match-col-label { font-size: 12px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.match-item { background: var(--white); border: 2px solid var(--border); border-radius: 9px; padding: 12px 15px; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 8px; transition: all .15s; user-select: none; line-height: 1.5; }
+.match-item:hover { border-color: var(--teal); background: #f0fdfa; }
+.match-item.selected { border-color: var(--orange); background: var(--orange-lt); }
+.match-item.correct { border-color: #16a34a; background: var(--green-lt); color: var(--green); cursor: default; pointer-events: none; }
+.match-item.wrong { border-color: #ef4444; background: #fef2f2; animation: shake .3s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+.btn-reset { background: var(--navy); color: white; border: none; font-size: 13px; font-weight: 700; padding: 9px 20px; border-radius: 7px; cursor: pointer; margin-top: 10px; font-family: inherit; }
+.match-score { font-size: 14px; font-weight: 700; margin-top: 8px; min-height: 22px; color: var(--green); }
+
+.blank-sentence { font-size: 16px; margin: 16px 0 6px; line-height: 2.2; }
+.blank-input { display: inline-block; min-width: 120px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font-size: 16px; font-family: inherit; color: var(--navy); padding: 2px 6px; outline: none; }
+.blank-input.correct { border-color: #16a34a; background: var(--green-lt); border-radius: 4px; color: var(--green); }
+.blank-input.wrong { border-color: #ef4444; background: #fef2f2; border-radius: 4px; }
+.btn-check { background: var(--teal); color: white; border: none; font-size: 13px; font-weight: 700; padding: 9px 20px; border-radius: 7px; cursor: pointer; margin-top: 12px; font-family: inherit; }
+.blank-feedback { font-size: 13px; margin-top: 8px; font-weight: 600; min-height: 20px; }
+
+.minutes-form { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 24px; }
+.mins-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.mins-group { display: flex; flex-direction: column; gap: 4px; }
+.mins-group.full { grid-column: 1 / -1; }
+.mins-group label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+.ai-card { background: var(--bg); border: 1px solid var(--border); border-radius: 9px; padding: 16px; margin-bottom: 12px; }
+.ai-title { font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+.ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ai-group { display: flex; flex-direction: column; gap: 4px; }
+.ai-group.full { grid-column: 1 / -1; }
+.ai-group label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+
+.fb-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; }
+.fb-title { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+
+.practice-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; }
+.practice-title { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+.role-select { width: 100%; background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 9px 14px; font-size: 15px; color: var(--text); font-family: inherit; cursor: pointer; }
+.role-select:focus { outline: none; border-color: var(--teal); }
+.btn-sm { background: var(--teal); color: white; border: none; font-size: 12px; font-weight: 700; padding: 7px 16px; border-radius: 6px; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; }
+.btn-sm:hover { background: #0c6480; }
+.prompt-box { background: var(--navy); color: white; border-radius: var(--radius); padding: 22px 24px; margin: 12px 0; text-align: center; min-height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.prompt-text { font-size: 16px; font-weight: 600; line-height: 1.6; }
+.btn-next { background: var(--orange); color: white; border: none; font-size: 14px; font-weight: 700; padding: 10px 24px; border-radius: 8px; cursor: pointer; font-family: inherit; margin-top: 14px; }
+.btn-next:hover { background: #d45a10; }
+.prompt-counter { font-size: 12px; opacity: .6; margin-top: 8px; color: white; }
+
+.checklist { list-style: none; padding: 0; }
+.checklist li { display: flex; align-items: center; gap: 12px; font-size: 15.5px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.checklist li:last-child { border-bottom: none; }
+.checklist input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; accent-color: var(--teal); flex-shrink: 0; }
+.checklist label { cursor: pointer; }
+.checklist input:checked + label { text-decoration: line-through; color: var(--muted); }
+
+.at-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.at-card { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 15px; }
+.at-num { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+.at-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.at-link { font-size: 13px; color: var(--muted); }
+
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 28px; margin-top: 10px; color: white; }
+.summary-box h3 { font-size: 18px; margin-bottom: 16px; }
+.summary-text { font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,.9); white-space: pre-wrap; font-family: inherit; }
+.btn-copy { background: var(--orange); color: white; border: none; font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; cursor: pointer; margin-top: 18px; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+.btn-copy:hover { background: #d45a10; }
+.copy-confirm { font-size: 13px; color: #4ade80; margin-top: 10px; display: none; }
+.copy-confirm.show { display: block; }
+
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+#scrollTop:hover { background: var(--orange); }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 11px 14px; text-align: left; font-size: 14px; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+ol.pl, ul.pl { padding-left: 22px; margin: 10px 0; }
+ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
+
+@media (max-width: 600px) {
+  .at-grid, .flip-grid, .match-columns, .mins-grid, .ai-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 21px; }
+  .page { padding: 20px 14px 60px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="tag">STUDENT</span>
+    <div>
+      <div class="top-title">CHCCOM002 — Use Communication to Build Relationships</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;&middot;&nbsp; Certificate IV Community Services</div>
+    </div>
+  </div>
+  <span style="font-size:13px;opacity:.7;white-space:nowrap;">Mon 4 May 2026</span>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step done" title="Session 1"></div>
+    <div class="step done" title="Session 2"></div>
+    <div class="step done" title="Session 3"></div>
+    <div class="step done" title="Session 4"></div>
+    <div class="step active" title="Session 5 — AT3 Role Play Day"></div>
+    <div class="step" title="Session 6"></div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-badge">Session 5 &nbsp;&middot;&nbsp; CHCCOM002</div>
+  <div class="hero-title">AT3: Safety and Respect Team Meeting</div>
+  <div class="hero-sub">Role Play Assessment Day. This page is your complete guide: scenario, scripts, minutes form, feedback forms, and reflection.</div>
+  <div class="hero-chips">
+    <span class="chip">&#127381; Assessment Day</span>
+    <span class="chip">AT3 Parts A, B &amp; C</span>
+    <span class="chip">First Access Community Services</span>
+    <span class="chip">Safety &amp; Respect Team</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- SECTION: AT3 OVERVIEW -->
+  <div class="section">
+    <div class="section-label">Assessment Overview</div>
+    <div class="section-title"><span class="ico">&#128203;</span>AT3 — What You Are Being Assessed On Today</div>
+
+    <div class="box box-orange">
+      <div class="box-label">AT3 Overview</div>
+      <p><strong>Part A</strong> = Team meeting role play (observed by your teacher). You participate in your assigned role in the Safety and Respect team meeting at First Access.</p>
+      <p><strong>Part B</strong> = Written feedback to each group member. You write structured feedback for three people in your group after the role play. Forms are on this page.</p>
+      <p style="margin-bottom:0;"><strong>Part C</strong> = Written reflection on the meeting and feedback received. Five reflection questions are on this page.</p>
+    </div>
+
+    <table>
+      <tr><th>Part</th><th>What you do</th><th>When</th></tr>
+      <tr><td><strong>Part A</strong></td><td>Participate in the team meeting role play in your assigned role</td><td>Approx. 10:45am — observed</td></tr>
+      <tr><td><strong>Part B</strong></td><td>Write feedback for 3 group members using the forms below</td><td>After role play (approx. 12:45pm)</td></tr>
+      <tr><td><strong>Part C</strong></td><td>Answer 5 written reflection questions</td><td>After Part B (approx. 1:15pm)</td></tr>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- SECTION: SCENARIO -->
+  <div class="section">
+    <div class="section-label">The Scenario</div>
+    <div class="section-title"><span class="ico">&#127968;</span>First Access Community Services</div>
+
+    <div class="box box-teal">
+      <div class="box-label">Background</div>
+      <p>You work at <strong>First Access</strong>, a community services organisation. After an incident involving client Cherie (which you explored in AT2), leadership has formed the <strong>Safety and Respect Team</strong>.</p>
+      <p style="margin-bottom:0;">Today is the <strong>first meeting</strong> of this new team. The purpose is to identify gaps in current practice and agree on actions to improve safety and respect for clients and workers.</p>
+    </div>
+
+    <div class="box box-navy">
+      <div class="box-label">Meeting Agenda</div>
+      <ol class="pl">
+        <li><strong>Welcome and introductions</strong> — 5 min</li>
+        <li><strong>Purpose of the Safety and Respect team</strong> — 5 min</li>
+        <li><strong>Current gaps in practice</strong> — 15 min</li>
+        <li><strong>Proposed actions</strong> — 10 min</li>
+        <li><strong>Measuring improvement</strong> — 5 min</li>
+        <li><strong>Next meeting and close</strong> — 5 min</li>
+      </ol>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- SECTION: ROLES -->
+  <div class="section">
+    <div class="section-label">Your Role</div>
+    <div class="section-title"><span class="ico">&#127917;</span>The Five Roles — Find Yours and Read It</div>
+    <p>Open your assigned role. Read the character description, your responsibilities, and your full script. You can open other roles too — understanding what others will do helps you respond well in the meeting.</p>
+
+    <!-- FACILITATOR -->
+    <div class="accordion" id="acc-fac">
+      <div class="accordion-header" onclick="toggleAcc('acc-fac')">
+        <span>&#127908; Facilitator — runs the meeting</span>
+        <span class="accordion-arrow">&#9658;</span>
+      </div>
+      <div class="accordion-body">
+        <span class="role-badge rb-facilitator">Facilitator</span>
+        <p><strong>Character:</strong> You are a team leader at First Access. You called this first meeting and volunteered to facilitate. You are organised, calm, and committed to making sure every voice is heard.</p>
+        <div class="box box-teal" style="margin-top:14px;">
+          <div class="box-label">3 Things You MUST Do (assessed)</div>
+          <ul class="must-list">
+            <li>Open the meeting professionally and introduce the agenda clearly</li>
+            <li>Actively draw out quieter participants — use their names, ask direct questions</li>
+            <li>Summarise key decisions and close the meeting with agreed actions</li>
+          </ul>
+        </div>
+        <div style="margin-top:18px;">
+          <div class="script-label">Opening Script</div>
+          <div class="script-box">"Good morning everyone, welcome to the first meeting of the Safety and Respect team at First Access. My name is [your name] and I'll be facilitating today. We have [names] present — thank you all for being here. I've circulated the agenda — does everyone have a copy? Great. Today our purpose is clear: to start building a safer, more respectful environment for our clients and our team. Let's begin with item one — welcome and introductions."</div>
+
+          <div class="script-label" style="margin-top:16px;">Transition Lines</div>
+          <div class="script-box">"Thanks [name], that's a really important point. Does anyone want to add to that before we move on?"<br><br>"We're coming up on time — let me summarise: [your summary]. Moving to item [number]."<br><br>"I want to make sure [quiet person's name] gets a chance to add their thoughts — [name], what do you think?"</div>
+
+          <div class="script-label" style="margin-top:16px;">Closing Script</div>
+          <div class="script-box">"That brings us to the end of today's agenda. Thank you everyone — this was a productive first meeting. Agreed actions: [list them]. Next meeting: [proposed date]. Meeting closed."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTE-TAKER -->
+    <div class="accordion" id="acc-nt">
+      <div class="accordion-header" onclick="toggleAcc('acc-nt')">
+        <span>&#128221; Note-Taker — records the minutes</span>
+        <span class="accordion-arrow">&#9658;</span>
+      </div>
+      <div class="accordion-body">
+        <span class="role-badge rb-notetaker">Note-Taker</span>
+        <p><strong>Character:</strong> You are a senior administration worker at First Access. You have been asked to record official minutes. You are thorough and professional, and you make sure the record accurately reflects decisions and actions.</p>
+        <div class="box box-green" style="margin-top:14px;">
+          <div class="box-label">3 Things You MUST Do (assessed)</div>
+          <ul class="must-list">
+            <li>Record key discussion points for every agenda item using the Digital Minutes Template below</li>
+            <li>Record every decision and every action item, including the responsible person</li>
+            <li>Ask at least one clarifying question during the meeting to confirm accuracy</li>
+          </ul>
+        </div>
+        <div class="box box-yellow" style="margin-top:12px;">
+          <div class="box-label">Important</div>
+          <p style="margin-bottom:0;">You do not have required speaking lines — your minutes form is your main assessment artefact for Part A. Use the <strong>Digital Minutes Template</strong> section below. When you miss something, say: "Sorry — could you repeat the agreed action? I want to make sure I record it correctly."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM MEMBER A -->
+    <div class="accordion" id="acc-ma">
+      <div class="accordion-header" onclick="toggleAcc('acc-ma')">
+        <span>&#128100; Team Member A — support worker, 2 years</span>
+        <span class="accordion-arrow">&#9658;</span>
+      </div>
+      <div class="accordion-body">
+        <span class="role-badge rb-memberA">Team Member A</span>
+        <p><strong>Character:</strong> You have been a support worker at First Access for two years. You work directly with clients daily and care deeply about their safety. You are confident, articulate, and focused on practical improvements.</p>
+        <div class="box box-purple" style="margin-top:14px;">
+          <div class="box-label">3 Things You MUST Do (assessed)</div>
+          <ul class="must-list">
+            <li>Make at least one substantive contribution about client safety — focus on disclosure processes</li>
+            <li>Build on another team member's point — extend it, don't just repeat it</li>
+            <li>Use person-centred language throughout (the client's rights and experience are central)</li>
+          </ul>
+        </div>
+        <div style="margin-top:18px;">
+          <div class="script-label">Opening Contribution</div>
+          <div class="script-box">"Thanks for having us. From my experience working directly with clients, I think the biggest gap is around disclosures — clients don't always feel safe coming forward. I'd like to see a clearer, more visible process for that."</div>
+
+          <div class="script-label" style="margin-top:16px;">Follow-Up Line</div>
+          <div class="script-box">"Building on that — I think clients need to know their rights before an incident happens, not after. Could we include a safety briefing in every intake appointment?"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM MEMBER B -->
+    <div class="accordion" id="acc-mb">
+      <div class="accordion-header" onclick="toggleAcc('acc-mb')">
+        <span>&#128100; Team Member B — new worker, 6 months</span>
+        <span class="accordion-arrow">&#9658;</span>
+      </div>
+      <div class="accordion-body">
+        <span class="role-badge rb-memberB">Team Member B</span>
+        <p><strong>Character:</strong> You started at First Access six months ago. You are enthusiastic and observant. Because you are new, you notice things experienced workers take for granted. You bring a genuine fresh perspective and you are not afraid to say "I didn't know that."</p>
+        <div class="box box-yellow" style="margin-top:14px;">
+          <div class="box-label">3 Things You MUST Do (assessed)</div>
+          <ul class="must-list">
+            <li>Raise the issue of induction and training gaps — what you were not shown when you started</li>
+            <li>Ask at least one genuine clarifying question about the current reporting process</li>
+            <li>Respond to feedback or comments from others professionally — don't just go quiet</li>
+          </ul>
+        </div>
+        <div style="margin-top:18px;">
+          <div class="script-label">Opening Contribution</div>
+          <div class="script-box">"I'm fairly new here, so I'm seeing this with fresh eyes. When I started, I wasn't sure what to do if a client raised a safety concern. The induction covered policies but not the practical steps. I think that's a gap."</div>
+
+          <div class="script-label" style="margin-top:16px;">Your Question</div>
+          <div class="script-box">"Can I ask — what's the current process for reporting a safety concern? I want to make sure I'm doing it right."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM MEMBER C -->
+    <div class="accordion" id="acc-mc">
+      <div class="accordion-header" onclick="toggleAcc('acc-mc')">
+        <span>&#128100; Team Member C — experienced worker, 8 years</span>
+        <span class="accordion-arrow">&#9658;</span>
+      </div>
+      <div class="accordion-body">
+        <span class="role-badge rb-memberC">Team Member C</span>
+        <p><strong>Character:</strong> You have worked at First Access for eight years. You have seen many initiatives come and go. You are direct, practical, and a little sceptical — but you genuinely care about real change. You push for accountability: named people, deadlines, and simplified systems.</p>
+        <div class="box box-orange" style="margin-top:14px;">
+          <div class="box-label">3 Things You MUST Do (assessed)</div>
+          <ul class="must-list">
+            <li>Raise the issue of accountability — insist that action items have a named person and a deadline</li>
+            <li>Advocate clearly for a simplified, plain-language reporting procedure</li>
+            <li>Stay professional even when being direct — assertive, not aggressive</li>
+          </ul>
+        </div>
+        <div style="margin-top:18px;">
+          <div class="script-label">Opening Contribution</div>
+          <div class="script-box">"I've been here eight years and I've seen this conversation before. What usually happens: we identify gaps, write a policy, then six months later nothing's changed because no one owns the actions. This time I want named responsibility and clear deadlines."</div>
+
+          <div class="script-label" style="margin-top:16px;">Advocacy Point</div>
+          <div class="script-box">"Specifically — the reporting procedure needs to be simplified. Three pages of forms is a barrier. Workers skip it. One page, plain language. That's what I'm asking for."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ACTIVITY 1: MATCH GAME -->
+  <div class="section">
+    <div class="section-label">Activity 1</div>
+    <div class="section-title"><span class="ico">&#127922;</span>Meeting Role Match</div>
+    <p>Match each role to its correct description. Click a role name on the left, then click its matching description on the right. Correct matches turn green.</p>
+
+    <div class="match-wrap">
+      <div class="match-columns">
+        <div>
+          <div class="match-col-label">Roles</div>
+          <div class="match-item" id="ml-fac" data-key="fac" onclick="selectLeft(this)">Facilitator</div>
+          <div class="match-item" id="ml-nt" data-key="nt" onclick="selectLeft(this)">Note-Taker</div>
+          <div class="match-item" id="ml-ma" data-key="ma" onclick="selectLeft(this)">Team Member A</div>
+          <div class="match-item" id="ml-mb" data-key="mb" onclick="selectLeft(this)">Team Member B</div>
+          <div class="match-item" id="ml-mc" data-key="mc" onclick="selectLeft(this)">Team Member C</div>
+        </div>
+        <div>
+          <div class="match-col-label">Descriptions</div>
+          <div class="match-item" id="mr-mc" data-key="mc" onclick="selectRight(this)">8-year veteran who pushes for accountability and a simplified reporting procedure</div>
+          <div class="match-item" id="mr-fac" data-key="fac" onclick="selectRight(this)">Opens the meeting, manages the agenda, and ensures all voices are heard</div>
+          <div class="match-item" id="mr-mb" data-key="mb" onclick="selectRight(this)">New worker who raises training gaps and asks about the current reporting process</div>
+          <div class="match-item" id="mr-nt" data-key="nt" onclick="selectRight(this)">Records discussion points, decisions, and action items in the official minutes</div>
+          <div class="match-item" id="mr-ma" data-key="ma" onclick="selectRight(this)">2-year support worker focused on client disclosure and safety briefings</div>
+        </div>
+      </div>
+      <button class="btn-reset" onclick="resetMatch()">Reset Game</button>
+      <div class="match-score" id="match-score"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ACTIVITY 2: FLASHCARDS -->
+  <div class="section">
+    <div class="section-label">Activity 2</div>
+    <div class="section-title"><span class="ico">&#128218;</span>Communication Skills You Need Today</div>
+    <p>Six skills you will use in the role play. Tap each card to flip it and see how to use the skill in the meeting.</p>
+
+    <div class="flip-grid">
+      <div class="flip-wrap">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-front">
+            <div class="flip-front-label">Skill</div>
+            <div class="flip-front-term">Active Listening</div>
+            <div class="flip-hint">tap to flip</div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-def">Nod, make eye contact, and paraphrase what others say. Don't prepare your next line while someone else speaks.</div>
+            <div class="flip-back-eg">"So what you're saying is the intake process doesn't include a safety briefing — is that right?"</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-front">
+            <div class="flip-front-label">Skill</div>
+            <div class="flip-front-term">Open Questions</div>
+            <div class="flip-hint">tap to flip</div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-def">Ask questions that can't be answered with yes or no. They open up discussion and invite others to share their thinking.</div>
+            <div class="flip-back-eg">"What do you think is driving that gap?" or "How could we make the reporting process easier?"</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-front">
+            <div class="flip-front-label">Skill</div>
+            <div class="flip-front-term">Summarising</div>
+            <div class="flip-hint">tap to flip</div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-def">Pull together key points to show you've listened and help the group move forward. Especially important for the Facilitator.</div>
+            <div class="flip-back-eg">"So we've heard three main gaps: disclosure process, induction, and the reporting form. Let's move to actions."</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-front">
+            <div class="flip-front-label">Skill</div>
+            <div class="flip-front-term">Assertive Communication</div>
+            <div class="flip-hint">tap to flip</div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-def">Say what you think clearly and directly, without being aggressive or passive. Use "I" statements and focus on the issue, not the person.</div>
+            <div class="flip-back-eg">"I believe the reporting form needs to be simplified — three pages is a barrier for workers."</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-front">
+            <div class="flip-front-label">Skill</div>
+            <div class="flip-front-term">Professional Tone</div>
+            <div class="flip-hint">tap to flip</div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-def">Formal but warm. Avoid slang. Stay calm even when discussing difficult topics. Show respect for colleagues even when you disagree.</div>
+            <div class="flip-back-eg">"I understand your concern — I'd like to suggest we look at this from a different angle."</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-front">
+            <div class="flip-front-label">Skill</div>
+            <div class="flip-front-term">Giving Feedback</div>
+            <div class="flip-hint">tap to flip</div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-def">In Part B, feedback must be specific, constructive, and professional. Name a behaviour — not a personality. One strength + one improvement.</div>
+            <div class="flip-back-eg">"You clearly raised the induction gap — a specific example from your own experience would have made it even stronger."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ACTIVITY 3: FILL IN BLANK -->
+  <div class="section">
+    <div class="section-label">Activity 3</div>
+    <div class="section-title"><span class="ico">&#128394;</span>Fill in the Blanks</div>
+    <p>Complete each sentence with the correct word(s). Press Check Answers when done.</p>
+
+    <div class="box box-navy" style="padding:22px;">
+      <div class="blank-sentence">
+        1. A facilitator <input class="blank-input" id="b1a" placeholder="___"> the meeting, manages the agenda, and ensures everyone <input class="blank-input" id="b1b" placeholder="___">.
+      </div>
+      <div class="blank-sentence">
+        2. Meeting minutes are a <input class="blank-input" id="b2a" placeholder="___"> record of decisions and <input class="blank-input" id="b2b" placeholder="___"> items.
+      </div>
+      <div class="blank-sentence">
+        3. In Part B, feedback should be <input class="blank-input" id="b3a" placeholder="___">, <input class="blank-input" id="b3b" placeholder="___">, and <input class="blank-input" id="b3c" placeholder="___">.
+      </div>
+      <div class="blank-sentence">
+        4. The <input class="blank-input" id="b4a" placeholder="___">-centred approach means the client's goals and preferences drive every interaction.
+      </div>
+      <button class="btn-check" onclick="checkBlanks()">Check Answers</button>
+      <div class="blank-feedback" id="blank-feedback"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- MINUTES TEMPLATE -->
+  <div class="section">
+    <div class="section-label">Note-Taker Tool</div>
+    <div class="section-title"><span class="ico">&#128196;</span>Digital Meeting Minutes Template</div>
+    <p>If you are the <strong>Note-Taker</strong>, use this during the role play. All fields save automatically to this browser. If you have a different role, you can still follow along.</p>
+
+    <div class="minutes-form">
+      <div class="mins-grid">
+        <div class="mins-group">
+          <label for="mn-name">Meeting Name</label>
+          <input class="fill-input" id="mn-name" placeholder="Safety and Respect Team — Meeting 1" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-date">Date</label>
+          <input class="fill-input" id="mn-date" placeholder="4 May 2026" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-time">Time</label>
+          <input class="fill-input" id="mn-time" placeholder="10:45am" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-venue">Venue</label>
+          <input class="fill-input" id="mn-venue" placeholder="Meeting Room, First Access" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-fac">Facilitator</label>
+          <input class="fill-input" id="mn-fac" placeholder="" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-apo">Apologies</label>
+          <input class="fill-input" id="mn-apo" placeholder="None" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group full">
+          <label for="mn-att">Attendees</label>
+          <input class="fill-input" id="mn-att" placeholder="List all names present" oninput="saveMn(this.id,this.value)">
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 1 — Welcome and Introductions</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a1d">Discussion Summary</label><textarea class="fill-area" id="a1d" rows="3" placeholder="Summarise what was discussed..." oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a1dec">Decision</label><input class="fill-input" id="a1dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a1act">Action</label><input class="fill-input" id="a1act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a1res">Responsible Person</label><input class="fill-input" id="a1res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 2 — Purpose of the Safety and Respect Team</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a2d">Discussion Summary</label><textarea class="fill-area" id="a2d" rows="3" placeholder="Summarise what was discussed..." oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a2dec">Decision</label><input class="fill-input" id="a2dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a2act">Action</label><input class="fill-input" id="a2act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a2res">Responsible Person</label><input class="fill-input" id="a2res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 3 — Current Gaps in Practice</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a3d">Discussion Summary</label><textarea class="fill-area" id="a3d" rows="4" placeholder="This is the longest item — summarise each gap raised..." oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a3dec">Decision</label><input class="fill-input" id="a3dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a3act">Action</label><input class="fill-input" id="a3act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a3res">Responsible Person</label><input class="fill-input" id="a3res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 4 — Proposed Actions</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a4d">Discussion Summary</label><textarea class="fill-area" id="a4d" rows="3" placeholder="List each proposed action discussed..." oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a4dec">Decision</label><input class="fill-input" id="a4dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a4act">Action</label><input class="fill-input" id="a4act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a4res">Responsible Person</label><input class="fill-input" id="a4res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 5 — Measuring Improvement</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a5d">Discussion Summary</label><textarea class="fill-area" id="a5d" rows="3" placeholder="How will the team know things are improving?" oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a5dec">Decision</label><input class="fill-input" id="a5dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a5act">Action</label><input class="fill-input" id="a5act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a5res">Responsible Person</label><input class="fill-input" id="a5res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="mins-grid" style="margin-top:16px;">
+        <div class="mins-group">
+          <label for="mn-next">Next Meeting Date</label>
+          <input class="fill-input" id="mn-next" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-close">Meeting Closed By</label>
+          <input class="fill-input" id="mn-close" oninput="saveMn(this.id,this.value)">
+        </div>
+      </div>
+    </div>
+    <p class="save-note">&#128190; Your minutes save automatically to this browser.</p>
+  </div>
+
+  <hr>
+
+  <!-- PART B: FEEDBACK FORMS -->
+  <div class="section">
+    <div class="section-label">AT3 Part B</div>
+    <div class="section-title"><span class="ico">&#128172;</span>Feedback to Group Members</div>
+    <p>After the role play, write structured feedback for <strong>three</strong> of your group members. Be specific, constructive, and professional. Name what they did — not who they are as a person.</p>
+
+    <div class="box box-teal">
+      <div class="box-label">What Makes Good Feedback?</div>
+      <ul class="pl">
+        <li><strong>Specific</strong> — refer to something they actually said or did in the meeting</li>
+        <li><strong>Constructive</strong> — the improvement suggestion must be actionable</li>
+        <li><strong>Professional</strong> — collegial tone, not critical or personal</li>
+      </ul>
+    </div>
+
+    <div class="fb-card">
+      <div class="fb-title">&#128100; Feedback — Group Member 1</div>
+      <div class="fill-label">Name</div>
+      <input class="fill-input" id="fb1n" placeholder="Group member's name" oninput="saveFb(this.id,this.value)">
+      <div class="fill-label">What they did well (be specific)</div>
+      <textarea class="fill-area" id="fb1w" rows="3" placeholder="e.g. They clearly explained the issue with the current induction process..." oninput="saveFb(this.id,this.value)"></textarea>
+      <div class="fill-label">One area for improvement</div>
+      <textarea class="fill-area" id="fb1i" rows="3" placeholder="e.g. Next time they could..." oninput="saveFb(this.id,this.value)"></textarea>
+      <div class="fill-label">Specific example from today's meeting</div>
+      <textarea class="fill-area" id="fb1e" rows="3" placeholder="e.g. When [name] said... it showed that..." oninput="saveFb(this.id,this.value)"></textarea>
+    </div>
+
+    <div class="fb-card">
+      <div class="fb-title">&#128100; Feedback — Group Member 2</div>
+      <div class="fill-label">Name</div>
+      <input class="fill-input" id="fb2n" placeholder="Group member's name" oninput="saveFb(this.id,this.value)">
+      <div class="fill-label">What they did well (be specific)</div>
+      <textarea class="fill-area" id="fb2w" rows="3" placeholder="e.g. They clearly explained..." oninput="saveFb(this.id,this.value)"></textarea>
+      <div class="fill-label">One area for improvement</div>
+      <textarea class="fill-area" id="fb2i" rows="3" placeholder="e.g. Next time they could..." oninput="saveFb(this.id,this.value)"></textarea>
+      <div class="fill-label">Specific example from today's meeting</div>
+      <textarea class="fill-area" id="fb2e" rows="3" placeholder="e.g. When [name] said..." oninput="saveFb(this.id,this.value)"></textarea>
+    </div>
+
+    <div class="fb-card">
+      <div class="fb-title">&#128100; Feedback — Group Member 3</div>
+      <div class="fill-label">Name</div>
+      <input class="fill-input" id="fb3n" placeholder="Group member's name" oninput="saveFb(this.id,this.value)">
+      <div class="fill-label">What they did well (be specific)</div>
+      <textarea class="fill-area" id="fb3w" rows="3" placeholder="e.g. They clearly explained..." oninput="saveFb(this.id,this.value)"></textarea>
+      <div class="fill-label">One area for improvement</div>
+      <textarea class="fill-area" id="fb3i" rows="3" placeholder="e.g. Next time they could..." oninput="saveFb(this.id,this.value)"></textarea>
+      <div class="fill-label">Specific example from today's meeting</div>
+      <textarea class="fill-area" id="fb3e" rows="3" placeholder="e.g. When [name] said..." oninput="saveFb(this.id,this.value)"></textarea>
+    </div>
+
+    <div class="fb-card" style="border-color:var(--teal);">
+      <div class="fb-title" style="color:var(--teal);">&#128203; Feedback I Received from Others</div>
+      <p style="font-size:15px;color:var(--muted);margin-bottom:12px;">Record what your group members said about your performance. This feeds directly into Part C Question 3.</p>
+      <div class="fill-label">What feedback did you receive? Who said it?</div>
+      <textarea class="fill-area" id="fbr" rows="5" placeholder="e.g. [Name] said I could have spoken up more during Item 3. [Name] said my summary at the end was clear..." oninput="saveFb(this.id,this.value)"></textarea>
+    </div>
+    <p class="save-note">&#128190; All feedback forms save automatically.</p>
+  </div>
+
+  <hr>
+
+  <!-- PART C: REFLECTION -->
+  <div class="section">
+    <div class="section-label">AT3 Part C</div>
+    <div class="section-title"><span class="ico">&#129300;</span>Reflection Questions</div>
+    <p>Answer all five questions in full sentences. Your answers save automatically.</p>
+
+    <div class="box box-purple" style="margin-bottom:22px;">
+      <div class="box-label">What makes a strong reflection?</div>
+      <p style="margin-bottom:0;">Don't just describe what happened — <strong>analyse it</strong>. Why did it happen? What does it mean for your practice? What would you do differently? Use specific evidence from today's meeting.</p>
+    </div>
+
+    <div class="fill-label">Q1. How effective was the meeting overall? What evidence supports your answer?</div>
+    <textarea class="fill-area" id="rq1" rows="5" placeholder="Think about: Did the group achieve the agenda? Were all voices heard? Were clear actions agreed?..." oninput="saveRef(this.id,this.value)"></textarea>
+
+    <div class="fill-label" style="margin-top:20px;">Q2. What was YOUR contribution to the meeting? Give 2-3 specific examples.</div>
+    <textarea class="fill-area" id="rq2" rows="5" placeholder="Name specific things you said or did. Don't just say 'I contributed' — describe what and when..." oninput="saveRef(this.id,this.value)"></textarea>
+
+    <div class="fill-label" style="margin-top:20px;">Q3. What feedback did you receive from others? Do you agree with it? Why or why not?</div>
+    <textarea class="fill-area" id="rq3" rows="5" placeholder="Refer to the feedback you recorded in Part B. Reflect honestly — it's okay to agree or respectfully disagree if you give a reason..." oninput="saveRef(this.id,this.value)"></textarea>
+
+    <div class="fill-label" style="margin-top:20px;">Q4. What would you do differently if you ran or participated in this meeting again?</div>
+    <textarea class="fill-area" id="rq4" rows="5" placeholder="Be specific. What skill would you use more? What would you say differently?..." oninput="saveRef(this.id,this.value)"></textarea>
+
+    <div class="fill-label" style="margin-top:20px;">Q5. Which concept from Sessions 1-4 did you see clearly in action today? Give a specific example from the meeting.</div>
+    <textarea class="fill-area" id="rq5" rows="5" placeholder="e.g. Person-centred approach, active listening, barriers to communication, professional communication, assertive communication..." oninput="saveRef(this.id,this.value)"></textarea>
+    <p class="save-note" style="margin-top:8px;">&#128190; All reflections save automatically.</p>
+  </div>
+
+  <hr>
+
+  <!-- PRACTICE SECTION -->
+  <div class="section">
+    <div class="section-label">Warm Up</div>
+    <div class="section-title"><span class="ico">&#127917;</span>Practise Before the Assessment</div>
+    <p>Use these tools to warm up. Select your role first — your scripts will load automatically.</p>
+
+    <div class="practice-card">
+      <div class="practice-title">Select Your Role</div>
+      <select class="role-select" id="role-sel" onchange="updatePractice()">
+        <option value="">-- Choose your role --</option>
+        <option value="fac">Facilitator</option>
+        <option value="nt">Note-Taker</option>
+        <option value="ma">Team Member A</option>
+        <option value="mb">Team Member B</option>
+        <option value="mc">Team Member C</option>
+      </select>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-title">A. Your Opening Line</div>
+      <p style="font-size:15px;color:var(--muted);margin-bottom:10px;">This is what you will say to open your contribution. Edit it to make it your own, then practise saying it out loud.</p>
+      <textarea class="fill-area" id="prac-open" rows="5" placeholder="Select your role above to load your opening line..."></textarea>
+      <button class="btn-sm" onclick="copyPrac('prac-open','cc-open')">&#128203; Copy to clipboard</button>
+      <div class="copy-confirm" id="cc-open">Copied!</div>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-title">B. Three Things I Will Say</div>
+      <p style="font-size:15px;color:var(--muted);margin-bottom:12px;">Edit these to match your own words. Practise them until they feel natural.</p>
+      <div class="fill-label">Contribution 1</div>
+      <textarea class="fill-area" id="prac-s1" rows="3" placeholder="Select your role above..."></textarea>
+      <div class="fill-label" style="margin-top:12px;">Contribution 2</div>
+      <textarea class="fill-area" id="prac-s2" rows="3" placeholder="Select your role above..."></textarea>
+      <div class="fill-label" style="margin-top:12px;">Contribution 3 — your own words</div>
+      <textarea class="fill-area" id="prac-s3" rows="3" placeholder="Write something you want to add in your own voice..."></textarea>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-title">C. Quick-Fire Prompts</div>
+      <p style="font-size:15px;color:var(--muted);margin-bottom:8px;">A scenario appears below. Think about how you would respond in your role. Press Next Prompt when ready.</p>
+      <div class="prompt-box">
+        <div class="prompt-text" id="prompt-text">Press "Next Prompt" to get started.</div>
+        <button class="btn-next" onclick="nextPrompt()">Next Prompt &rarr;</button>
+        <div class="prompt-counter" id="prompt-counter"></div>
+      </div>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-title">D. Pre-Assessment Checklist — Tick Off Before You Begin</div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="ck1" onchange="saveCk(this.id,this.checked)"><label for="ck1">I know my role and my character</label></li>
+        <li><input type="checkbox" id="ck2" onchange="saveCk(this.id,this.checked)"><label for="ck2">I know the six agenda items and their order</label></li>
+        <li><input type="checkbox" id="ck3" onchange="saveCk(this.id,this.checked)"><label for="ck3">I have 2-3 things ready to say in my own words</label></li>
+        <li><input type="checkbox" id="ck4" onchange="saveCk(this.id,this.checked)"><label for="ck4">I know what the note-taker records (decisions and action items)</label></li>
+        <li><input type="checkbox" id="ck5" onchange="saveCk(this.id,this.checked)"><label for="ck5">I know how to give professional feedback: specific, constructive, professional</label></li>
+        <li><input type="checkbox" id="ck6" onchange="saveCk(this.id,this.checked)"><label for="ck6">I have read all five Part C reflection questions</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ASSESSMENT CONNECTIONS -->
+  <div class="section">
+    <div class="section-label">Assessment Connections</div>
+    <div class="section-title"><span class="ico">&#127919;</span>How Today Links to Your Assessment</div>
+    <div class="at-grid">
+      <div class="at-card">
+        <div class="at-num">AT3 Part A</div>
+        <div class="at-name">Role Play — Observed</div>
+        <div class="at-link">Your teacher observes your participation. PC3.1-3.9, PC1.1-1.4, PC2.1-2.4 all assessed today.</div>
+      </div>
+      <div class="at-card">
+        <div class="at-num">AT3 Part B</div>
+        <div class="at-name">Feedback Forms</div>
+        <div class="at-link">Complete the three feedback forms on this page after the role play. Submit as part of your AT3 package.</div>
+      </div>
+      <div class="at-card">
+        <div class="at-num">AT3 Part C</div>
+        <div class="at-name">Written Reflection</div>
+        <div class="at-link">Answer all five reflection questions on this page. Submit as part of your AT3 package.</div>
+      </div>
+      <div class="at-card">
+        <div class="at-num">AT1 &amp; AT2</div>
+        <div class="at-name">Due Soon</div>
+        <div class="at-link">If you finish early, use remaining time to finalise AT1 and AT2. Confirm due date with your teacher.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- END OF DAY SUMMARY -->
+  <div class="section">
+    <div class="section-label">End of Day</div>
+    <div class="section-title"><span class="ico">&#127881;</span>End of Day Summary</div>
+    <div class="summary-box">
+      <h3>&#128203; Copy to Teams — Send to Yourself or Your Group</h3>
+      <div class="summary-text" id="eod-text">Hi everyone,
+
+What a big day! Here is a summary of what you did today and why it matters.
+
+WHAT YOU DID TODAY
+
+1. AT3 Part A — Role Play (observed)
+You participated in the first Safety and Respect Team meeting at First Access in your assigned role. Whether you facilitated, took minutes, or contributed as a team member, you demonstrated real workplace communication skills under observation.
+
+2. AT3 Part B — Peer Feedback
+You wrote structured, professional feedback for three of your group members. This is a genuine workplace skill — giving feedback that helps colleagues grow without damaging the professional relationship.
+
+3. AT3 Part C — Written Reflection
+You reflected on your own performance, the feedback you received, and what you would do differently. Reflection is what turns a single experience into lasting professional development.
+
+WHY THIS MATTERS FOR YOUR CAREER
+
+Every team meeting in community services requires these exact skills. Client safety depends on workers who can communicate clearly, raise concerns professionally, and hold each other to agreed actions. Today, you practised all of that.
+
+HOW TODAY LINKS TO YOUR ASSESSMENTS
+
+AT3 Part A: Your teacher's observation covered how you opened or contributed, whether you used person-centred language, how you responded to others, and your overall professional tone.
+
+AT3 Part B: Your peer feedback forms are part of your AT3 submission. They must be specific and professional — refer to what people said and did, not who they are.
+
+AT3 Part C: Your five reflection answers complete AT3. Write in full sentences and use specific examples from today's meeting.
+
+AT1 and AT2: If you haven't submitted these yet, confirm the due date with your teacher and use any remaining time today.
+
+A NOTE FOR YOUR RECORDS
+
+Keep everything you completed today — your minutes (if you were the note-taker), your feedback forms, and your reflection answers. These documents make up your AT3 submission.
+
+Well done for putting yourself out there today. Role plays take courage, and you did it.</div>
+      <button class="btn-copy" onclick="copyEod()">&#128203; Copy to clipboard</button>
+      <div class="copy-confirm" id="cc-eod">Copied! Paste into Teams or an email.</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+var LS = 'chccom002_s5_';
+
+function saveMn(k,v){ localStorage.setItem(LS+'minutes_'+k, v); }
+function saveFb(k,v){ localStorage.setItem(LS+'feedback_'+k, v); }
+function saveRef(k,v){ localStorage.setItem(LS+'reflect_'+k, v); }
+function saveCk(k,v){ localStorage.setItem(LS+'check_'+k, v); }
+
+var mnKeys = ['mn-name','mn-date','mn-time','mn-venue','mn-fac','mn-apo','mn-att',
+  'a1d','a1dec','a1act','a1res','a2d','a2dec','a2act','a2res',
+  'a3d','a3dec','a3act','a3res','a4d','a4dec','a4act','a4res',
+  'a5d','a5dec','a5act','a5res','mn-next','mn-close'];
+var fbKeys = ['fb1n','fb1w','fb1i','fb1e','fb2n','fb2w','fb2i','fb2e','fb3n','fb3w','fb3i','fb3e','fbr'];
+var refKeys = ['rq1','rq2','rq3','rq4','rq5'];
+var ckKeys = ['ck1','ck2','ck3','ck4','ck5','ck6'];
+
+function loadAll(){
+  mnKeys.forEach(function(k){
+    var v=localStorage.getItem(LS+'minutes_'+k);
+    var el=document.getElementById(k); if(el&&v!==null) el.value=v;
+  });
+  fbKeys.forEach(function(k){
+    var v=localStorage.getItem(LS+'feedback_'+k);
+    var el=document.getElementById(k); if(el&&v!==null) el.value=v;
+  });
+  refKeys.forEach(function(k){
+    var v=localStorage.getItem(LS+'reflect_'+k);
+    var el=document.getElementById(k); if(el&&v!==null) el.value=v;
+  });
+  ckKeys.forEach(function(k){
+    var v=localStorage.getItem(LS+'check_'+k);
+    var el=document.getElementById(k); if(el&&v==='true') el.checked=true;
+  });
+}
+window.addEventListener('load',loadAll);
+
+// Accordion
+function toggleAcc(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+// Match game
+var mLeft=null, mRight=null, mScore=0;
+function selectLeft(el){
+  if(el.classList.contains('correct')) return;
+  document.querySelectorAll('[id^="ml-"]').forEach(function(e){e.classList.remove('selected');});
+  el.classList.add('selected'); mLeft=el;
+  if(mRight) tryMatch();
+}
+function selectRight(el){
+  if(el.classList.contains('correct')) return;
+  document.querySelectorAll('[id^="mr-"]').forEach(function(e){e.classList.remove('selected');});
+  el.classList.add('selected'); mRight=el;
+  if(mLeft) tryMatch();
+}
+function tryMatch(){
+  if(mLeft.dataset.key===mRight.dataset.key){
+    mLeft.classList.remove('selected'); mLeft.classList.add('correct');
+    mRight.classList.remove('selected'); mRight.classList.add('correct');
+    mScore++;
+    var sc=document.getElementById('match-score');
+    sc.textContent = mScore===5 ? '' : mScore+'/5 matched';
+    if(mScore===5) sc.innerHTML='&#127881; All matched! Well done.';
+  } else {
+    mLeft.classList.add('wrong'); mRight.classList.add('wrong');
+    var l=mLeft, r=mRight;
+    setTimeout(function(){ l.classList.remove('selected','wrong'); r.classList.remove('selected','wrong'); },500);
+  }
+  mLeft=null; mRight=null;
+}
+function resetMatch(){
+  mScore=0; mLeft=null; mRight=null;
+  document.querySelectorAll('[id^="ml-"],[id^="mr-"]').forEach(function(e){
+    e.classList.remove('selected','correct','wrong');
+  });
+  document.getElementById('match-score').textContent='';
+}
+
+// Fill in blank
+function norm(s){ return s.trim().toLowerCase().replace(/[^a-z]/g,''); }
+var blankAns = {
+  b1a:['opens','open','chairs'],
+  b1b:['contributes','contribute','participates','participate'],
+  b2a:['legal','official','formal','written'],
+  b2b:['action','actions'],
+  b3a:['specific'],
+  b3b:['constructive'],
+  b3c:['professional'],
+  b4a:['person','personcentred','personcentered']
+};
+function checkBlanks(){
+  var correct=0, total=Object.keys(blankAns).length;
+  Object.keys(blankAns).forEach(function(id){
+    var el=document.getElementById(id); if(!el) return;
+    var ok=blankAns[id].some(function(c){return norm(c)===norm(el.value);});
+    el.classList.remove('correct','wrong');
+    el.classList.add(ok?'correct':'wrong');
+    if(ok) correct++;
+  });
+  var fb=document.getElementById('blank-feedback');
+  if(correct===total){ fb.style.color='var(--green)'; fb.textContent='All correct! Great work.'; }
+  else { fb.style.color='#ef4444'; fb.textContent=correct+' of '+total+' correct — check the red boxes.'; }
+}
+
+// Practice scripts
+var rScripts={
+  fac:{
+    open:"Good morning everyone, welcome to the first meeting of the Safety and Respect team at First Access. My name is [your name] and I'll be facilitating today. We have [names] present — thank you all for being here. I've circulated the agenda — does everyone have a copy? Great. Today our purpose is clear: to start building a safer, more respectful environment for our clients and our team. Let's begin with item one — welcome and introductions.",
+    s1:"Thanks [name], that's a really important point. Does anyone want to add to that before we move on?",
+    s2:"We're coming up on time — let me summarise: [your summary]. Moving to item [number].",
+    s3:"That brings us to the end of today's agenda. Agreed actions: [list them]. Next meeting: [proposed date]. Meeting closed."
+  },
+  nt:{
+    open:"[You don't have a scripted opening — your job is to listen and record. Your key line when you miss something:]\n\n\"Sorry, could you repeat the agreed action? I want to make sure I record it correctly.\"",
+    s1:"Sorry, could you repeat the agreed action? I want to make sure I record it correctly.",
+    s2:"Just to confirm — the action is [action] and [name] is responsible. Is that right?",
+    s3:"[Write your own clarifying question here — something you might need to ask to keep the minutes accurate.]"
+  },
+  ma:{
+    open:"Thanks for having us. From my experience working directly with clients, I think the biggest gap is around disclosures — clients don't always feel safe coming forward. I'd like to see a clearer, more visible process for that.",
+    s1:"Building on that — I think clients need to know their rights before an incident happens, not after. Could we include a safety briefing in every intake appointment?",
+    s2:"I agree with [name] — the reporting process needs to be something workers actually use. If it's too complex, people skip it and clients lose out.",
+    s3:"[Write your own contribution here — focus on the client's rights or safety experience.]"
+  },
+  mb:{
+    open:"I'm fairly new here, so I'm seeing this with fresh eyes. When I started, I wasn't sure what to do if a client raised a safety concern. The induction covered policies but not the practical steps. I think that's a gap.",
+    s1:"Can I ask — what's the current process for reporting a safety concern? I want to make sure I'm doing it right.",
+    s2:"That makes sense. So if I understand correctly, after a disclosure the next step is [repeat back]. I just want to make sure I have that right.",
+    s3:"[Write your own contribution — something a new worker would genuinely notice or ask about.]"
+  },
+  mc:{
+    open:"I've been here eight years and I've seen this conversation before. What usually happens: we identify gaps, write a policy, then six months later nothing's changed because no one owns the actions. This time I want named responsibility and clear deadlines.",
+    s1:"Specifically — the reporting procedure needs to be simplified. Three pages of forms is a barrier. Workers skip it. One page, plain language. That's what I'm asking for.",
+    s2:"I support that idea — but I want to know who is responsible for implementing it and by when. Can we put a name and a date against that action?",
+    s3:"[Write your own contribution — push for a specific, measurable change with accountability.]"
+  }
+};
+function updatePractice(){
+  var r=document.getElementById('role-sel').value;
+  if(!r) return;
+  var s=rScripts[r];
+  document.getElementById('prac-open').value=s.open;
+  document.getElementById('prac-s1').value=s.s1;
+  document.getElementById('prac-s2').value=s.s2;
+  document.getElementById('prac-s3').value=s.s3;
+}
+
+function copyPrac(srcId, confirmId){
+  var text=document.getElementById(srcId).value;
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(function(){
+    var c=document.getElementById(confirmId);
+    c.classList.add('show');
+    setTimeout(function(){c.classList.remove('show');},2000);
+  });
+}
+
+// Quick-fire prompts
+var prompts=[
+  "The facilitator asks: 'Does anyone else have thoughts on the reporting procedure?' — What do you say in your role?",
+  "A team member raises a point you strongly agree with. How do you build on it without just repeating what they said?",
+  "The discussion is going off-track onto a topic not on the agenda. You are the facilitator — what do you do?",
+  "Someone is dominating the conversation and others can't get a word in. You are the facilitator — what do you say?",
+  "You are the note-taker and you missed what was just decided — what do you do?",
+  "The meeting is running 10 minutes over time. You are the facilitator — how do you handle this?",
+  "Team Member B has been quiet for the last 10 minutes. You are the facilitator — how do you draw them in respectfully?",
+  "You want to check that everyone in the group understood and agreed on the action just discussed. What do you say? (Any role)"
+];
+var pIdx=-1;
+function nextPrompt(){
+  pIdx=(pIdx+1)%prompts.length;
+  document.getElementById('prompt-text').textContent=prompts[pIdx];
+  document.getElementById('prompt-counter').textContent=(pIdx+1)+' of '+prompts.length;
+}
+
+// Copy end of day
+function copyEod(){
+  var text=document.getElementById('eod-text').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var c=document.getElementById('cc-eod');
+    c.classList.add('show');
+    setTimeout(function(){c.classList.remove('show');},3000);
+  });
+}
+
+// Scroll top
+window.addEventListener('scroll',function(){
+  document.getElementById('scrollTop').classList.toggle('vis',window.scrollY>400);
+});
+</script>
+</body>
+</html>

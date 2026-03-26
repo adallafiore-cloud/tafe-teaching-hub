@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 3 — TEACHER VIEW | CHCCOM002</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --teacher: #7c2d12;
+  --teacher-lt: #fff7ed;
+  --teacher-mid: #dc6803;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --panel-w: 260px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.75; }
+
+/* ── HEADER ── */
+.top-bar { background: var(--teacher); color: white; padding: 13px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.teacher-badge { background: var(--teacher-mid); color: white; font-size: 11px; font-weight: 800; padding: 4px 11px; border-radius: 20px; letter-spacing: .5px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 1px; }
+.top-right { display: flex; align-items: center; gap: 12px; }
+.toggle-panel-btn { background: rgba(255,255,255,.2); color: white; border: 1px solid rgba(255,255,255,.3); font-size: 12px; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-family: inherit; }
+.toggle-panel-btn:hover { background: rgba(255,255,255,.3); }
+
+/* ── LAYOUT ── */
+.layout { display: flex; }
+
+/* ── TIMING SIDEBAR ── */
+.timing-sidebar { width: var(--panel-w); flex-shrink: 0; position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; background: var(--white); border-right: 1px solid var(--border); padding: 18px 0 40px; transition: width .3s, opacity .3s; }
+.timing-sidebar.collapsed { width: 0; overflow: hidden; opacity: 0; padding: 0; }
+.sidebar-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); padding: 0 16px 10px; }
+.time-block { padding: 10px 16px; border-left: 3px solid transparent; cursor: pointer; }
+.time-block:hover { background: var(--bg); }
+.time-block.active { border-left-color: var(--teacher-mid); background: var(--orange-lt); }
+.time-block.break { border-left-color: #94a3b8; background: #f1f5f9; cursor: default; }
+.tb-time { font-size: 12px; font-weight: 700; color: var(--teacher); }
+.tb-label { font-size: 13px; color: var(--text); font-weight: 600; line-height: 1.4; }
+.tb-dur { font-size: 11px; color: var(--muted); }
+.sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 8px 16px; }
+
+/* ── MAIN ── */
+.main-area { flex: 1; min-width: 0; }
+.page { max-width: 720px; margin: 0 auto; padding: 28px 20px 80px; }
+
+/* ── HERO ── */
+.hero { background: linear-gradient(135deg, var(--teacher) 0%, #9a3412 100%); color: white; padding: 36px 28px 32px; }
+.hero-teacher-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.2); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; letter-spacing: .4px; }
+.hero-title { font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 15px; opacity: .9; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 12px; padding: 4px 11px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+/* ── TIME BLOCK HEADERS ── */
+.time-block-header { display: flex; align-items: center; gap: 0; margin: 36px 0 20px; background: var(--teacher); color: white; border-radius: var(--radius); overflow: hidden; }
+.tbh-time { background: var(--teacher-mid); padding: 14px 20px; font-size: 17px; font-weight: 800; white-space: nowrap; min-width: 130px; }
+.tbh-right { padding: 12px 18px; flex: 1; }
+.tbh-label { font-size: 13px; opacity: .7; text-transform: uppercase; letter-spacing: .7px; }
+.tbh-title { font-size: 16px; font-weight: 700; }
+.tbh-dur { font-size: 12px; opacity: .6; margin-top: 2px; }
+.break-header { background: #e2e8f0; color: var(--muted); border-radius: var(--radius); padding: 12px 20px; margin: 28px 0; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 36px; }
+.section-label { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+p { margin-bottom: 12px; font-size: 16px; }
+
+/* ── FACILITATOR PANEL ── */
+.fac-panel { background: #fff7ed; border: 2px solid var(--teacher-mid); border-radius: var(--radius); margin: 16px 0; overflow: hidden; }
+.fac-panel-head { background: var(--teacher-mid); color: white; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.fac-panel-head-left { display: flex; align-items: center; gap: 10px; }
+.fac-type { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; background: rgba(255,255,255,.25); padding: 2px 8px; border-radius: 20px; }
+.fac-title-text { font-size: 14px; font-weight: 700; }
+.fac-chevron { font-size: 16px; transition: transform .25s; }
+.fac-body { padding: 16px 18px; display: none; }
+.fac-body.open { display: block; }
+.fac-body p, .fac-body li { font-size: 14.5px; }
+.fac-body ul, .fac-body ol { padding-left: 20px; margin-top: 6px; }
+.fac-body li { margin-bottom: 7px; }
+.fac-say { background: #fff; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px 15px; margin: 10px 0; font-size: 14px; color: var(--teacher); font-style: italic; }
+.fac-say::before { content: 'Say: '; font-style: normal; font-weight: 700; }
+.fac-tip { background: #fef9c3; border-left: 3px solid #eab308; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-tip::before { content: 'Tip: '; font-weight: 700; }
+.fac-lln { background: #f0fdfa; border-left: 3px solid var(--teal); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-lln::before { content: 'LLN: '; font-weight: 700; color: var(--teal); }
+.fac-cald { background: #f5f3ff; border-left: 3px solid var(--purple); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-cald::before { content: 'CALD: '; font-weight: 700; color: var(--purple); }
+.fac-answer { background: var(--green-lt); border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 15px; margin: 10px 0; font-size: 14px; }
+.fac-answer-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: var(--green); margin-bottom: 6px; }
+
+/* ── STANDARD BOXES ── */
+.box { border-radius: var(--radius); padding: 16px 18px; margin: 14px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-alert { background: #fff1f2; border-left: 4px solid #f43f5e; }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-navy .box-label { color: var(--navy); }
+.box-alert .box-label { color: #be123c; }
+.box p, .box li { font-size: 14.5px; }
+
+/* ── CONCEPT CARDS ── */
+.concept-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 16px 0; }
+.concept-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; position: relative; overflow: hidden; }
+.concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.cc-aw::before { background: var(--teal); }
+.cc-co::before { background: var(--orange); }
+.cc-sa::before { background: var(--green); }
+.concept-num { font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 5px; }
+.cc-aw .concept-num { color: var(--teal); }
+.cc-co .concept-num { color: var(--orange); }
+.cc-sa .concept-num { color: var(--green); }
+.concept-name { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 7px; }
+.concept-def { font-size: 15px; color: var(--text); margin-bottom: 10px; }
+.concept-eg { font-size: 13.5px; color: var(--muted); font-style: italic; padding: 7px 11px; background: var(--bg); border-radius: 6px; }
+
+/* ── TUCKMAN ── */
+.tuckman-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 16px 0; }
+.tuck-stage { border-radius: var(--radius); padding: 14px 12px; text-align: center; }
+.tuck-forming { background: #eff6ff; border: 2px solid #3b82f6; }
+.tuck-storming { background: #fff1f2; border: 2px solid #f43f5e; }
+.tuck-norming { background: #fefce8; border: 2px solid #eab308; }
+.tuck-performing { background: var(--green-lt); border: 2px solid #16a34a; }
+.tuck-name { font-size: 13px; font-weight: 800; margin-bottom: 5px; }
+.tuck-forming .tuck-name { color: #1d4ed8; }
+.tuck-storming .tuck-name { color: #be123c; }
+.tuck-norming .tuck-name { color: #92400e; }
+.tuck-performing .tuck-name { color: var(--green); }
+.tuck-desc { font-size: 12px; color: var(--text); line-height: 1.5; }
+
+/* ── QUIZ ANSWERS ── */
+.quiz-wrap { background: var(--navy); border-radius: var(--radius); padding: 22px; margin: 14px 0; }
+.quiz-wrap h3 { color: white; font-size: 16px; margin-bottom: 16px; }
+.qa-item { background: rgba(255,255,255,.08); border-radius: 9px; padding: 14px 16px; margin-bottom: 10px; }
+.qa-q { font-size: 14px; color: rgba(255,255,255,.8); margin-bottom: 8px; }
+.qa-answer { background: rgba(22,163,74,.3); border: 1px solid #4ade80; border-radius: 7px; padding: 8px 13px; font-size: 14px; color: white; }
+.qa-answer-label { font-size: 11px; font-weight: 800; color: #4ade80; text-transform: uppercase; margin-bottom: 3px; }
+.qa-note { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 6px; font-style: italic; }
+
+/* ── VIDEO ── */
+.video-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; margin: 14px 0; }
+.video-thumb { width: 90px; flex-shrink: 0; background: #e50914; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-size: 11px; gap: 5px; }
+.video-play { font-size: 24px; }
+.video-body { padding: 13px 16px; flex: 1; }
+.video-badge { font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: #e50914; margin-bottom: 3px; }
+.video-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.video-note { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+.btn-watch { display: inline-block; background: #e50914; color: white; font-size: 12px; font-weight: 700; padding: 6px 13px; border-radius: 5px; text-decoration: none; }
+
+/* ── AT TABLE ── */
+.at-table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+.at-table th { background: var(--teacher); color: white; padding: 10px 13px; font-size: 13px; text-align: left; }
+.at-table td { padding: 10px 13px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+.at-table tr:nth-child(even) td { background: #fef9f6; }
+
+/* ── CHECKLIST ── */
+.checklist { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.checklist h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.checklist label { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; cursor: pointer; font-size: 14.5px; }
+.checklist input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--teacher); }
+.checklist span.done { text-decoration: line-through; color: var(--muted); }
+
+/* ── KE BADGE ROW ── */
+.ke-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
+.ke-badge { background: var(--purple-lt); color: var(--purple); border: 1px solid #c4b5fd; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.pc-badge { background: var(--orange-lt); color: var(--teacher); border: 1px solid #fed7aa; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+
+/* ── BINGO GRID ── */
+.bingo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 14px 0; }
+.bingo-cell { background: var(--white); border: 1.5px solid var(--border); border-radius: 7px; padding: 10px 8px; text-align: center; font-size: 12px; font-weight: 700; color: var(--navy); cursor: pointer; transition: all .15s; user-select: none; }
+.bingo-cell:hover { background: var(--orange-lt); border-color: var(--orange); }
+.bingo-cell.marked { background: var(--navy); color: white; border-color: var(--navy); }
+
+/* ── END OF DAY SUMMARY ── */
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 24px; margin: 14px 0; }
+.summary-box h3 { color: white; font-size: 16px; margin-bottom: 6px; }
+.summary-box .summary-sub { color: rgba(255,255,255,.7); font-size: 13px; margin-bottom: 16px; }
+.summary-content { background: rgba(255,255,255,.07); border-radius: 8px; padding: 16px 18px; font-size: 14px; color: rgba(255,255,255,.9); line-height: 1.8; white-space: pre-wrap; font-family: inherit; }
+.btn-copy { display: inline-flex; align-items: center; gap: 7px; background: var(--teacher-mid); color: white; border: none; font-size: 13px; font-weight: 700; padding: 9px 18px; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: 14px; }
+.btn-copy:hover { background: var(--teacher); }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; margin: 14px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 10px 13px; text-align: left; font-size: 13px; }
+td { padding: 10px 13px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+/* ── SCROLL ── */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--teacher); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+
+@media (max-width: 768px) {
+  .timing-sidebar { display: none; }
+  .tuckman-row { grid-template-columns: 1fr 1fr; }
+  .bingo-grid { grid-template-columns: repeat(4, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="teacher-badge">TEACHER VIEW</span>
+    <div>
+      <div class="top-title">CHCCOM002 &middot; Session 3 — Facilitator Guide</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;&middot;&nbsp; Certificate IV Community Services &nbsp;&middot;&nbsp; Mon 27 April 2026</div>
+    </div>
+  </div>
+  <div class="top-right">
+    <button class="toggle-panel-btn" onclick="toggleSidebar()">Timing</button>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- TIMING SIDEBAR -->
+<aside class="timing-sidebar" id="timingSidebar">
+  <div class="sidebar-title">Session Timeline</div>
+
+  <div class="time-block active" onclick="scrollToId('tb-930')">
+    <div class="tb-time">9:30</div>
+    <div class="tb-label">Warm-Up: Best/Worst Meeting</div>
+    <div class="tb-dur">10 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-940')">
+    <div class="tb-time">9:40</div>
+    <div class="tb-label">Meeting Types &amp; Purpose</div>
+    <div class="tb-dur">20 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1000')">
+    <div class="tb-time">10:00</div>
+    <div class="tb-label">Preparing an Agenda</div>
+    <div class="tb-dur">20 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1020')">
+    <div class="tb-time">10:20</div>
+    <div class="tb-label">Remote Meetings</div>
+    <div class="tb-dur">10 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">10:30</div>
+    <div class="tb-label">Break</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1045')">
+    <div class="tb-time">10:45</div>
+    <div class="tb-label">Group Dynamics — Tuckman</div>
+    <div class="tb-dur">20 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1105')">
+    <div class="tb-time">11:05</div>
+    <div class="tb-label">Facilitation &amp; Presentations</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1120')">
+    <div class="tb-time">11:20</div>
+    <div class="tb-label">Recording Minutes</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1135')">
+    <div class="tb-time">11:35</div>
+    <div class="tb-label">Practice Meeting</div>
+    <div class="tb-dur">25 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">12:00</div>
+    <div class="tb-label">Lunch</div>
+    <div class="tb-dur">45 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1245')">
+    <div class="tb-time">12:45</div>
+    <div class="tb-label">Warm-Up: Meeting Bingo</div>
+    <div class="tb-dur">30 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-115')">
+    <div class="tb-time">1:15</div>
+    <div class="tb-label">Assessment Work</div>
+    <div class="tb-dur">75 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">2:30</div>
+    <div class="tb-label">Break</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-245')">
+    <div class="tb-time">2:45</div>
+    <div class="tb-label">Wrap-Up</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-area">
+<div class="hero">
+  <div class="hero-teacher-tag">Teacher View — Not for Students</div>
+  <div class="hero-title">Session 3 — Facilitating Workplace Meetings</div>
+  <div class="hero-sub">Monday 27 April 2026 &middot; 9:30am – 3:00pm</div>
+  <div class="hero-chips">
+    <span class="chip">Session 3 of 6</span>
+    <span class="chip">CHCCOM002</span>
+    <span class="chip">27 April 2026</span>
+    <span class="chip">PC3.1–3.9</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ════════ PRE-CLASS CHECKLIST ════════ -->
+<div class="section">
+  <div class="section-label">Before Class</div>
+  <div class="section-title">Pre-Class Checklist</div>
+  <div class="checklist">
+    <h3>Print &amp; Prepare</h3>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Print blank agenda templates (2 per student)</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Print blank minutes templates (1 per student)</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Prepare Meeting Bingo cards (4x4 grid, one per student — or print the interactive version from this page)</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Assign AT3 groups before class if possible — note-taker and facilitator roles need to be decided</span></label>
+    <h3 style="margin-top:14px;">Tech &amp; Video</h3>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Cue YouTube: How to Write a Meeting Agenda — <a href="https://www.youtube.com/watch?v=gf7nGwcU_k8" target="_blank">youtube.com/watch?v=gf7nGwcU_k8</a> — test audio!</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Cue YouTube: Zoom Tips for Professional Meetings — <a href="https://www.youtube.com/watch?v=brLKt1KKrKU" target="_blank">youtube.com/watch?v=brLKt1KKrKU</a></span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Open student HTML (session3_student.html) and share link via Teams before class</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Write "What makes a good meeting?" on whiteboard — leave space for student responses, keep it up all session</span></label>
+  </div>
+</div>
+
+<!-- ════════ SESSION AT A GLANCE ════════ -->
+<div class="section">
+  <div class="section-label">Overview</div>
+  <div class="section-title">Session at a Glance</div>
+
+  <table>
+    <tr><th>Unit</th><th>Session</th><th>Theme</th><th>Elements</th><th>Teaching time</th></tr>
+    <tr><td>CHCCOM002</td><td>3 of 6</td><td>Facilitating Workplace Meetings</td><td>Element 3 — PC3.1–3.9</td><td>4 hrs 15 min</td></tr>
+  </table>
+
+  <div class="box box-orange">
+    <div class="box-label">Session big question</div>
+    <p>How do we plan, run, and record a meeting that actually works? By the end of today, students should be able to prepare an agenda, facilitate a meeting, understand group dynamics, and write accurate minutes.</p>
+  </div>
+</div>
+
+<!-- ════════ ASSESSMENT TASK MAP ════════ -->
+<div class="section">
+  <div class="section-label">Assessment</div>
+  <div class="section-title">Assessment Task Map</div>
+
+  <table class="at-table">
+    <tr><th>Assessment Task</th><th>Connection to today</th></tr>
+    <tr><td><strong>AT2 Part C</strong></td><td>Students need to produce a complete agenda in response to an email. Today's agenda builder directly prepares them for this task.</td></tr>
+    <tr><td><strong>AT3 Part A</strong></td><td>The Safety and Respect team meeting role play. Every skill introduced today — agenda, facilitation, group dynamics, minutes — is assessed here. This is the most significant assessment item in the unit.</td></tr>
+    <tr><td><strong>AT3 Part C</strong></td><td>Reflective questions ask students to evaluate meeting effectiveness. Today's Tuckman framework and facilitation skills provide the analytical tools they need.</td></tr>
+  </table>
+
+  <div class="box box-alert">
+    <div class="box-label">Critical prep alert</div>
+    <p>AT3 Part A (Session 5) requires students to facilitate a real meeting. Groups should be assigned <strong>before this session</strong> if possible. Students who struggle with today's practice meeting will need targeted support before Session 5. Note who needs follow-up.</p>
+  </div>
+</div>
+
+<!-- ════════ 9:30 WARM-UP ════════ -->
+<div id="tb-930" class="time-block-header">
+  <div class="tbh-time">9:30 – 9:40</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Warm-Up</div>
+    <div class="tbh-title">Best Meeting / Worst Meeting</div>
+    <div class="tbh-dur">10 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="ke-row">
+    <span class="pc-badge">PC3.1</span>
+    <span class="pc-badge">PC3.2</span>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Opening Script</span><span class="fac-title-text">Word-for-word opening</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Good morning everyone. Before we get started — pair up with the person next to you. Take 60 seconds each and tell each other: what's the best meeting you've ever been to? Or the worst? It could be at work, at school, in the community — anywhere. What made it good or bad?"</div>
+      <p>Give pairs 3 minutes. Then take 4–5 responses whole-group. As responses come in, write the positive traits on the whiteboard under "What makes a good meeting?" Keep this visible for the whole session.</p>
+      <div class="fac-say">"Everything on that board — that's what we're building toward today. By 3pm, you'll know exactly how to create each of those things in a meeting you run."</div>
+      <div class="fac-tip">If students mention meetings from cultural community contexts (e.g., elders' meetings, church committees, community language school governance) — affirm these explicitly. Same skills, different contexts.</div>
+      <div class="fac-lln">Pair-share first so quieter students have a safe entry point before whole-group reporting. Never cold-call. If a student passes, move on without comment.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 9:40 MEETING TYPES ════════ -->
+<div id="tb-940" class="time-block-header">
+  <div class="tbh-time">9:40 – 10:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 1</div>
+    <div class="tbh-title">Meeting Types &amp; Purpose</div>
+    <div class="tbh-dur">20 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="ke-row">
+    <span class="pc-badge">PC3.1</span>
+    <span class="pc-badge">PC3.2</span>
+    <span class="ke-badge">KE2.5</span>
+    <span class="ke-badge">KE3.2</span>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">Content summary — what to teach</div>
+    <ul style="padding-left:18px; margin-top:6px;">
+      <li><strong>Formal meetings:</strong> AGMs, board meetings, committee meetings. Require a quorum, minutes are a legal record, specific rules of procedure may apply.</li>
+      <li><strong>Informal meetings:</strong> Team check-ins, case conferences, supervision meetings. Flexible structure but still purposeful — someone is responsible for keeping things on track.</li>
+      <li><strong>Online meetings:</strong> Zoom, Teams. Same principles as in-person — agenda, facilitation, minutes — but different logistics challenges.</li>
+    </ul>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Teaching the content</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"Meetings come in different types — and knowing the type you're in shapes how you prepare and what's required of you. There are three main types you need to know for your assessment: formal, informal, and online."</div>
+      <p>Walk through the three types using the concept card on the student HTML. For each, ask: "Can anyone give me an example from community services?"</p>
+      <div class="fac-answer">
+        <div class="fac-answer-label">Model answers</div>
+        Formal: "An AGM for a not-for-profit organisation where the annual financial report is tabled and board members are elected."<br>
+        Informal: "A weekly team huddle where workers update the case manager on client progress."<br>
+        Online: "A Zoom supervision session between a worker and their manager who are in different offices."
+      </div>
+      <div class="fac-say">"The most important rule — for any meeting, in any format — is that it needs a clear purpose. If you can't answer the question 'what is this meeting FOR?' before it starts, it probably shouldn't be happening. This is the first thing an assessor will check in AT2 Part C."</div>
+      <div class="fac-tip">Reference the student whiteboard list — if "clear purpose" or "agenda" appeared, point to it. "You already knew this."</div>
+      <div class="fac-cald">Meeting norms vary across cultures. Turn-taking, use of silence, deference to hierarchy, directness — all vary significantly. None is wrong. But knowing Australian workplace meeting norms helps students navigate them with confidence. Acknowledge this explicitly.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 10:00 PREPARING AN AGENDA ════════ -->
+<div id="tb-1000" class="time-block-header">
+  <div class="tbh-time">10:00 – 10:20</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 2</div>
+    <div class="tbh-title">Preparing an Agenda</div>
+    <div class="tbh-dur">20 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="ke-row">
+    <span class="pc-badge">PC3.3</span>
+    <span class="pc-badge">PC3.4</span>
+    <span class="ke-badge">KE3.3</span>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Teaching the agenda</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"Open your student page and find the Agenda Builder. We're going to go through what a real agenda contains — and then you'll build one yourselves."</div>
+      <p>Walk through the six components on the whiteboard or screen:</p>
+      <ol style="padding-left:20px; margin-top:6px;">
+        <li>Meeting name and purpose</li>
+        <li>Date, time, venue</li>
+        <li>Attendees and apologies</li>
+        <li>Agenda items with time allocations</li>
+        <li>AOB (Any Other Business)</li>
+        <li>Distributed in advance</li>
+      </ol>
+      <div class="fac-say">"Number 6 is the one people forget. An agenda sent at the start of the meeting isn't an agenda — it's a surprise list. Send it at least 24 hours before. That's what gives everyone time to prepare."</div>
+      <p><strong>Activity:</strong> Students open the Agenda Builder on the student HTML. Give them 8 minutes to fill in a complete agenda for a fictional scenario: "Your team needs to meet to discuss how to improve communication with clients."</p>
+      <div class="fac-tip">Walk around while students build their agendas. Common errors to look for: no time allocations, missing apologies field, vague agenda item titles like "Discussion" with no context, forgetting AOB.</div>
+      <div class="fac-lln">Students who struggle with written language can use dot points rather than full sentences for agenda items. What matters is the structure, not the prose.</div>
+      <p>Play the video after the activity: <strong>How to Write a Meeting Agenda</strong></p>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <div class="video-thumb">
+      <span class="video-play">&#9654;</span>
+      <span>YouTube</span>
+    </div>
+    <div class="video-body">
+      <div class="video-badge">Video 1 — Cue at 10:18</div>
+      <div class="video-title">How to Write a Meeting Agenda</div>
+      <div class="video-note">Short, clear overview of agenda components. Play after the builder activity as reinforcement. Approx 4 min.</div>
+      <a href="https://www.youtube.com/watch?v=gf7nGwcU_k8" target="_blank" class="btn-watch">Watch</a>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 10:20 REMOTE MEETINGS ════════ -->
+<div id="tb-1020" class="time-block-header">
+  <div class="tbh-time">10:20 – 10:30</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 3</div>
+    <div class="tbh-title">Remote Meeting Etiquette</div>
+    <div class="tbh-dur">10 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="ke-row">
+    <span class="pc-badge">PC3.2</span>
+    <span class="ke-badge">KE3.4</span>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Remote meetings</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"Before break, a quick look at online meetings — because most of you will run or attend them in your career. The same principles apply: agenda, facilitation, minutes. But the logistics are different. What are some challenges you've noticed in online meetings?"</div>
+      <p>Take 3–4 responses. Typical answers: people talking over each other, can't read body language, background noise, tech failures, people dropping in and out.</p>
+      <div class="fac-say">"Here are the key rules for a well-run online meeting: agree on camera norms before you start; use 'raise hand'; assign someone to monitor chat; mute when not speaking; have a phone number backup if tech fails; send the agenda in advance just like in person."</div>
+      <p>Play the Zoom tips video for 3 minutes, then move to break.</p>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <div class="video-thumb">
+      <span class="video-play">&#9654;</span>
+      <span>YouTube</span>
+    </div>
+    <div class="video-body">
+      <div class="video-badge">Video 2 — Cue at 10:22</div>
+      <div class="video-title">Zoom Tips for Professional Meetings</div>
+      <div class="video-note">Play 3–4 minutes. Focus on: camera norms, managing participation, tech backup. Skip any product-specific UI tutorials.</div>
+      <a href="https://www.youtube.com/watch?v=brLKt1KKrKU" target="_blank" class="btn-watch">Watch</a>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-header">
+  <span>Break — 10:30 to 10:45 (15 min)</span>
+</div>
+
+<!-- ════════ 10:45 GROUP DYNAMICS ════════ -->
+<div id="tb-1045" class="time-block-header">
+  <div class="tbh-time">10:45 – 11:05</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 4</div>
+    <div class="tbh-title">Group Dynamics — Tuckman's Model</div>
+    <div class="tbh-dur">20 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="ke-row">
+    <span class="pc-badge">PC3.5</span>
+    <span class="pc-badge">PC3.6</span>
+    <span class="ke-badge">KE3.2</span>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Teaching Tuckman's model</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"Welcome back. After break we're moving to group dynamics — which is the 'human' part of running a meeting. You can have a perfect agenda and still have a meeting fall apart if you don't understand what's happening in the room."</div>
+      <div class="fac-say">"In the 1960s, a psychologist named Bruce Tuckman described four stages that every group goes through: Forming, Storming, Norming, Performing. These aren't theoretical — you'll see them in every team you ever work in."</div>
+
+      <p>Walk through each stage using the visual on the student HTML. For each stage, ask the group: "Can you think of an example from a team you've been in?"</p>
+
+      <div class="tuckman-row">
+        <div class="tuck-stage tuck-forming">
+          <div style="font-size:18px; margin-bottom:4px;">Forming</div>
+          <div class="tuck-desc">Polite, cautious. "Who are these people? What are my responsibilities?"</div>
+        </div>
+        <div class="tuck-stage tuck-storming">
+          <div style="font-size:18px; margin-bottom:4px;">Storming</div>
+          <div class="tuck-desc">Conflict, testing. "I disagree with how this is being done."</div>
+        </div>
+        <div class="tuck-stage tuck-norming">
+          <div style="font-size:18px; margin-bottom:4px;">Norming</div>
+          <div class="tuck-desc">Trust builds. "We've worked out how to do this together."</div>
+        </div>
+        <div class="tuck-stage tuck-performing">
+          <div style="font-size:18px; margin-bottom:4px;">Performing</div>
+          <div class="tuck-desc">Effective. "We handle hard problems well as a team."</div>
+        </div>
+      </div>
+
+      <div class="fac-answer">
+        <div class="fac-answer-label">Key teaching point</div>
+        <p>Storming is NOT a sign that a team is failing. It is a normal, necessary stage. Teams that avoid conflict are often stuck in forming — polite but unproductive. A facilitator's job during storming is to hold the space, acknowledge the tension, and redirect toward the task.</p>
+      </div>
+
+      <div class="fac-say">"So when you're facilitating and things get tense — that's often storming. Your job is not to shut it down, but to channel it. Use open questions: 'Let's hear from someone who sees it differently.' 'What would work for everyone?' Name what's happening calmly: 'It sounds like there are some different views here — let's explore them.'"</div>
+
+      <div class="fac-cald">Cultural variation in conflict: in some cultural contexts, open disagreement in a meeting is uncommon or inappropriate. Students from these backgrounds may experience storming differently — and may need specific permission to contribute in Australian workplace contexts. "In Australian workplaces, it is generally expected and valued for team members to raise concerns directly in a meeting. This is different in some cultural contexts, and neither is wrong."</div>
+
+      <div class="fac-tip">Ask students: "What stage do you think THIS class is in right now?" Usually gets laughs and good discussion. Bring it back to: "Noticing the stage helps you respond — that's what this model is for."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 11:05 FACILITATION ════════ -->
+<div id="tb-1105" class="time-block-header">
+  <div class="tbh-time">11:05 – 11:20</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 5</div>
+    <div class="tbh-title">Facilitation Skills &amp; PREP Structure</div>
+    <div class="tbh-dur">15 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="ke-row">
+    <span class="pc-badge">PC3.5</span>
+    <span class="pc-badge">PC3.6</span>
+    <span class="pc-badge">PC3.7</span>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Facilitation skills and PREP</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"The facilitator is not the chair — and they're not the most important person in the room. Their job is to make space for everyone else to do their best thinking. What do you think the difference is between chairing and facilitating?"</div>
+      <p>Take 2–3 responses. Key distinction: a chair manages procedure; a facilitator manages people and process.</p>
+      <p><strong>Core facilitation skills to cover:</strong></p>
+      <ul style="padding-left:20px; margin-top:6px;">
+        <li>Manage time against the agenda — give warnings ("We have 5 minutes left on this item")</li>
+        <li>Draw in quiet voices — "We haven't heard from everyone — [name], what's your view?"</li>
+        <li>Manage dominant speakers — "Thanks for that — let's hear from someone who hasn't spoken yet"</li>
+        <li>Summarise and check: "So what I'm hearing is... Does that capture it?"</li>
+        <li>Keep to purpose: "That's interesting — let's come back to it under AOB. For now we need to focus on..."</li>
+        <li>Name and redirect conflict: "I can see there are strong views here. Let's take a moment — what's the core issue we're trying to solve?"</li>
+      </ul>
+      <div class="fac-say">"For presentations and putting a view forward in a meeting, use PREP: Point, Reason, Example, Point. It keeps you focused and makes you easy to follow."</div>
+      <p>Give a quick live demonstration of PREP: "I think we should run the team meeting online. [Point] Because three of us are working from home that day. [Reason] Last month we used Zoom for the case conference and it worked well. [Example] Online is the most inclusive option for this meeting. [Point]"</p>
+      <div class="fac-tip">Experienced workers in the room may already use facilitation skills intuitively. Prompt them: "You've probably been doing some of this without calling it facilitation — what strategies have you used in real meetings?"</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 11:20 MINUTES ════════ -->
+<div id="tb-1120" class="time-block-header">
+  <div class="tbh-time">11:20 – 11:35</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 6</div>
+    <div class="tbh-title">Recording Meeting Minutes</div>
+    <div class="tbh-dur">15 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="ke-row">
+    <span class="pc-badge">PC3.8</span>
+    <span class="pc-badge">PC3.9</span>
+    <span class="ke-badge">KE3.3</span>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Teaching meeting minutes</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"Last piece of theory before we practice: meeting minutes. Minutes are a legal record. In community services, they may be referred to months later — by the team, by management, or in a compliance review. They need to be accurate, objective, and written without personal opinion."</div>
+      <p>Walk through the components of minutes on the blank template:</p>
+      <ol style="padding-left:20px; margin-top:6px;">
+        <li>Date, time, venue</li>
+        <li>Attendees (present) and apologies</li>
+        <li>Confirmation of previous minutes (if applicable)</li>
+        <li>Summary of discussion for each agenda item</li>
+        <li>Decisions made</li>
+        <li>Action items (WHO does WHAT by WHEN)</li>
+        <li>Date and time of next meeting</li>
+      </ol>
+      <div class="fac-say">"The action items table is the most important part of the minutes in a community services context. WHO. WHAT. BY WHEN. Every action item needs all three. Without them, nothing gets done."</div>
+      <div class="fac-answer">
+        <div class="fac-answer-label">Key distinction to teach</div>
+        <p>Minutes record DECISIONS and ACTIONS — not the full debate. Students often try to write down everything that was said. This produces an unreadable document. "If someone could not attend, what would they need to know? That's what goes in the minutes."</p>
+      </div>
+      <div class="fac-tip">Assign the note-taker role to quieter students during the practice meeting. It is a structured, valued contribution that does not require public speaking — and it builds confidence.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 11:35 PRACTICE MEETING ════════ -->
+<div id="tb-1135" class="time-block-header">
+  <div class="tbh-time">11:35 – 12:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Practice Activity</div>
+    <div class="tbh-title">Run a Practice Meeting</div>
+    <div class="tbh-dur">25 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="ke-row">
+    <span class="pc-badge">PC3.1–PC3.9</span>
+    <span class="ke-badge">PE2</span>
+    <span class="ke-badge">PE3</span>
+    <span class="ke-badge">PE4</span>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Activity Instructions</span><span class="fac-title-text">Practice meeting setup and debrief</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <p><strong>Setup (5 min):</strong> Groups of 4–5. Assign or ask for a volunteer facilitator and note-taker. Remaining members are team members.</p>
+      <div class="fac-say">"You have 10 minutes to run a team meeting. Your agenda item is: 'What are three things our team could do to improve how we communicate with clients?' The facilitator manages the meeting. The note-taker takes minutes. Everyone else contributes."</div>
+      <p>Give groups the blank minutes template and a printed or screen-visible agenda template. Set a visible timer for 10 minutes.</p>
+      <p><strong>Debrief (10 min):</strong> Bring the groups together. Ask the facilitators first, then open to the group:</p>
+      <ul style="padding-left:20px; margin-top:6px;">
+        <li>"What worked in your meeting? What helped keep it on track?"</li>
+        <li>"What did the facilitator do well? What would they do differently?"</li>
+        <li>"Where did you see any Tuckman dynamics playing out?"</li>
+        <li>"Note-takers — was it hard to capture everything? What did you focus on?"</li>
+      </ul>
+      <div class="fac-tip">Watch for: facilitators who dominate rather than facilitate; note-takers who try to write verbatim rather than capture decisions; groups that skip the agenda and just have a chat. These are direct rehearsals of what to watch for in AT3 Part A.</div>
+      <div class="fac-lln">If any student is uncomfortable being the facilitator, honour that — but encourage them to try the note-taker role. Structured roles with a job to do help anxious students participate more confidently.</div>
+      <p><strong>Teacher observation priorities:</strong> Note which students take the facilitator role confidently — and which struggle. Groups showing storming dynamics today will need coaching before Session 5. Flag for follow-up during the 1:15 assessment work block.</p>
+    </div>
+  </div>
+</div>
+
+<!-- LUNCH -->
+<div class="break-header">
+  <span>Lunch — 12:00 to 12:45 (45 min)</span>
+</div>
+
+<!-- ════════ 12:45 MEETING BINGO ════════ -->
+<div id="tb-1245" class="time-block-header">
+  <div class="tbh-time">12:45 – 1:15</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Post-Lunch Warm-Up</div>
+    <div class="tbh-title">Meeting Bingo</div>
+    <div class="tbh-dur">30 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Activity Instructions</span><span class="fac-title-text">How to run Meeting Bingo</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Welcome back. Before we move into assessment work, we're doing Meeting Bingo to consolidate all of today's vocabulary. You have a 4x4 card with 16 terms. I'm going to read out definitions — you find the matching term and mark it. First to four in a row calls 'Bingo!'"</div>
+
+      <p><strong>Bingo card terms (4x4):</strong> agenda · minutes · quorum · facilitator · apologies · AOB · action item · Tuckman · forming · storming · norming · performing · accessibility · PREP · collaborate · de-escalate</p>
+
+      <p>Use the interactive bingo card below — or print physical cards before class.</p>
+
+      <div class="bingo-grid" id="bingo-grid"></div>
+      <p style="margin-top:10px; font-size:13px; color:var(--muted);">Click/tap terms to mark them as called. Use the definitions below to read out to students.</p>
+
+      <p style="margin-top:14px;"><strong>Definitions to read out (in any order):</strong></p>
+      <ul style="padding-left:20px; margin-top:6px; font-size:14px;">
+        <li><strong>Agenda:</strong> "A written plan for the meeting, distributed in advance, with items and time allocations."</li>
+        <li><strong>Minutes:</strong> "A formal, legal record of what was discussed, decided, and who is responsible for actions."</li>
+        <li><strong>Quorum:</strong> "The minimum number of people required for a meeting to be officially valid."</li>
+        <li><strong>Facilitator:</strong> "The person who manages the flow of the meeting — not the most important voice, but the one who makes space for everyone."</li>
+        <li><strong>Apologies:</strong> "Recorded at the start of minutes — the names of people who were invited but could not attend."</li>
+        <li><strong>AOB:</strong> "Any Other Business — the standing item at the end of an agenda for matters not already listed."</li>
+        <li><strong>Action item:</strong> "A specific task coming out of a meeting decision — includes WHO does WHAT by WHEN."</li>
+        <li><strong>Tuckman:</strong> "The psychologist who described how groups develop through four stages."</li>
+        <li><strong>Forming:</strong> "The first stage of group development — polite, cautious, roles unclear."</li>
+        <li><strong>Storming:</strong> "The second stage — conflict and tension as members assert their ideas. Normal and necessary."</li>
+        <li><strong>Norming:</strong> "The third stage — agreed ways of working develop, trust builds."</li>
+        <li><strong>Performing:</strong> "The fourth stage — the group is highly effective and collaborative."</li>
+        <li><strong>Accessibility:</strong> "Making sure a meeting is inclusive — considering timing, location, format, and language."</li>
+        <li><strong>PREP:</strong> "A structure for presenting a point of view: Point, Reason, Example, Point."</li>
+        <li><strong>Collaborate:</strong> "Working jointly with others — sharing ideas, responsibilities, and decisions."</li>
+        <li><strong>De-escalate:</strong> "To reduce tension or conflict — calming the situation so productive discussion can continue."</li>
+      </ul>
+
+      <p style="margin-top:12px;"><strong>Debrief (5 min):</strong> After bingo, ask: "Were there any terms you weren't sure of? Any that surprised you?" Quick whole-group clarification on the 1–2 most-uncertain terms before moving to assessment work.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 1:15 ASSESSMENT WORK ════════ -->
+<div id="tb-115" class="time-block-header">
+  <div class="tbh-time">1:15 – 2:30</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Assessment Work</div>
+    <div class="tbh-title">AT2 Part C &amp; AT3 Preparation</div>
+    <div class="tbh-dur">75 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Teacher Instructions</span><span class="fac-title-text">What students work on and teacher priorities</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"This block is your independent assessment time. Today I want everyone focused on AT2 Part C — you need to produce a complete, professional agenda in response to the email scenario. Use the agenda builder from this morning as your template. Make sure every field is complete."</div>
+      <p><strong>What students work on:</strong></p>
+      <ul style="padding-left:20px; margin-top:6px;">
+        <li><strong>Primary focus — AT2 Part C:</strong> Students need to produce an actual agenda document, not just describe one. Check that they understand the scenario and know what decision they are responding to with the meeting.</li>
+        <li><strong>Secondary focus — AT3 preparation:</strong> Students who have completed AT2 Part C can begin reviewing their AT3 Part A scenario and identifying their assigned role.</li>
+      </ul>
+      <p><strong>Teacher circulate priorities:</strong></p>
+      <ol style="padding-left:20px; margin-top:6px;">
+        <li>Check in with students who struggled with the practice meeting — offer coaching on facilitation role and group dynamics before Session 5.</li>
+        <li>Confirm AT3 groups are assigned and everyone knows their role.</li>
+        <li>Support students who are unsure how to structure the AT2 Part C email response — the agenda is an attachment, the email covers who/what/why/when of the meeting.</li>
+        <li>Flag any students who need additional LLN support for written components.</li>
+      </ol>
+      <div class="fac-tip">Students often conflate the AT2 Part C email with the agenda itself. Clarify: the email is the communication inviting people to the meeting and explaining its purpose; the agenda is the attached document that structures the meeting.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-header">
+  <span>Break — 2:30 to 2:45 (15 min)</span>
+</div>
+
+<!-- ════════ 2:45 WRAP-UP ════════ -->
+<div id="tb-245" class="time-block-header">
+  <div class="tbh-time">2:45 – 3:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Wrap-Up</div>
+    <div class="tbh-title">Group Discussion &amp; Close</div>
+    <div class="tbh-dur">15 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Closing Script</span><span class="fac-title-text">Discussion prompts and close</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <p><strong>Discussion prompts (choose 2–3):</strong></p>
+      <ul style="padding-left:20px; margin-top:6px;">
+        <li>"What's one thing from today you'll do differently next time you're in a meeting?"</li>
+        <li>"If you were facilitating a meeting where one person was dominating, what would you do?"</li>
+        <li>"What's the difference between minutes and a transcript? Why does it matter?"</li>
+        <li>"Where do you think your team was in Tuckman's model during the practice meeting today?"</li>
+      </ul>
+      <div class="fac-say">"Before you go — three things to take away from today. One: every meeting needs a purpose and an agenda. Two: the facilitator's job is to make space for everyone, not to be the loudest voice. Three: minutes are a legal record — write them factually and accurately. Those three things will serve you throughout your career."</div>
+      <div class="fac-say">"Next session is Tuesday — we're moving into written communication: professional emails, case notes, and formal reports. Make sure you have AT2 Part C underway before then."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ PERFORMANCE CRITERIA MAP ════════ -->
+<div class="section">
+  <div class="section-label">Compliance</div>
+  <div class="section-title">Performance Criteria Map</div>
+
+  <table>
+    <tr><th>PC</th><th>Description</th><th>How addressed today</th></tr>
+    <tr><td>PC3.1</td><td>Identify meeting type and purpose</td><td>Opening activity; meeting types teaching block</td></tr>
+    <tr><td>PC3.2</td><td>Establish meeting logistics and format</td><td>Agenda builder; remote meetings block</td></tr>
+    <tr><td>PC3.3</td><td>Prepare and distribute agenda</td><td>Agenda builder activity; video; AT2 Part C work</td></tr>
+    <tr><td>PC3.4</td><td>Confirm attendees and roles</td><td>Agenda builder (attendees/apologies field); practice meeting role assignment</td></tr>
+    <tr><td>PC3.5</td><td>Facilitate discussion and manage group dynamics</td><td>Tuckman's model; facilitation skills block; practice meeting</td></tr>
+    <tr><td>PC3.6</td><td>Draw out contribution from all participants</td><td>Facilitation skills block; practice meeting debrief</td></tr>
+    <tr><td>PC3.7</td><td>Manage time against agenda</td><td>Facilitation skills block; practice meeting (10-min timer)</td></tr>
+    <tr><td>PC3.8</td><td>Record decisions and action items accurately</td><td>Minutes teaching block; note-taker role in practice meeting</td></tr>
+    <tr><td>PC3.9</td><td>Distribute and follow up on minutes</td><td>Minutes block; AT3 Part A preparation</td></tr>
+  </table>
+
+  <div class="ke-row">
+    <span class="ke-badge">KE2.5</span>
+    <span class="ke-badge">KE3.2</span>
+    <span class="ke-badge">KE3.3</span>
+    <span class="ke-badge">KE3.4</span>
+    <span class="ke-badge">PE2</span>
+    <span class="ke-badge">PE3</span>
+    <span class="ke-badge">PE4</span>
+  </div>
+</div>
+
+<!-- ════════ QUIZ ANSWERS ════════ -->
+<div class="section">
+  <div class="section-label">Quiz Answers — Revealed</div>
+  <div class="section-title">Self-Check Quiz — Answer Key</div>
+
+  <div class="quiz-wrap">
+    <h3>Session 3 — Answer Key</h3>
+
+    <div class="qa-item">
+      <div class="qa-q"><strong>Q1:</strong> An agenda should be distributed...</div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Correct answer: B</div>
+        In advance of the meeting
+      </div>
+      <div class="qa-note">If students answer A (at the start), discuss the difference between an agenda as a preparation tool vs a surprise list. This connects directly to AT2 Part C.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><strong>Q2:</strong> The MAIN role of the meeting facilitator is to...</div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Correct answer: C</div>
+        Manage the flow and ensure everyone contributes
+      </div>
+      <div class="qa-note">Common wrong answer: D (write the minutes). Use this to reinforce the distinction between facilitator and note-taker.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><strong>Q3:</strong> Meeting minutes should be...</div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Correct answer: B</div>
+        A factual, objective record of decisions and actions
+      </div>
+      <div class="qa-note">Common confusion: A (word-for-word transcript). Clarify: minutes are a summary focused on decisions and action items — not a transcript.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><strong>Q4:</strong> A team that is arguing about everything is likely in the...</div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Correct answer: B</div>
+        Storming stage
+      </div>
+      <div class="qa-note">Reinforce: storming is normal and necessary. The danger is skipping it (staying politely stuck in forming) or never moving through it.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ END OF DAY SUMMARY — TEACHER ════════ -->
+<div class="section">
+  <div class="section-label">End of Day — Teacher Record</div>
+  <div class="section-title">Teacher End-of-Day Summary</div>
+
+  <div class="summary-box">
+    <h3>Session 3 — Content Delivered</h3>
+    <div class="summary-sub">For teacher records, handover, and tracking AT progress</div>
+    <div class="summary-content">Content covered: Facilitating Workplace Meetings (PC3.1–3.9 all introduced).
+
+Chapter / Learner Guide reference: Ch 3.1–3.8.
+
+Performance criteria introduced this session:
+- PC3.1–3.2: Meeting types and logistics
+- PC3.3–3.4: Agenda preparation and distribution
+- PC3.5–3.7: Facilitation skills and group dynamics (Tuckman)
+- PC3.8–3.9: Minutes — decisions, action items, distribution
+
+KE/PE addressed: KE2.5, KE3.2, KE3.3, KE3.4, PE2, PE3, PE4
+
+Assessment status:
+- AT2 Part C: Introduced and commenced. Students should be producing a complete agenda draft by end of session.
+- AT3 Part A: Groups should be assigned. Students have been introduced to all skills required for the role play.
+
+CRITICAL PREP ALERT: AT3 Part A (Session 5) requires students to facilitate a real meeting. Students who struggled with today's practice meeting need targeted support before Session 5. Note specific students for follow-up.
+
+Observations to carry forward:
+- Note students who took the facilitator role confidently vs those who avoided it.
+- Note which groups showed storming dynamics — they may need additional scaffolding.
+- Students who struggled with the agenda builder may need one-to-one support for AT2 Part C.</div>
+    <button class="btn-copy" onclick="copyTeacherSummary()">Copy Summary</button>
+  </div>
+</div>
+
+</div><!-- end .page -->
+</div><!-- end .main-area -->
+</div><!-- end .layout -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+// ── SIDEBAR TOGGLE ──
+function toggleSidebar() {
+  document.getElementById('timingSidebar').classList.toggle('collapsed');
+}
+
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // highlight active sidebar block
+  document.querySelectorAll('.timing-sidebar .time-block').forEach(function(b) {
+    b.classList.remove('active');
+  });
+}
+
+// ── FACILITATOR PANELS ──
+function toggleFac(head) {
+  const body = head.nextElementSibling;
+  const chevron = head.querySelector('.fac-chevron');
+  if (body.classList.contains('open')) {
+    body.classList.remove('open');
+    chevron.style.transform = 'rotate(-90deg)';
+  } else {
+    body.classList.add('open');
+    chevron.style.transform = 'rotate(0deg)';
+  }
+}
+
+// ── CHECKLIST ──
+function toggleDone(cb) {
+  const span = cb.nextElementSibling;
+  if (cb.checked) span.classList.add('done'); else span.classList.remove('done');
+}
+
+// ── SCROLL TOP ──
+window.addEventListener('scroll', function() {
+  const btn = document.getElementById('scrollTop');
+  if (window.scrollY > 300) btn.classList.add('vis'); else btn.classList.remove('vis');
+});
+
+// ── BINGO GRID ──
+const bingoTerms = ['agenda','minutes','quorum','facilitator','apologies','AOB','action item','Tuckman','forming','storming','norming','performing','accessibility','PREP','collaborate','de-escalate'];
+const grid = document.getElementById('bingo-grid');
+bingoTerms.forEach(function(term) {
+  const cell = document.createElement('div');
+  cell.className = 'bingo-cell';
+  cell.textContent = term;
+  cell.onclick = function() { this.classList.toggle('marked'); };
+  grid.appendChild(cell);
+});
+
+// ── TEACHER SUMMARY COPY ──
+function copyTeacherSummary() {
+  const text = document.querySelector('.summary-content').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    const btn = document.querySelector('.btn-copy');
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = orig; }, 2000);
+  });
+}
+</script>
+</body>
+</html>

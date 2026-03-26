@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 2 — TEACHER VIEW | CHCCOM002</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --teacher: #7c2d12;
+  --teacher-lt: #fff7ed;
+  --teacher-mid: #dc6803;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --panel-w: 260px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.75; }
+
+/* ── HEADER ── */
+.top-bar { background: var(--teacher); color: white; padding: 13px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.teacher-badge { background: var(--teacher-mid); color: white; font-size: 11px; font-weight: 800; padding: 4px 11px; border-radius: 20px; letter-spacing: .5px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 1px; }
+.top-right { display: flex; align-items: center; gap: 12px; }
+.toggle-panel-btn { background: rgba(255,255,255,.2); color: white; border: 1px solid rgba(255,255,255,.3); font-size: 12px; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-family: inherit; }
+.toggle-panel-btn:hover { background: rgba(255,255,255,.3); }
+
+/* ── LAYOUT ── */
+.layout { display: flex; }
+
+/* ── TIMING SIDEBAR ── */
+.timing-sidebar { width: var(--panel-w); flex-shrink: 0; position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; background: var(--white); border-right: 1px solid var(--border); padding: 18px 0 40px; transition: width .3s, opacity .3s; }
+.timing-sidebar.collapsed { width: 0; overflow: hidden; opacity: 0; padding: 0; }
+.sidebar-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); padding: 0 16px 10px; }
+.time-block { padding: 10px 16px; border-left: 3px solid transparent; cursor: pointer; }
+.time-block:hover { background: var(--bg); }
+.time-block.active { border-left-color: var(--teacher-mid); background: var(--orange-lt); }
+.time-block.break { border-left-color: #94a3b8; background: #f1f5f9; cursor: default; }
+.tb-time { font-size: 12px; font-weight: 700; color: var(--teacher); }
+.tb-label { font-size: 13px; color: var(--text); font-weight: 600; line-height: 1.4; }
+.tb-dur { font-size: 11px; color: var(--muted); }
+.sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 8px 16px; }
+
+/* ── MAIN ── */
+.main-area { flex: 1; min-width: 0; }
+.page { max-width: 720px; margin: 0 auto; padding: 28px 20px 80px; }
+
+/* ── HERO ── */
+.hero { background: linear-gradient(135deg, var(--teacher) 0%, #9a3412 100%); color: white; padding: 36px 28px 32px; }
+.hero-teacher-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.2); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; letter-spacing: .4px; }
+.hero-title { font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 15px; opacity: .9; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 12px; padding: 4px 11px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+/* ── TIME BLOCK HEADERS ── */
+.time-block-header { display: flex; align-items: center; gap: 0; margin: 36px 0 20px; background: var(--teacher); color: white; border-radius: var(--radius); overflow: hidden; }
+.tbh-time { background: var(--teacher-mid); padding: 14px 20px; font-size: 17px; font-weight: 800; white-space: nowrap; min-width: 130px; }
+.tbh-right { padding: 12px 18px; flex: 1; }
+.tbh-label { font-size: 13px; opacity: .7; text-transform: uppercase; letter-spacing: .7px; }
+.tbh-title { font-size: 16px; font-weight: 700; }
+.tbh-dur { font-size: 12px; opacity: .6; margin-top: 2px; }
+.break-header { background: #e2e8f0; color: var(--muted); border-radius: var(--radius); padding: 12px 20px; margin: 28px 0; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 36px; }
+.section-label { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+p { margin-bottom: 12px; font-size: 16px; }
+
+/* ── FACILITATOR PANEL ── */
+.fac-panel { background: #fff7ed; border: 2px solid var(--teacher-mid); border-radius: var(--radius); margin: 16px 0; overflow: hidden; }
+.fac-panel-head { background: var(--teacher-mid); color: white; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.fac-panel-head-left { display: flex; align-items: center; gap: 10px; }
+.fac-type { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; background: rgba(255,255,255,.25); padding: 2px 8px; border-radius: 20px; }
+.fac-title-text { font-size: 14px; font-weight: 700; }
+.fac-chevron { font-size: 16px; transition: transform .25s; }
+.fac-body { padding: 16px 18px; display: none; }
+.fac-body.open { display: block; }
+.fac-body p, .fac-body li { font-size: 14.5px; }
+.fac-body ul, .fac-body ol { padding-left: 20px; margin-top: 6px; }
+.fac-body li { margin-bottom: 7px; }
+.fac-say { background: #fff; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px 15px; margin: 10px 0; font-size: 14px; color: var(--teacher); font-style: italic; }
+.fac-say::before { content: '🗣 Say: '; font-style: normal; font-weight: 700; }
+.fac-tip { background: #fef9c3; border-left: 3px solid #eab308; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-tip::before { content: '💡 Tip: '; font-weight: 700; }
+.fac-lln { background: #f0fdfa; border-left: 3px solid var(--teal); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 14px; }
+.fac-lln::before { content: '♿ LLN: '; font-weight: 700; color: var(--teal); }
+.fac-answer { background: var(--green-lt); border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 15px; margin: 10px 0; font-size: 14px; }
+.fac-answer-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: var(--green); margin-bottom: 6px; }
+
+/* ── STANDARD BOXES ── */
+.box { border-radius: var(--radius); padding: 16px 18px; margin: 14px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-red { background: #fef2f2; border-left: 4px solid #dc2626; }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-navy .box-label { color: var(--navy); }
+.box-red .box-label { color: #dc2626; }
+.box p, .box li { font-size: 14.5px; }
+
+/* ── CONCEPT CARDS ── */
+.concept-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 16px 0; }
+.concept-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; position: relative; overflow: hidden; }
+.concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.cc-aw::before { background: var(--teal); }
+.cc-co::before { background: var(--orange); }
+.cc-sa::before { background: var(--green); }
+.cc-pu::before { background: var(--purple); }
+.cc-nv::before { background: var(--navy); }
+.concept-num { font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 5px; }
+.cc-aw .concept-num { color: var(--teal); }
+.cc-co .concept-num { color: var(--orange); }
+.cc-sa .concept-num { color: var(--green); }
+.cc-pu .concept-num { color: var(--purple); }
+.cc-nv .concept-num { color: var(--navy); }
+.concept-name { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 7px; }
+.concept-def { font-size: 15px; color: var(--text); margin-bottom: 10px; }
+.concept-eg { font-size: 13.5px; color: var(--muted); font-style: italic; padding: 7px 11px; background: var(--bg); border-radius: 6px; }
+
+/* ── CONFLICT STAGES ── */
+.stages-wrap { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin: 14px 0; }
+.stages-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--teal); margin-bottom: 12px; }
+.stages-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.stage-box { padding: 8px 12px; border-radius: 7px; font-size: 12px; font-weight: 700; text-align: center; }
+.stage-1 { background: var(--green-lt); color: var(--green); border: 1.5px solid #bbf7d0; }
+.stage-2 { background: #fefce8; color: #854d0e; border: 1.5px solid #fef08a; }
+.stage-3 { background: #fff7ed; color: #c2410c; border: 1.5px solid #fed7aa; }
+.stage-4 { background: #fef2f2; color: #dc2626; border: 1.5px solid #fecaca; }
+.stage-5 { background: var(--purple-lt); color: var(--purple); border: 1.5px solid #c4b5fd; }
+.stage-arrow { color: var(--muted); font-size: 16px; }
+
+/* ── STRATEGY TABLE ── */
+.strat-table { width: 100%; border-collapse: collapse; margin: 14px 0; border-radius: var(--radius); overflow: hidden; }
+.strat-table th { background: var(--teacher); color: white; padding: 9px 12px; text-align: left; font-size: 13px; }
+.strat-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
+.strat-table tr:nth-child(even) td { background: #fef9f6; }
+.strat-table tr.best td { background: var(--green-lt); }
+.strat-table tr.caution td { background: #fef2f2; }
+
+/* ── CYCLE DIAGRAM ── */
+.cycle-wrap { background: linear-gradient(135deg, #1a3a5c 0%, #0e7490 100%); border-radius: var(--radius); padding: 20px; margin: 14px 0; }
+.cycle-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: rgba(255,255,255,.7); margin-bottom: 12px; }
+.cycle-steps { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.cycle-step { background: rgba(255,255,255,.18); color: white; font-size: 12px; font-weight: 700; padding: 7px 12px; border-radius: 7px; border: 1px solid rgba(255,255,255,.3); }
+.cycle-arrow { color: rgba(255,255,255,.6); font-size: 14px; }
+.cycle-note { margin-top: 10px; font-size: 12px; color: rgba(255,255,255,.8); font-style: italic; }
+
+/* ── VIDEO CARD ── */
+.video-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; margin: 14px 0; }
+.video-thumb { width: 90px; flex-shrink: 0; background: #e50914; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-size: 11px; gap: 5px; }
+.video-play { font-size: 24px; }
+.video-body { padding: 13px 16px; flex: 1; }
+.video-badge { font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: #e50914; margin-bottom: 3px; }
+.video-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.btn-watch { display: inline-block; background: #e50914; color: white; font-size: 12px; font-weight: 700; padding: 6px 13px; border-radius: 5px; text-decoration: none; }
+
+/* ── AT TABLE ── */
+.at-table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+.at-table th { background: var(--teacher); color: white; padding: 10px 13px; font-size: 13px; text-align: left; }
+.at-table td { padding: 10px 13px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+.at-table tr:nth-child(even) td { background: #fef9f6; }
+
+/* ── CHECKLIST ── */
+.checklist { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.checklist h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.checklist label { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; cursor: pointer; font-size: 14.5px; }
+.checklist input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--teacher); }
+.checklist span.done { text-decoration: line-through; color: var(--muted); }
+
+/* ── KE BADGE ROW ── */
+.ke-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
+.ke-badge { background: var(--purple-lt); color: var(--purple); border: 1px solid #c4b5fd; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+
+/* ── BOUNDARIES GAME ── */
+.boundary-list { list-style: none; padding: 0; margin: 14px 0; }
+.boundary-list li { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 12px 16px; margin-bottom: 8px; font-size: 14.5px; display: flex; gap: 12px; align-items: flex-start; }
+.boundary-list li .verdict { font-weight: 700; font-size: 12px; padding: 2px 9px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; margin-top: 3px; }
+.verdict-ok { background: var(--green-lt); color: var(--green); border: 1px solid #bbf7d0; }
+.verdict-concern { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.verdict-discuss { background: #fefce8; color: #854d0e; border: 1px solid #fef08a; }
+
+/* ── END OF DAY SUMMARY ── */
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 24px; margin: 14px 0; }
+.summary-box h3 { color: white; font-size: 16px; margin-bottom: 6px; }
+.summary-box .summary-sub { color: rgba(255,255,255,.7); font-size: 13px; margin-bottom: 16px; }
+.summary-content { background: rgba(255,255,255,.07); border-radius: 8px; padding: 16px 18px; font-size: 14px; color: rgba(255,255,255,.9); line-height: 1.8; white-space: pre-wrap; font-family: inherit; }
+.btn-copy { display: inline-flex; align-items: center; gap: 7px; background: var(--teacher-mid); color: white; border: none; font-size: 13px; font-weight: 700; padding: 9px 18px; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: 14px; }
+.btn-copy:hover { background: var(--teacher); }
+
+/* ── SCROLL ── */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--teacher); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; margin: 14px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 10px 13px; text-align: left; font-size: 13px; }
+td { padding: 10px 13px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+@media (max-width: 768px) {
+  .timing-sidebar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="teacher-badge">🍎 TEACHER VIEW</span>
+    <div>
+      <div class="top-title">CHCCOM002 · Session 2 — Facilitator Guide</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;·&nbsp; Certificate IV Community Services &nbsp;·&nbsp; Tue 21 April 2026</div>
+    </div>
+  </div>
+  <div class="top-right">
+    <button class="toggle-panel-btn" onclick="toggleSidebar()">⏱ Timing</button>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- TIMING SIDEBAR -->
+<aside class="timing-sidebar" id="timingSidebar">
+  <div class="sidebar-title">Session Timeline</div>
+
+  <div class="time-block active" onclick="scrollToId('tb-930')">
+    <div class="tb-time">9:30</div>
+    <div class="tb-label">Warm-Up: Pair-Share</div>
+    <div class="tb-dur">10 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-940')">
+    <div class="tb-time">9:40</div>
+    <div class="tb-label">Professionalism &amp; Boundaries</div>
+    <div class="tb-dur">35 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1015')">
+    <div class="tb-time">10:15</div>
+    <div class="tb-label">Approaches to Communication</div>
+    <div class="tb-dur">45 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">10:30</div>
+    <div class="tb-label">☕ Break</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1045')">
+    <div class="tb-time">10:45</div>
+    <div class="tb-label">Conflict Management</div>
+    <div class="tb-dur">40 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1125')">
+    <div class="tb-time">11:25</div>
+    <div class="tb-label">Dispute Resolution</div>
+    <div class="tb-dur">20 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1145')">
+    <div class="tb-time">11:45</div>
+    <div class="tb-label">Activity: Scenarios</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">12:00</div>
+    <div class="tb-label">🍽 Lunch</div>
+    <div class="tb-dur">45 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-1245')">
+    <div class="tb-time">12:45</div>
+    <div class="tb-label">Warm-Up: Boundaries Game</div>
+    <div class="tb-dur">30 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-115')">
+    <div class="tb-time">1:15</div>
+    <div class="tb-label">Assessment Work</div>
+    <div class="tb-dur">75 min</div>
+  </div>
+  <div class="time-block break">
+    <div class="tb-time">2:30</div>
+    <div class="tb-label">☕ Break</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+  <div class="time-block" onclick="scrollToId('tb-245')">
+    <div class="tb-time">2:45</div>
+    <div class="tb-label">Wrap-Up</div>
+    <div class="tb-dur">15 min</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-area">
+<div class="hero">
+  <div class="hero-teacher-tag">🍎 Teacher View — Not for Students</div>
+  <div class="hero-title">Session 2 — Communication Skills for Difficult Situations</div>
+  <div class="hero-sub">Tuesday 21 April 2026 · 9:30am – 3:00pm</div>
+  <div class="hero-chips">
+    <span class="chip">Session 2 of 6</span>
+    <span class="chip">CHCCOM002</span>
+    <span class="chip">21 April 2026</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- PRE-CLASS CHECKLIST -->
+<div class="section">
+  <div class="section-label">Before Class</div>
+  <div class="section-title">✅ Pre-Class Checklist</div>
+  <div class="checklist">
+    <h3>Print &amp; Prepare</h3>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Prepare 4–6 conflict scenario slips (one scenario per group)</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Prepare 8–10 'Boundaries or No Boundaries?' statement cards</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Have AT1 and AT2 documents ready for students to work from</span></label>
+    <h3 style="margin-top:14px;">Tech &amp; Video</h3>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Cue YouTube: Strengths-Based Approach — <a href="https://www.youtube.com/watch?v=BALni0nEmGM" target="_blank">youtube.com/watch?v=BALni0nEmGM</a> — test audio!</span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Cue YouTube: Person-Centred Care — <a href="https://www.youtube.com/watch?v=JBkZw56FCDY" target="_blank">youtube.com/watch?v=JBkZw56FCDY</a></span></label>
+    <label><input type="checkbox" onchange="toggleDone(this)"><span>Student HTML open and ready to share via Teams: session2_student.html</span></label>
+  </div>
+</div>
+
+<!-- ═══════ 9:30 WARM-UP ═══════ -->
+<div id="tb-930" class="time-block-header">
+  <div class="tbh-time">9:30 – 9:40</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Warm-Up</div>
+    <div class="tbh-title">Pair-Share — Difficult Communication</div>
+    <div class="tbh-dur">10 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">9:30 – 9:40 (10 min)</div>
+  <div class="section-title"><span>👋</span> Opening Warm-Up</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Opening Script</span><span class="fac-title-text">What to say — word for word</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Yesterday we covered HOW communication works. Today we look at WHEN it gets hard. Difficult conversations, conflict, boundaries — this is the daily reality of community services work. The skills you build today are what keep you professional under pressure."</div>
+      <p><strong>Pair-share prompt (2 min):</strong></p>
+      <div class="fac-say">"Take 2 minutes with the person next to you. Think of a time you had to communicate professionally in a difficult situation — at work, at home, anywhere. What helped you stay calm? What made it harder?"</div>
+      <p>Take 3–4 responses from the whole group — brief, no pressure.</p>
+      <div class="fac-tip">Listen for themes that will come up today: staying calm, following a process, having support, knowing your role. You can name these explicitly: "You're all pointing to things we'll be exploring today — boundaries, strategies, professional frameworks."</div>
+      <div class="fac-lln">Pair-share first. Quieter students have a safe entry point before whole-group. Never cold-call. If a CALD student references a culturally specific approach to conflict — acknowledge it: "That is a genuine communication strategy. Let's look at how it maps to today's frameworks."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 9:40 PROFESSIONALISM ═══════ -->
+<div id="tb-940" class="time-block-header">
+  <div class="tbh-time">9:40 – 10:15</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 1</div>
+    <div class="tbh-title">Professionalism, Policies &amp; Boundaries</div>
+    <div class="tbh-dur">35 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">9:40 – 10:15 (35 min)</div>
+  <div class="section-title"><span>🏛️</span> Professionalism, Policies &amp; Boundaries</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Opening framing for this block</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Professionalism in community services isn't just about being polite or using the right words. It's about acting with integrity — within your role, within your organisation's policies, and always in the interest of the client."</div>
+      <p>Give students a moment to look at the three concept cards on their student page, then facilitate a brief discussion on each.</p>
+      <div class="fac-say">"Let's start with policies. What do you think happens when a worker doesn't follow their organisation's communication policy — say, when a client discloses something sensitive?"</div>
+      <div class="fac-answer">
+        <div class="fac-answer-label">Expected responses / model answer</div>
+        The worker may share information with the wrong people, breach confidentiality, damage trust, expose the organisation to liability, or fail to connect the client to appropriate support. Policy exists to prevent exactly these outcomes. It protects the worker too — if something goes wrong and you followed policy, you have a defensible position.
+      </div>
+      <div class="fac-say">"Now — professional boundaries. This is one of the trickiest areas in community services because good workers genuinely care about their clients. That caring is what makes the sector work. But caring can blur into over-involvement — and that's where both workers and clients get hurt."</div>
+      <p><strong>Discussion question:</strong> "Can you think of a situation where a worker's genuine care might cross a professional boundary? What are the risks?"</p>
+      <div class="fac-answer">
+        <div class="fac-answer-label">Discussion prompt responses</div>
+        Prompt responses if the group is quiet: Sharing personal phone number "just in case". Attending a client's family event. Lending money. Giving a client a lift outside of working hours. The risk in each: blurs the professional relationship, creates dependency, exposes both parties to potential harm, and may violate policy.
+      </div>
+      <div class="fac-tip">Experienced workers: ask them to share a situation they've navigated (without naming clients). Their real-world experience is a genuine teaching resource.</div>
+      <div class="fac-lln">Newer students: the concept cards on the student page give a clear scaffold. Direct them to read Concept 3 (Professional Boundaries) before the discussion so they have language ready.</div>
+    </div>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card cc-aw">
+      <div class="concept-num">Concept 1 — AT1 KE1 + KE2.2</div>
+      <div class="concept-name">Professionalism &amp; Policies</div>
+      <div class="concept-def">Acting within your role, following organisational policies, and upholding client dignity at every interaction. Policy = the 'what and why'. Procedure = the 'how'.</div>
+      <div class="concept-eg">Key point for AT1: students should be able to explain why policies support ethical communication, not just that they exist.</div>
+    </div>
+    <div class="concept-card cc-co">
+      <div class="concept-num">Concept 2 — AT1 KE2.6 + KE2.7</div>
+      <div class="concept-name">Person-Centred, Rights-Based, Strengths-Based</div>
+      <div class="concept-def">Three lenses applied together — client goals first, rights are non-negotiable, focus on capacity not deficit.</div>
+      <div class="concept-eg">Key point: students commonly write as if these are alternatives to choose from. Emphasise: you apply all three simultaneously.</div>
+    </div>
+    <div class="concept-card cc-sa">
+      <div class="concept-num">Concept 3 — AT1 KE3.6 + PC1.3</div>
+      <div class="concept-name">Professional Boundaries</div>
+      <div class="concept-def">The limits defining what is appropriate within the worker's role. Protects both worker and client. Different from personal boundaries.</div>
+      <div class="concept-eg">AT assessment link: AT2 Part B — students must write factual observations. Subjectivity = boundary failure of a different kind (values-based imposition).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 10:15 APPROACHES ═══════ -->
+<div id="tb-1015" class="time-block-header">
+  <div class="tbh-time">10:15 – 10:30</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 2</div>
+    <div class="tbh-title">Approaches to Communication</div>
+    <div class="tbh-dur">15 min (continues after break)</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">10:15 – 10:30 (15 min — continued after break)</div>
+  <div class="section-title"><span>🧭</span> Approaches: Person-Centred, Rights-Based, Strengths-Based, MI</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Introducing the four approaches</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"There are four key approaches we use to guide how we communicate with clients. You've seen three of them in the concept cards. The fourth — motivational interviewing — is a specific communication technique worth knowing because it comes up in AT1 and in practice."</div>
+      <p>Direct students to the flip cards on their student page. Give 3 minutes for students to flip through independently, then debrief each one.</p>
+      <p><strong>Debrief question for each card:</strong> "Can you give me an example of what this would look like — or sound like — with a real client?"</p>
+      <div class="fac-answer">
+        <div class="fac-answer-label">Model answers per approach</div>
+        <ul>
+          <li><strong>Person-centred:</strong> "I hear you want to stay in your home. Let's talk about what support would make that possible" (vs "You should consider residential care").</li>
+          <li><strong>Rights-based:</strong> Ensuring a client with disability has the same access to information as any other client — large print, interpreter, extra time.</li>
+          <li><strong>Strengths-based:</strong> "You've already navigated a lot to get here today. That takes courage. What else are you doing well?"</li>
+          <li><strong>Motivational interviewing:</strong> "On a scale of 1–10, how ready do you feel to make this change? What would it take to move you one point higher?" — client identifies their own motivation.</li>
+        </ul>
+      </div>
+      <div class="fac-tip">Cue the Strengths-Based video now if timing works: <a href="https://www.youtube.com/watch?v=BALni0nEmGM" target="_blank">youtube.com/watch?v=BALni0nEmGM</a>. Even 3–4 minutes gives students a concrete example before break.</div>
+      <div class="fac-lln">CALD students: their cultural frameworks often already use strengths-based and community-centred approaches. Acknowledge this as alignment with best practice, not a gap.</div>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <div class="video-thumb">
+      <div class="video-play">▶</div>
+      <div>YouTube</div>
+    </div>
+    <div class="video-body">
+      <div class="video-badge">Video 1</div>
+      <div class="video-title">Strengths-Based Practice — What Does It Look Like?</div>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:8px;">Cue before break. Play relevant 3–4 minutes.</p>
+      <a class="btn-watch" href="https://www.youtube.com/watch?v=BALni0nEmGM" target="_blank">Open on YouTube</a>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <div class="video-thumb">
+      <div class="video-play">▶</div>
+      <div>YouTube</div>
+    </div>
+    <div class="video-body">
+      <div class="video-badge">Video 2</div>
+      <div class="video-title">Person-Centred Care in Community Services</div>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:8px;">Optional — use after break if time allows.</p>
+      <a class="btn-watch" href="https://www.youtube.com/watch?v=JBkZw56FCDY" target="_blank">Open on YouTube</a>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-header">☕ 10:30 – 10:45 &nbsp;|&nbsp; Break — 15 minutes</div>
+
+<!-- ═══════ 10:45 CONFLICT MANAGEMENT ═══════ -->
+<div id="tb-1045" class="time-block-header">
+  <div class="tbh-time">10:45 – 11:25</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 3</div>
+    <div class="tbh-title">Conflict Management</div>
+    <div class="tbh-dur">40 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">10:45 – 11:25 (40 min)</div>
+  <div class="section-title"><span>⚡</span> Conflict Management — Stages &amp; Strategies</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Opening framing + stages walkthrough</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Conflict is normal. It happens in every workplace, every family, every community. In community services, conflict can involve clients, families, colleagues, or organisations — and your response defines your professionalism."</div>
+      <div class="fac-say">"Let's look at how conflict develops — because the earlier you spot it, the easier it is to manage."</div>
+
+      <p><strong>Walk through the stages on the student page with the group:</strong></p>
+      <ul>
+        <li><strong>Latent</strong> — tension exists but hasn't surfaced. People might be avoiding each other, or working around an issue.</li>
+        <li><strong>Perceived</strong> — one or both parties recognise there's a problem. They may not have named it yet.</li>
+        <li><strong>Felt</strong> — the conflict is now emotional. People feel frustrated, hurt, or threatened.</li>
+        <li><strong>Manifest</strong> — the conflict is visible. Arguments, avoidance, formal complaints, aggressive behaviour.</li>
+        <li><strong>Aftermath</strong> — whatever remains after the conflict. This can be positive (resolution, learning) or negative (resentment, damage).</li>
+      </ul>
+      <div class="fac-say">"The goal in community services is to catch conflict at Latent or Perceived — before it becomes Felt or Manifest. By the time it's Manifest, you're in crisis management mode."</div>
+
+      <div class="fac-answer">
+        <div class="fac-answer-label">Discussion question + model answer</div>
+        Ask: "Think of a conflict you've witnessed or been part of — at work or in life. Which stage did it get addressed at? What would it have taken to address it earlier?"<br><br>
+        Model: Latent conflicts often go unaddressed because naming them feels confrontational. The skill is learning to address tension early, before it becomes emotional. In community services this is often about having a regular check-in with clients and colleagues — "Is there anything that's not working for you?"
+      </div>
+    </div>
+  </div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Five strategies + de-escalation</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"There are five strategies for managing conflict. None of them is always right — except for one that's almost always worth aiming for. Let's go through them."</div>
+
+      <table class="strat-table">
+        <thead><tr><th>Strategy</th><th>Use when…</th><th>Risk if overused</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Avoiding</strong></td><td>Issue is trivial or timing is wrong</td><td>Conflict grows underground</td></tr>
+          <tr><td><strong>Accommodating</strong></td><td>Relationship matters more than the outcome</td><td>Worker loses voice; resentment builds</td></tr>
+          <tr><td><strong>Compromising</strong></td><td>Both parties need to give something quickly</td><td>Neither party fully satisfied</td></tr>
+          <tr class="best"><td><strong>Collaborating ★</strong></td><td>Both parties work toward shared resolution</td><td>Time-intensive — but produces real outcomes</td></tr>
+          <tr class="caution"><td><strong>Competing ✗</strong></td><td>Rarely appropriate in community services</td><td>Destroys relationships</td></tr>
+        </tbody>
+      </table>
+
+      <div class="fac-say">"Now — de-escalation. This is one of the most practical skills you'll use. When a client is distressed or raising their voice, your instinct might be to match their energy or talk louder. Don't. Here's what actually works."</div>
+
+      <p>Walk through the de-escalation tips on the student page:</p>
+      <ul>
+        <li>Lower your voice (don't match their volume)</li>
+        <li>Slow your pace — rushed responses escalate tension</li>
+        <li>Increase physical space — give them room</li>
+        <li>Open body language — uncrossed arms, slight lean</li>
+        <li>Name the emotion: <em>"I can see this is really frustrating"</em></li>
+        <li>Avoid 'you' statements — use 'I' or neutral language</li>
+      </ul>
+
+      <div class="fac-answer">
+        <div class="fac-answer-label">Practice prompt</div>
+        "Turn to your partner. One of you is a client who is upset that their support hours have been cut. The other is the worker. Worker: practise de-escalating using the techniques above. 2 minutes — go."<br><br>
+        Debrief: what felt natural? What felt awkward? Naming the emotion ("I can see this is frustrating") is often the hardest but most effective.
+      </div>
+
+      <div class="fac-tip">AT4 Part A link: "The conflict role play in Assessment Task 4 will test exactly these skills. Start thinking now about how you'd apply de-escalation in the scenario."</div>
+      <div class="fac-lln">Newer students: the strategy table on the student page gives clear 'when to use' guidance. Refer them to it. Experienced workers: ask which strategies they've used successfully in real situations.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 11:25 DISPUTE RESOLUTION ═══════ -->
+<div id="tb-1125" class="time-block-header">
+  <div class="tbh-time">11:25 – 11:45</div>
+  <div class="tbh-right">
+    <div class="tbh-label">New Learning 4</div>
+    <div class="tbh-title">Dispute Resolution</div>
+    <div class="tbh-dur">20 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">11:25 – 11:45 (20 min)</div>
+  <div class="section-title"><span>📋</span> Dispute Resolution</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">Dispute resolution vs conflict management</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"Conflict management and dispute resolution are related but different. Conflict management is what you do in the moment — strategies, de-escalation, communication. Dispute resolution is what kicks in when that doesn't work, or when the situation requires a formal process."</div>
+
+      <table>
+        <thead><tr><th>Process</th><th>What it is</th><th>Who's involved</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Negotiation</strong></td><td>Direct discussion between parties to reach agreement</td><td>The parties themselves</td></tr>
+          <tr><td><strong>Mediation</strong></td><td>Neutral third party facilitates discussion</td><td>Parties + mediator</td></tr>
+          <tr><td><strong>Arbitration</strong></td><td>Third party makes a binding decision</td><td>Parties + arbitrator</td></tr>
+        </tbody>
+      </table>
+
+      <div class="fac-say">"In community services, you also have reporting obligations. If a conflict involves risk to a client or worker — or if it can't be resolved informally — you escalate. You don't handle it alone, and you don't keep it quiet. Know your organisation's escalation pathway."</div>
+
+      <div class="fac-answer">
+        <div class="fac-answer-label">Check understanding question</div>
+        Ask: "A client's family member is angry about changes to the support plan and starts demanding to speak to someone senior. Which dispute resolution process is most likely next?" &nbsp;— Answer: Mediation or escalation to supervisor/manager. Negotiation may have already been attempted by the worker.
+      </div>
+
+      <div class="fac-tip">AT1 link: students often mix up conflict management and dispute resolution in their answers. Make the distinction explicit: dispute resolution = formal, usually third-party involvement.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 11:45 SCENARIOS ACTIVITY ═══════ -->
+<div id="tb-1145" class="time-block-header">
+  <div class="tbh-time">11:45 – 12:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Activity</div>
+    <div class="tbh-title">Conflict Scenario Cards</div>
+    <div class="tbh-dur">15 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">11:45 – 12:00 (15 min)</div>
+  <div class="section-title"><span>🃏</span> Activity: Scenario Cards</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Activity Guide</span><span class="fac-title-text">Instructions + debrief</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"I'm going to give each group a conflict scenario. Your task: identify which stage of conflict it's at, which strategy you'd use, and whether dispute resolution is needed. You have 5 minutes, then we'll share."</div>
+
+      <p><strong>Suggested scenarios (print and cut into slips):</strong></p>
+      <ul>
+        <li>A client becomes increasingly withdrawn and stops engaging with their support worker. No complaint has been made. <em>(Latent → Perceived)</em></li>
+        <li>Two colleagues are clearly avoiding each other after a disagreement about client care. Other staff have noticed. <em>(Felt)</em></li>
+        <li>A client raises their voice at the front desk, demanding to see their case manager immediately. <em>(Manifest)</em></li>
+        <li>A family member has lodged a formal complaint about the support their relative is receiving. <em>(Dispute resolution territory)</em></li>
+        <li>A worker feels their manager consistently dismisses their ideas in team meetings. They've started staying quiet. <em>(Latent → Felt)</em></li>
+      </ul>
+      <p><strong>Debrief:</strong> take one response per group. Ask: "What strategy did you choose? Why that one and not Competing?"</p>
+      <div class="fac-lln">Groups of 3 work well for this activity. Pair quieter students with at least one experienced worker — the scenario discussion draws on real knowledge, which builds confidence.</div>
+    </div>
+  </div>
+</div>
+
+<!-- LUNCH -->
+<div class="break-header">🍽 12:00 – 12:45 &nbsp;|&nbsp; Lunch — 45 minutes</div>
+
+<!-- ═══════ 12:45 BOUNDARIES GAME ═══════ -->
+<div id="tb-1245" class="time-block-header">
+  <div class="tbh-time">12:45 – 1:15</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Post-Lunch Warm-Up</div>
+    <div class="tbh-title">Boundaries or No Boundaries? Activity</div>
+    <div class="tbh-dur">30 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">12:45 – 1:15 (30 min)</div>
+  <div class="section-title"><span>👍</span> Boundaries or No Boundaries?</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Activity Guide</span><span class="fac-title-text">Instructions + statement-by-statement debrief</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"I'm going to read out 8 statements. For each one: thumbs up if it's appropriate professional practice, thumbs down if it's a boundary concern. No wrong answers at this stage — we'll discuss."</div>
+      <p>Give students a moment to respond, then take a few voices before revealing the intended answer.</p>
+    </div>
+  </div>
+
+  <ul class="boundary-list">
+    <li>
+      <div><strong>1.</strong> Worker shares their personal mobile number with a client "to stay in touch".</div>
+      <span class="verdict verdict-concern">Boundary concern</span>
+    </li>
+    <li>
+      <div><strong>2.</strong> Worker says "I understand that must be really hard" and checks in on the client's wellbeing.</div>
+      <span class="verdict verdict-ok">Appropriate</span>
+    </li>
+    <li>
+      <div><strong>3.</strong> Worker tells a friend about a client's situation because they're worried about them.</div>
+      <span class="verdict verdict-concern">Boundary concern</span>
+    </li>
+    <li>
+      <div><strong>4.</strong> Worker attends a client's birthday party at their home.</div>
+      <span class="verdict verdict-concern">Boundary concern</span>
+    </li>
+    <li>
+      <div><strong>5.</strong> Worker advocates strongly for a client's rights with their supervisor.</div>
+      <span class="verdict verdict-ok">Appropriate</span>
+    </li>
+    <li>
+      <div><strong>6.</strong> Worker cries during a client disclosure.</div>
+      <span class="verdict verdict-discuss">Context-dependent — discuss</span>
+    </li>
+    <li>
+      <div><strong>7.</strong> Worker gives a client a lift home because they missed their bus.</div>
+      <span class="verdict verdict-concern">Boundary concern</span>
+    </li>
+    <li>
+      <div><strong>8.</strong> Worker uses the client's preferred name and pronoun consistently.</div>
+      <span class="verdict verdict-ok">Appropriate</span>
+    </li>
+  </ul>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Debrief Script</span><span class="fac-title-text">How to close the activity</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body">
+      <div class="fac-say">"What makes the line between caring and over-involvement so hard to hold in this sector?"</div>
+      <p>Take 3–4 responses. Likely answers: the work is emotional, clients can be vulnerable and develop strong attachments, workers want to help, policy feels cold when someone is in genuine need.</p>
+      <div class="fac-say">"That tension is real. It doesn't go away — you just get better at managing it. Having a supervisor you can talk to, knowing your policy, and building self-awareness are the main protective factors."</div>
+      <p><strong>Note on Statement 6 (crying):</strong> This is genuinely context-dependent. Brief, authentic emotional response can be humanising. Extended emotional distress during a session is a problem — it shifts the focus from the client to the worker's needs. Discuss this with the group.</p>
+      <div class="fac-tip">This is one of the most engaging activities of the session — give it the full time. It generates authentic discussion about real workplace dilemmas.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 1:15 ASSESSMENT WORK ═══════ -->
+<div id="tb-115" class="time-block-header">
+  <div class="tbh-time">1:15 – 2:30</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Assessment Work</div>
+    <div class="tbh-title">AT1 Q7–12 + AT2 Parts A &amp; B</div>
+    <div class="tbh-dur">75 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">1:15 – 2:30 (75 min)</div>
+  <div class="section-title"><span>📝</span> Assessment Work Block</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Facilitation Script</span><span class="fac-title-text">How to open this block</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <div class="fac-say">"You've now got the content you need for AT1 Questions 7–12 and AT2 Parts A and B. This 75 minutes is your time to work on those. I'll be circulating — come and find me or raise your hand."</div>
+      <div class="fac-say">"One specific thing for those working on AT2 Part B — the incident report. The most common error I see is subjective language. I want you to think factual observations only. Not 'Cherie seemed angry'. That's your interpretation. What did you actually observe? 'Cherie raised her voice and stood up from her chair.' That's an observation. That's what goes in an incident report."</div>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-label">Common Error — AT2 Part B</div>
+    <p><strong>Subjective:</strong> "Cherie seemed upset" / "Cherie appeared distressed" / "Cherie was aggressive"</p>
+    <p style="margin-top:8px;"><strong>Objective (correct):</strong> "Cherie raised her voice" / "Cherie stood up from her chair" / "Cherie said 'I don't want to talk about this'"</p>
+    <p style="margin-top:8px;">Incident reports are legal documents. What you write must be defensible. Model this language clearly before students start.</p>
+  </div>
+
+  <table class="at-table">
+    <thead><tr><th>Task</th><th>Focus for today</th><th>Circulate priority</th></tr></thead>
+    <tbody>
+      <tr><td><strong>AT1 Q7–12</strong></td><td>Boundaries, approaches, conflict, dispute resolution</td><td>Check students aren't mixing up dispute resolution and conflict management</td></tr>
+      <tr><td><strong>AT2 Part A</strong></td><td>Person-centred / rights-based language for Cherie</td><td>Watch for 'worker knows best' framing — redirect to client's goals and rights</td></tr>
+      <tr><td><strong>AT2 Part B</strong></td><td>Incident report — factual observations only</td><td>Most important priority. Check for subjective language and correct it on the spot.</td></tr>
+      <tr><td><strong>AT4 Part A</strong></td><td>Conflict role play (Session 6)</td><td>Students can start thinking about de-escalation strategies — no pressure to draft yet</td></tr>
+    </tbody>
+  </table>
+
+  <div class="ke-row">
+    <span class="ke-badge">PC1.3</span>
+    <span class="ke-badge">PC1.4</span>
+    <span class="ke-badge">PC2.4</span>
+    <span class="ke-badge">KE1</span>
+    <span class="ke-badge">KE2.2</span>
+    <span class="ke-badge">KE2.6</span>
+    <span class="ke-badge">KE2.7</span>
+    <span class="ke-badge">KE3.6</span>
+    <span class="ke-badge">KE6</span>
+    <span class="ke-badge">KE7.1–7.7</span>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="break-header">☕ 2:30 – 2:45 &nbsp;|&nbsp; Break — 15 minutes</div>
+
+<!-- ═══════ 2:45 WRAP-UP ═══════ -->
+<div id="tb-245" class="time-block-header">
+  <div class="tbh-time">2:45 – 3:00</div>
+  <div class="tbh-right">
+    <div class="tbh-label">Wrap-Up</div>
+    <div class="tbh-title">Group Discussion &amp; Close</div>
+    <div class="tbh-dur">15 minutes</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">2:45 – 3:00 (15 min)</div>
+  <div class="section-title"><span>🎯</span> Wrap-Up &amp; Key Learnings</div>
+
+  <div class="fac-panel">
+    <div class="fac-panel-head" onclick="toggleFac(this)">
+      <div class="fac-panel-head-left"><span class="fac-type">Closing Script</span><span class="fac-title-text">Discussion questions + close</span></div>
+      <span class="fac-chevron">▾</span>
+    </div>
+    <div class="fac-body open">
+      <p><strong>Discussion questions — pick 2:</strong></p>
+      <ul>
+        <li>"What was the most useful thing you learned today — and why?"</li>
+        <li>"If you had to explain professional boundaries to a new colleague in one sentence, what would you say?"</li>
+        <li>"Which conflict strategy do you think you'd find hardest to use — and why?"</li>
+        <li>"What's one thing from today you want to practise before next session?"</li>
+      </ul>
+
+      <div class="fac-say">"Let me summarise what we covered: professionalism means following policies AND maintaining your integrity. Boundaries protect everyone — including you. Person-centred and rights-based approaches keep the client at the centre. Conflict is normal — how you manage it defines professionalism. And when conflict can't be resolved informally, there are formal processes — and you have a reporting obligation."</div>
+
+      <div class="fac-say">"Next Monday we move into documentation and professional writing — which links directly to the incident report work some of you started today. Bring your AT2 documents."</div>
+
+      <p><strong>Remind students:</strong> Student summary is at the bottom of their session page. Encourage them to copy it to Teams before they leave.</p>
+
+      <div class="fac-tip">AT4 Part A reminder: "The conflict role play is in Session 6. You've got time — but the skills we've covered today are exactly what you'll need. Start thinking about your approach."</div>
+    </div>
+  </div>
+</div>
+
+<!-- PC MAP -->
+<div class="section">
+  <div class="section-label">Compliance Reference</div>
+  <div class="section-title"><span>🗺️</span> Performance Criteria Map</div>
+
+  <table>
+    <thead><tr><th>PC / KE</th><th>Description</th><th>How addressed today</th></tr></thead>
+    <tbody>
+      <tr><td><strong>PC1.3</strong></td><td>Maintain professional boundaries</td><td>Professionalism block, Boundaries Game activity</td></tr>
+      <tr><td><strong>PC1.4</strong></td><td>Follow organisation policies and procedures</td><td>Professionalism &amp; Policies concept card, AT2 Part B guidance</td></tr>
+      <tr><td><strong>PC2.4</strong></td><td>Identify and respond to conflict</td><td>Conflict Management block, scenario activity, de-escalation practice</td></tr>
+      <tr><td><strong>KE1</strong></td><td>Principles of effective communication</td><td>All blocks — applied throughout</td></tr>
+      <tr><td><strong>KE2.2</strong></td><td>Policies and procedures for communication</td><td>Professionalism &amp; Policies concept card</td></tr>
+      <tr><td><strong>KE2.6</strong></td><td>Person-centred approach</td><td>Flip cards, video, debrief discussion</td></tr>
+      <tr><td><strong>KE2.7</strong></td><td>Rights-based approach</td><td>Flip cards, debrief discussion</td></tr>
+      <tr><td><strong>KE3.6</strong></td><td>Professional boundaries</td><td>Concept card, Boundaries Game</td></tr>
+      <tr><td><strong>KE6</strong></td><td>Conflict management strategies</td><td>Stages + strategies, scenario cards, de-escalation practice</td></tr>
+      <tr><td><strong>KE7.1–7.7</strong></td><td>Dispute resolution processes</td><td>Dispute Resolution block</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TEACHER END OF DAY SUMMARY -->
+<div class="section">
+  <div class="section-label">Your Record</div>
+  <div class="section-title"><span>📊</span> End-of-Day Summary — Teacher Notes</div>
+
+  <div class="summary-box">
+    <h3>Session 2 — What Was Covered</h3>
+    <div class="summary-sub">Your teaching record for this session</div>
+    <div class="summary-content" id="summaryContent">Content covered: Communication Skills for Difficult Situations (Learner Guide Ch 2.1–2.5). All 6 areas completed.
+
+CONTENT DELIVERED:
+1. Professionalism, policies and procedures (PC1.4, KE2.2)
+2. Person-centred, rights-based, strengths-based approaches (KE2.6, KE2.7) + Motivational Interviewing
+3. Professional boundaries (PC1.3, KE3.6) — includes Boundaries Game activity
+4. Conflict management — stages + 5 strategies + de-escalation (PC2.4, KE6)
+5. Dispute resolution — negotiation, mediation, arbitration (KE7.1–7.7)
+6. Scenario-based activity across all conflict content
+
+KEY ASSESSMENT ALERT:
+Students working on AT2 Part B incident report should be writing factual observations — not opinions. Watch for: "Cherie seemed upset/angry/distressed" — these are interpretations, not observations. Correct these in class before submission.
+
+AT4 Part A conflict role play is on Session 6. Students have now received all core content they need — begin signalling this is coming.
+
+DIFFERENTIATION NOTES:
+Experienced workers drew on real scenarios during group discussion — leverage this next session.
+Some CALD students connected strengths-based and community-centred approaches from their cultural backgrounds — acknowledge as alignment with best practice.
+Quieter students engaged well with pair-share format — continue this in Session 3.</div>
+    <button class="btn-copy" onclick="copySummary()">📋 Copy Teacher Notes</button>
+  </div>
+</div>
+
+<!-- STUDENT SUMMARY (to send to students) -->
+<div class="section">
+  <div class="section-label">Send to Students</div>
+  <div class="section-title"><span>📧</span> Student Summary — Copy &amp; Paste to Teams</div>
+
+  <div class="summary-box">
+    <h3>Session 2 Student Summary</h3>
+    <div class="summary-sub">Copy and paste into Teams or email at end of class</div>
+    <div class="summary-content" id="studentSummaryContent">Hi everyone,
+Here's your Session 2 summary.
+
+WHAT WE COVERED TODAY:
+
+1. Professionalism, policies and procedures — professional communication means acting within your role, following your organisation's policies, and upholding client dignity. Policy protects everyone.
+
+2. Professional and personal boundaries — professional boundaries define what's appropriate within your role. They protect both you and your client. Common challenge: genuine care can blur the line.
+
+3. Person-centred, rights-based, and strengths-based approaches — three lenses that shape how we communicate: client's goals first, rights are non-negotiable, focus on capacity not deficit.
+
+4. Motivational interviewing — a collaborative, non-confrontational communication style that helps clients explore their own motivation for change.
+
+5. Conflict management — conflict goes through stages (latent to aftermath). Five strategies: avoiding, accommodating, compromising, collaborating, competing. In community services: aim for collaboration, de-escalate before confronting.
+
+6. Dispute resolution — when conflict can't be resolved informally, formal processes apply (negotiation, mediation, arbitration). Know your reporting obligations.
+
+HOW TODAY LINKS TO YOUR ASSESSMENTS:
+
+AT1: Q7–12 are covered today. Get your drafts started.
+
+AT2 Part A: Use person-centred and rights-based language in your responses about Cherie.
+
+AT2 Part B: Incident report = factual, objective, structured. "Cherie seemed upset" is opinion. "Cherie raised her voice" is an observation.
+
+AT4 Part A: The conflict role play uses today's skills. Start thinking about how you'd handle the scenario.
+
+A NOTE FOR YOUR RECORDS:
+Keep any notes and worksheets from today — they are your reference material for AT1, AT2, and AT4.
+
+See you next Monday for Session 3.</div>
+    <button class="btn-copy" onclick="copyStudentSummary()">📋 Copy Student Summary</button>
+  </div>
+</div>
+
+</div><!-- end .page -->
+</div><!-- end .main-area -->
+</div><!-- end .layout -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleSidebar() {
+  document.getElementById('timingSidebar').classList.toggle('collapsed');
+}
+function toggleFac(head) {
+  const body = head.nextElementSibling;
+  const ch = head.querySelector('.fac-chevron');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  ch.textContent = open ? '▸' : '▾';
+}
+function scrollToId(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+function toggleDone(cb) {
+  const span = cb.nextElementSibling;
+  span.classList.toggle('done', cb.checked);
+}
+function copySummary() {
+  const text = document.getElementById('summaryContent').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+function copyStudentSummary() {
+  const text = document.getElementById('studentSummaryContent').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 400);
+  const blocks = ['tb-930','tb-940','tb-1015','tb-1045','tb-1125','tb-1145','tb-1245','tb-115','tb-245'];
+  const sideItems = document.querySelectorAll('.timing-sidebar .time-block:not(.break)');
+  let cur = 0;
+  blocks.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) cur = i;
+  });
+  sideItems.forEach((s, i) => s.classList.toggle('active', i === cur));
+});
+</script>
+</body>
+</html>

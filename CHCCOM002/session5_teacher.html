@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 5 — AT3 Role Play Day | CHCCOM002 Teacher</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --yellow: #854d0e;
+  --yellow-lt: #fefce8;
+  --red: #991b1b;
+  --red-lt: #fef2f2;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.75; }
+
+/* TOP BAR */
+.top-bar { background: #3b0764; color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.tag { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.tag-teacher { background: #7c3aed; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+/* PROGRESS */
+.progress-wrap { background: #3b0764; padding: 0 24px 12px; }
+.progress-steps { display: flex; gap: 6px; }
+.step { flex: 1; height: 5px; background: rgba(255,255,255,.2); border-radius: 3px; }
+.step.done { background: var(--orange); }
+.step.active { background: rgba(255,255,255,.7); }
+
+/* HERO */
+.hero { background: linear-gradient(135deg, #3b0764 0%, #1e1b4b 100%); color: white; padding: 40px 28px 36px; }
+.hero-badge { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+.hero-title { font-size: 26px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 16px; opacity: .85; max-width: 560px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+/* LAYOUT */
+.layout { display: flex; gap: 0; align-items: flex-start; }
+.sidebar { width: 220px; flex-shrink: 0; position: sticky; top: 58px; background: white; border-right: 1px solid var(--border); height: calc(100vh - 58px); overflow-y: auto; padding: 20px 0; }
+.sidebar-title { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--muted); padding: 0 16px 10px; }
+.sidebar-link { display: block; padding: 9px 16px; font-size: 13px; font-weight: 600; color: var(--text); text-decoration: none; border-left: 3px solid transparent; transition: all .15s; }
+.sidebar-link:hover { background: var(--bg); border-left-color: var(--purple); color: var(--purple); }
+.sidebar-link .time { display: block; font-size: 11px; color: var(--muted); font-weight: 400; margin-top: 1px; }
+.sidebar-link.now { background: var(--purple-lt); border-left-color: var(--purple); color: var(--purple); }
+
+.page { flex: 1; max-width: 800px; padding: 32px 28px 80px; }
+.section { margin-bottom: 52px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 21px; font-weight: 800; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { font-size: 24px; }
+p { margin-bottom: 14px; font-size: 17px; }
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* TIME BLOCK HEADER */
+.time-block { background: var(--navy); color: white; border-radius: var(--radius); padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
+.time-block.purple { background: #3b0764; }
+.time-block.break { background: var(--muted); }
+.tb-time { font-size: 18px; font-weight: 800; white-space: nowrap; }
+.tb-title { font-size: 16px; font-weight: 700; }
+.tb-dur { font-size: 12px; opacity: .7; }
+
+/* BOXES */
+.box { border-radius: var(--radius); padding: 18px 20px; margin: 16px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-yellow { background: var(--yellow-lt); border-left: 4px solid #eab308; }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-red { background: var(--red-lt); border-left: 4px solid var(--red); }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 6px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-yellow .box-label { color: var(--yellow); }
+.box-navy .box-label { color: var(--navy); }
+.box-red .box-label { color: var(--red); }
+.box p, .box li { font-size: 15.5px; }
+
+/* FACILITATION PANEL */
+.fac-panel { background: #fdf4ff; border: 1.5px solid #d8b4fe; border-radius: var(--radius); padding: 20px; margin: 18px 0; }
+.fac-panel-header { font-size: 13px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; color: var(--purple); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.say-script { background: white; border-left: 3px solid var(--purple); border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 10px 0; font-size: 14.5px; font-style: italic; color: var(--text); line-height: 1.7; }
+.say-label { font-size: 11px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; color: var(--purple); margin-bottom: 5px; font-style: normal; }
+
+/* OBSERVER CHECKLIST */
+.obs-section { margin: 12px 0; }
+.obs-section-title { font-size: 13px; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+.obs-list { list-style: none; padding: 0; }
+.obs-list li { display: flex; align-items: center; gap: 10px; font-size: 14.5px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.obs-list li:last-child { border-bottom: none; }
+.obs-list input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--teal); flex-shrink: 0; }
+.obs-list label { cursor: pointer; }
+.obs-list input:checked + label { text-decoration: line-through; color: var(--muted); }
+
+/* PRE-CLASS CHECKLIST */
+.pre-list { list-style: none; padding: 0; }
+.pre-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.pre-list li:last-child { border-bottom: none; }
+.pre-list input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; accent-color: var(--orange); flex-shrink: 0; margin-top: 3px; }
+.pre-list label { cursor: pointer; }
+.pre-list input:checked + label { text-decoration: line-through; color: var(--muted); }
+
+/* STUDENT NOTE CARDS */
+.student-note { background: #fffbeb; border: 1.5px dashed #fbbf24; border-radius: var(--radius); padding: 16px 18px; margin: 14px 0; font-size: 15px; }
+.student-note-label { font-size: 11px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; color: #92400e; margin-bottom: 5px; }
+
+/* PC MAP TABLE */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 11px 14px; text-align: left; font-size: 13.5px; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+.pc-tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 12px; background: #dbeafe; color: #1e40af; margin: 2px; }
+
+/* FILL AREA */
+.fill-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 12px 0 5px; }
+.fill-area { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; color: var(--text); resize: vertical; min-height: 100px; font-family: inherit; transition: border .2s; }
+.fill-area:focus { outline: none; border-color: var(--teal); background: var(--white); }
+
+/* SUMMARY */
+.summary-box { background: #3b0764; border-radius: var(--radius); padding: 28px; margin-top: 10px; color: white; }
+.summary-box h3 { font-size: 18px; margin-bottom: 16px; }
+.summary-text { font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,.9); white-space: pre-wrap; font-family: inherit; }
+.btn-copy { background: var(--orange); color: white; border: none; font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; cursor: pointer; margin-top: 18px; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+.btn-copy:hover { background: #d45a10; }
+.copy-confirm { font-size: 13px; color: #4ade80; margin-top: 10px; display: none; }
+.copy-confirm.show { display: block; }
+
+/* SCROLL TOP */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: #3b0764; color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+
+ol.pl, ul.pl { padding-left: 22px; margin: 10px 0; }
+ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
+
+@media (max-width: 800px) {
+  .sidebar { display: none; }
+  .page { padding: 20px 16px 60px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="tag tag-teacher">TEACHER</span>
+    <div>
+      <div class="top-title">CHCCOM002 — Use Communication to Build Relationships</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;&middot;&nbsp; Certificate IV Community Services &nbsp;&middot;&nbsp; Session 5 — AT3 Role Play Day</div>
+    </div>
+  </div>
+  <span style="font-size:13px;opacity:.7;white-space:nowrap;">Mon 4 May 2026</span>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step done"></div>
+    <div class="step done"></div>
+    <div class="step done"></div>
+    <div class="step done"></div>
+    <div class="step active"></div>
+    <div class="step"></div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-badge">Session 5 — Teacher View &nbsp;&middot;&nbsp; CHCCOM002</div>
+  <div class="hero-title">AT3: Safety and Respect Team Meeting — Role Play Day</div>
+  <div class="hero-sub">All three parts of AT3 are completed today. This file contains your full facilitation scripts, observer checklist, timing plan, and end-of-day notes.</div>
+  <div class="hero-chips">
+    <span class="chip">&#128064; Observation Day</span>
+    <span class="chip">AT3 Parts A, B &amp; C</span>
+    <span class="chip">PC 1.1-1.4 | 2.1-2.4 | 3.1-3.9</span>
+    <span class="chip">PE 1-4 | KE 1-8</span>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-title">Today's Timing</div>
+  <a class="sidebar-link" href="#block-brief">Briefing &amp; Prep
+    <span class="time">9:30 — 10:30 (60 min)</span>
+  </a>
+  <a class="sidebar-link" href="#block-break1">Break
+    <span class="time">10:30 — 10:45</span>
+  </a>
+  <a class="sidebar-link" href="#block-roleplay">AT3 Part A — Role Plays
+    <span class="time">10:45 — 12:00 (75 min)</span>
+  </a>
+  <a class="sidebar-link" href="#block-lunch">Lunch
+    <span class="time">12:00 — 12:45</span>
+  </a>
+  <a class="sidebar-link" href="#block-partb">AT3 Part B — Feedback
+    <span class="time">12:45 — 1:15 (30 min)</span>
+  </a>
+  <a class="sidebar-link" href="#block-partc">AT3 Part C — Reflection
+    <span class="time">1:15 — 2:00 (45 min)</span>
+  </a>
+  <a class="sidebar-link" href="#block-final">Finalisation
+    <span class="time">2:00 — 2:30 (30 min)</span>
+  </a>
+  <a class="sidebar-link" href="#block-break2">Break
+    <span class="time">2:30 — 2:45</span>
+  </a>
+  <a class="sidebar-link" href="#block-wrapup">Wrap-Up
+    <span class="time">2:45 — 3:00 (15 min)</span>
+  </a>
+  <a class="sidebar-link" href="#pc-map" style="margin-top:10px;">PC Map</a>
+  <a class="sidebar-link" href="#obs-checklist">Observer Checklist</a>
+  <a class="sidebar-link" href="#teacher-summary">End of Day Notes</a>
+</nav>
+
+<div class="page">
+
+  <!-- PRE-CLASS CHECKLIST -->
+  <div class="section">
+    <div class="section-label">Before You Start</div>
+    <div class="section-title"><span class="ico">&#9989;</span>Pre-Class Checklist</div>
+    <div class="box box-orange">
+      <div class="box-label">Tick off before 9:30am</div>
+      <ul class="pre-list">
+        <li><input type="checkbox" id="pc1" onchange="savePc(this.id,this.checked)"><label for="pc1">Print AT3 marking guide — one copy per student (all 3 parts)</label></li>
+        <li><input type="checkbox" id="pc2" onchange="savePc(this.id,this.checked)"><label for="pc2">Print blank feedback forms (1 set per student, 3 forms each)</label></li>
+        <li><input type="checkbox" id="pc3" onchange="savePc(this.id,this.checked)"><label for="pc3">Print blank agenda and minutes templates (1 per student)</label></li>
+        <li><input type="checkbox" id="pc4" onchange="savePc(this.id,this.checked)"><label for="pc4">Prepare character/role cards — one per student, laminated or card</label></li>
+        <li><input type="checkbox" id="pc5" onchange="savePc(this.id,this.checked)"><label for="pc5">Set up room as a meeting table (not rows) before 10:45am</label></li>
+        <li><input type="checkbox" id="pc6" onchange="savePc(this.id,this.checked)"><label for="pc6">Have assessor observation checklist from marking guide open and ready</label></li>
+        <li><input type="checkbox" id="pc7" onchange="savePc(this.id,this.checked)"><label for="pc7">Confirm AT1 and AT2 submission deadline — know the date to tell students</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- SESSION AT A GLANCE -->
+  <div class="section">
+    <div class="section-label">Overview</div>
+    <div class="section-title"><span class="ico">&#128203;</span>Session at a Glance</div>
+    <table>
+      <tr><th>Block</th><th>Time</th><th>Duration</th><th>What's happening</th></tr>
+      <tr><td><strong>Briefing &amp; Group Prep</strong></td><td>9:30</td><td>60 min</td><td>Assign roles, distribute materials, practice time, group set-up</td></tr>
+      <tr><td>Break</td><td>10:30</td><td>15 min</td><td>Room reconfigured to meeting table</td></tr>
+      <tr><td><strong>AT3 Part A — Role Plays</strong></td><td>10:45</td><td>75 min</td><td>Groups run meeting; teacher observes each group in turn</td></tr>
+      <tr><td>Lunch</td><td>12:00</td><td>45 min</td><td></td></tr>
+      <tr><td><strong>AT3 Part B — Peer Feedback</strong></td><td>12:45</td><td>30 min</td><td>Students write feedback for 3 group members</td></tr>
+      <tr><td><strong>AT3 Part C — Reflection</strong></td><td>1:15</td><td>45 min</td><td>Students answer 5 written reflection questions</td></tr>
+      <tr><td><strong>Finalisation</strong></td><td>2:00</td><td>30 min</td><td>AT1/AT2 catch-up; AT3 package assembly; teacher follow-ups</td></tr>
+      <tr><td>Break</td><td>2:30</td><td>15 min</td><td></td></tr>
+      <tr><td><strong>Wrap-Up</strong></td><td>2:45</td><td>15 min</td><td>Group discussion, debrief, preview Session 6</td></tr>
+    </table>
+
+    <div class="box box-navy">
+      <div class="box-label">AT3 Assessment Summary</div>
+      <p><strong>Part A:</strong> Team meeting role play — observed and assessed against marking guide criteria. Each student plays one of five roles: Facilitator, Note-Taker, Team Member A, B, or C.</p>
+      <p><strong>Part B:</strong> Written feedback to 3 group members — specific, constructive, professional. Due end of day.</p>
+      <p style="margin-bottom:0;"><strong>Part C:</strong> Written reflection on the meeting and feedback received — 5 questions. Due end of day.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- BLOCK: BRIEFING -->
+  <div class="section" id="block-brief">
+    <div class="time-block">
+      <div>
+        <div class="tb-time">9:30 — 10:30</div>
+        <div class="tb-title">Briefing and Group Preparation</div>
+        <div class="tb-dur">60 minutes</div>
+      </div>
+    </div>
+
+    <div class="fac-panel">
+      <div class="fac-panel-header">&#127908; Opening the Day — Say This</div>
+      <div class="say-label">How to open (exact script):</div>
+      <div class="say-script">"Good morning everyone. Today is assessment day for AT3 — that means the entire day is about Part A, B, and C. Before I explain what we're doing, I want to say this clearly: the role play assesses HOW you communicate, not whether you get every word exactly right. Brief notes in your hand are fine. Your job is to show up professionally, contribute to the discussion, and treat your colleagues with respect. That's it. You've done this in practice — today is just doing it for real."</div>
+    </div>
+
+    <div class="box box-teal">
+      <div class="box-label">Explaining the Scenario</div>
+      <p>Briefly explain the First Access context. Students should already know this from AT2, but a 2-minute recap helps everyone get into the right headspace.</p>
+      <div class="say-label">Say:</div>
+      <div class="say-script" style="margin:8px 0 0;">"You'll remember client Cherie from AT2. After that incident, First Access has formed a new Safety and Respect team. Today is the first meeting of that team. Your role is to be a member of that team. You've been given a role card — open it and read it carefully. You have about 20 minutes to prepare."</div>
+    </div>
+
+    <p><strong>Steps during the 60-minute briefing block:</strong></p>
+    <ol class="pl">
+      <li>Distribute role cards (5 minutes)</li>
+      <li>Students read their roles and scripts individually — 10 minutes of silent prep</li>
+      <li>Pair-share: students briefly discuss with a partner what their character will say — 10 minutes</li>
+      <li>Whole-group: run through the agenda together so everyone knows the structure — 5 minutes</li>
+      <li>Students complete the Activities 1-3 and the pre-assessment checklist on the student page — 20 minutes</li>
+      <li>Final 10 minutes: answer questions, resolve any role confusion</li>
+    </ol>
+
+    <div class="box box-purple">
+      <div class="box-label">Differentiation — Briefing Block</div>
+      <ul class="pl">
+        <li><strong>Anxious students:</strong> Circulate and say privately: "You've done this in practice. Brief notes are fine. I'm looking for how you communicate, not a perfect performance."</li>
+        <li><strong>CALD students:</strong> Before groups form, say to the whole class: "Cultural ways of communicating in meetings — whether that's directness, deference, storytelling — are all valid professional styles. I'm looking for engagement, respect, and clarity. Bring your whole self."</li>
+        <li><strong>Experienced workers:</strong> Prompt them to draw on real-world examples in their contributions — it will strengthen their performance and their reflections.</li>
+        <li><strong>Newer students:</strong> The Team Member B role is designed for them — validate this explicitly if you've assigned it to a newer student.</li>
+      </ul>
+    </div>
+
+    <div class="student-note">
+      <div class="student-note-label">Student Anxiety — Pre-Brief Script</div>
+      If you see a student looking worried, use this line: "The role play assesses HOW you communicate — not whether you get every word right. Brief notes are absolutely fine. Focus on listening and responding professionally. You are ready for this."
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- BREAK 1 -->
+  <div class="section" id="block-break1">
+    <div class="time-block break">
+      <div>
+        <div class="tb-time">10:30 — 10:45</div>
+        <div class="tb-title">Break</div>
+        <div class="tb-dur">15 minutes — reconfigure room to meeting table before 10:45</div>
+      </div>
+    </div>
+    <div class="box box-yellow">
+      <div class="box-label">Room Setup</div>
+      <p style="margin-bottom:0;">During the break: arrange the room so all chairs are around a central table (or a configuration that feels like a meeting). Remove lecturer-at-front setups. The physical environment matters for the role play.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- BLOCK: ROLE PLAYS -->
+  <div class="section" id="block-roleplay">
+    <div class="time-block">
+      <div>
+        <div class="tb-time">10:45 — 12:00</div>
+        <div class="tb-title">AT3 Part A — Role Play Observations</div>
+        <div class="tb-dur">75 minutes total — approx. 20-25 min per group</div>
+      </div>
+    </div>
+
+    <div class="fac-panel">
+      <div class="fac-panel-header">&#127908; Introducing the Role Play — Say This</div>
+      <div class="say-script">"Okay everyone. We are now in assessment time. I'm going to observe each group run their meeting. You have the agenda — 45 minutes total for the meeting, six items. Facilitator: you're in charge. Everyone else: follow your role. I won't interrupt unless something goes very wrong. I'm here to observe, not to participate. Let's begin."</div>
+    </div>
+
+    <div class="box box-green">
+      <div class="box-label">Observation Protocol</div>
+      <ul class="pl">
+        <li>Sit to the side — not at the table. Observe one group at a time.</li>
+        <li>Use the Observer Checklist below during the role play.</li>
+        <li>Do not correct students mid-role-play. Note it and address in feedback.</li>
+        <li>If a student completely freezes, give a quiet nod or say "Take your time" — do not prompt their script.</li>
+        <li>If the group finishes early, prompt the Facilitator: "Is there anything the group wants to revisit before closing?"</li>
+      </ul>
+    </div>
+
+    <!-- OBSERVER CHECKLIST -->
+    <div id="obs-checklist">
+      <div class="section-label" style="margin-top:20px;">Observer Checklist</div>
+      <div class="section-title" style="font-size:18px;"><span class="ico">&#128270;</span>Use During Each Role Play</div>
+      <p style="font-size:15px;color:var(--muted);">Tick as you observe. Reset between groups using the button.</p>
+
+      <div class="box-navy box" style="padding:20px;">
+        <div class="obs-section">
+          <div class="obs-section-title">Facilitator</div>
+          <ul class="obs-list">
+            <li><input type="checkbox" id="o-f1"><label for="o-f1">Opens meeting professionally — introduces self and purpose</label></li>
+            <li><input type="checkbox" id="o-f2"><label for="o-f2">Introduces the agenda clearly</label></li>
+            <li><input type="checkbox" id="o-f3"><label for="o-f3">Manages time — moves between agenda items</label></li>
+            <li><input type="checkbox" id="o-f4"><label for="o-f4">Draws out quieter participants by name</label></li>
+            <li><input type="checkbox" id="o-f5"><label for="o-f5">Summarises decisions before moving on</label></li>
+            <li><input type="checkbox" id="o-f6"><label for="o-f6">Closes meeting professionally with agreed actions</label></li>
+          </ul>
+        </div>
+        <div class="obs-section" style="margin-top:16px;">
+          <div class="obs-section-title">All Participants</div>
+          <ul class="obs-list">
+            <li><input type="checkbox" id="o-a1"><label for="o-a1">Uses person-centred language (client-focused)</label></li>
+            <li><input type="checkbox" id="o-a2"><label for="o-a2">Demonstrates active listening (eye contact, responses build on prior points)</label></li>
+            <li><input type="checkbox" id="o-a3"><label for="o-a3">Makes a substantive contribution to the discussion</label></li>
+            <li><input type="checkbox" id="o-a4"><label for="o-a4">Responds respectfully to other members</label></li>
+            <li><input type="checkbox" id="o-a5"><label for="o-a5">Maintains professional tone throughout</label></li>
+          </ul>
+        </div>
+        <div class="obs-section" style="margin-top:16px;">
+          <div class="obs-section-title">Note-Taker</div>
+          <ul class="obs-list">
+            <li><input type="checkbox" id="o-n1"><label for="o-n1">Records key discussion points for each agenda item</label></li>
+            <li><input type="checkbox" id="o-n2"><label for="o-n2">Records all decisions</label></li>
+            <li><input type="checkbox" id="o-n3"><label for="o-n3">Records action items with responsible person named</label></li>
+            <li><input type="checkbox" id="o-n4"><label for="o-n4">Asks at least one clarifying question to confirm accuracy</label></li>
+          </ul>
+        </div>
+        <button style="background:var(--navy);color:white;border:none;font-size:13px;font-weight:700;padding:9px 20px;border-radius:7px;cursor:pointer;margin-top:14px;font-family:inherit;" onclick="resetObs()">Reset Checklist (Next Group)</button>
+      </div>
+
+      <div class="fill-label" style="margin-top:20px;">Observer Notes — Group 1</div>
+      <textarea class="fill-area" id="obs-g1" rows="4" placeholder="Specific observations, quotes, things to address in debrief..." oninput="saveT(this.id,this.value)"></textarea>
+      <div class="fill-label">Observer Notes — Group 2</div>
+      <textarea class="fill-area" id="obs-g2" rows="4" placeholder="" oninput="saveT(this.id,this.value)"></textarea>
+      <div class="fill-label">Observer Notes — Group 3</div>
+      <textarea class="fill-area" id="obs-g3" rows="4" placeholder="" oninput="saveT(this.id,this.value)"></textarea>
+    </div>
+
+    <div class="box box-yellow" style="margin-top:20px;">
+      <div class="box-label">If a Student Struggles During the Role Play</div>
+      <ul class="pl">
+        <li>If they freeze: quiet nod, smile, say "Take your time" — do not supply words.</li>
+        <li>If they break character entirely: wait. If they can't recover, note it and address after — do not stop the group.</li>
+        <li>If the Facilitator loses control of the meeting: observe how they recover — this IS the assessment. Only intervene if the group has completely stopped.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- LUNCH -->
+  <div class="section" id="block-lunch">
+    <div class="time-block break">
+      <div>
+        <div class="tb-time">12:00 — 12:45</div>
+        <div class="tb-title">Lunch</div>
+        <div class="tb-dur">45 minutes</div>
+      </div>
+    </div>
+    <div class="box box-navy">
+      <div class="box-label">Use Lunch To</div>
+      <ul class="pl">
+        <li>Complete your observation notes from Part A while fresh</li>
+        <li>Identify any students who need targeted support in Part B or C</li>
+        <li>Return room to normal seating for individual written work</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- BLOCK: PART B -->
+  <div class="section" id="block-partb">
+    <div class="time-block purple">
+      <div>
+        <div class="tb-time">12:45 — 1:15</div>
+        <div class="tb-title">AT3 Part B — Peer Feedback</div>
+        <div class="tb-dur">30 minutes</div>
+      </div>
+    </div>
+
+    <div class="fac-panel">
+      <div class="fac-panel-header">&#127908; Introducing Part B — Say This</div>
+      <div class="say-script">"Welcome back. Now we move to Part B — written feedback for three of your group members. You have 30 minutes. The feedback needs to be specific, constructive, and professional. That means: name something they actually did or said in the meeting, give one genuine strength, and one improvement suggestion that is actionable. Write in full sentences. You are not being marked on how positive or negative you are — you are being marked on whether your feedback is useful and professional."</div>
+    </div>
+
+    <div class="box box-teal">
+      <div class="box-label">What to Circulate For</div>
+      <ul class="pl">
+        <li>Feedback that is too vague — prompt: "Can you give a specific example from the meeting?"</li>
+        <li>Feedback that is personal rather than behavioural — redirect: "Focus on what they said or did, not who they are."</li>
+        <li>Students who are stuck on the improvement section — prompt: "What's one thing that would have made their contribution even stronger?"</li>
+      </ul>
+    </div>
+
+    <div class="student-note">
+      <div class="student-note-label">CALD / LLN Note — Part B</div>
+      Some students from cultural backgrounds with indirect communication norms may struggle to write critical feedback even when it's constructive. Normalise it: "In Australian workplaces, giving a colleague one area for improvement is a sign of respect. It shows you believe they can grow. That's the professional expectation here."
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- BLOCK: PART C -->
+  <div class="section" id="block-partc">
+    <div class="time-block purple">
+      <div>
+        <div class="tb-time">1:15 — 2:00</div>
+        <div class="tb-title">AT3 Part C — Written Reflection</div>
+        <div class="tb-dur">45 minutes</div>
+      </div>
+    </div>
+
+    <div class="fac-panel">
+      <div class="fac-panel-header">&#127908; Introducing Part C — Say This</div>
+      <div class="say-script">"Part C is your written reflection. There are five questions on the student page — they're also on the printed sheet. You have 45 minutes. A strong reflection doesn't just describe what happened — it analyses it. Why did things go the way they did? What would you do differently? Use specific examples from today's meeting. Full sentences please."</div>
+    </div>
+
+    <div class="box box-purple">
+      <div class="box-label">Reflection Question Guidance — What you're looking for</div>
+      <ul class="pl">
+        <li><strong>Q1 (meeting effectiveness):</strong> Students should use evidence — did they achieve the agenda? Were decisions made? Were all voices heard?</li>
+        <li><strong>Q2 (own contribution):</strong> Students should name 2-3 specific things they said — not "I contributed" but "I raised the issue of disclosure processes" or "I asked about the reporting procedure."</li>
+        <li><strong>Q3 (feedback received):</strong> Students should reference the feedback from Part B and engage with it honestly — agree, partially agree, or respectfully disagree with a reason.</li>
+        <li><strong>Q4 (what differently):</strong> Should name a specific skill or a specific moment in the meeting they'd handle differently.</li>
+        <li><strong>Q5 (concept from Sessions 1-4):</strong> Any valid concept is acceptable — person-centred approach, active listening, barriers to communication, assertive communication, professional tone.</li>
+      </ul>
+    </div>
+
+    <div class="student-note">
+      <div class="student-note-label">If a Student Finishes Part C Early</div>
+      "Use the remaining time to finalise AT1 and AT2 — they're due [confirm date]. I'll be circulating if you have questions."
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- BLOCK: FINALISATION -->
+  <div class="section" id="block-final">
+    <div class="time-block">
+      <div>
+        <div class="tb-time">2:00 — 2:30</div>
+        <div class="tb-title">Finalisation</div>
+        <div class="tb-dur">30 minutes</div>
+      </div>
+    </div>
+
+    <div class="box box-green">
+      <div class="box-label">What Students Do</div>
+      <ul class="pl">
+        <li>Assemble AT3 package: Part A observation completed by teacher; Part B feedback forms; Part C reflection answers</li>
+        <li>Work on AT1 and AT2 if not yet submitted</li>
+        <li>If using the digital student page: screenshot or print key responses before leaving</li>
+      </ul>
+    </div>
+
+    <div class="fac-panel">
+      <div class="fac-panel-header">&#127908; Circulating Script — AT1/AT2 Reminder</div>
+      <div class="say-script">"If you've finished Part C, now is the time to work on AT1 and AT2. They're due [date]. If you have questions about either task, I'm available now."</div>
+    </div>
+
+    <div class="fill-label">Students Needing Follow-Up (record here)</div>
+    <textarea class="fill-area" id="followup" rows="4" placeholder="Name — issue — action required..." oninput="saveT(this.id,this.value)"></textarea>
+  </div>
+
+  <hr>
+
+  <!-- BREAK 2 -->
+  <div class="section" id="block-break2">
+    <div class="time-block break">
+      <div>
+        <div class="tb-time">2:30 — 2:45</div>
+        <div class="tb-title">Break</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- BLOCK: WRAP UP -->
+  <div class="section" id="block-wrapup">
+    <div class="time-block">
+      <div>
+        <div class="tb-time">2:45 — 3:00</div>
+        <div class="tb-title">Group Discussion and Wrap-Up</div>
+        <div class="tb-dur">15 minutes</div>
+      </div>
+    </div>
+
+    <div class="fac-panel">
+      <div class="fac-panel-header">&#127908; Opening the Discussion — Say This</div>
+      <div class="say-script">"Before we close, I want to take 10 minutes to debrief together — not about marks, but about the experience. I'll ask a few questions. There are no wrong answers. This is about reflection as a professional."</div>
+    </div>
+
+    <div class="box box-teal">
+      <div class="box-label">Discussion Prompts</div>
+      <ul class="pl">
+        <li>"What was the hardest part of today — and why do you think that was?"</li>
+        <li>"What did you notice about the group dynamics in your meeting?"</li>
+        <li>"If you had to pick one communication skill that made the biggest difference today, what was it?"</li>
+        <li>"What would you do differently as a professional in a real team meeting?"</li>
+      </ul>
+    </div>
+
+    <div class="fac-panel">
+      <div class="fac-panel-header">&#127908; Closing the Day — Say This</div>
+      <div class="say-script">"Today you did something genuinely difficult — you put yourself in a role and communicated professionally under assessment conditions. That is a real skill that you will use in every team you are ever part of. The work you did today in the role play, in your feedback, and in your reflection is exactly what good community services workers do: they communicate, they reflect, and they keep improving. I'm proud of what you did today. Next session we'll be looking at [Session 6 theme]. Have a good week."</div>
+    </div>
+
+    <div class="box box-navy">
+      <div class="box-label">Preview Session 6</div>
+      <p style="margin-bottom:0;">Briefly mention what Session 6 covers. AT3 submission package should be collected or submitted today — confirm your process with students.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- PC MAP -->
+  <div class="section" id="pc-map">
+    <div class="section-label">Compliance Reference</div>
+    <div class="section-title"><span class="ico">&#128196;</span>Performance Criteria Map — Session 5</div>
+    <table>
+      <tr><th>PC / PE / KE</th><th>Description</th><th>How addressed today</th></tr>
+      <tr><td><span class="pc-tag">PC 1.1</span></td><td>Identify the communication needs of the people you work with</td><td>Part A: all roles address communication needs within the meeting context</td></tr>
+      <tr><td><span class="pc-tag">PC 1.2</span></td><td>Use communication methods appropriate to the situation</td><td>Part A: professional meeting format; written feedback in Part B</td></tr>
+      <tr><td><span class="pc-tag">PC 1.3</span></td><td>Communicate with people in a manner that is respectful and appropriate</td><td>Part A observed — professional tone, person-centred language</td></tr>
+      <tr><td><span class="pc-tag">PC 1.4</span></td><td>Use active listening to clarify understanding</td><td>Part A: all participants assessed for active listening</td></tr>
+      <tr><td><span class="pc-tag">PC 2.1</span></td><td>Identify potential barriers to communication</td><td>Part C Q5 — linking concept to today's experience</td></tr>
+      <tr><td><span class="pc-tag">PC 2.2</span></td><td>Implement strategies to overcome barriers</td><td>Part A: Facilitator role specifically; Part C reflection</td></tr>
+      <tr><td><span class="pc-tag">PC 2.3</span></td><td>Seek assistance when communication difficulties arise</td><td>Note-Taker clarifying question; Team Member B asking about reporting process</td></tr>
+      <tr><td><span class="pc-tag">PC 2.4</span></td><td>Recognise and respond to cultural differences in communication</td><td>CALD affirmation embedded in briefing; Part C Q5</td></tr>
+      <tr><td><span class="pc-tag">PC 3.1</span><span class="pc-tag">3.2</span></td><td>Contribute to and support team processes</td><td>Part A: all team member roles assessed for contribution</td></tr>
+      <tr><td><span class="pc-tag">PC 3.3</span><span class="pc-tag">3.4</span></td><td>Give and receive feedback constructively</td><td>Parts B and C — core focus of these two parts</td></tr>
+      <tr><td><span class="pc-tag">PC 3.5</span><span class="pc-tag">3.6</span></td><td>Facilitate group communication and resolve conflict respectfully</td><td>Facilitator role specifically; all participants assessed for respectful disagreement</td></tr>
+      <tr><td><span class="pc-tag">PC 3.7</span><span class="pc-tag">3.8</span><span class="pc-tag">3.9</span></td><td>Document, report and reflect on communication outcomes</td><td>Note-Taker minutes (3.7); Part B feedback (3.8); Part C reflection (3.9)</td></tr>
+      <tr><td><span class="pc-tag">PE 1-4</span></td><td>Performance evidence — observed communication in professional context</td><td>Part A role play is the primary performance evidence for the unit</td></tr>
+      <tr><td><span class="pc-tag">KE 1-8</span></td><td>Knowledge evidence — communication theory, legislation, rights</td><td>Part C reflections draw on KE; AT1 knowledge questions cover KE fully</td></tr>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- TEACHER END OF DAY NOTES -->
+  <div class="section" id="teacher-summary">
+    <div class="section-label">End of Day</div>
+    <div class="section-title"><span class="ico">&#128221;</span>Teacher End of Day Notes</div>
+    <p>Record your assessment day notes here. These save to this browser.</p>
+
+    <div class="fill-label">Students who completed all three parts today</div>
+    <textarea class="fill-area" id="t-complete" rows="3" placeholder="Names..." oninput="saveT(this.id,this.value)"></textarea>
+
+    <div class="fill-label">Students who completed Part A but need to finalise B or C</div>
+    <textarea class="fill-area" id="t-partial" rows="3" placeholder="Name — what's outstanding — agreed deadline..." oninput="saveT(this.id,this.value)"></textarea>
+
+    <div class="fill-label">Students who need follow-up or reasonable adjustment</div>
+    <textarea class="fill-area" id="t-followup" rows="3" placeholder="Name — issue — action..." oninput="saveT(this.id,this.value)"></textarea>
+
+    <div class="fill-label">General observations from today's role plays</div>
+    <textarea class="fill-area" id="t-obs" rows="5" placeholder="Patterns you noticed, standout performances, common gaps..." oninput="saveT(this.id,this.value)"></textarea>
+
+    <div class="fill-label">Items to action before Session 6</div>
+    <textarea class="fill-area" id="t-action" rows="3" placeholder="e.g. Return AT3 results, confirm AT1/AT2 submissions, prepare Session 6 materials..." oninput="saveT(this.id,this.value)"></textarea>
+
+    <div class="summary-box" style="margin-top:24px;">
+      <h3>&#128203; Copy to Records — Assessment Day Summary</h3>
+      <div class="summary-text" id="teacher-eod">CHCCOM002 Session 5 — AT3 Role Play Day — Assessment Notes
+Date: Monday 4 May 2026
+Teacher: [Your name]
+
+PARTS COMPLETED TODAY
+- AT3 Part A: Team meeting role play — all groups observed
+- AT3 Part B: Peer feedback forms — written individually after role play
+- AT3 Part C: Written reflection — 5 questions completed individually
+
+OBSERVATION SUMMARY
+[Paste or summarise your observer notes here]
+
+STUDENTS REQUIRING FOLLOW-UP
+[From the field above]
+
+OUTSTANDING SUBMISSIONS
+[Note any students who did not complete all three parts]
+
+NEXT STEPS
+- Mark AT3 Part A using observation checklist against marking guide
+- Review Part B feedback forms for specificity and professionalism
+- Review Part C reflections for depth of analysis
+- Return results before Session 6
+- Confirm AT1 and AT2 submission deadline with students who haven't submitted</div>
+      <button class="btn-copy" onclick="copyTeacherEod()">&#128203; Copy to clipboard</button>
+      <div class="copy-confirm" id="cc-teacher">Copied!</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+</div><!-- /layout -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+var LS = 'chccom002_s5_teacher_';
+
+function savePc(k,v){ localStorage.setItem(LS+'preclass_'+k, v); }
+function saveT(k,v){ localStorage.setItem(LS+'note_'+k, v); }
+
+var pcKeys = ['pc1','pc2','pc3','pc4','pc5','pc6','pc7'];
+var noteKeys = ['obs-g1','obs-g2','obs-g3','followup','t-complete','t-partial','t-followup','t-obs','t-action'];
+var obsKeys = ['o-f1','o-f2','o-f3','o-f4','o-f5','o-f6','o-a1','o-a2','o-a3','o-a4','o-a5','o-n1','o-n2','o-n3','o-n4'];
+
+function loadAll(){
+  pcKeys.forEach(function(k){
+    var v=localStorage.getItem(LS+'preclass_'+k);
+    var el=document.getElementById(k); if(el&&v==='true') el.checked=true;
+  });
+  noteKeys.forEach(function(k){
+    var v=localStorage.getItem(LS+'note_'+k);
+    var el=document.getElementById(k); if(el&&v!==null) el.value=v;
+  });
+  obsKeys.forEach(function(k){
+    var v=localStorage.getItem(LS+'obs_'+k);
+    var el=document.getElementById(k);
+    if(el&&v==='true') el.checked=true;
+  });
+}
+window.addEventListener('load', loadAll);
+
+// Observer checklist auto-save
+obsKeys.forEach(function(k){
+  var el=document.getElementById(k);
+  if(el) el.addEventListener('change', function(){
+    localStorage.setItem(LS+'obs_'+k, this.checked);
+  });
+});
+
+function resetObs(){
+  obsKeys.forEach(function(k){
+    var el=document.getElementById(k);
+    if(el){ el.checked=false; localStorage.removeItem(LS+'obs_'+k); }
+  });
+}
+
+// Pre-class checklist auto-save (already inline but also via change event for robustness)
+pcKeys.forEach(function(k){
+  var el=document.getElementById(k);
+  if(el) el.addEventListener('change', function(){
+    localStorage.setItem(LS+'preclass_'+k, this.checked);
+  });
+});
+
+function copyTeacherEod(){
+  var text=document.getElementById('teacher-eod').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var c=document.getElementById('cc-teacher');
+    c.classList.add('show');
+    setTimeout(function(){c.classList.remove('show');},3000);
+  });
+}
+
+window.addEventListener('scroll',function(){
+  document.getElementById('scrollTop').classList.toggle('vis',window.scrollY>400);
+});
+</script>
+</body>
+</html>
