@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 — Who Am I? | CHCDIV001 Student</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --yellow: #854d0e;
+  --yellow-lt: #fefce8;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.75; }
+
+/* ── HEADER ── */
+.top-bar { background: var(--navy); color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.tag { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+/* ── PROGRESS ── */
+.progress-wrap { background: var(--navy); padding: 0 24px 12px; }
+.progress-steps { display: flex; gap: 6px; }
+.step { flex: 1; height: 5px; background: rgba(255,255,255,.2); border-radius: 3px; cursor: pointer; transition: background .2s; }
+.step.done { background: var(--orange); }
+.step.active { background: rgba(255,255,255,.7); }
+
+/* ── HERO ── */
+.hero { background: linear-gradient(135deg, var(--navy) 0%, #0e4d7d 100%); color: white; padding: 40px 28px 36px; }
+.hero-badge { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+.hero-title { font-size: 26px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 16px; opacity: .85; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+/* ── MAIN ── */
+.page { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 48px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 21px; font-weight: 800; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { font-size: 24px; }
+
+/* ── TEXT ── */
+p { margin-bottom: 14px; font-size: 17px; }
+.big { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.plain { font-size: 16px; color: var(--muted); }
+
+/* ── DIVIDER ── */
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* ── CALLOUT BOXES ── */
+.box { border-radius: var(--radius); padding: 18px 20px; margin: 18px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-yellow { background: var(--yellow-lt); border-left: 4px solid #eab308; }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-yellow .box-label { color: var(--yellow); }
+.box-navy .box-label { color: var(--navy); }
+.box p, .box li { font-size: 15.5px; }
+
+/* ── CONCEPT CARDS ── */
+.concept-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0; }
+.concept-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; position: relative; overflow: hidden; }
+.concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.cc-aw::before { background: var(--teal); }
+.cc-co::before { background: var(--orange); }
+.cc-sa::before { background: var(--green); }
+.concept-num { font-size: 12px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 6px; }
+.cc-aw .concept-num { color: var(--teal); }
+.cc-co .concept-num { color: var(--orange); }
+.cc-sa .concept-num { color: var(--green); }
+.concept-name { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.concept-def { font-size: 15.5px; color: var(--text); margin-bottom: 10px; }
+.concept-eg { font-size: 14px; color: var(--muted); font-style: italic; padding: 8px 12px; background: var(--bg); border-radius: 6px; }
+
+/* ── DIVERSITY AREAS ── */
+.div-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+.div-card { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 13px 15px; }
+.div-card .ico { font-size: 20px; margin-bottom: 5px; display: block; }
+.div-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+.div-desc { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+/* ── ICEBERG ── */
+.iceberg-wrap { background: linear-gradient(180deg, #bae6fd 0%, #0e7490 40%, #0c4a6e 100%); border-radius: var(--radius); overflow: hidden; margin: 18px 0; padding: 0; }
+.iceberg-above { background: rgba(255,255,255,.15); padding: 22px 24px 14px; }
+.iceberg-label-above { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: white; margin-bottom: 12px; }
+.iceberg-below { padding: 14px 24px 22px; }
+.iceberg-label-below { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: rgba(255,255,255,.7); margin-bottom: 12px; }
+.iceberg-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.iceberg-item { background: rgba(255,255,255,.2); color: white; font-size: 13.5px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.3); }
+.iceberg-item.above { background: rgba(255,255,255,.85); color: var(--navy); font-weight: 600; }
+
+/* ── BIAS TABLE ── */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 11px 14px; text-align: left; font-size: 14px; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+/* ── VIDEO CARD ── */
+.video-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; margin: 18px 0; transition: box-shadow .2s; }
+.video-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+.video-thumb { width: 110px; flex-shrink: 0; background: #e50914; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-size: 12px; gap: 6px; }
+.video-play { font-size: 28px; }
+.video-body { padding: 15px 18px; flex: 1; }
+.video-badge { font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: #e50914; margin-bottom: 4px; }
+.video-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.video-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.btn-watch { display: inline-block; background: #e50914; color: white; font-size: 13px; font-weight: 700; padding: 7px 16px; border-radius: 6px; text-decoration: none; }
+.btn-watch:hover { background: #b0070f; }
+
+/* ── ACTIVITY ── */
+.activity { border: 2px solid var(--orange); border-radius: var(--radius); overflow: hidden; margin: 20px 0; }
+.activity-head { background: var(--orange); color: white; padding: 13px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.activity-head-inner { display: flex; align-items: center; gap: 12px; }
+.act-badge { background: rgba(255,255,255,.25); font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; letter-spacing: .4px; }
+.act-title { font-size: 16px; font-weight: 700; }
+.act-type { font-size: 12px; opacity: .85; margin-top: 2px; }
+.act-chevron { font-size: 20px; transition: transform .25s; }
+.activity-body { padding: 20px; display: none; }
+.activity-body.open { display: block; }
+.activity-body ol, .activity-body ul { padding-left: 22px; }
+.activity-body li { margin-bottom: 10px; font-size: 16px; }
+
+/* ── FILL-IN AREAS ── */
+.fill-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 12px 0 5px; }
+.fill-area { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; color: var(--text); resize: vertical; min-height: 70px; font-family: inherit; transition: border .2s; }
+.fill-area:focus { outline: none; border-color: var(--teal); background: var(--white); }
+.fill-short { min-height: 42px; }
+
+/* ── IDENTITY WHEEL ── */
+.wheel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+.wheel-item { background: var(--white); border: 1.5px solid var(--border); border-radius: 9px; padding: 12px 14px; }
+.wheel-item-label { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+.wheel-item input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-size: 14px; font-family: inherit; }
+.wheel-item input:focus { outline: none; border-color: var(--teal); }
+
+/* ── QUIZ ── */
+.quiz-wrap { background: var(--navy); border-radius: var(--radius); padding: 26px; margin-top: 10px; }
+.quiz-wrap h3 { color: white; font-size: 18px; margin-bottom: 18px; }
+.quiz-q { background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; margin-bottom: 12px; }
+.quiz-q-num { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: .5px; margin-bottom: 5px; }
+.quiz-q-text { font-size: 15px; color: white; font-weight: 600; margin-bottom: 12px; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 7px; padding: 10px 14px; cursor: pointer; transition: all .15s; }
+.quiz-opt:hover { background: rgba(255,255,255,.15); }
+.quiz-opt.selected { background: rgba(234,108,26,.3); border-color: var(--orange); }
+.quiz-opt.correct { background: rgba(22,163,74,.3); border-color: #4ade80; }
+.quiz-opt.wrong { background: rgba(239,68,68,.25); border-color: #f87171; }
+.quiz-opt input { display: none; }
+.quiz-opt span { font-size: 14.5px; color: white; }
+.quiz-submit { background: var(--orange); color: white; border: none; font-size: 15px; font-weight: 700; padding: 12px 28px; border-radius: 8px; cursor: pointer; margin-top: 14px; font-family: inherit; }
+.quiz-submit:hover { background: #d45a10; }
+.quiz-result { display: none; margin-top: 16px; background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; color: white; font-size: 14.5px; }
+.quiz-result.show { display: block; }
+
+/* ── ASSESSMENT LINKS ── */
+.at-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.at-card { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 15px; }
+.at-num { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+.at-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.at-link { font-size: 13px; color: var(--muted); }
+
+/* ── GLOSSARY ── */
+.gloss-item { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 16px; margin-bottom: 10px; }
+.gloss-term { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.gloss-def { font-size: 14.5px; color: var(--text); }
+.gloss-eg { font-size: 13px; color: var(--muted); font-style: italic; margin-top: 5px; }
+
+/* ── SCROLL TOP ── */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+#scrollTop:hover { background: var(--orange); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .div-grid, .at-grid, .wheel-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 21px; }
+  .page { padding: 20px 14px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="tag">STUDENT</span>
+    <div>
+      <div class="top-title">CHCDIV001 — Work with Diverse People</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;·&nbsp; Certificate IV Community Services</div>
+    </div>
+  </div>
+  <span style="font-size:13px; opacity:.7; white-space:nowrap;">Tue 17 March</span>
+</div>
+
+<!-- PROGRESS STEPS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step active" onclick="scrollToSection('s-intro')" title="Intro"></div>
+    <div class="step" onclick="scrollToSection('s-diversity')" title="Diversity"></div>
+    <div class="step" onclick="scrollToSection('s-concepts')" title="Key Concepts"></div>
+    <div class="step" onclick="scrollToSection('s-iceberg')" title="Iceberg"></div>
+    <div class="step" onclick="scrollToSection('s-wheel')" title="Identity Wheel"></div>
+    <div class="step" onclick="scrollToSection('s-bias')" title="Bias"></div>
+    <div class="step" onclick="scrollToSection('s-quiz')" title="Quiz"></div>
+    <div class="step" onclick="scrollToSection('s-at')" title="Assessment"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Session 1 of 5</div>
+  <div class="hero-title">Who Am I?<br>Understanding Our Own Lens 🔍</div>
+  <div class="hero-sub">Before we can work with others, we need to understand ourselves — our background, our beliefs, and our blind spots.</div>
+  <div class="hero-chips">
+    <span class="chip">🎯 4 hrs 15 min</span>
+    <span class="chip">✍️ Activities + Worksheet</span>
+    <span class="chip">📋 Links to AT1, AT4</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- INTRO -->
+<div id="s-intro" class="section">
+  <div class="section-label">Getting Started</div>
+  <div class="section-title"><span class="ico">👋</span> Welcome to Session 1</div>
+
+  <p>Today is about <strong>you</strong>. Your background. Your values. Your blind spots.</p>
+  <p>To be a great community services worker, you need to understand how <em>your</em> culture shapes the way you see the world — and how that affects the people you work with.</p>
+
+  <div class="box box-orange">
+    <div class="box-label">🎯 Today you will learn to:</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li>Name the <strong>9 areas of diversity</strong> in community services</li>
+      <li>Explain Cultural Awareness, Competence, and Safety</li>
+      <li>Describe the <strong>Cultural Iceberg</strong> model</li>
+      <li>Reflect on your own identity and potential biases</li>
+    </ul>
+  </div>
+
+  <div class="box box-navy">
+    <div class="box-label">📋 Assessment note</div>
+    <p>Everything you learn today connects directly to your assessment tasks. Take notes — especially on Cultural Awareness, Competence, and Safety. Those are AT1 Q1.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- DIVERSITY AREAS -->
+<div id="s-diversity" class="section">
+  <div class="section-label">Part 1</div>
+  <div class="section-title"><span class="ico">🌈</span> What is Diversity?</div>
+
+  <p>In community services, <strong>diversity</strong> means recognising that every person is different — and that's a strength, not a problem.</p>
+  <p>These are the <strong>9 areas of diversity</strong> you need to know for your assessments:</p>
+
+  <div class="div-grid">
+    <div class="div-card"><span class="ico">♿</span><div class="div-name">Disability</div><div class="div-desc">Physical, sensory, intellectual, mental health, acquired brain injury</div></div>
+    <div class="div-card"><span class="ico">🌏</span><div class="div-name">Culture</div><div class="div-desc">Customs, social norms, family practices, shared beliefs</div></div>
+    <div class="div-card"><span class="ico">👥</span><div class="div-name">Race & Ethnicity</div><div class="div-desc">Shared language, religion, customs, place of origin</div></div>
+    <div class="div-card"><span class="ico">🙏</span><div class="div-name">Religion & Spirituality</div><div class="div-desc">Beliefs, practices, ceremonies — not the same thing</div></div>
+    <div class="div-card"><span class="ico">⚧</span><div class="div-name">Gender & Transgender</div><div class="div-desc">Gender identity — not the same as biological sex</div></div>
+    <div class="div-card"><span class="ico">🏳️‍🌈</span><div class="div-name">Sexual Orientation</div><div class="div-desc">Lesbian, gay, bisexual, heterosexual, and more</div></div>
+    <div class="div-card"><span class="ico">⚧️</span><div class="div-name">Intersex</div><div class="div-desc">Born with sex characteristics not exclusively male or female</div></div>
+    <div class="div-card"><span class="ico">🎂</span><div class="div-name">Generational</div><div class="div-desc">Gen Z, Millennials, Gen X, Boomers — different values and experiences</div></div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">💭 Think about this</div>
+    <p>Look at the people in your class right now. How many of these areas of diversity are represented in just this one room? <em>Diversity is already here.</em></p>
+  </div>
+</div>
+
+<hr>
+
+<!-- THREE KEY CONCEPTS -->
+<div id="s-concepts" class="section">
+  <div class="section-label">Part 2 — AT1 Key Content</div>
+  <div class="section-title"><span class="ico">🔑</span> Three Key Concepts</div>
+
+  <p>These three concepts are <strong>essential</strong> for working in community services. You will need to define all three for <strong>Assessment Task 1 Question 1</strong>.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card cc-aw">
+      <div class="concept-num">Concept 1</div>
+      <div class="concept-name">🧠 Cultural Awareness</div>
+      <div class="concept-def">Understanding <em>your own</em> cultural background and how it differs from others. Knowing that everyone has different values, beliefs, and ways of seeing the world.</div>
+      <div class="concept-eg">Example: A worker who grew up in a very punctual household learns that in some cultures, time works differently — and adjusts their expectations.</div>
+    </div>
+    <div class="concept-card cc-co">
+      <div class="concept-num">Concept 2</div>
+      <div class="concept-name">💼 Cultural Competence</div>
+      <div class="concept-def">The ability to work <em>effectively and ethically</em> with people from different backgrounds. This applies to individual workers AND to the organisations they work in.</div>
+      <div class="concept-eg">Example: A community services org trains all staff in diverse communication styles, and ensures its policies include CALD clients.</div>
+    </div>
+    <div class="concept-card cc-sa">
+      <div class="concept-num">Concept 3</div>
+      <div class="concept-name">🛡️ Cultural Safety</div>
+      <div class="concept-def">Creating an environment where people are <em>not exposed to challenge, rejection, or harm</em> because of who they are. It's about dignity, respect, and genuine listening.</div>
+      <div class="concept-eg">Example: A worker uses a client's correct pronouns without being asked, because they have asked respectfully what they prefer.</div>
+    </div>
+  </div>
+
+  <div class="box box-yellow">
+    <div class="box-label">✍️ Quick check — write your own</div>
+    <p>In your own words, what is the difference between cultural awareness and cultural safety?</p>
+    <div class="fill-label">Your answer:</div>
+    <textarea class="fill-area" placeholder="Write your answer here..."></textarea>
+  </div>
+</div>
+
+<hr>
+
+<!-- ICEBERG MODEL -->
+<div id="s-iceberg" class="section">
+  <div class="section-label">Part 3</div>
+  <div class="section-title"><span class="ico">🧊</span> The Cultural Iceberg</div>
+
+  <p>Culture is like an iceberg. You can only see a small part of it. <strong>Most of it is hidden below the surface.</strong></p>
+  <p>This is why cultural misunderstandings happen — not because people are rude, but because the <em>invisible</em> parts of their cultural icebergs are different.</p>
+
+  <div class="iceberg-wrap">
+    <div class="iceberg-above">
+      <div class="iceberg-label-above">👀 VISIBLE — above the waterline (easy to see)</div>
+      <div class="iceberg-items">
+        <span class="iceberg-item above">Food</span>
+        <span class="iceberg-item above">Language</span>
+        <span class="iceberg-item above">Clothing</span>
+        <span class="iceberg-item above">Celebrations</span>
+        <span class="iceberg-item above">Music & Art</span>
+        <span class="iceberg-item above">Greetings</span>
+      </div>
+    </div>
+    <div style="text-align:center; font-size:13px; color:rgba(255,255,255,.6); padding:8px 0;">〰〰〰 WATERLINE 〰〰〰</div>
+    <div class="iceberg-below">
+      <div class="iceberg-label-below">🔍 INVISIBLE — below the waterline (takes time to see)</div>
+      <div class="iceberg-items">
+        <span class="iceberg-item">Values & beliefs</span>
+        <span class="iceberg-item">Attitudes to authority</span>
+        <span class="iceberg-item">Gender roles</span>
+        <span class="iceberg-item">Family obligations</span>
+        <span class="iceberg-item">Concept of time</span>
+        <span class="iceberg-item">How conflict is handled</span>
+        <span class="iceberg-item">Communication style</span>
+        <span class="iceberg-item">Religious beliefs</span>
+        <span class="iceberg-item">Notions of fairness</span>
+        <span class="iceberg-item">Attitudes to eye contact</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP ACTIVITY -->
+  <div class="activity">
+    <div class="activity-head" onclick="toggleAct(this)">
+      <div class="activity-head-inner">
+        <span class="act-badge">GROUP ACTIVITY</span>
+        <div>
+          <div class="act-title">Group Iceberg Mapping 🧊</div>
+          <div class="act-type">Small groups — after lunch (12:45pm)</div>
+        </div>
+      </div>
+      <span class="act-chevron">▸</span>
+    </div>
+    <div class="activity-body">
+      <p>In your group (3–4 people), draw an iceberg on a large piece of paper.</p>
+      <ol>
+        <li>Write in the <strong>above-waterline</strong> section: things you could tell about each other in the first 5 minutes of meeting.</li>
+        <li>Write in the <strong>below-waterline</strong> section: things that took longer to learn, or that might never be visible to a stranger.</li>
+        <li>Share <strong>one item</strong> from below the waterline with the whole class.</li>
+      </ol>
+      <div class="box box-teal" style="margin-top:14px;">
+        <div class="box-label">💬 Discuss in your group:</div>
+        <p>What assumptions might someone make about your group just from what they can see?</p>
+        <p>What would they miss?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- SOCIAL IDENTITY WHEEL -->
+<div id="s-wheel" class="section">
+  <div class="section-label">Part 4 — Activity</div>
+  <div class="section-title"><span class="ico">☸️</span> Social Identity Wheel</div>
+
+  <p>Your identity is made up of many parts — your background, your roles, your experiences. This activity helps you see how <strong>your identity shapes how you work</strong>.</p>
+
+  <div class="box box-green">
+    <div class="box-label">📋 This connects to AT4 Part A Q1 and Q2</div>
+    <p>Keep your answers from this activity. They are direct source material for your Reflective Journal assesssment. You don't need to share any of this publicly.</p>
+  </div>
+
+  <p style="font-weight:700; margin-bottom:12px;">Fill in the wheel — what describes you?</p>
+
+  <div class="wheel-grid">
+    <div class="wheel-item"><div class="wheel-item-label">🌏 Cultural background</div><input type="text" placeholder="e.g. Vietnamese-Australian..."></div>
+    <div class="wheel-item"><div class="wheel-item-label">📍 Where you grew up</div><input type="text" placeholder="e.g. Box Hill, rural Victoria..."></div>
+    <div class="wheel-item"><div class="wheel-item-label">🎂 Generation</div><input type="text" placeholder="e.g. Millennial, Gen X..."></div>
+    <div class="wheel-item"><div class="wheel-item-label">💼 Work / Study experience</div><input type="text" placeholder="e.g. Aged care, no prior work..."></div>
+    <div class="wheel-item"><div class="wheel-item-label">👨‍👩‍👧 Family role</div><input type="text" placeholder="e.g. Parent, eldest child..."></div>
+    <div class="wheel-item"><div class="wheel-item-label">🙏 Religion / Spirituality</div><input type="text" placeholder="e.g. Prefer not to say, Catholic..."></div>
+    <div class="wheel-item"><div class="wheel-item-label">🌟 Something you're proud of</div><input type="text" placeholder="e.g. First in family to study..."></div>
+    <div class="wheel-item"><div class="wheel-item-label">🎯 Why community services?</div><input type="text" placeholder="e.g. Want to support youth..."></div>
+  </div>
+
+  <div class="fill-label">Which of your identities do you think about most often? Why?</div>
+  <textarea class="fill-area" placeholder="Write your thoughts here..."></textarea>
+
+  <div class="fill-label">Which identity has shaped how you approach helping others?</div>
+  <textarea class="fill-area" placeholder="Write your thoughts here..."></textarea>
+
+  <div class="box box-purple" style="margin-top:16px;">
+    <div class="box-label">💬 Pair Share (10 min)</div>
+    <p>Share <strong>one thing</strong> from your wheel with a partner — only what you're comfortable sharing. Ask: <em>"Did anything surprise you about your own answers?"</em></p>
+  </div>
+</div>
+
+<hr>
+
+<!-- UNCONSCIOUS BIAS -->
+<div id="s-bias" class="section">
+  <div class="section-label">Part 5</div>
+  <div class="section-title"><span class="ico">🔎</span> Unconscious Bias</div>
+
+  <p><strong>Bias</strong> = when we favour or disfavour something based on our background, culture, or experience.</p>
+  <p><strong>Unconscious</strong> = we are not aware it is happening.</p>
+
+  <div class="box box-teal">
+    <div class="box-label">💡 Key idea</div>
+    <p>Having bias does <strong>not</strong> make you a bad person. It is part of how the human brain works — we all pattern-match and categorise to make sense of the world.<br><br>What matters is being <strong>willing to notice it</strong>.</p>
+  </div>
+
+  <p>These are the most common types of unconscious bias in community services:</p>
+
+  <table>
+    <thead><tr><th>Type of Bias</th><th>What it looks like in practice</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Affinity bias</strong></td><td>Engaging more with clients who share your background or communication style</td></tr>
+      <tr><td><strong>Confirmation bias</strong></td><td>Looking for information that confirms what you already think about a person</td></tr>
+      <tr><td><strong>Attribution bias</strong></td><td>Explaining your own mistakes differently from how you explain a client's mistakes</td></tr>
+      <tr><td><strong>Halo / horns effect</strong></td><td>One positive or negative trait colours your entire view of a person</td></tr>
+      <tr><td><strong>Generational bias</strong></td><td>Assumptions based on age — in all directions</td></tr>
+    </tbody>
+  </table>
+
+  <!-- VIDEO -->
+  <div class="video-card">
+    <div class="video-thumb"><div class="video-play">▶</div><div>~3 min</div></div>
+    <div class="video-body">
+      <div class="video-badge">▶ Watch</div>
+      <div class="video-title">Understanding Unconscious Bias</div>
+      <div class="video-desc">A short video on what unconscious bias is and why it matters for workers who interact with diverse people.</div>
+      <a class="btn-watch" href="https://www.youtube.com/watch?v=dVp9Z5k0dEE" target="_blank">Watch on YouTube ↗</a>
+    </div>
+  </div>
+
+  <!-- BIAS AUDIT ACTIVITY -->
+  <div class="activity">
+    <div class="activity-head" onclick="toggleAct(this)">
+      <div class="activity-head-inner">
+        <span class="act-badge">PRIVATE REFLECTION</span>
+        <div>
+          <div class="act-title">Bias Audit 🔍</div>
+          <div class="act-type">Individual — not shared. This connects to AT4 Part A Q5</div>
+        </div>
+      </div>
+      <span class="act-chevron">▸</span>
+    </div>
+    <div class="activity-body">
+      <div class="box box-green" style="margin-bottom:16px;">
+        <div class="box-label">🔒 Private</div>
+        <p>This is for you only. You do not need to share your answers with anyone.</p>
+      </div>
+      <div class="fill-label">1. Think of a group of people you have found it hard to understand. What assumptions do you notice yourself making about them?</div>
+      <textarea class="fill-area" placeholder="Be honest — this is private..."></textarea>
+      <div class="fill-label">2. Where do you think that assumption comes from? (e.g. upbringing, media, past experience)</div>
+      <textarea class="fill-area" placeholder="Your thoughts..."></textarea>
+      <div class="fill-label">3. How might that assumption affect the way you work with someone from that group?</div>
+      <textarea class="fill-area" placeholder="Your thoughts..."></textarea>
+      <div class="fill-label">4. What could you do to challenge this assumption?</div>
+      <textarea class="fill-area" placeholder="Your thoughts..."></textarea>
+      <div class="box box-navy" style="margin-top:14px;">
+        <div class="box-label">📋 AT4 connection</div>
+        <p>AT4 Part A Q5 asks: <em>"What cultural biases or assumptions did you have before undertaking this unit?"</em> Your answers here are a direct starting point for that question. <strong>Save this.</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- QUIZ -->
+<div id="s-quiz" class="section">
+  <div class="section-label">Check Your Learning</div>
+  <div class="section-title"><span class="ico">✅</span> Quick Quiz</div>
+  <p>Test yourself on today's key concepts.</p>
+
+  <div class="quiz-wrap">
+    <h3>📝 Knowledge Check</h3>
+
+    <div class="quiz-q" id="qq1">
+      <div class="quiz-q-num">QUESTION 1</div>
+      <div class="quiz-q-text">Cultural Safety means creating an environment where people are NOT exposed to:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')"><input type="radio"><span>A) Different food and language</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')"><input type="radio"><span>B) Challenge or rejection because of who they are</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')"><input type="radio"><span>C) New ideas and perspectives</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')"><input type="radio"><span>D) People from different backgrounds</span></label>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq2">
+      <div class="quiz-q-num">QUESTION 2</div>
+      <div class="quiz-q-text">Which part of the Cultural Iceberg is INVISIBLE?</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')"><input type="radio"><span>A) Food and clothing</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')"><input type="radio"><span>B) Language and greetings</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')"><input type="radio"><span>C) Values, beliefs and assumptions</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')"><input type="radio"><span>D) Music and celebrations</span></label>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq3">
+      <div class="quiz-q-num">QUESTION 3</div>
+      <div class="quiz-q-text">Unconscious bias means you are biased and:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')"><input type="radio"><span>A) You are a bad person</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')"><input type="radio"><span>B) You are aware of it and choose to ignore it</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')"><input type="radio"><span>C) You are not aware it is happening</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')"><input type="radio"><span>D) You have not been trained</span></label>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq4">
+      <div class="quiz-q-num">QUESTION 4</div>
+      <div class="quiz-q-text">Cultural Competence applies to:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')"><input type="radio"><span>A) Individual workers only</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')"><input type="radio"><span>B) Organisations only</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')"><input type="radio"><span>C) Both individual workers AND organisations</span></label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')"><input type="radio"><span>D) Only managers and team leaders</span></label>
+      </div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">Check my answers ✓</button>
+    <div class="quiz-result" id="quizResult"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ASSESSMENT CONNECTIONS -->
+<div id="s-at" class="section">
+  <div class="section-label">Assessment</div>
+  <div class="section-title"><span class="ico">📋</span> How Today Links to Your Assessments</div>
+
+  <p>Everything you did today is <em>directly connected</em> to your assessment tasks. Here's what to take from today:</p>
+
+  <div class="at-grid">
+    <div class="at-card">
+      <div class="at-num">AT1 — Knowledge Questions</div>
+      <div class="at-name">Written, open book</div>
+      <div class="at-link">Q1: Define Cultural Awareness, Competence, Safety + 9 diversity areas → use today's notes</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT2 — Research Report</div>
+      <div class="at-name">Own time</div>
+      <div class="at-link">Cultural Iceberg + diversity areas = your research framework. Start thinking about 3 cultural groups to research.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT3 — Role Play</div>
+      <div class="at-name">In class, observed</div>
+      <div class="at-link">Bias awareness + staying non-judgemental = exactly what the role play scenario will test.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT4 — Reflective Journal</div>
+      <div class="at-name">Own time, workplace</div>
+      <div class="at-link">Your Identity Wheel → Part A Q1, Q2. Your Bias Audit → Part A Q5. Keep your worksheets!</div>
+    </div>
+  </div>
+
+  <div class="box box-orange">
+    <div class="box-label">⭐ Important</div>
+    <p>Keep your <strong>Social Identity Wheel</strong> and <strong>Bias Audit</strong> sheets. These are source material you can draw on for AT4. Don't throw them away!</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- GLOSSARY -->
+<div id="s-glossary" class="section">
+  <div class="section-label">Reference</div>
+  <div class="section-title"><span class="ico">📖</span> Key Terms</div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Cultural Awareness</div>
+    <div class="gloss-def">Knowing your own cultural background and understanding that others have different values, beliefs and ways of living.</div>
+    <div class="gloss-eg">You become aware that your idea of 'normal' family structure is not universal.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Cultural Competence</div>
+    <div class="gloss-def">The ability to work effectively and respectfully with people from different cultural backgrounds.</div>
+    <div class="gloss-eg">You adjust your communication style when working with a CALD (Culturally and Linguistically Diverse) client.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Cultural Safety</div>
+    <div class="gloss-def">An environment where people are not exposed to challenge, rejection, or harm because of their identity.</div>
+    <div class="gloss-eg">A client feels comfortable disclosing their religion because the worker has never made dismissive comments about it.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Cultural Iceberg</div>
+    <div class="gloss-def">A model showing that only a small part of culture is visible. The large invisible layer includes values, beliefs, and assumptions.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Unconscious Bias</div>
+    <div class="gloss-def">A preference for or against something that you are not aware of — shaped by your background and experiences.</div>
+    <div class="gloss-eg">Unconsciously spending less time with clients who don't make eye contact, because eye contact feels 'normal' to you.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">CALD</div>
+    <div class="gloss-def">Culturally and Linguistically Diverse — a term used in Australian community services for people from non-English-speaking backgrounds.</div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Progress steps
+const sections = ['s-intro','s-diversity','s-concepts','s-iceberg','s-wheel','s-bias','s-quiz','s-at'];
+function updateProgress() {
+  const steps = document.querySelectorAll('.step');
+  let current = 0;
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 140) current = i;
+  });
+  steps.forEach((s, i) => {
+    s.classList.remove('active','done');
+    if (i < current) s.classList.add('done');
+    else if (i === current) s.classList.add('active');
+  });
+}
+function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+window.addEventListener('scroll', () => {
+  updateProgress();
+  document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 400);
+});
+
+// Activity toggle
+function toggleAct(head) {
+  const body = head.nextElementSibling;
+  const ch = head.querySelector('.act-chevron');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  ch.textContent = open ? '▸' : '▾';
+}
+
+// Quiz
+const answers = { qq1: 1, qq2: 2, qq3: 2, qq4: 2 }; // 0-indexed
+function selectOpt(el, qid) {
+  document.querySelectorAll('#' + qid + ' .quiz-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function submitQuiz() {
+  let score = 0, total = Object.keys(answers).length;
+  Object.entries(answers).forEach(([qid, correct]) => {
+    const opts = document.querySelectorAll('#' + qid + ' .quiz-opt');
+    opts.forEach((o, i) => {
+      o.classList.remove('correct','wrong');
+      if (o.classList.contains('selected')) {
+        if (i === correct) { o.classList.add('correct'); score++; }
+        else o.classList.add('wrong');
+      }
+      if (i === correct) o.classList.add('correct');
+    });
+  });
+  const res = document.getElementById('quizResult');
+  res.classList.add('show');
+  const emoji = score === total ? '🎉' : score >= 2 ? '👍' : '📚';
+  res.innerHTML = `<strong>${emoji} You got ${score} out of ${total}.</strong><br><br>
+    <strong>Answers:</strong> 1-B &nbsp;|&nbsp; 2-C &nbsp;|&nbsp; 3-C &nbsp;|&nbsp; 4-C<br><br>
+    ${score < total ? 'Review any concepts you missed before your assessment.' : 'Great work — you have the key concepts down!'}`;
+  res.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+</script>
+</body>
+</html>
