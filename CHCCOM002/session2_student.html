@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 2 — Communication Skills for Difficult Situations | CHCCOM002 Student</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --yellow: #854d0e;
+  --yellow-lt: #fefce8;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.75; }
+
+/* -- HEADER -- */
+.top-bar { background: var(--navy); color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.tag { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+/* -- PROGRESS -- */
+.progress-wrap { background: var(--navy); padding: 0 24px 12px; }
+.progress-steps { display: flex; gap: 6px; }
+.step { flex: 1; height: 5px; background: rgba(255,255,255,.2); border-radius: 3px; cursor: pointer; transition: background .2s; }
+.step.done { background: var(--orange); }
+.step.active { background: rgba(255,255,255,.7); }
+
+/* -- HERO -- */
+.hero { background: linear-gradient(135deg, var(--navy) 0%, #0e4d7d 100%); color: white; padding: 40px 28px 36px; }
+.hero-badge { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+.hero-title { font-size: 26px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 16px; opacity: .85; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+/* -- MAIN -- */
+.page { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* -- SECTION -- */
+.section { margin-bottom: 48px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 21px; font-weight: 800; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { font-size: 24px; }
+
+/* -- TEXT -- */
+p { margin-bottom: 14px; font-size: 17px; }
+.big { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.plain { font-size: 16px; color: var(--muted); }
+
+/* -- DIVIDER -- */
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* -- CALLOUT BOXES -- */
+.box { border-radius: var(--radius); padding: 18px 20px; margin: 18px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-yellow { background: var(--yellow-lt); border-left: 4px solid #eab308; }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-yellow .box-label { color: var(--yellow); }
+.box-navy .box-label { color: var(--navy); }
+.box p, .box li { font-size: 15.5px; }
+
+/* -- CONCEPT CARDS -- */
+.concept-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0; }
+.concept-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; position: relative; overflow: hidden; }
+.concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.cc-aw::before { background: var(--teal); }
+.cc-co::before { background: var(--orange); }
+.cc-sa::before { background: var(--green); }
+.cc-pu::before { background: var(--purple); }
+.cc-nv::before { background: var(--navy); }
+.concept-num { font-size: 12px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 6px; }
+.cc-aw .concept-num { color: var(--teal); }
+.cc-co .concept-num { color: var(--orange); }
+.cc-sa .concept-num { color: var(--green); }
+.cc-pu .concept-num { color: var(--purple); }
+.cc-nv .concept-num { color: var(--navy); }
+.concept-name { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.concept-def { font-size: 15.5px; color: var(--text); margin-bottom: 10px; }
+.concept-eg { font-size: 14px; color: var(--muted); font-style: italic; padding: 8px 12px; background: var(--bg); border-radius: 6px; }
+
+/* -- FLIP CARDS -- */
+.flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0; }
+.flip-wrap { perspective: 800px; }
+.flip-card { width: 100%; min-height: 160px; position: relative; transform-style: preserve-3d; transition: transform .45s ease; cursor: pointer; }
+.flip-card.flipped { transform: rotateY(180deg); }
+.flip-front, .flip-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; text-align: center; border: 1.5px solid var(--border); }
+.flip-front { background: var(--navy); color: white; }
+.flip-back { background: var(--white); color: var(--text); transform: rotateY(180deg); }
+.flip-front-label { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; opacity: .6; margin-bottom: 10px; }
+.flip-front-term { font-size: 17px; font-weight: 800; line-height: 1.3; }
+.flip-hint { font-size: 11px; opacity: .5; margin-top: 12px; }
+.flip-back-def { font-size: 14px; line-height: 1.6; color: var(--text); }
+.flip-back-eg { font-size: 12.5px; color: var(--muted); font-style: italic; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 8px; }
+
+/* -- CONFLICT STAGES -- */
+.stages-wrap { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 18px 0; }
+.stages-label { font-size: 12px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; }
+.stages-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.stage-box { padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center; }
+.stage-1 { background: var(--green-lt); color: var(--green); border: 1.5px solid #bbf7d0; }
+.stage-2 { background: var(--yellow-lt); color: var(--yellow); border: 1.5px solid #fef08a; }
+.stage-3 { background: #fff7ed; color: #c2410c; border: 1.5px solid #fed7aa; }
+.stage-4 { background: #fef2f2; color: #dc2626; border: 1.5px solid #fecaca; }
+.stage-5 { background: var(--purple-lt); color: var(--purple); border: 1.5px solid #c4b5fd; }
+.stage-arrow { color: var(--muted); font-size: 18px; font-weight: 700; }
+.stages-note { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+
+/* -- STRATEGY LIST -- */
+.strategy-list { list-style: none; padding: 0; margin: 14px 0; }
+.strategy-list li { display: flex; gap: 12px; padding: 13px 16px; background: var(--white); border: 1px solid var(--border); border-radius: 9px; margin-bottom: 8px; font-size: 15.5px; align-items: flex-start; }
+.strategy-ico { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.strategy-body strong { display: block; font-size: 15px; color: var(--navy); margin-bottom: 2px; }
+.strategy-body span { font-size: 14px; color: var(--muted); }
+.strategy-list li.best { border-color: var(--green); background: var(--green-lt); }
+.strategy-list li.best .strategy-body strong { color: var(--green); }
+.strategy-list li.caution { border-color: #dc2626; background: #fef2f2; }
+.strategy-list li.caution .strategy-body strong { color: #dc2626; }
+
+/* -- DEESCALATION -- */
+.deesc-box { background: #eef2f7; border-left: 4px solid var(--navy); border-radius: 0 var(--radius) var(--radius) 0; padding: 16px 20px; margin: 14px 0; }
+.deesc-box .box-label { color: var(--navy); }
+.deesc-list { list-style: none; padding: 0; margin-top: 10px; }
+.deesc-list li { font-size: 15px; padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; }
+.deesc-list li:last-child { border-bottom: none; }
+.deesc-list li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+
+/* -- QUIZ -- */
+.quiz-wrap { background: var(--navy); border-radius: var(--radius); padding: 26px; margin-top: 10px; }
+.quiz-wrap h3 { color: white; font-size: 18px; margin-bottom: 18px; }
+.quiz-q { background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; margin-bottom: 12px; }
+.quiz-q-num { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: .5px; margin-bottom: 5px; }
+.quiz-q-text { font-size: 15px; color: white; font-weight: 600; margin-bottom: 12px; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt { display: flex; align-items: flex-start; gap: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 7px; padding: 10px 14px; cursor: pointer; transition: all .15s; }
+.quiz-opt:hover { background: rgba(255,255,255,.15); }
+.quiz-opt.selected { background: rgba(234,108,26,.3); border-color: var(--orange); }
+.quiz-opt.correct { background: rgba(22,163,74,.3); border-color: #4ade80; }
+.quiz-opt.wrong { background: rgba(239,68,68,.25); border-color: #f87171; }
+.quiz-opt input { display: none; }
+.quiz-opt span { font-size: 14.5px; color: white; }
+.quiz-opt .feedback-text { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 2px; display: none; }
+.quiz-opt.correct .feedback-text, .quiz-opt.wrong .feedback-text { display: block; }
+.quiz-submit { background: var(--orange); color: white; border: none; font-size: 15px; font-weight: 700; padding: 12px 28px; border-radius: 8px; cursor: pointer; margin-top: 14px; font-family: inherit; }
+.quiz-submit:hover { background: #d45a10; }
+.quiz-result { display: none; margin-top: 16px; background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; color: white; font-size: 14.5px; }
+.quiz-result.show { display: block; }
+
+/* -- FILL-IN AREAS -- */
+.fill-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 12px 0 5px; }
+.fill-area { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; color: var(--text); resize: vertical; min-height: 100px; font-family: inherit; transition: border .2s; }
+.fill-area:focus { outline: none; border-color: var(--teal); background: var(--white); }
+.save-note { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+
+/* -- ASSESSMENT LINKS -- */
+.at-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.at-card { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 15px; }
+.at-num { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+.at-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.at-link { font-size: 13px; color: var(--muted); }
+
+/* -- GLOSSARY -- */
+.gloss-item { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 16px; margin-bottom: 10px; }
+.gloss-term { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.gloss-def { font-size: 14.5px; color: var(--text); }
+.gloss-eg { font-size: 13px; color: var(--muted); font-style: italic; margin-top: 5px; }
+
+/* -- END OF DAY SUMMARY -- */
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 28px; margin-top: 10px; color: white; }
+.summary-box h3 { font-size: 18px; margin-bottom: 16px; color: white; }
+.summary-text { font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,.9); white-space: pre-wrap; font-family: inherit; }
+.btn-copy { background: var(--orange); color: white; border: none; font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; cursor: pointer; margin-top: 18px; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+.btn-copy:hover { background: #d45a10; }
+.copy-confirm { font-size: 13px; color: #4ade80; margin-top: 10px; display: none; }
+.copy-confirm.show { display: block; }
+
+/* -- SCROLL TOP -- */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+#scrollTop:hover { background: var(--orange); }
+
+/* -- TABLE -- */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 11px 14px; text-align: left; font-size: 14px; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+/* -- RESPONSIVE -- */
+@media (max-width: 600px) {
+  .at-grid, .flip-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 21px; }
+  .page { padding: 20px 14px 60px; }
+  .stages-row { gap: 4px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="tag">STUDENT</span>
+    <div>
+      <div class="top-title">CHCCOM002 — Use Communication to Build Relationships</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;&middot;&nbsp; Certificate IV Community Services</div>
+    </div>
+  </div>
+  <span style="font-size:13px; opacity:.7; white-space:nowrap;">Tue 21 April 2026</span>
+</div>
+
+<!-- PROGRESS STEPS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step active" onclick="scrollToSection('s-intro')" title="Intro"></div>
+    <div class="step" onclick="scrollToSection('s-concepts')" title="Professionalism & Boundaries"></div>
+    <div class="step" onclick="scrollToSection('s-approaches')" title="Approaches"></div>
+    <div class="step" onclick="scrollToSection('s-conflict')" title="Conflict Management"></div>
+    <div class="step" onclick="scrollToSection('s-quiz')" title="Quiz"></div>
+    <div class="step" onclick="scrollToSection('s-reflection')" title="Reflection"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Session 2 of 6</div>
+  <div class="hero-title">Communication Skills for Difficult Situations</div>
+  <div class="hero-sub">How do we stay professional when communication gets hard?</div>
+  <div class="hero-chips">
+    <span class="chip">Professionalism</span>
+    <span class="chip">Boundaries</span>
+    <span class="chip">Person-Centred</span>
+    <span class="chip">Conflict Management</span>
+    <span class="chip">Dispute Resolution</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- INTRO -->
+<div id="s-intro" class="section">
+  <div class="section-label">Getting Started</div>
+  <div class="section-title"><span class="ico">👋</span> Welcome to Session 2</div>
+
+  <p>Yesterday we covered <strong>how</strong> communication works. Today we look at <strong>when it gets hard</strong>. Difficult conversations, conflict, and professional boundaries are the daily reality of community services work.</p>
+  <p>The skills you build today are what keep you professional under pressure.</p>
+
+  <div class="box box-orange">
+    <div class="box-label">Today you will learn to:</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li>Explain what <strong>professionalism and policies</strong> mean in practice</li>
+      <li>Define <strong>professional boundaries</strong> and why they matter</li>
+      <li>Apply <strong>person-centred, rights-based, and strengths-based</strong> approaches</li>
+      <li>Describe <strong>motivational interviewing</strong> as a communication style</li>
+      <li>Identify the <strong>stages of conflict</strong> and five management strategies</li>
+      <li>Explain when <strong>dispute resolution</strong> processes apply</li>
+    </ul>
+  </div>
+
+  <div class="box box-navy">
+    <div class="box-label">Assessment note</div>
+    <p>Today's content feeds directly into <strong>AT1 Questions 7–12</strong>, <strong>AT2 Parts A and B</strong>, and <strong>AT4 Part A (conflict role play)</strong>. Pay close attention to the conflict strategies and incident report guidance.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- CONCEPTS: PROFESSIONALISM & BOUNDARIES -->
+<div id="s-concepts" class="section">
+  <div class="section-label">Part 1 — AT1 Key Content</div>
+  <div class="section-title"><span class="ico">🏛️</span> Professionalism, Policies &amp; Boundaries</div>
+
+  <p>Professionalism in community services is not just about being polite. It means acting with <strong>integrity within your role</strong>, following your organisation's policies, and upholding your client's dignity in every interaction.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card cc-aw">
+      <div class="concept-num">Concept 1</div>
+      <div class="concept-name">Professionalism &amp; Policies</div>
+      <div class="concept-def">Acting within your role, following organisational policies, and upholding client dignity. Policy provides a framework for consistent, ethical, and safe practice. It protects you, your client, and your organisation.</div>
+      <div class="concept-eg">"Professionalism isn't just about being polite — it's about acting with integrity within your role boundaries."<br><br>Example: Following your org's communication policy when a client discloses sensitive information.</div>
+    </div>
+
+    <div class="concept-card cc-co">
+      <div class="concept-num">Concept 2</div>
+      <div class="concept-name">Person-Centred &amp; Rights-Based</div>
+      <div class="concept-def"><strong>Person-centred</strong> = the client's needs, goals, and preferences drive every interaction. <strong>Rights-based</strong> = the client's rights are a non-negotiable starting point. <strong>Strengths-based</strong> = focus on what the client CAN do, not what they can't.</div>
+      <div class="concept-eg">"These three lenses work together — you don't choose one, you apply all three."</div>
+    </div>
+
+    <div class="concept-card cc-sa">
+      <div class="concept-num">Concept 3</div>
+      <div class="concept-name">Professional Boundaries</div>
+      <div class="concept-def">The limits that define what is appropriate within your role. They exist to protect both you and your client. <strong>Professional</strong> boundaries (set by your role and organisation) are different from <strong>personal</strong> boundaries (which protect your own wellbeing).</div>
+      <div class="concept-eg">Example: "A client asks for your personal phone number. Your professional boundary is to provide the organisation's contact number instead."</div>
+    </div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">Think about this</div>
+    <p>What makes the line between genuine care and over-involvement so hard to hold in this sector? What helps workers stay the right side of that line?</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- APPROACHES -->
+<div id="s-approaches" class="section">
+  <div class="section-label">Part 2 — AT1 + AT2 Key Content</div>
+  <div class="section-title"><span class="ico">🧭</span> Approaches to Communication</div>
+
+  <p>These four approaches shape how professional community services workers communicate with clients. Click each card to see the full explanation.</p>
+
+  <div class="flip-grid">
+    <div class="flip-wrap">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-front">
+          <div class="flip-front-label">Tap to learn</div>
+          <div class="flip-front-term">Person-Centred</div>
+          <div class="flip-hint">click to flip</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-def">The client's needs, goals and preferences drive every decision. Ask: "What matters most to you?" — not "What does the system say you need?"</div>
+          <div class="flip-back-eg">Shifts power back to the client and builds genuine trust.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-front">
+          <div class="flip-front-label">Tap to learn</div>
+          <div class="flip-front-term">Rights-Based</div>
+          <div class="flip-hint">click to flip</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-def">Every client has rights — to dignity, privacy, autonomy, and fair treatment. Your communication must uphold these rights, not work around them.</div>
+          <div class="flip-back-eg">Example: A client in crisis still has the right to make informed decisions about their care.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-front">
+          <div class="flip-front-label">Tap to learn</div>
+          <div class="flip-front-term">Strengths-Based</div>
+          <div class="flip-hint">click to flip</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-def">Start with what the client CAN do, not what they can't. Focus on capacity, not deficit.</div>
+          <div class="flip-back-eg">"I can see you've already taken steps to..." builds confidence and momentum.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-front">
+          <div class="flip-front-label">Tap to learn</div>
+          <div class="flip-front-term">Motivational Interviewing</div>
+          <div class="flip-hint">click to flip</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-def">A collaborative, non-confrontational style that helps clients explore their own motivation for change. Uses open questions, reflective listening, and affirmations.</div>
+          <div class="flip-back-eg">Key principle: the client finds their own reasons to change — the worker guides, not pushes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-green">
+    <div class="box-label">Video — Person-Centred Care in Practice</div>
+    <p>Watch: <a href="https://www.youtube.com/watch?v=JBkZw56FCDY" target="_blank" style="color: var(--green); font-weight:700;">Person-Centred Care — YouTube</a> &nbsp;(cued in class)</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- CONFLICT MANAGEMENT -->
+<div id="s-conflict" class="section">
+  <div class="section-label">Part 3 — AT1 + AT4 Key Content</div>
+  <div class="section-title"><span class="ico">⚡</span> Conflict Management</div>
+
+  <p>Conflict is a normal part of human interaction. In community services, how you <strong>respond</strong> to conflict defines your professionalism. Understanding the stages helps you intervene earlier.</p>
+
+  <!-- Stages diagram -->
+  <div class="stages-wrap">
+    <div class="stages-label">Stages of Conflict</div>
+    <div class="stages-row">
+      <div class="stage-box stage-1">Latent</div>
+      <div class="stage-arrow">→</div>
+      <div class="stage-box stage-2">Perceived</div>
+      <div class="stage-arrow">→</div>
+      <div class="stage-box stage-3">Felt</div>
+      <div class="stage-arrow">→</div>
+      <div class="stage-box stage-4">Manifest</div>
+      <div class="stage-arrow">→</div>
+      <div class="stage-box stage-5">Aftermath</div>
+    </div>
+    <p class="stages-note">The earlier you identify and address conflict, the less disruptive it becomes. Don't wait for Manifest.</p>
+  </div>
+
+  <p>There are five main strategies for managing conflict. The right choice depends on the situation — but in community services, <strong>Collaborating</strong> is almost always the goal.</p>
+
+  <ul class="strategy-list">
+    <li>
+      <span class="strategy-ico">🔕</span>
+      <div class="strategy-body">
+        <strong>Avoiding</strong>
+        <span>When to use: the issue is trivial, or the timing is wrong. Overused? The conflict grows underground.</span>
+      </div>
+    </li>
+    <li>
+      <span class="strategy-ico">🤝</span>
+      <div class="strategy-body">
+        <strong>Accommodating</strong>
+        <span>When to use: preserving the relationship matters more than winning. You give in — sometimes appropriately.</span>
+      </div>
+    </li>
+    <li>
+      <span class="strategy-ico">⚖️</span>
+      <div class="strategy-body">
+        <strong>Compromising</strong>
+        <span>When to use: both parties give something. Good for time-limited situations. Neither side fully wins.</span>
+      </div>
+    </li>
+    <li class="best">
+      <span class="strategy-ico">🌟</span>
+      <div class="strategy-body">
+        <strong>Collaborating — Best Option</strong>
+        <span>Both parties work together toward a shared solution. Takes more time but produces real resolution. Aim for this.</span>
+      </div>
+    </li>
+    <li class="caution">
+      <span class="strategy-ico">⛔</span>
+      <div class="strategy-body">
+        <strong>Competing — Rarely Appropriate</strong>
+        <span>One party wins, the other loses. Damages relationships. Almost never the right choice in community services.</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- De-escalation tips -->
+  <div class="deesc-box">
+    <div class="box-label">De-Escalation — When a Client Is Distressed</div>
+    <ul class="deesc-list">
+      <li>Lower your voice — don't match their volume</li>
+      <li>Slow your pace — rushed responses escalate tension</li>
+      <li>Increase physical space — give them room</li>
+      <li>Use open body language — uncrossed arms, slight lean forward</li>
+      <li>Name the emotion: "I can see this is really frustrating"</li>
+      <li>Avoid 'you' statements ("You're being aggressive") — use 'I' or neutral language</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <div class="section-title" style="margin-top:28px;"><span class="ico">📋</span> Dispute Resolution</div>
+
+  <p><strong>Dispute resolution</strong> is different from conflict management. It involves <strong>formal processes</strong> used when informal resolution hasn't worked or when the situation requires structured intervention.</p>
+
+  <div class="box box-purple">
+    <div class="box-label">Dispute Resolution Processes</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li><strong>Negotiation</strong> — direct discussion between parties to reach agreement</li>
+      <li><strong>Mediation</strong> — a neutral third party helps the parties reach resolution</li>
+      <li><strong>Arbitration</strong> — a third party makes a binding decision</li>
+    </ul>
+  </div>
+
+  <div class="box box-orange">
+    <div class="box-label">Know Your Obligations</div>
+    <p>In community services, you have reporting obligations when conflict involves risk to a client or worker. Know your organisation's escalation pathway — and use it. Keeping a conflict to yourself is not professionalism, it's a risk.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- QUIZ -->
+<div id="s-quiz" class="section">
+  <div class="section-label">Check Your Understanding</div>
+  <div class="section-title"><span class="ico">✅</span> Self-Check Quiz</div>
+  <p>Answer all four questions, then click Submit to check your answers.</p>
+
+  <div class="quiz-wrap">
+    <h3>Session 2 — Quick Check</h3>
+
+    <div class="quiz-q" id="qq1">
+      <div class="quiz-q-num">Question 1</div>
+      <div class="quiz-q-text">A client becomes upset and starts raising their voice. Your FIRST response should be:</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <span>A) Match their energy so they feel heard
+            <div class="feedback-text">Matching high energy escalates the situation further.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <span>B) Lower your voice and slow your pace to de-escalate
+            <div class="feedback-text">Correct — a calm, slower pace signals safety and reduces tension.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <span>C) Tell them to calm down
+            <div class="feedback-text">Telling someone to calm down usually has the opposite effect.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <span>D) Leave the room immediately
+            <div class="feedback-text">Leaving without warning abandons the client and may escalate things.</div>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq2">
+      <div class="quiz-q-num">Question 2</div>
+      <div class="quiz-q-text">The person-centred approach means:</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <span>A) The worker decides what's best for the client
+            <div class="feedback-text">This is the opposite of person-centred — it puts the worker in control.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <span>B) The client's needs, goals, and preferences drive every interaction
+            <div class="feedback-text">Correct — the client's perspective is always the starting point.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <span>C) The organisation's policies always come first
+            <div class="feedback-text">Policies are important but they don't override a person-centred approach.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <span>D) The client must agree with everything you suggest
+            <div class="feedback-text">Person-centred practice respects autonomy — including the right to disagree.</div>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq3">
+      <div class="quiz-q-num">Question 3</div>
+      <div class="quiz-q-text">Professional boundaries exist to:</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <span>A) Keep workers emotionally detached from clients
+            <div class="feedback-text">Professional boundaries don't require detachment — empathy is still essential.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <span>B) Protect both the worker and the client
+            <div class="feedback-text">Correct — boundaries create a safe, ethical framework for the relationship.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <span>C) Limit the support you can give
+            <div class="feedback-text">Boundaries shape how support is given — they don't limit how much you care.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <span>D) Follow union rules
+            <div class="feedback-text">Professional boundaries are an ethical and practice standard, not a union matter.</div>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq4">
+      <div class="quiz-q-num">Question 4</div>
+      <div class="quiz-q-text">Dispute resolution is different from conflict management because:</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <span>A) It involves formal processes like mediation or arbitration
+            <div class="feedback-text">Correct — dispute resolution uses structured, often third-party processes.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <span>B) It's less serious than conflict management
+            <div class="feedback-text">Dispute resolution is typically used for more serious or unresolved situations.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <span>C) It only applies to staff-to-staff situations
+            <div class="feedback-text">Dispute resolution can apply to client, staff, and organisational conflicts.</div>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <span>D) The worker resolves it independently
+            <div class="feedback-text">Dispute resolution almost always involves a third party or formal process.</div>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">Submit Answers</button>
+    <div class="quiz-result" id="quizResult"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- REFLECTION -->
+<div id="s-reflection" class="section">
+  <div class="section-label">Reflective Practice</div>
+  <div class="section-title"><span class="ico">💭</span> Your Reflection</div>
+
+  <div class="box box-teal">
+    <div class="box-label">Reflection Prompt</div>
+    <p>Think of a time you had to maintain a professional boundary or navigate a difficult communication situation. <strong>What helped? What made it harder?</strong></p>
+    <p style="font-size:14px; color:var(--muted);">Your reflection is saved privately to this device. It is not submitted anywhere.</p>
+  </div>
+
+  <div class="fill-label">Your response</div>
+  <textarea class="fill-area" id="reflectionArea" placeholder="Type your reflection here..."></textarea>
+  <div class="save-note">
+    <span>💾</span> <span>Auto-saved to this device as you type.</span>
+  </div>
+</div>
+
+<hr>
+
+<!-- GLOSSARY -->
+<div class="section">
+  <div class="section-label">Key Vocabulary</div>
+  <div class="section-title"><span class="ico">📖</span> Glossary</div>
+  <p>Know these terms. They appear in your assessments.</p>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Professional boundaries</div>
+    <div class="gloss-def">The limits that define what is appropriate within a worker's role. They protect both the worker and the client.</div>
+    <div class="gloss-eg">Example: not sharing your personal phone number with clients.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Person-centred approach</div>
+    <div class="gloss-def">An approach where the client's own needs, goals, and preferences are the starting point for every decision and interaction.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Rights-based approach</div>
+    <div class="gloss-def">An approach that treats client rights — to dignity, privacy, autonomy, and fair treatment — as non-negotiable.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Strengths-based approach</div>
+    <div class="gloss-def">A practice approach that focuses on what a client CAN do and the resources they already have, rather than deficits.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Motivational interviewing</div>
+    <div class="gloss-def">A collaborative, non-confrontational communication style that helps clients find their own motivation for change through open questions and reflective listening.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Conflict management</div>
+    <div class="gloss-def">The process of identifying, addressing, and resolving conflict using appropriate strategies. Aims to maintain relationships and find workable solutions.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">De-escalation</div>
+    <div class="gloss-def">Techniques used to reduce the intensity of a conflict or distressed situation. Includes lowering your voice, slowing your pace, and naming the emotion.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Dispute resolution</div>
+    <div class="gloss-def">Formal processes — such as negotiation, mediation, or arbitration — used to resolve conflict that cannot be resolved informally.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Policies and procedures</div>
+    <div class="gloss-def">Documented organisational guidelines that direct how workers act in given situations. Policies state the 'what and why'; procedures describe the 'how'.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Assertive communication</div>
+    <div class="gloss-def">A communication style that clearly expresses needs, boundaries, or concerns without aggression or passivity. The professional standard in community services.</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ASSESSMENT CONNECTIONS -->
+<div class="section">
+  <div class="section-label">Why This Matters</div>
+  <div class="section-title"><span class="ico">🎯</span> Assessment Connections</div>
+  <p>Everything covered today links to your assessments. Here's how.</p>
+
+  <div class="at-grid">
+    <div class="at-card">
+      <div class="at-num">AT1 — Knowledge Questions</div>
+      <div class="at-name">Q7–12</div>
+      <div class="at-link">Boundaries, approaches, conflict stages, de-escalation, and dispute resolution are all covered today. Start drafting now.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT2 — Part A</div>
+      <div class="at-name">Cherie's Story</div>
+      <div class="at-link">Use person-centred and rights-based language in your responses about Cherie's situation. Avoid telling her what she needs.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT2 — Part B</div>
+      <div class="at-name">Incident Report</div>
+      <div class="at-link">Today's policies content applies. Write factual observations, not opinions. "Cherie raised her voice" — not "Cherie seemed angry."</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT4 — Part A</div>
+      <div class="at-name">Conflict Role Play</div>
+      <div class="at-link">Today's conflict management and de-escalation skills are exactly what the role play tests. Start thinking about how you'd handle the scenario.</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- DIGITAL HANDOUTS -->
+<div id="s-handouts" class="section">
+  <div class="section-label">Your Worksheets</div>
+  <div class="section-title"><span class="ico">📋</span> Digital Handouts — Fill In on This Page</div>
+
+  <p>These are the same handouts you'd normally receive as printed sheets. Fill them in here — your answers save privately to this device.</p>
+
+  <!-- HANDOUT 1: Conflict Scenario Analysis -->
+  <div class="box box-navy" style="margin-bottom:24px;">
+    <div class="box-label">Handout 1 — Conflict Scenario Analysis</div>
+  </div>
+
+  <!-- Scenario 1 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:18px;">
+    <div style="font-size:11px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--orange); margin-bottom:8px;">Scenario 1</div>
+    <div class="box box-orange" style="margin-bottom:14px; margin-top:0;">
+      <p style="margin:0; font-size:15px; font-style:italic;">"Two support workers disagree about how a client's care plan should be updated. One wants to follow the standard process; the other thinks an exception should be made because of the client's circumstances."</p>
+    </div>
+    <div class="fill-label">a) What type of conflict is this?</div>
+    <select id="s2_hs1_s1_type" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14.5px; font-family:inherit; background:var(--bg); color:var(--text); margin-bottom:12px;">
+      <option value="">— Select a type —</option>
+      <option value="Interpersonal">Interpersonal conflict</option>
+      <option value="Role conflict">Role conflict</option>
+      <option value="Values conflict">Values conflict</option>
+      <option value="Resource conflict">Resource conflict</option>
+    </select>
+    <div class="fill-label">b) Which management strategy would you use?</div>
+    <select id="s2_hs1_s1_strategy" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14.5px; font-family:inherit; background:var(--bg); color:var(--text); margin-bottom:12px;">
+      <option value="">— Select a strategy —</option>
+      <option value="Avoiding">Avoiding</option>
+      <option value="Accommodating">Accommodating</option>
+      <option value="Compromising">Compromising</option>
+      <option value="Collaborating">Collaborating</option>
+      <option value="Competing">Competing</option>
+    </select>
+    <div class="fill-label">c) Justify your strategy choice</div>
+    <textarea class="fill-area" id="s2_hs1_s1_justify" placeholder="Why is this strategy the best fit for this scenario?" style="min-height:80px; margin-bottom:12px;"></textarea>
+    <div class="fill-label">d) What would you report and to whom?</div>
+    <textarea class="fill-area" id="s2_hs1_s1_report" placeholder="What information would you document or escalate, and who would you tell?" style="min-height:80px;"></textarea>
+  </div>
+
+  <!-- Scenario 2 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:18px;">
+    <div style="font-size:11px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--orange); margin-bottom:8px;">Scenario 2</div>
+    <div class="box box-orange" style="margin-bottom:14px; margin-top:0;">
+      <p style="margin:0; font-size:15px; font-style:italic;">"A client becomes upset during a meeting and raises their voice at you, accusing you of not understanding their situation."</p>
+    </div>
+    <div class="fill-label">a) What type of conflict is this?</div>
+    <select id="s2_hs1_s2_type" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14.5px; font-family:inherit; background:var(--bg); color:var(--text); margin-bottom:12px;">
+      <option value="">— Select a type —</option>
+      <option value="Interpersonal">Interpersonal conflict</option>
+      <option value="Role conflict">Role conflict</option>
+      <option value="Values conflict">Values conflict</option>
+      <option value="Resource conflict">Resource conflict</option>
+    </select>
+    <div class="fill-label">b) Which management strategy would you use?</div>
+    <select id="s2_hs1_s2_strategy" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14.5px; font-family:inherit; background:var(--bg); color:var(--text); margin-bottom:12px;">
+      <option value="">— Select a strategy —</option>
+      <option value="Avoiding">Avoiding</option>
+      <option value="Accommodating">Accommodating</option>
+      <option value="Compromising">Compromising</option>
+      <option value="Collaborating">Collaborating</option>
+      <option value="Competing">Competing</option>
+    </select>
+    <div class="fill-label">c) Justify your strategy choice</div>
+    <textarea class="fill-area" id="s2_hs1_s2_justify" placeholder="Why is this strategy the best fit for this scenario?" style="min-height:80px; margin-bottom:12px;"></textarea>
+    <div class="fill-label">d) What would you report and to whom?</div>
+    <textarea class="fill-area" id="s2_hs1_s2_report" placeholder="What information would you document or escalate, and who would you tell?" style="min-height:80px;"></textarea>
+  </div>
+
+  <!-- Scenario 3 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:28px;">
+    <div style="font-size:11px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--orange); margin-bottom:8px;">Scenario 3</div>
+    <div class="box box-orange" style="margin-bottom:14px; margin-top:0;">
+      <p style="margin:0; font-size:15px; font-style:italic;">"A colleague consistently takes credit for team work in front of the supervisor, including work you did."</p>
+    </div>
+    <div class="fill-label">a) What type of conflict is this?</div>
+    <select id="s2_hs1_s3_type" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14.5px; font-family:inherit; background:var(--bg); color:var(--text); margin-bottom:12px;">
+      <option value="">— Select a type —</option>
+      <option value="Interpersonal">Interpersonal conflict</option>
+      <option value="Role conflict">Role conflict</option>
+      <option value="Values conflict">Values conflict</option>
+      <option value="Resource conflict">Resource conflict</option>
+    </select>
+    <div class="fill-label">b) Which management strategy would you use?</div>
+    <select id="s2_hs1_s3_strategy" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14.5px; font-family:inherit; background:var(--bg); color:var(--text); margin-bottom:12px;">
+      <option value="">— Select a strategy —</option>
+      <option value="Avoiding">Avoiding</option>
+      <option value="Accommodating">Accommodating</option>
+      <option value="Compromising">Compromising</option>
+      <option value="Collaborating">Collaborating</option>
+      <option value="Competing">Competing</option>
+    </select>
+    <div class="fill-label">c) Justify your strategy choice</div>
+    <textarea class="fill-area" id="s2_hs1_s3_justify" placeholder="Why is this strategy the best fit for this scenario?" style="min-height:80px; margin-bottom:12px;"></textarea>
+    <div class="fill-label">d) What would you report and to whom?</div>
+    <textarea class="fill-area" id="s2_hs1_s3_report" placeholder="What information would you document or escalate, and who would you tell?" style="min-height:80px;"></textarea>
+  </div>
+
+  <div class="save-note" style="margin-bottom:28px;"><span>&#128274;</span> <span>All scenario responses are saved privately to this device as you type.</span></div>
+
+  <!-- HANDOUT 2: Approaches in Practice -->
+  <div class="box box-navy" style="margin-bottom:24px;">
+    <div class="box-label">Handout 2 — Approaches in Practice: Reflection</div>
+  </div>
+
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:28px;">
+    <div class="fill-label">Person-centred in practice</div>
+    <p style="font-size:14.5px; color:var(--muted); margin-bottom:8px;">Describe a situation (real or imagined) where a person-centred approach would make a difference. How would you apply it?</p>
+    <textarea class="fill-area" id="s2_hs2_pc" placeholder="Think about a client's goals being put at the centre of decisions..." style="min-height:100px; margin-bottom:18px;"></textarea>
+
+    <div class="fill-label">Professional boundaries in practice</div>
+    <p style="font-size:14.5px; color:var(--muted); margin-bottom:8px;">What does 'maintaining professional boundaries' look like in practice in your future role?</p>
+    <textarea class="fill-area" id="s2_hs2_pb" placeholder="Think about specific situations where boundaries might be tested..." style="min-height:100px; margin-bottom:18px;"></textarea>
+
+    <div class="fill-label">Conflict management reflection</div>
+    <p style="font-size:14.5px; color:var(--muted); margin-bottom:8px;">Think of a workplace conflict you've heard about or experienced. Which management strategy was used? Was it effective?</p>
+    <textarea class="fill-area" id="s2_hs2_conflict" placeholder="You can use a real example or a hypothetical scenario..." style="min-height:100px;"></textarea>
+    <div class="save-note" style="margin-top:10px;"><span>&#128274;</span> <span>Saved privately to this device as you type.</span></div>
+  </div>
+
+  <!-- ACTIVITY 1: Approaches Sorting Game -->
+  <div class="box box-purple" style="margin-bottom:18px; margin-top:8px;">
+    <div class="box-label">Interactive Activity 1 — Approaches Sorting Game</div>
+    <p style="margin-bottom:0;">Which approach is this? Click a button to classify each statement.</p>
+  </div>
+
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:28px;" id="sorting_wrap">
+    <!-- Built by JS -->
+  </div>
+
+  <!-- ACTIVITY 2: De-escalation Do or Don't -->
+  <div class="box box-teal" style="margin-bottom:18px; margin-top:8px;">
+    <div class="box-label">Interactive Activity 2 — De-escalation: Do or Don't?</div>
+    <p style="margin-bottom:0;">Click "Do" or "Don't" for each action. Your score is shown at the end.</p>
+  </div>
+
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:28px;">
+    <div id="deesc_wrap">
+      <!-- Built by JS -->
+    </div>
+    <button onclick="checkDeesc()" style="background:var(--teal); color:white; border:none; font-size:14px; font-weight:700; padding:11px 24px; border-radius:8px; cursor:pointer; font-family:inherit; margin-top:14px;">See My Score</button>
+    <div id="deesc_score" style="display:none; margin-top:16px; background:#eef2f7; border-left:4px solid var(--navy); border-radius:0 8px 8px 0; padding:14px 18px; font-size:15px; font-weight:700; color:var(--navy);"></div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- END OF DAY SUMMARY -->
+<div class="section">
+  <div class="section-label">Take This With You</div>
+  <div class="section-title"><span class="ico">📧</span> End-of-Day Summary</div>
+  <p>Copy this and paste it into Teams or your notes to keep a record of today's session.</p>
+
+  <div class="summary-box">
+    <h3>Session 2 Summary — Copy to Teams</h3>
+    <div class="summary-text" id="summaryText">Hi everyone,
+Here's your Session 2 summary.
+
+WHAT WE COVERED TODAY:
+
+1. Professionalism, policies and procedures — professional communication means acting within your role, following your organisation's policies, and upholding client dignity. Policy protects everyone.
+
+2. Professional and personal boundaries — professional boundaries define what's appropriate within your role. They protect both you and your client. Common challenge: genuine care can blur the line.
+
+3. Person-centred, rights-based, and strengths-based approaches — three lenses that shape how we communicate: client's goals first, rights are non-negotiable, focus on capacity not deficit.
+
+4. Motivational interviewing — a collaborative, non-confrontational communication style that helps clients explore their own motivation for change.
+
+5. Conflict management — conflict goes through stages (latent to aftermath). Five strategies: avoiding, accommodating, compromising, collaborating, competing. In community services: aim for collaboration, de-escalate before confronting.
+
+6. Dispute resolution — when conflict can't be resolved informally, formal processes apply (negotiation, mediation, arbitration). Know your reporting obligations.
+
+HOW TODAY LINKS TO YOUR ASSESSMENTS:
+
+AT1: Q7–12 are covered today. Get your drafts started.
+
+AT2 Part A: Use person-centred and rights-based language in your responses about Cherie.
+
+AT2 Part B: Incident report = factual, objective, structured. "Cherie seemed upset" is opinion. "Cherie raised her voice" is an observation.
+
+AT4 Part A: The conflict role play uses today's skills. Start thinking about how you'd handle the scenario.
+
+A NOTE FOR YOUR RECORDS:
+Keep any notes and worksheets from today — they are your reference material for AT1, AT2, and AT4.
+
+See you next Monday for Session 3.</div>
+    <button class="btn-copy" onclick="copySummary()">📋 Copy to Clipboard</button>
+    <div class="copy-confirm" id="copyConfirm">Copied! Paste into Teams or your notes.</div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// --- Progress bar ---
+const sections = ['s-intro','s-concepts','s-approaches','s-conflict','s-quiz','s-reflection'];
+function scrollToSection(id) {
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+}
+function updateProgress() {
+  const steps = document.querySelectorAll('.progress-steps .step');
+  let active = 0;
+  sections.forEach(function(id, i) {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 180) active = i;
+  });
+  steps.forEach(function(s, i) {
+    s.classList.remove('active','done');
+    if (i < active) s.classList.add('done');
+    else if (i === active) s.classList.add('active');
+  });
+}
+window.addEventListener('scroll', function() {
+  updateProgress();
+  const btn = document.getElementById('scrollTop');
+  if (btn) btn.classList.toggle('vis', window.scrollY > 400);
+});
+
+// --- Quiz ---
+// correct answers: Q1=B(1), Q2=B(1), Q3=B(1), Q4=A(0)
+const answers = { qq1: 1, qq2: 1, qq3: 1, qq4: 0 };
+function selectOpt(el, qid) {
+  document.querySelectorAll('#' + qid + ' .quiz-opt').forEach(function(o) {
+    o.classList.remove('selected');
+  });
+  el.classList.add('selected');
+}
+function submitQuiz() {
+  var score = 0;
+  var total = Object.keys(answers).length;
+  Object.entries(answers).forEach(function(entry) {
+    var qid = entry[0], correct = entry[1];
+    var opts = document.querySelectorAll('#' + qid + ' .quiz-opt');
+    opts.forEach(function(o, i) {
+      o.classList.remove('correct','wrong');
+      if (o.classList.contains('selected')) {
+        if (i === correct) { o.classList.add('correct'); score++; }
+        else o.classList.add('wrong');
+      }
+      if (i === correct) o.classList.add('correct');
+    });
+  });
+  var res = document.getElementById('quizResult');
+  res.classList.add('show');
+  var emoji = score === total ? '🎉' : score >= 2 ? '👍' : '📚';
+  res.innerHTML = '<strong>' + emoji + ' You got ' + score + ' out of ' + total + '.</strong><br><br>' +
+    '<strong>Answers:</strong> 1-B &nbsp;|&nbsp; 2-B &nbsp;|&nbsp; 3-B &nbsp;|&nbsp; 4-A<br><br>' +
+    (score < total ? 'Review any concepts you missed — these all appear in AT1.' : 'Great work — you have the key concepts down!');
+  res.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// --- localStorage for reflection ---
+var reflectionArea = document.getElementById('reflectionArea');
+var STORAGE_KEY = 'chccom002_s2_reflection';
+if (reflectionArea) {
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) reflectionArea.value = saved;
+  reflectionArea.addEventListener('input', function() {
+    localStorage.setItem(STORAGE_KEY, reflectionArea.value);
+  });
+}
+
+// --- Copy summary to clipboard ---
+function copySummary() {
+  var text = document.getElementById('summaryText').innerText;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      showCopyConfirm();
+    }).catch(function() {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); showCopyConfirm(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+function showCopyConfirm() {
+  var el = document.getElementById('copyConfirm');
+  if (el) {
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 3000);
+  }
+}
+
+// --- Handout 1: Scenario dropdowns and textareas localStorage ---
+(function() {
+  var fields = [
+    's2_hs1_s1_type','s2_hs1_s1_strategy','s2_hs1_s1_justify','s2_hs1_s1_report',
+    's2_hs1_s2_type','s2_hs1_s2_strategy','s2_hs1_s2_justify','s2_hs1_s2_report',
+    's2_hs1_s3_type','s2_hs1_s3_strategy','s2_hs1_s3_justify','s2_hs1_s3_report'
+  ];
+  fields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var key = 'chccom002_s2_hs1_' + id;
+    var saved = localStorage.getItem(key);
+    if (saved) el.value = saved;
+    var evt = (el.tagName === 'SELECT') ? 'change' : 'input';
+    el.addEventListener(evt, function() { localStorage.setItem(key, el.value); });
+  });
+})();
+
+// --- Handout 2: Reflection textareas localStorage ---
+(function() {
+  var fields = [
+    { id: 's2_hs2_pc', key: 'chccom002_s2_hs2_pc' },
+    { id: 's2_hs2_pb', key: 'chccom002_s2_hs2_pb' },
+    { id: 's2_hs2_conflict', key: 'chccom002_s2_hs2_conflict' }
+  ];
+  fields.forEach(function(f) {
+    var el = document.getElementById(f.id);
+    if (!el) return;
+    var saved = localStorage.getItem(f.key);
+    if (saved) el.value = saved;
+    el.addEventListener('input', function() { localStorage.setItem(f.key, el.value); });
+  });
+})();
+
+// --- Approaches Sorting Game ---
+(function() {
+  var statements = [
+    { text: '"Let\'s start with what you\'ve already been able to manage on your own."', correct: 'Strengths-Based' },
+    { text: '"What matters most to you right now — what would you like to focus on?"', correct: 'Person-Centred' },
+    { text: '"You have the right to make this decision, and I\'ll support whatever you choose."', correct: 'Rights-Based' },
+    { text: '"What would need to change for things to feel better for you?"', correct: 'Motivational Interviewing' },
+    { text: '"I can see you\'ve already taken some really important steps."', correct: 'Strengths-Based' },
+    { text: '"Your goals are what guide our work together."', correct: 'Person-Centred' },
+    { text: '"Regardless of your circumstances, your dignity must be respected."', correct: 'Rights-Based' },
+    { text: '"On a scale of 1–10, how ready do you feel to make this change?"', correct: 'Motivational Interviewing' }
+  ];
+  var approaches = ['Person-Centred','Rights-Based','Strengths-Based','Motivational Interviewing'];
+  var approachColors = {
+    'Person-Centred': 'var(--teal)',
+    'Rights-Based': 'var(--purple)',
+    'Strengths-Based': 'var(--green)',
+    'Motivational Interviewing': 'var(--orange)'
+  };
+  var wrap = document.getElementById('sorting_wrap');
+  if (!wrap) return;
+
+  var selected = {};
+
+  statements.forEach(function(stmt, idx) {
+    var card = document.createElement('div');
+    card.id = 'sort_card_' + idx;
+    card.style.cssText = 'border:1.5px solid var(--border); border-radius:9px; padding:14px 16px; margin-bottom:12px; background:var(--bg);';
+
+    var quote = document.createElement('p');
+    quote.style.cssText = 'font-size:15px; font-style:italic; color:var(--text); margin-bottom:12px;';
+    quote.textContent = stmt.text;
+    card.appendChild(quote);
+
+    var btnRow = document.createElement('div');
+    btnRow.style.cssText = 'display:flex; flex-wrap:wrap; gap:8px;';
+
+    approaches.forEach(function(ap) {
+      var btn = document.createElement('button');
+      btn.textContent = ap;
+      btn.id = 'sort_btn_' + idx + '_' + ap.replace(/\s+/g,'_');
+      btn.style.cssText = 'padding:8px 14px; border-radius:7px; border:1.5px solid var(--border); background:var(--bg); font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;';
+      btn.onclick = function() {
+        // reset all buttons for this card
+        approaches.forEach(function(a) {
+          var b = document.getElementById('sort_btn_' + idx + '_' + a.replace(/\s+/g,'_'));
+          if (b) { b.style.background = 'var(--bg)'; b.style.borderColor = 'var(--border)'; b.style.color = 'var(--text)'; }
+        });
+        // mark selected
+        btn.style.background = approachColors[ap];
+        btn.style.borderColor = approachColors[ap];
+        btn.style.color = 'white';
+        selected[idx] = ap;
+        // give immediate feedback
+        var fb = document.getElementById('sort_fb_' + idx);
+        if (ap === stmt.correct) {
+          fb.textContent = '✓ Correct! This is ' + stmt.correct + '.';
+          fb.style.color = 'var(--green)';
+          card.style.borderColor = '#16a34a';
+          // animation: quick green flash
+          card.style.background = 'var(--green-lt)';
+          setTimeout(function() { card.style.background = 'var(--bg)'; }, 600);
+        } else {
+          fb.textContent = '✗ Not quite. The correct approach is: ' + stmt.correct;
+          fb.style.color = '#dc2626';
+          card.style.borderColor = '#dc2626';
+          card.style.background = '#fef2f2';
+          setTimeout(function() { card.style.background = 'var(--bg)'; card.style.borderColor = 'var(--border)'; }, 700);
+        }
+      };
+      btnRow.appendChild(btn);
+    });
+
+    card.appendChild(btnRow);
+
+    var fb = document.createElement('div');
+    fb.id = 'sort_fb_' + idx;
+    fb.style.cssText = 'font-size:13px; font-weight:700; margin-top:10px;';
+    card.appendChild(fb);
+
+    wrap.appendChild(card);
+  });
+})();
+
+// --- De-escalation Do or Don't ---
+(function() {
+  var actions = [
+    { text: 'Lower your voice when the client raises theirs', correct: 'do' },
+    { text: 'Say "Calm down"', correct: 'dont' },
+    { text: 'Name the emotion: "I can see this is really frustrating"', correct: 'do' },
+    { text: 'Stand closer to show you\'re engaged', correct: 'dont' },
+    { text: 'Give them space and time to speak', correct: 'do' },
+    { text: 'Tell them they\'re overreacting', correct: 'dont' },
+    { text: 'Summarise what you heard before responding', correct: 'do' },
+    { text: 'Walk out of the room immediately', correct: 'dont' },
+    { text: 'Use open body language (uncrossed arms)', correct: 'do' },
+    { text: 'Interrupt to correct factual errors immediately', correct: 'dont' }
+  ];
+  var wrap = document.getElementById('deesc_wrap');
+  if (!wrap) return;
+  var userAnswers = {};
+
+  actions.forEach(function(action, idx) {
+    var row = document.createElement('div');
+    row.id = 'deesc_row_' + idx;
+    row.style.cssText = 'display:flex; align-items:center; gap:10px; padding:11px 0; border-bottom:1px solid var(--border); flex-wrap:wrap;';
+
+    var text = document.createElement('span');
+    text.style.cssText = 'flex:1; min-width:200px; font-size:15px; color:var(--text);';
+    text.textContent = (idx + 1) + '. ' + action.text;
+    row.appendChild(text);
+
+    var doBtn = document.createElement('button');
+    doBtn.textContent = 'Do \u2705';
+    doBtn.id = 'deesc_do_' + idx;
+    doBtn.style.cssText = 'padding:8px 16px; border-radius:7px; border:1.5px solid #16a34a; background:var(--bg); font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--green); transition:all .15s;';
+
+    var dontBtn = document.createElement('button');
+    dontBtn.textContent = "Don't \u274C";
+    dontBtn.id = 'deesc_dont_' + idx;
+    dontBtn.style.cssText = 'padding:8px 16px; border-radius:7px; border:1.5px solid #dc2626; background:var(--bg); font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; color:#dc2626; transition:all .15s;';
+
+    doBtn.onclick = function() {
+      userAnswers[idx] = 'do';
+      doBtn.style.background = '#16a34a'; doBtn.style.color = 'white';
+      dontBtn.style.background = 'var(--bg)'; dontBtn.style.color = '#dc2626';
+    };
+    dontBtn.onclick = function() {
+      userAnswers[idx] = 'dont';
+      dontBtn.style.background = '#dc2626'; dontBtn.style.color = 'white';
+      doBtn.style.background = 'var(--bg)'; doBtn.style.color = 'var(--green)';
+    };
+
+    row.appendChild(doBtn);
+    row.appendChild(dontBtn);
+    wrap.appendChild(row);
+  });
+
+  window._deescActions = actions;
+  window._deescUserAnswers = userAnswers;
+
+  window.checkDeesc = function() {
+    var score = 0;
+    actions.forEach(function(action, idx) {
+      var doBtn = document.getElementById('deesc_do_' + idx);
+      var dontBtn = document.getElementById('deesc_dont_' + idx);
+      var chosen = window._deescUserAnswers[idx];
+      if (chosen === action.correct) {
+        score++;
+        if (chosen === 'do') { doBtn.style.background = 'var(--green)'; doBtn.style.color = 'white'; }
+        else { dontBtn.style.background = 'var(--green)'; dontBtn.style.color = 'white'; }
+      } else if (chosen) {
+        if (chosen === 'do') { doBtn.style.background = '#dc2626'; doBtn.style.color = 'white'; }
+        else { dontBtn.style.background = '#dc2626'; dontBtn.style.color = 'white'; }
+        // show the correct one in green
+        if (action.correct === 'do') { doBtn.style.background = 'var(--green)'; doBtn.style.color = 'white'; }
+        else { dontBtn.style.background = 'var(--green)'; dontBtn.style.color = 'white'; }
+      }
+    });
+    var scoreEl = document.getElementById('deesc_score');
+    scoreEl.style.display = 'block';
+    var pct = Math.round(score / actions.length * 100);
+    var msg = score === actions.length ? 'Perfect! You know exactly what to do in a de-escalation situation.' :
+              score >= 7 ? 'Great work — a few to review.' : 'Keep practising — review the de-escalation tips above.';
+    scoreEl.innerHTML = 'You got <strong>' + score + ' out of ' + actions.length + '</strong> (' + pct + '%). ' + msg;
+    scoreEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+  };
+})();
+</script>
+</body>
+</html>

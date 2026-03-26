@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 — Interpersonal Communication Skills | CHCCOM002 Student</title>
+<style>
+:root {
+  --navy: #1a3a5c;
+  --teal: #0e7490;
+  --orange: #ea6c1a;
+  --orange-lt: #fdf0e6;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --purple: #6d28d9;
+  --purple-lt: #f5f3ff;
+  --yellow: #854d0e;
+  --yellow-lt: #fefce8;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.75; }
+
+/* -- HEADER -- */
+.top-bar { background: var(--navy); color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.top-bar-left { display: flex; align-items: center; gap: 14px; }
+.tag { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.top-title { font-size: 15px; font-weight: 700; }
+.top-sub { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+/* -- PROGRESS -- */
+.progress-wrap { background: var(--navy); padding: 0 24px 12px; }
+.progress-steps { display: flex; gap: 6px; }
+.step { flex: 1; height: 5px; background: rgba(255,255,255,.2); border-radius: 3px; cursor: pointer; transition: background .2s; }
+.step.done { background: var(--orange); }
+.step.active { background: rgba(255,255,255,.7); }
+
+/* -- HERO -- */
+.hero { background: linear-gradient(135deg, var(--navy) 0%, #0e4d7d 100%); color: white; padding: 40px 28px 36px; }
+.hero-badge { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+.hero-title { font-size: 26px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.hero-sub { font-size: 16px; opacity: .85; max-width: 540px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { background: rgba(255,255,255,.15); color: white; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.25); }
+
+/* -- MAIN -- */
+.page { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* -- SECTION -- */
+.section { margin-bottom: 48px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.section-title { font-size: 21px; font-weight: 800; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { font-size: 24px; }
+
+/* -- TEXT -- */
+p { margin-bottom: 14px; font-size: 17px; }
+.big { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.plain { font-size: 16px; color: var(--muted); }
+
+/* -- DIVIDER -- */
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* -- CALLOUT BOXES -- */
+.box { border-radius: var(--radius); padding: 18px 20px; margin: 18px 0; }
+.box-orange { background: var(--orange-lt); border-left: 4px solid var(--orange); }
+.box-teal { background: #f0fdfa; border-left: 4px solid var(--teal); }
+.box-green { background: var(--green-lt); border-left: 4px solid #16a34a; }
+.box-purple { background: var(--purple-lt); border-left: 4px solid var(--purple); }
+.box-yellow { background: var(--yellow-lt); border-left: 4px solid #eab308; }
+.box-navy { background: #eef2f7; border-left: 4px solid var(--navy); }
+.box-label { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 5px; }
+.box-orange .box-label { color: var(--orange); }
+.box-teal .box-label { color: var(--teal); }
+.box-green .box-label { color: var(--green); }
+.box-purple .box-label { color: var(--purple); }
+.box-yellow .box-label { color: var(--yellow); }
+.box-navy .box-label { color: var(--navy); }
+.box p, .box li { font-size: 15.5px; }
+
+/* -- CONCEPT CARDS -- */
+.concept-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0; }
+.concept-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; position: relative; overflow: hidden; }
+.concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.cc-aw::before { background: var(--teal); }
+.cc-co::before { background: var(--orange); }
+.cc-sa::before { background: var(--green); }
+.concept-num { font-size: 12px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; margin-bottom: 6px; }
+.cc-aw .concept-num { color: var(--teal); }
+.cc-co .concept-num { color: var(--orange); }
+.cc-sa .concept-num { color: var(--green); }
+.concept-name { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.concept-def { font-size: 15.5px; color: var(--text); margin-bottom: 10px; }
+.concept-eg { font-size: 14px; color: var(--muted); font-style: italic; padding: 8px 12px; background: var(--bg); border-radius: 6px; }
+
+/* -- FLIP CARDS -- */
+.flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0; }
+.flip-wrap { perspective: 800px; }
+.flip-card { width: 100%; min-height: 160px; position: relative; transform-style: preserve-3d; transition: transform .45s ease; cursor: pointer; }
+.flip-card.flipped { transform: rotateY(180deg); }
+.flip-front, .flip-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; text-align: center; border: 1.5px solid var(--border); }
+.flip-front { background: var(--navy); color: white; }
+.flip-back { background: var(--white); color: var(--text); transform: rotateY(180deg); }
+.flip-front-label { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; opacity: .6; margin-bottom: 10px; }
+.flip-front-term { font-size: 17px; font-weight: 800; line-height: 1.3; }
+.flip-hint { font-size: 11px; opacity: .5; margin-top: 12px; }
+.flip-back-def { font-size: 14px; line-height: 1.6; color: var(--text); }
+.flip-back-eg { font-size: 12.5px; color: var(--muted); font-style: italic; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 8px; }
+
+/* -- BARRIERS LIST -- */
+.barrier-list { list-style: none; padding: 0; margin: 14px 0; }
+.barrier-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--white); border: 1px solid var(--border); border-radius: 9px; margin-bottom: 8px; font-size: 15.5px; }
+.barrier-list li::before { content: '!'; background: var(--orange); color: white; font-size: 11px; font-weight: 900; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+/* -- QUIZ -- */
+.quiz-wrap { background: var(--navy); border-radius: var(--radius); padding: 26px; margin-top: 10px; }
+.quiz-wrap h3 { color: white; font-size: 18px; margin-bottom: 18px; }
+.quiz-q { background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; margin-bottom: 12px; }
+.quiz-q-num { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: .5px; margin-bottom: 5px; }
+.quiz-q-text { font-size: 15px; color: white; font-weight: 600; margin-bottom: 12px; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 7px; padding: 10px 14px; cursor: pointer; transition: all .15s; }
+.quiz-opt:hover { background: rgba(255,255,255,.15); }
+.quiz-opt.selected { background: rgba(234,108,26,.3); border-color: var(--orange); }
+.quiz-opt.correct { background: rgba(22,163,74,.3); border-color: #4ade80; }
+.quiz-opt.wrong { background: rgba(239,68,68,.25); border-color: #f87171; }
+.quiz-opt input { display: none; }
+.quiz-opt span { font-size: 14.5px; color: white; }
+.quiz-opt .feedback-text { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 2px; display: none; }
+.quiz-opt.correct .feedback-text, .quiz-opt.wrong .feedback-text { display: block; }
+.quiz-submit { background: var(--orange); color: white; border: none; font-size: 15px; font-weight: 700; padding: 12px 28px; border-radius: 8px; cursor: pointer; margin-top: 14px; font-family: inherit; }
+.quiz-submit:hover { background: #d45a10; }
+.quiz-result { display: none; margin-top: 16px; background: rgba(255,255,255,.1); border-radius: 9px; padding: 16px 18px; color: white; font-size: 14.5px; }
+.quiz-result.show { display: block; }
+
+/* -- FILL-IN AREAS -- */
+.fill-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 12px 0 5px; }
+.fill-area { width: 100%; background: #f8fafc; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; color: var(--text); resize: vertical; min-height: 100px; font-family: inherit; transition: border .2s; }
+.fill-area:focus { outline: none; border-color: var(--teal); background: var(--white); }
+.save-note { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+
+/* -- ASSESSMENT LINKS -- */
+.at-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.at-card { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 15px; }
+.at-num { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+.at-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.at-link { font-size: 13px; color: var(--muted); }
+
+/* -- GLOSSARY -- */
+.gloss-item { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 14px 16px; margin-bottom: 10px; }
+.gloss-term { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.gloss-def { font-size: 14.5px; color: var(--text); }
+.gloss-eg { font-size: 13px; color: var(--muted); font-style: italic; margin-top: 5px; }
+
+/* -- END OF DAY SUMMARY -- */
+.summary-box { background: var(--navy); border-radius: var(--radius); padding: 28px; margin-top: 10px; color: white; }
+.summary-box h3 { font-size: 18px; margin-bottom: 16px; color: white; }
+.summary-text { font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,.9); white-space: pre-wrap; font-family: inherit; }
+.btn-copy { background: var(--orange); color: white; border: none; font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; cursor: pointer; margin-top: 18px; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+.btn-copy:hover { background: #d45a10; }
+.copy-confirm { font-size: 13px; color: #4ade80; margin-top: 10px; display: none; }
+.copy-confirm.show { display: block; }
+
+/* -- SCROLL TOP -- */
+#scrollTop { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 40; }
+#scrollTop.vis { display: flex; }
+#scrollTop:hover { background: var(--orange); }
+
+/* -- TABLE -- */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; border-radius: var(--radius); overflow: hidden; }
+th { background: var(--navy); color: white; padding: 11px 14px; text-align: left; font-size: 14px; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14.5px; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg); }
+
+/* -- RESPONSIVE -- */
+@media (max-width: 600px) {
+  .at-grid, .flip-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 21px; }
+  .page { padding: 20px 14px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="tag">STUDENT</span>
+    <div>
+      <div class="top-title">CHCCOM002 — Use Communication to Build Relationships</div>
+      <div class="top-sub">Box Hill TAFE &nbsp;&middot;&nbsp; Certificate IV Community Services</div>
+    </div>
+  </div>
+  <span style="font-size:13px; opacity:.7; white-space:nowrap;">Mon 20 April 2026</span>
+</div>
+
+<!-- PROGRESS STEPS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step active" onclick="scrollToSection('s-intro')" title="Intro"></div>
+    <div class="step" onclick="scrollToSection('s-process')" title="Communication Process"></div>
+    <div class="step" onclick="scrollToSection('s-listening')" title="Active Listening"></div>
+    <div class="step" onclick="scrollToSection('s-barriers')" title="Barriers"></div>
+    <div class="step" onclick="scrollToSection('s-quiz')" title="Quiz"></div>
+    <div class="step" onclick="scrollToSection('s-reflection')" title="Reflection"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Session 1 of 6</div>
+  <div class="hero-title">Interpersonal Communication Skills</div>
+  <div class="hero-sub">What makes communication effective — and what gets in the way?</div>
+  <div class="hero-chips">
+    <span class="chip">Interpersonal Skills</span>
+    <span class="chip">Communication Process</span>
+    <span class="chip">Non-Verbal</span>
+    <span class="chip">Active Listening</span>
+    <span class="chip">Communication Styles</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- INTRO -->
+<div id="s-intro" class="section">
+  <div class="section-label">Getting Started</div>
+  <div class="section-title"><span class="ico">👋</span> Welcome to Session 1</div>
+
+  <p>Communication is the core skill in community services work. Every interaction you have with a client, colleague, or supervisor depends on it.</p>
+  <p>Today we start with the fundamentals — what communication actually is, how it works, what gets in the way, and what good communication looks like in practice.</p>
+
+  <div class="box box-orange">
+    <div class="box-label">Today you will learn to:</div>
+    <ul style="padding-left:20px; margin-top:6px;">
+      <li>Explain the <strong>communication process</strong> and why breakdowns happen</li>
+      <li>Describe the difference between <strong>verbal and non-verbal</strong> communication</li>
+      <li>Use <strong>active listening</strong> and questioning techniques</li>
+      <li>Identify common <strong>barriers</strong> to communication</li>
+      <li>Recognise different <strong>communication styles</strong> — including assertive</li>
+    </ul>
+  </div>
+
+  <div class="box box-navy">
+    <div class="box-label">Assessment note</div>
+    <p>Today's content feeds directly into <strong>AT1 Questions 1–6</strong> and <strong>AT2 Part A (Cherie's Story)</strong>. Take notes throughout — especially on barriers, styles, and non-verbal cues.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- THE COMMUNICATION PROCESS -->
+<div id="s-process" class="section">
+  <div class="section-label">Part 1 — AT1 Key Content</div>
+  <div class="section-title"><span class="ico">💬</span> The Communication Process</div>
+
+  <p>Communication is not just talking. It is a <strong>two-way process</strong> — and when any part breaks down, the message is lost.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card cc-aw">
+      <div class="concept-num">Concept 1</div>
+      <div class="concept-name">Interpersonal Skills</div>
+      <div class="concept-def">The skills needed to relate to and connect with other people. In community services, they help you build trust, understand client needs, and work effectively in teams.</div>
+      <div class="concept-eg">Example: "Asking open questions to understand what a client actually needs."</div>
+    </div>
+
+    <div class="concept-card cc-co">
+      <div class="concept-num">Concept 2</div>
+      <div class="concept-name">The Communication Cycle</div>
+      <div class="concept-def">Sender &rarr; Message &rarr; Channel &rarr; Receiver &rarr; Feedback. Communication is a two-way process. When any part breaks down, the message is lost.</div>
+      <div class="concept-eg">Example: "A worker explains a service plan clearly, checks the client understood, and adjusts based on their feedback."</div>
+    </div>
+
+    <div class="concept-card cc-sa">
+      <div class="concept-num">Concept 3</div>
+      <div class="concept-name">Verbal vs Non-Verbal</div>
+      <div class="concept-def"><strong>Verbal</strong> = the words we choose, tone, pace, volume. <strong>Non-Verbal</strong> = body language, eye contact, facial expression, gestures, personal space. Research suggests non-verbal cues carry more meaning than words alone.</div>
+      <div class="concept-eg">Example: "A client nods and says 'yes' but their crossed arms and avoiding eye contact suggest they're not comfortable."</div>
+    </div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-label">Think about this</div>
+    <p>Think of a time when what someone <em>said</em> and what their <em>body language said</em> were different things. Which one did you believe? Why?</p>
+  </div>
+
+  <!-- Communication cycle visual -->
+  <div style="background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 18px 0;">
+    <div style="font-size: 12px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--teal); margin-bottom: 14px;">The Communication Cycle</div>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px; justify-content: center;">
+      <div style="background: var(--navy); color: white; padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; text-align: center;">Sender</div>
+      <div style="color: var(--orange); font-size: 20px; font-weight: 700;">&rarr;</div>
+      <div style="background: var(--teal); color: white; padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; text-align: center;">Message</div>
+      <div style="color: var(--orange); font-size: 20px; font-weight: 700;">&rarr;</div>
+      <div style="background: var(--navy); color: white; padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; text-align: center;">Channel</div>
+      <div style="color: var(--orange); font-size: 20px; font-weight: 700;">&rarr;</div>
+      <div style="background: var(--teal); color: white; padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; text-align: center;">Receiver</div>
+      <div style="color: var(--orange); font-size: 20px; font-weight: 700;">&rarr;</div>
+      <div style="background: var(--orange); color: white; padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; text-align: center;">Feedback</div>
+    </div>
+    <p style="font-size: 13px; color: var(--muted); margin-top: 14px; margin-bottom: 0;">The channel is how the message is sent — spoken, written, phone, video call, a note. The right channel matters.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- ACTIVE LISTENING & QUESTIONING -->
+<div id="s-listening" class="section">
+  <div class="section-label">Part 2 — AT1 + AT2 Key Content</div>
+  <div class="section-title"><span class="ico">👂</span> Active Listening &amp; Questioning</div>
+
+  <p>Good questions and genuine listening are your most powerful tools as a community services worker. Click each card to see the explanation.</p>
+
+  <div class="flip-grid">
+    <div class="flip-wrap">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')" id="fc1">
+        <div class="flip-front">
+          <div class="flip-front-label">Tap to learn</div>
+          <div class="flip-front-term">Active Listening</div>
+          <div class="flip-hint">click to flip</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-def">Fully focusing on the speaker — not just waiting for your turn. Techniques: nodding, paraphrasing ("So what you're saying is..."), summarising, mirroring body language.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')" id="fc2">
+        <div class="flip-front">
+          <div class="flip-front-label">Tap to learn</div>
+          <div class="flip-front-term">Open Questions</div>
+          <div class="flip-hint">click to flip</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-def">Invite the person to share freely. Can't be answered with just yes/no.</div>
+          <div class="flip-back-eg">Example: "How have you been finding things at home lately?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')" id="fc3">
+        <div class="flip-front">
+          <div class="flip-front-label">Tap to learn</div>
+          <div class="flip-front-term">Closed Questions</div>
+          <div class="flip-hint">click to flip</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-def">Confirm specific facts. Yes/no or short answers — useful for checking details.</div>
+          <div class="flip-back-eg">Example: "Have you spoken to your case manager this week?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')" id="fc4">
+        <div class="flip-front">
+          <div class="flip-front-label">Tap to learn</div>
+          <div class="flip-front-term">Clarifying Questions</div>
+          <div class="flip-hint">click to flip</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-def">Make sure you've understood correctly — don't assume.</div>
+          <div class="flip-back-eg">Example: "Just to check I've got this right — you said the appointment is on Thursday?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-green">
+    <div class="box-label">AT2 connection — Cherie's Story</div>
+    <p>Part A asks you to identify what questions would be most useful when first meeting Cherie. Think about which question type would help you understand her situation — and which would shut down the conversation.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- BARRIERS TO COMMUNICATION -->
+<div id="s-barriers" class="section">
+  <div class="section-label">Part 3 — AT1 Key Content</div>
+  <div class="section-title"><span class="ico">🚧</span> Barriers to Communication</div>
+
+  <p>Even when we try to communicate well, things can get in the way. Recognising barriers is the first step to reducing them.</p>
+
+  <div class="box box-orange" style="margin-bottom: 20px;">
+    <div class="box-label">Things that get in the way</div>
+  </div>
+
+  <ul class="barrier-list">
+    <li>Language differences or limited English proficiency</li>
+    <li>Cultural differences in communication norms (e.g. eye contact, silence, directness)</li>
+    <li>Disability — hearing, vision, cognitive, or physical barriers</li>
+    <li>Emotional state — anxiety, grief, anger, or trauma can affect how someone receives a message</li>
+    <li>Environmental noise or a poor setting (lack of privacy, distractions)</li>
+    <li>Assumptions and unconscious bias — jumping to conclusions before listening</li>
+    <li>Power imbalance between worker and client — the client may not feel safe to speak up</li>
+  </ul>
+
+  <div class="box box-teal">
+    <div class="box-label">Cultural note</div>
+    <p>What counts as 'normal' communication varies across cultures. Direct eye contact, silence, touch, personal space, and how disagreement is expressed all differ. There is no universal 'correct' way — your job is to tune in to the individual in front of you.</p>
+  </div>
+
+  <div class="box box-navy">
+    <div class="box-label">AT1 connection</div>
+    <p>Questions 4 and 5 ask you to identify barriers and strategies to overcome them. Use this list as a starting point. Your answers need to include specific examples, not just the name of the barrier.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- QUIZ -->
+<div id="s-quiz" class="section">
+  <div class="section-label">Check Your Learning</div>
+  <div class="section-title"><span class="ico">✅</span> Communication Styles Quiz</div>
+  <p>Test yourself on today's key concepts. Choose the best answer for each question.</p>
+
+  <div class="quiz-wrap">
+    <h3>Knowledge Check</h3>
+
+    <div class="quiz-q" id="qq1">
+      <div class="quiz-q-num">QUESTION 1</div>
+      <div class="quiz-q-text">A colleague keeps interrupting you in meetings. The MOST assertive response is:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <input type="radio">
+          <div>
+            <span>A) Say nothing — it's not worth the conflict</span>
+            <div class="feedback-text">That's passive — avoiding conflict doesn't solve it.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <input type="radio">
+          <div>
+            <span>B) "Excuse me, I'd like to finish my point."</span>
+            <div class="feedback-text">Correct — assertive means direct and respectful. You name the issue without aggression.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <input type="radio">
+          <div>
+            <span>C) Roll your eyes and sigh loudly</span>
+            <div class="feedback-text">That's passive-aggressive — sending a message indirectly rather than addressing it.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <input type="radio">
+          <div>
+            <span>D) Raise your voice and demand they stop</span>
+            <div class="feedback-text">That's aggressive — it escalates the situation and damages the relationship.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq2">
+      <div class="quiz-q-num">QUESTION 2</div>
+      <div class="quiz-q-text">Which of the following is a non-verbal communication cue?</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <input type="radio">
+          <div>
+            <span>A) The words you use</span>
+            <div class="feedback-text">That's verbal communication — the actual words chosen.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <input type="radio">
+          <div>
+            <span>B) Eye contact</span>
+            <div class="feedback-text">Correct — eye contact is a key non-verbal cue. It signals attention, confidence, or (in some cultures) respect or challenge.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <input type="radio">
+          <div>
+            <span>C) Your choice of topic</span>
+            <div class="feedback-text">Topic selection is part of verbal/conversational strategy — not a non-verbal cue.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <input type="radio">
+          <div>
+            <span>D) Asking open questions</span>
+            <div class="feedback-text">That's an active listening technique — a verbal skill.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq3">
+      <div class="quiz-q-num">QUESTION 3</div>
+      <div class="quiz-q-text">You're explaining a service plan to a client who looks confused. The BEST next step is:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <input type="radio">
+          <div>
+            <span>A) Continue — they'll catch up</span>
+            <div class="feedback-text">Ignoring confusion is not good practice. The client's understanding is your responsibility.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <input type="radio">
+          <div>
+            <span>B) Repeat the same explanation louder</span>
+            <div class="feedback-text">Repeating louder doesn't help comprehension — it may feel condescending.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <input type="radio">
+          <div>
+            <span>C) Ask: "Can I check — what are you taking away from this?"</span>
+            <div class="feedback-text">Correct — checking understanding is active listening in action. It invites the client to share without embarrassment.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <input type="radio">
+          <div>
+            <span>D) Hand them a brochure and move on</span>
+            <div class="feedback-text">This avoids the communication issue rather than addressing it.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq4">
+      <div class="quiz-q-num">QUESTION 4</div>
+      <div class="quiz-q-text">Which communication style is MOST appropriate in community services?</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <input type="radio">
+          <div>
+            <span>A) Passive — to avoid upsetting anyone</span>
+            <div class="feedback-text">Passive communication can lead to poor outcomes — needs and concerns go unaddressed.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <input type="radio">
+          <div>
+            <span>B) Aggressive — to get things done</span>
+            <div class="feedback-text">Aggressive communication damages trust and can harm clients and colleagues.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <input type="radio">
+          <div>
+            <span>C) Assertive — direct, respectful, honest</span>
+            <div class="feedback-text">Correct — assertive communication respects your own needs and the other person's. It's the professional standard in community services.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <input type="radio">
+          <div>
+            <span>D) Manipulative — to motivate clients</span>
+            <div class="feedback-text">Manipulative communication violates professional ethics and client rights.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">Check my answers</button>
+    <div class="quiz-result" id="quizResult"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- REFLECTION SPACE -->
+<div id="s-reflection" class="section">
+  <div class="section-label">Reflection</div>
+  <div class="section-title"><span class="ico">✍️</span> Your Reflection</div>
+
+  <p>Reflection is a professional skill — not just an assessment requirement. The ability to examine your own communication honestly is what separates average workers from great ones.</p>
+
+  <div class="box box-purple">
+    <div class="box-label">Reflection prompt</div>
+    <p>Think of a communication situation you've been in — at work, study, or in life generally. What style were you using? What worked? What would you do differently?</p>
+  </div>
+
+  <div class="fill-label">Your reflection</div>
+  <textarea class="fill-area" id="reflectionArea" placeholder="Write your thoughts here..." style="min-height: 130px;"></textarea>
+  <div class="save-note">
+    <span>&#128274;</span>
+    <span>Your notes are saved privately to this device. They are not sent anywhere.</span>
+  </div>
+</div>
+
+<hr>
+
+<!-- GLOSSARY -->
+<div id="s-glossary" class="section">
+  <div class="section-label">Reference</div>
+  <div class="section-title"><span class="ico">📖</span> Key Terms</div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Interpersonal skills</div>
+    <div class="gloss-def">The skills used to interact and communicate with others. In community services, these include empathy, active listening, and the ability to build trust.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Communication process</div>
+    <div class="gloss-def">The cycle by which a message moves from sender to receiver and back through feedback. All five parts — sender, message, channel, receiver, feedback — must work for communication to succeed.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Verbal communication</div>
+    <div class="gloss-def">Communication using spoken or written words — including the words chosen, tone of voice, pace, and volume.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Non-verbal communication</div>
+    <div class="gloss-def">Communication through body language, facial expressions, eye contact, gestures, posture, and use of personal space — often more powerful than words.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Active listening</div>
+    <div class="gloss-def">Giving your full attention to a speaker — using nodding, eye contact, paraphrasing, and summarising to show you are engaged and to check understanding.</div>
+    <div class="gloss-eg">Paraphrasing: "So what I'm hearing is that you're feeling overwhelmed — is that right?"</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Open question</div>
+    <div class="gloss-def">A question that invites a detailed response — cannot be answered with just yes or no. Used to explore and understand.</div>
+    <div class="gloss-eg">"What has been the hardest part of this week for you?"</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Closed question</div>
+    <div class="gloss-def">A question with a short or yes/no answer. Used to confirm specific facts.</div>
+    <div class="gloss-eg">"Have you received your Centrelink payment this week?"</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Clarifying question</div>
+    <div class="gloss-def">A question used to confirm understanding and avoid assumptions.</div>
+    <div class="gloss-eg">"Just to check — you said you'd prefer morning appointments?"</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Barrier to communication</div>
+    <div class="gloss-def">Anything that prevents a message from being sent, received, or understood correctly — including language, emotion, environment, disability, or bias.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Assertive communication</div>
+    <div class="gloss-def">Expressing your thoughts, feelings, and needs clearly and respectfully — without being passive (suppressing them) or aggressive (forcing them on others).</div>
+    <div class="gloss-eg">Community services professional standard: honest, direct, and kind.</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ASSESSMENT CONNECTIONS -->
+<div id="s-at" class="section">
+  <div class="section-label">Assessment</div>
+  <div class="section-title"><span class="ico">📋</span> How Today Links to Your Assessments</div>
+
+  <p>Everything you covered today connects directly to your assessment tasks. Here is what to focus on:</p>
+
+  <div class="at-grid">
+    <div class="at-card">
+      <div class="at-num">AT1 — Knowledge Questions</div>
+      <div class="at-name">Written, open book</div>
+      <div class="at-link">Questions 1–6 are directly covered by today's session. Topics: interpersonal skills, communication process, verbal/non-verbal, listening, barriers, styles. Start drafting while the content is fresh.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT2 — Cherie's Story (Part A)</div>
+      <div class="at-name">Case study analysis</div>
+      <div class="at-link">You'll need to identify Cherie's communication needs, spot non-verbal cues, and recommend appropriate strategies. Everything from today applies. Read the scenario before next session.</div>
+    </div>
+  </div>
+
+  <div class="box box-orange">
+    <div class="box-label">Important</div>
+    <p>Keep your <strong>Key Model Handout</strong> and <strong>worksheet</strong> from today. They are useful reference tools for your assessments. Do not throw them away.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- DIGITAL HANDOUTS -->
+<div id="s-handouts" class="section">
+  <div class="section-label">Your Worksheets</div>
+  <div class="section-title"><span class="ico">📋</span> Digital Handouts — Fill In on This Page</div>
+
+  <p>These are the same handouts you'd normally receive as printed sheets. Fill them in here — your answers save privately to this device.</p>
+
+  <!-- HANDOUT 1 -->
+  <div class="box box-navy" style="margin-bottom:24px;">
+    <div class="box-label">Handout 1 — Key Activity Worksheet: Interpersonal Communication Skills</div>
+  </div>
+
+  <!-- Part 1 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 1 — The Communication Process</div>
+    <p style="font-size:15px; margin-bottom:14px;">Label the 5 stages of the communication process. Type each stage in order:</p>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px;">
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 1</div>
+        <input type="text" id="ws1_stage1" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 2</div>
+        <input type="text" id="ws1_stage2" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 3</div>
+        <input type="text" id="ws1_stage3" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 4</div>
+        <input type="text" id="ws1_stage4" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 5</div>
+        <input type="text" id="ws1_stage5" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+    </div>
+    <button onclick="toggleWs1Answer()" style="background:var(--teal); color:white; border:none; font-size:13px; font-weight:700; padding:9px 18px; border-radius:7px; cursor:pointer; font-family:inherit;">Show Answer</button>
+    <div id="ws1_answer" style="display:none; margin-top:12px; background:var(--green-lt); border-left:4px solid #16a34a; border-radius:0 8px 8px 0; padding:12px 16px; font-size:14.5px; color:var(--green);">
+      <strong>Sender &rarr; Message &rarr; Channel &rarr; Receiver &rarr; Feedback</strong>
+    </div>
+  </div>
+
+  <!-- Part 2 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 2 — Non-Verbal Communication</div>
+    <p style="font-size:15px; margin-bottom:14px;">For each row, write a non-verbal cue and what it can signal in community services:</p>
+    <div id="ws2_rows">
+      <!-- Row 1 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Non-Verbal Cue</div>
+          <input type="text" id="ws2_r1_cue" placeholder="e.g. crossed arms" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">What It Can Signal in Community Services</div>
+          <input type="text" id="ws2_r1_signal" placeholder="e.g. defensiveness or discomfort" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+      <!-- Row 2 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <input type="text" id="ws2_r2_cue" placeholder="e.g. eye contact" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <input type="text" id="ws2_r2_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+      <!-- Row 3 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <input type="text" id="ws2_r3_cue" placeholder="e.g. nodding" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <input type="text" id="ws2_r3_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+      <!-- Row 4 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <input type="text" id="ws2_r4_cue" placeholder="e.g. leaning forward" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <input type="text" id="ws2_r4_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+      <!-- Row 5 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <input type="text" id="ws2_r5_cue" placeholder="e.g. turning away" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <input type="text" id="ws2_r5_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+    </div>
+    <div class="save-note"><span>&#128274;</span> <span>Saved automatically to this device as you type.</span></div>
+  </div>
+
+  <!-- Part 3 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 3 — A Barrier I've Experienced</div>
+    <div class="fill-label">What was the barrier?</div>
+    <textarea class="fill-area" id="ws3_barrier" placeholder="Describe a barrier to communication you've experienced or observed..." style="min-height:90px;"></textarea>
+    <div class="fill-label" style="margin-top:14px;">How did it affect the communication?</div>
+    <textarea class="fill-area" id="ws3_effect" placeholder="What happened as a result of the barrier?" style="min-height:90px;"></textarea>
+    <div class="fill-label" style="margin-top:14px;">What could have helped?</div>
+    <textarea class="fill-area" id="ws3_help" placeholder="What strategy or adjustment might have reduced the barrier?" style="min-height:90px;"></textarea>
+    <div class="save-note"><span>&#128274;</span> <span>Saved automatically to this device as you type.</span></div>
+  </div>
+
+  <!-- Part 4 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 4 — My Communication Style</div>
+    <p style="font-size:15px; margin-bottom:14px;">Click the style that feels most like your default. Then explain your thinking below.</p>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;" id="styleButtons">
+      <button class="style-btn" onclick="selectStyle('Assertive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Assertive</button>
+      <button class="style-btn" onclick="selectStyle('Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Aggressive</button>
+      <button class="style-btn" onclick="selectStyle('Passive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive</button>
+      <button class="style-btn" onclick="selectStyle('Passive-Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive-Aggressive</button>
+      <button class="style-btn" onclick="selectStyle('Submissive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Submissive</button>
+      <button class="style-btn" onclick="selectStyle('Manipulative')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Manipulative</button>
+      <button class="style-btn" onclick="selectStyle('Direct')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Direct</button>
+    </div>
+    <div id="ws4_selected_display" style="font-size:14px; color:var(--muted); font-style:italic; margin-bottom:12px;">No style selected yet.</div>
+    <div class="fill-label">Why do you think this is your default style?</div>
+    <textarea class="fill-area" id="ws4_reason" placeholder="Think about how you naturally communicate under pressure, with people you don't know well, or when you disagree with someone..." style="min-height:90px;"></textarea>
+    <div class="save-note"><span>&#128274;</span> <span>Your selection and notes are saved privately to this device.</span></div>
+  </div>
+
+  <!-- HANDOUT 2 -->
+  <div class="box box-navy" style="margin-bottom:24px; margin-top:32px;">
+    <div class="box-label">Handout 2 — Key Model Handout: Complete the Communication Cycle</div>
+  </div>
+
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <p style="font-size:15px; margin-bottom:16px;">Each box in the Communication Cycle below has a blank label. Fill in the correct term for each stage, then click <strong>Check My Answers</strong>.</p>
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; justify-content:center; margin-bottom:20px;">
+
+      <div style="text-align:center;">
+        <div id="model_box1" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in1" placeholder="Stage 1" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
+      <div style="text-align:center;">
+        <div id="model_box2" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in2" placeholder="Stage 2" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
+      <div style="text-align:center;">
+        <div id="model_box3" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in3" placeholder="Stage 3" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
+      <div style="text-align:center;">
+        <div id="model_box4" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in4" placeholder="Stage 4" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
+      <div style="text-align:center;">
+        <div id="model_box5" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in5" placeholder="Stage 5" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+
+    </div>
+    <button onclick="checkModelAnswers()" style="background:var(--teal); color:white; border:none; font-size:14px; font-weight:700; padding:10px 22px; border-radius:8px; cursor:pointer; font-family:inherit;">Check My Answers</button>
+    <button onclick="resetModelAnswers()" style="background:var(--bg); color:var(--muted); border:1.5px solid var(--border); font-size:14px; font-weight:700; padding:10px 18px; border-radius:8px; cursor:pointer; font-family:inherit; margin-left:8px;">Reset</button>
+    <div id="model_result" style="display:none; margin-top:14px; font-size:14.5px;"></div>
+  </div>
+
+  <!-- WORD SCRAMBLE -->
+  <div class="box box-purple" style="margin-bottom:18px; margin-top:32px;">
+    <div class="box-label">Additional Activity — Word Scramble</div>
+    <p style="margin-bottom:0;">Unscramble the key terms. Type the correct word and press Enter or click Check.</p>
+  </div>
+
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div id="scramble_wrap">
+      <!-- Generated by JS -->
+    </div>
+    <div id="scramble_score" style="margin-top:14px; font-size:15px; font-weight:700; color:var(--navy); display:none;"></div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- END OF DAY SUMMARY -->
+<div id="s-summary" class="section">
+  <div class="section-label">End of Day</div>
+  <div class="section-title"><span class="ico">📧</span> Today's Summary</div>
+  <p>Copy this and paste it into Teams or keep it as a study note.</p>
+
+  <div class="summary-box">
+    <h3>Session 1 Summary — send to yourself or paste into Teams</h3>
+    <div class="summary-text" id="summaryText">Hi everyone,
+
+Here's a summary of what we covered in Session 1 and how it connects to your assessments.
+
+What we covered today:
+
+1. Interpersonal communication skills — the foundation of community services work. We looked at empathy, self-reflection, and why strong interpersonal skills matter for building trust with clients and colleagues.
+
+2. The communication process — Sender → Message → Channel → Receiver → Feedback. When any part breaks down, communication fails. Understanding the cycle helps you troubleshoot and improve.
+
+3. Non-verbal communication — body language, eye contact, facial expression, gestures, and tone often carry more meaning than words. Cultural background affects these cues — there's no universal 'right' way.
+
+4. Active listening and questioning — open, closed, and clarifying questions are your core tools. Active listening means fully focusing, not just waiting for your turn to speak.
+
+5. Barriers to communication — language, culture, disability, emotional state, and environment can all get in the way. Recognising barriers is the first step to reducing them.
+
+6. Communication styles — there are 7 styles. In community services we aim for assertive: direct, honest, and respectful.
+
+How today links to your assessments:
+
+- AT1: Questions 1–6 are covered by today's content. Start your drafts.
+- AT2 Cherie's Story (Part A): Read the scenario before next session. Part A asks you to identify Cherie's communication needs and recommend strategies — everything from today applies.
+
+Keep your Key Model Handout and worksheet — useful reference tools for your assessments.</div>
+    <button class="btn-copy" onclick="copySummary()">&#128203; Copy to clipboard</button>
+    <div class="copy-confirm" id="copyConfirm">Copied! Paste it into Teams or your notes.</div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<script>
+// --- Progress steps ---
+const sections = ['s-intro','s-process','s-listening','s-barriers','s-quiz','s-reflection'];
+function updateProgress() {
+  const steps = document.querySelectorAll('.step');
+  let current = 0;
+  sections.forEach(function(id, i) {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 140) current = i;
+  });
+  steps.forEach(function(s, i) {
+    s.classList.remove('active','done');
+    if (i < current) s.classList.add('done');
+    else if (i === current) s.classList.add('active');
+  });
+}
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth'});
+}
+window.addEventListener('scroll', function() {
+  updateProgress();
+  const btn = document.getElementById('scrollTop');
+  if (btn) btn.classList.toggle('vis', window.scrollY > 400);
+});
+
+// --- Quiz ---
+// correct answers are 0-indexed: Q1=B(1), Q2=B(1), Q3=C(2), Q4=C(2)
+const answers = { qq1: 1, qq2: 1, qq3: 2, qq4: 2 };
+function selectOpt(el, qid) {
+  document.querySelectorAll('#' + qid + ' .quiz-opt').forEach(function(o) {
+    o.classList.remove('selected');
+  });
+  el.classList.add('selected');
+}
+function submitQuiz() {
+  var score = 0;
+  var total = Object.keys(answers).length;
+  Object.entries(answers).forEach(function(entry) {
+    var qid = entry[0], correct = entry[1];
+    var opts = document.querySelectorAll('#' + qid + ' .quiz-opt');
+    opts.forEach(function(o, i) {
+      o.classList.remove('correct','wrong');
+      if (o.classList.contains('selected')) {
+        if (i === correct) { o.classList.add('correct'); score++; }
+        else o.classList.add('wrong');
+      }
+      if (i === correct) o.classList.add('correct');
+    });
+  });
+  var res = document.getElementById('quizResult');
+  res.classList.add('show');
+  var emoji = score === total ? '🎉' : score >= 2 ? '👍' : '📚';
+  res.innerHTML = '<strong>' + emoji + ' You got ' + score + ' out of ' + total + '.</strong><br><br>' +
+    '<strong>Answers:</strong> 1-B &nbsp;|&nbsp; 2-B &nbsp;|&nbsp; 3-C &nbsp;|&nbsp; 4-C<br><br>' +
+    (score < total ? 'Review any concepts you missed — these all appear in AT1.' : 'Great work — you have the key concepts down!');
+  res.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// --- localStorage for reflection ---
+var reflectionArea = document.getElementById('reflectionArea');
+var STORAGE_KEY = 'chccom002_s1_reflection';
+if (reflectionArea) {
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) reflectionArea.value = saved;
+  reflectionArea.addEventListener('input', function() {
+    localStorage.setItem(STORAGE_KEY, reflectionArea.value);
+  });
+}
+
+// --- Copy summary to clipboard ---
+function copySummary() {
+  var text = document.getElementById('summaryText').innerText;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      showCopyConfirm();
+    }).catch(function() {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); showCopyConfirm(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+function showCopyConfirm() {
+  var el = document.getElementById('copyConfirm');
+  if (el) {
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 3000);
+  }
+}
+
+// --- Handout 1: Part 1 — answer reveal ---
+function toggleWs1Answer() {
+  var el = document.getElementById('ws1_answer');
+  if (!el) return;
+  var showing = el.style.display !== 'none';
+  el.style.display = showing ? 'none' : 'block';
+  event.target.textContent = showing ? 'Show Answer' : 'Hide Answer';
+}
+
+// localStorage for Handout 1 Part 1
+(function() {
+  var stages = ['ws1_stage1','ws1_stage2','ws1_stage3','ws1_stage4','ws1_stage5'];
+  stages.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var key = 'chccom002_s1_' + id;
+    var saved = localStorage.getItem(key);
+    if (saved) el.value = saved;
+    el.addEventListener('input', function() { localStorage.setItem(key, el.value); });
+  });
+})();
+
+// localStorage for Handout 1 Part 2
+(function() {
+  var fields = ['ws2_r1_cue','ws2_r1_signal','ws2_r2_cue','ws2_r2_signal','ws2_r3_cue','ws2_r3_signal','ws2_r4_cue','ws2_r4_signal','ws2_r5_cue','ws2_r5_signal'];
+  fields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var key = 'chccom002_s1_ws2_' + id;
+    var saved = localStorage.getItem(key);
+    if (saved) el.value = saved;
+    el.addEventListener('input', function() { localStorage.setItem(key, el.value); });
+  });
+})();
+
+// localStorage for Handout 1 Part 3
+(function() {
+  var fields = [
+    { id: 'ws3_barrier', key: 'chccom002_s1_ws3_barrier' },
+    { id: 'ws3_effect', key: 'chccom002_s1_ws3_effect' },
+    { id: 'ws3_help', key: 'chccom002_s1_ws3_help' }
+  ];
+  fields.forEach(function(f) {
+    var el = document.getElementById(f.id);
+    if (!el) return;
+    var saved = localStorage.getItem(f.key);
+    if (saved) el.value = saved;
+    el.addEventListener('input', function() { localStorage.setItem(f.key, el.value); });
+  });
+})();
+
+// Communication style selection
+function selectStyle(style) {
+  document.querySelectorAll('.style-btn').forEach(function(b) {
+    b.style.background = 'var(--bg)';
+    b.style.borderColor = 'var(--border)';
+    b.style.color = 'var(--text)';
+  });
+  event.target.style.background = 'var(--navy)';
+  event.target.style.borderColor = 'var(--navy)';
+  event.target.style.color = 'white';
+  localStorage.setItem('chccom002_s1_ws4_style', style);
+  var display = document.getElementById('ws4_selected_display');
+  if (display) display.textContent = 'Selected: ' + style;
+}
+(function() {
+  var saved = localStorage.getItem('chccom002_s1_ws4_style');
+  if (saved) {
+    var display = document.getElementById('ws4_selected_display');
+    if (display) display.textContent = 'Selected: ' + saved;
+    document.querySelectorAll('.style-btn').forEach(function(b) {
+      if (b.textContent === saved) {
+        b.style.background = 'var(--navy)';
+        b.style.borderColor = 'var(--navy)';
+        b.style.color = 'white';
+      }
+    });
+  }
+  var reasonEl = document.getElementById('ws4_reason');
+  if (reasonEl) {
+    var savedReason = localStorage.getItem('chccom002_s1_ws4_reason');
+    if (savedReason) reasonEl.value = savedReason;
+    reasonEl.addEventListener('input', function() { localStorage.setItem('chccom002_s1_ws4_reason', reasonEl.value); });
+  }
+})();
+
+// Handout 2 — Communication Cycle model
+var modelAnswers = ['Sender','Message','Channel','Receiver','Feedback'];
+function checkModelAnswers() {
+  var allCorrect = true;
+  var details = '';
+  for (var i = 1; i <= 5; i++) {
+    var input = document.getElementById('model_in' + i);
+    var box = document.getElementById('model_box' + i);
+    var val = (input.value || '').trim().toLowerCase();
+    var correct = modelAnswers[i-1].toLowerCase();
+    if (val === correct) {
+      box.style.borderColor = '#16a34a';
+      box.style.background = 'var(--green-lt)';
+      input.style.color = 'var(--green)';
+    } else {
+      box.style.borderColor = '#dc2626';
+      box.style.background = '#fef2f2';
+      input.style.color = '#dc2626';
+      allCorrect = false;
+    }
+  }
+  var result = document.getElementById('model_result');
+  result.style.display = 'block';
+  if (allCorrect) {
+    result.innerHTML = '<span style="color:var(--green); font-weight:700;">All correct! Sender &rarr; Message &rarr; Channel &rarr; Receiver &rarr; Feedback.</span>';
+  } else {
+    result.innerHTML = '<span style="color:#dc2626; font-weight:700;">Some stages need review.</span> Correct order: <strong>Sender &rarr; Message &rarr; Channel &rarr; Receiver &rarr; Feedback</strong>';
+  }
+}
+function resetModelAnswers() {
+  for (var i = 1; i <= 5; i++) {
+    var input = document.getElementById('model_in' + i);
+    var box = document.getElementById('model_box' + i);
+    input.value = '';
+    box.style.borderColor = 'var(--border)';
+    box.style.background = 'var(--bg)';
+    input.style.color = 'var(--text)';
+  }
+  var result = document.getElementById('model_result');
+  result.style.display = 'none';
+}
+
+// Word Scramble
+(function() {
+  var words = [
+    { scrambled: 'NREDES', answer: 'SENDER' },
+    { scrambled: 'BVNLAORER', answer: 'NONVERBAL' },
+    { scrambled: 'AVIRRER', answer: 'BARRIER' },
+    { scrambled: 'TSSRAEEVI', answer: 'ASSERTIVE' },
+    { scrambled: 'MIEAPTHN', answer: 'EMPATHY' },
+    { scrambled: 'ABLFCEKDE', answer: 'FEEDBACK' }
+  ];
+  var wrap = document.getElementById('scramble_wrap');
+  var scoreEl = document.getElementById('scramble_score');
+  if (!wrap) return;
+  var correct = 0;
+  var attempted = 0;
+  words.forEach(function(w, idx) {
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex; align-items:center; gap:12px; margin-bottom:12px; flex-wrap:wrap;';
+    row.innerHTML =
+      '<span style="font-size:15px; font-weight:800; color:var(--navy); min-width:130px; letter-spacing:2px;">' + w.scrambled + '</span>' +
+      '<input type="text" id="sc_in_' + idx + '" placeholder="Unscramble..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:160px; font-family:inherit; text-transform:uppercase; background:var(--bg);">' +
+      '<button onclick="checkScramble(' + idx + ')" style="background:var(--teal); color:white; border:none; font-size:13px; font-weight:700; padding:9px 14px; border-radius:7px; cursor:pointer; font-family:inherit;">Check</button>' +
+      '<span id="sc_fb_' + idx + '" style="font-size:13px; font-weight:700;"></span>';
+    wrap.appendChild(row);
+    var input = row.querySelector('input');
+    var savedKey = 'chccom002_s1_scramble_' + idx;
+    var savedVal = localStorage.getItem(savedKey);
+    if (savedVal) input.value = savedVal;
+    input.addEventListener('input', function() { localStorage.setItem(savedKey, input.value); });
+    input.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); checkScramble(idx); }});
+  });
+
+  window._scrambleWords = words;
+  window._scrambleCorrect = 0;
+  window._scrambleAttempted = 0;
+
+  window.checkScramble = function(idx) {
+    var input = document.getElementById('sc_in_' + idx);
+    var fb = document.getElementById('sc_fb_' + idx);
+    if (!input || !fb) return;
+    var val = input.value.trim().toUpperCase();
+    var word = window._scrambleWords[idx];
+    if (val === word.answer) {
+      fb.textContent = '✓ Correct!';
+      fb.style.color = 'var(--green)';
+      input.style.borderColor = '#16a34a';
+      input.style.background = 'var(--green-lt)';
+    } else {
+      fb.textContent = '✗ Try again — answer: ' + word.answer;
+      fb.style.color = '#dc2626';
+      input.style.borderColor = '#dc2626';
+      input.style.background = '#fef2f2';
+    }
+  };
+})();
+</script>
+</body>
+</html>
