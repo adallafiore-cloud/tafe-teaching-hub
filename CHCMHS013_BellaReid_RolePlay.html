@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bella Reid — Role-Play Guide | CHCMHS013</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f2ec;
+  --surface: #ffffff;
+  --navy: #1c2b3a;
+  --green: #2d6a4f;
+  --green-lt: #e8f5ef;
+  --orange: #c8622a;
+  --orange-lt: #fdf0e6;
+  --purple: #5c3a7e;
+  --purple-lt: #f0eaf8;
+  --teal: #1a7a8a;
+  --teal-lt: #e4f4f7;
+  --blue: #1e4d8c;
+  --blue-lt: #e8eef8;
+  --muted: #7a8a99;
+  --border: #ddd8ce;
+  --text: #1c2b3a;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(28,43,58,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--navy);
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.unit-badge {
+  background: var(--orange);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+.topbar-title { font-weight: 700; font-size: 15px; }
+.topbar-sub { font-size: 12px; opacity: 0.65; margin-top: 1px; }
+.pause-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.pause-btn:hover { background: rgba(255,255,255,0.22); }
+.pause-btn.paused { background: var(--orange); border-color: var(--orange); }
+
+/* ── PAUSE OVERLAY ── */
+.pause-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(28,43,58,0.85);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+.pause-overlay.active { display: flex; }
+.pause-card {
+  background: white;
+  border-radius: 16px;
+  padding: 36px 40px;
+  max-width: 420px;
+  text-align: center;
+}
+.pause-card h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 10px; color: var(--navy); }
+.pause-card p { color: var(--muted); margin-bottom: 24px; font-size: 15px; }
+.resume-btn {
+  background: var(--green);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ── STAGE PROGRESS ── */
+.stage-bar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+}
+.stage-tab {
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  color: var(--muted);
+  transition: all 0.2s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stage-tab:hover { color: var(--navy); }
+.stage-tab.active { color: var(--navy); border-bottom-color: var(--green); }
+.stage-tab.done { color: var(--green); }
+.stage-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+}
+.stage-tab.done .stage-dot { opacity: 1; }
+
+/* ── MAIN LAYOUT ── */
+.main {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  padding: 20px 24px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) {
+  .main { grid-template-columns: 1fr; }
+}
+
+/* ── PHASE PANELS ── */
+.phase { display: none; }
+.phase.active { display: block; }
+
+.phase-header {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--green);
+}
+.phase-header.orange { border-left-color: var(--orange); }
+.phase-header.purple { border-left-color: var(--purple); }
+.phase-header.teal { border-left-color: var(--teal); }
+.phase-header.blue { border-left-color: var(--blue); }
+
+.phase-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.phase-header.orange .phase-label { color: var(--orange); }
+.phase-header.purple .phase-label { color: var(--purple); }
+.phase-header.teal .phase-label { color: var(--teal); }
+.phase-header.blue .phase-label { color: var(--blue); }
+
+.phase-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.phase-desc { font-size: 14px; color: var(--muted); }
+
+/* ── EMOTION STATE ── */
+.emotion-bar {
+  background: var(--orange-lt);
+  border: 1px solid #f0d0b0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+.emotion-bar .ico { font-size: 20px; }
+.emotion-bar strong { font-weight: 600; color: var(--orange); }
+.emotion-bar.calm { background: var(--green-lt); border-color: #b8ddc8; }
+.emotion-bar.calm strong { color: var(--green); }
+.emotion-bar.distressed { background: var(--purple-lt); border-color: #c9b3e0; }
+.emotion-bar.distressed strong { color: var(--purple); }
+
+/* ── SCRIPT LINES ── */
+.script-section { margin-bottom: 18px; }
+.script-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+.script-line {
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 14px 16px 14px 52px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 6px rgba(28,43,58,0.06);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.18s;
+  user-select: none;
+}
+.script-line:hover { border-color: var(--green); box-shadow: 0 2px 10px rgba(45,106,79,0.12); }
+.script-line.delivered {
+  background: var(--green-lt);
+  border-color: #7cc8a0;
+  opacity: 0.75;
+}
+.script-line .check {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: transparent;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.script-line.delivered .check {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+.script-line .line-text {
+  font-size: 15px;
+  color: var(--text);
+  font-style: italic;
+  line-height: 1.55;
+}
+.script-line.delivered .line-text { text-decoration: line-through; color: var(--muted); }
+.script-line .cue {
+  font-size: 12px;
+  color: var(--orange);
+  font-weight: 600;
+  font-style: normal;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.script-line .cue::before { content: "↳"; }
+
+/* Emotional moment lines */
+.script-line.emotional { border-color: #c9b3e0; }
+.script-line.emotional:hover { border-color: var(--purple); }
+.script-line.emotional.delivered { background: #f5eff9; }
+.script-line.emotional .cue { color: var(--purple); }
+
+/* ── CONTEXT BOX ── */
+.context-box {
+  background: var(--teal-lt);
+  border: 1px solid #a8d8e0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+.context-box .ctx-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--teal);
+  margin-bottom: 5px;
+}
+.context-box p { color: var(--navy); }
+
+/* ── CONSENT REMINDER ── */
+.consent-box {
+  background: #fff9e6;
+  border: 1.5px dashed #e8c84a;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.consent-box .ico { font-size: 20px; margin-top: 1px; }
+.consent-box strong { color: #8a6400; }
+.consent-box p { color: #6a5200; margin-top: 2px; }
+
+/* ── NAV BUTTONS ── */
+.phase-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 12px;
+}
+.nav-btn {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--navy);
+  transition: all 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-btn:hover { border-color: var(--navy); background: var(--bg); }
+.nav-btn.primary {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+.nav-btn.primary:hover { background: #245940; }
+.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ── RIGHT COLUMN ── */
+.right-col { display: flex; flex-direction: column; gap: 16px; }
+
+/* Character card */
+.char-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.char-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #2d4a62 100%);
+  padding: 18px 20px;
+  color: white;
+}
+.char-role { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.65; margin-bottom: 4px; }
+.char-name { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 2px; }
+.char-org { font-size: 13px; opacity: 0.75; }
+.char-body { padding: 16px 20px; }
+.char-stat {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 13.5px;
+  align-items: flex-start;
+}
+.char-stat .lbl { font-weight: 600; color: var(--muted); min-width: 80px; flex-shrink: 0; }
+.char-stat .val { color: var(--text); }
+.char-divider { height: 1px; background: var(--border); margin: 12px 0; }
+.char-trauma {
+  background: var(--purple-lt);
+  border-left: 3px solid var(--purple);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.char-trauma .lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--purple); margin-bottom: 5px; }
+
+/* Assessment checklist */
+.checklist-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.checklist-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.checklist-header h3 { font-size: 14px; font-weight: 700; color: var(--navy); }
+.progress-pill {
+  background: var(--green-lt);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.criteria-list { padding: 12px 16px; }
+.criterion {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 7px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+  align-items: flex-start;
+}
+.criterion:hover { background: var(--bg); }
+.criterion.checked { background: var(--green-lt); }
+.crit-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all 0.15s;
+  font-size: 12px;
+}
+.criterion.checked .crit-box {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+.crit-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.45;
+}
+.criterion.checked .crit-text { color: var(--muted); text-decoration: line-through; }
+
+/* Checklist legend */
+.checklist-footer {
+  padding: 10px 20px 14px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Document reminders */
+.docs-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 20px;
+}
+.docs-card h3 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+.doc-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  cursor: pointer;
+}
+.doc-item:last-child { border-bottom: none; }
+.doc-checkbox {
+  width: 18px; height: 18px;
+  border-radius: 3px;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  transition: all 0.15s;
+}
+.doc-item.checked .doc-checkbox { background: var(--teal); border-color: var(--teal); color: white; }
+.doc-code { color: var(--teal); font-weight: 600; font-size: 12px; }
+.doc-name { color: var(--muted); }
+
+/* Reset progress btn */
+.reset-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  margin-top: 12px;
+  width: 100%;
+  transition: all 0.15s;
+}
+.reset-btn:hover { border-color: var(--muted); color: var(--text); }
+
+/* Completion banner */
+.completion-banner {
+  display: none;
+  background: var(--green);
+  color: white;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  text-align: center;
+  margin-top: 14px;
+}
+.completion-banner.show { display: block; }
+.completion-banner h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 4px; }
+.completion-banner p { font-size: 13px; opacity: 0.85; }
+
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="unit-badge">CHCMHS013</span>
+    <div>
+      <div class="topbar-title">Assessment Task 4a — Role-Play Guide</div>
+      <div class="topbar-sub">Playing: Bella Reid &nbsp;|&nbsp; Simulated: First Access Youth Services</div>
+    </div>
+  </div>
+  <button class="pause-btn" onclick="togglePause()" id="pauseBtn">⏸ Pause (Step Out of Character)</button>
+</div>
+
+<!-- PAUSE OVERLAY -->
+<div class="pause-overlay" id="pauseOverlay">
+  <div class="pause-card">
+    <h2>⏸ Paused</h2>
+    <p>You have stepped out of character.<br>Use this moment to give direction or check criteria before resuming.</p>
+    <button class="resume-btn" onclick="togglePause()">▶ Resume Role-Play</button>
+  </div>
+</div>
+
+<!-- STAGE TABS -->
+<div class="stage-bar">
+  <button class="stage-tab active" onclick="goToPhase(0)" id="tab0">
+    <span class="stage-dot"></span> 1. Arrival
+  </button>
+  <button class="stage-tab" onclick="goToPhase(1)" id="tab1">
+    <span class="stage-dot"></span> 2. Disclosure
+  </button>
+  <button class="stage-tab" onclick="goToPhase(2)" id="tab2">
+    <span class="stage-dot"></span> 3. Emotional Moment
+  </button>
+  <button class="stage-tab" onclick="goToPhase(3)" id="tab3">
+    <span class="stage-dot"></span> 4. Vicarious Trauma
+  </button>
+  <button class="stage-tab" onclick="goToPhase(4)" id="tab4">
+    <span class="stage-dot"></span> 5. Policy Feedback
+  </button>
+  <button class="stage-tab" onclick="goToPhase(5)" id="tab5">
+    <span class="stage-dot"></span> 6. Change Strategies
+  </button>
+</div>
+
+<!-- MAIN GRID -->
+<div class="main">
+
+  <!-- LEFT COLUMN: Script Phases -->
+  <div class="left-col">
+
+    <!-- ═══ PHASE 0: ARRIVAL ═══ -->
+    <div class="phase active" id="phase0">
+      <div class="phase-header">
+        <div class="phase-label">Phase 1</div>
+        <div class="phase-title">Arrival & Opening</div>
+        <div class="phase-desc">You have just finished your follow-up session with Danika. You asked Estelle to meet with you straight after. You arrive visibly affected — emotional but holding yourself together.</div>
+      </div>
+      <div class="emotion-bar">
+        <span class="ico">😔</span>
+        <div><strong>Emotional State:</strong> Drained and unsettled — too much empathy with Danika's situation. Not in crisis, but clearly affected.</div>
+      </div>
+      <div class="context-box">
+        <div class="ctx-label">Context for Estelle</div>
+        <p>Bella approached <strong>Estelle Lovett</strong> (the student) to ask for support after a follow-up session with 14-year-old client <strong>Danika</strong>, who disclosed family violence and sexual abuse. Bella has <em>personal experience</em> of similar trauma and is concerned this meeting may trigger her.</p>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label">Your opening lines</div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"That was tougher than I thought. Too much empathy is happening here right now!"</div>
+          <div class="cue">Point to your heart when you say this</div>
+        </div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"I'm fine, but it is tough when you do relate to someone's circumstances."</div>
+        </div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"Thank you for being here."</div>
+          <div class="cue">Make eye contact — show genuine relief that Estelle is present</div>
+        </div>
+      </div>
+      <div class="phase-nav">
+        <button class="nav-btn" disabled>← Back</button>
+        <button class="nav-btn primary" onclick="goToPhase(1)">Next Phase →</button>
+      </div>
+    </div>
+
+    <!-- ═══ PHASE 1: DISCLOSURE ═══ -->
+    <div class="phase" id="phase1">
+      <div class="phase-header orange">
+        <div class="phase-label">Phase 2</div>
+        <div class="phase-title">Disclosing Your Trauma History</div>
+        <div class="phase-desc">As you talk to Estelle about what has been triggered, you begin to open up about your own past. This is the first time you've shared this in a professional setting.</div>
+      </div>
+      <div class="emotion-bar">
+        <span class="ico">💬</span>
+        <div><strong>Emotional State:</strong> Gradually opening up — start hesitant, become more forthcoming as trust builds with Estelle.</div>
+      </div>
+      <div class="context-box">
+        <div class="ctx-label">Bella's Backstory (revealed in this phase)</div>
+        <p>Bella had an <strong>alcoholic stepfather</strong> who was violent towards her mother. He sexually abused Bella at age <strong>13</strong> and her sister at age <strong>11</strong>. Her mother called the police while he was at work. He was arrested. Her mother never fully recovered and is now interstate, in and out of a mental health facility. Her sister is close to their mother.</p>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label">Disclosure lines — deliver naturally, let them land</div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"When I was a child, I had an alcoholic stepfather who was violent towards my mother. He sexually abused me when I was 13 years old and my sister. My sister was only 11."</div>
+        </div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"My mother knew what had happened, and she called the police while he was at work one day."</div>
+        </div>
+      </div>
+
+      <div class="consent-box">
+        <span class="ico">📋</span>
+        <div>
+          <strong>Reminder for Estelle:</strong>
+          <p>Before proceeding, Estelle should ensure <strong>Bella signs the Consent to Collect and Share Information (SD CC T3)</strong>. If Estelle hasn't raised this yet, pause and wait for them to do so.</p>
+        </div>
+      </div>
+
+      <div class="phase-nav">
+        <button class="nav-btn" onclick="goToPhase(0)">← Back</button>
+        <button class="nav-btn primary" onclick="goToPhase(2)">Next Phase →</button>
+      </div>
+    </div>
+
+    <!-- ═══ PHASE 2: EMOTIONAL MOMENT ═══ -->
+    <div class="phase" id="phase2">
+      <div class="phase-header" style="border-left-color: var(--purple);">
+        <div class="phase-label" style="color:var(--purple);">Phase 3</div>
+        <div class="phase-title">Emotional Breakdown Moment</div>
+        <div class="phase-desc">As you talk about your mother's ongoing struggles, the emotion catches up with you. This is Bella's most vulnerable point in the role-play.</div>
+      </div>
+      <div class="emotion-bar distressed">
+        <span class="ico">😢</span>
+        <div><strong>Emotional State:</strong> Visibly upset and surprised by your own emotional reaction. Distressed but not in crisis.</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label">Deliver with emotion — these are the key dramatic moments</div>
+        <div class="script-line emotional" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"My stepfather was arrested, but my mother has never really recovered properly."</div>
+          <div class="cue">Put your face into your hands here — show genuine distress</div>
+        </div>
+        <div class="script-line emotional" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"Mum has been in and out of a mental health facility. Unfortunately, she's interstate. Otherwise, I'd have her access our services here. My sister is close to her, though."</div>
+          <div class="cue">Get visibly upset — voice may waver, look away briefly</div>
+        </div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"Sorry, I didn't expect all of these emotions to bubble to the surface now. I love supporting others, but I'm not very good at talking about my own stuff!"</div>
+          <div class="cue">Collect yourself — slight embarrassed laugh, then compose</div>
+        </div>
+      </div>
+      <div class="context-box">
+        <div class="ctx-label">What to watch for from Estelle here</div>
+        <p>Estelle should respond with empathy, give you space, not rush past the emotion. This is where <strong>"responding to disclosures"</strong> and <strong>"developing rapport"</strong> criteria are most visible to the assessor.</p>
+      </div>
+      <div class="phase-nav">
+        <button class="nav-btn" onclick="goToPhase(1)">← Back</button>
+        <button class="nav-btn primary" onclick="goToPhase(3)">Next Phase →</button>
+      </div>
+    </div>
+
+    <!-- ═══ PHASE 3: VICARIOUS TRAUMA ═══ -->
+    <div class="phase" id="phase3">
+      <div class="phase-header teal">
+        <div class="phase-label">Phase 4</div>
+        <div class="phase-title">Discussing Vicarious Trauma</div>
+        <div class="phase-desc">After the emotional moment, Bella shifts into a more professional mode. She reflects on how vicarious trauma affects staff at First Access — and why it matters.</div>
+      </div>
+      <div class="emotion-bar calm">
+        <span class="ico">💼</span>
+        <div><strong>Emotional State:</strong> Calmer now — thoughtful and professional. Still emotionally present but grounded.</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label">Professional reflection — composed and considered</div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"You mentioned vicarious trauma. I believe it is so important to have strategies in place for staff here. Not only because of what we do, but because many staff members may be carrying their own personal trauma."</div>
+        </div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"I think educating staff on how vicarious trauma can be quite insidious and really affect mental health needs to be addressed."</div>
+          <div class="cue">Speak with genuine conviction here — this topic matters to Bella</div>
+        </div>
+      </div>
+      <div class="context-box">
+        <div class="ctx-label">Key point for Estelle to draw out</div>
+        <p>Estelle should collaboratively explore the impact of vicarious trauma. They should acknowledge Bella's insight as a person with lived experience. This covers the criterion: <em>"Collaborate to identify the impact of trauma and vicarious trauma in developing mental health issues."</em></p>
+      </div>
+      <div class="phase-nav">
+        <button class="nav-btn" onclick="goToPhase(2)">← Back</button>
+        <button class="nav-btn primary" onclick="goToPhase(4)">Next Phase →</button>
+      </div>
+    </div>
+
+    <!-- ═══ PHASE 4: POLICY FEEDBACK ═══ -->
+    <div class="phase" id="phase4">
+      <div class="phase-header" style="border-left-color: var(--blue);">
+        <div class="phase-label" style="color:var(--blue);">Phase 5</div>
+        <div class="phase-title">Policy & Practice Feedback</div>
+        <div class="phase-desc">Estelle asks Bella for feedback on First Access' trauma-informed policies and practices. Bella shares honest observations from her frontline experience — including gaps.</div>
+      </div>
+      <div class="emotion-bar calm">
+        <span class="ico">📋</span>
+        <div><strong>Emotional State:</strong> Calm and engaged — Bella is thoughtful, balanced and constructive.</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label">Feedback on policies and procedures</div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"I think our policies and procedures are very good at considering the needs of clients and staff..."</div>
+        </div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"...however, I'm not quite sure how we deal with emergency situations when a client is 'acting out'. That one is tricky."</div>
+          <div class="cue">Pause and look thoughtful here — it's a genuine concern</div>
+        </div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"A policy and procedure needs to be created specifically for trauma-informed care. I don't think we have one."</div>
+        </div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label">Feedback on current practices</div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"As for practices, I definitely think we should have gender considered for programs and support. There is a need for same-sex group programs and a need for LGBTQIA+ programs."</div>
+          <div class="cue">Speak from personal conviction — Bella cares about this</div>
+        </div>
+      </div>
+      <div class="phase-nav">
+        <button class="nav-btn" onclick="goToPhase(3)">← Back</button>
+        <button class="nav-btn primary" onclick="goToPhase(5)">Next Phase →</button>
+      </div>
+    </div>
+
+    <!-- ═══ PHASE 5: CHANGE STRATEGIES ═══ -->
+    <div class="phase" id="phase5">
+      <div class="phase-header" style="border-left-color: var(--green);">
+        <div class="phase-label">Phase 6</div>
+        <div class="phase-title">Change Strategies & Closing</div>
+        <div class="phase-desc">Bella and Estelle collaborate on how to strengthen First Access' trauma-informed practice. Bella wraps up by committing to help drive change.</div>
+      </div>
+      <div class="emotion-bar calm">
+        <span class="ico">🌱</span>
+        <div><strong>Emotional State:</strong> Hopeful and motivated — Bella ends on a constructive, forward-looking note.</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label">Ideas for change — collaborative and energised</div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"Change strategies for integrating more trauma-informed practices — I think we need to have some more training or perhaps professional development where a trauma specialist talks to us."</div>
+        </div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"To get everyone on board, we do need to stress that we are already using a lot of trauma-informed care with our clients. It's just understanding why we do some of the things we do."</div>
+          <div class="cue">Show enthusiasm — Bella sees this as achievable</div>
+        </div>
+        <div class="script-line" onclick="toggleLine(this)">
+          <div class="check">✓</div>
+          <div class="line-text">"I'd be happy to help promote trauma-informed care. I think it is really important that we all have a shared vision to begin the change."</div>
+          <div class="cue">End on warmth — make eye contact with Estelle, smile genuinely</div>
+        </div>
+      </div>
+      <div class="consent-box">
+        <span class="ico">✅</span>
+        <div>
+          <strong>Before closing:</strong>
+          <p>Ensure Estelle has confirmed Bella's referral options with her. Bella should have signed the <strong>Consent to Collect and Share Information (SD CC T3)</strong>. If not yet done, give Estelle the opportunity to raise this before wrapping up.</p>
+        </div>
+      </div>
+
+      <div class="completion-banner" id="completionBanner">
+        <h3>🎉 Role-Play Complete</h3>
+        <p>All phases delivered. Check the assessment criteria on the right before finalising your observations.</p>
+      </div>
+
+      <div class="phase-nav">
+        <button class="nav-btn" onclick="goToPhase(4)">← Back</button>
+        <button class="nav-btn primary" onclick="markComplete()">Mark Complete ✓</button>
+      </div>
+    </div>
+
+  </div><!-- /left-col -->
+
+  <!-- RIGHT COLUMN -->
+  <div class="right-col">
+
+    <!-- Character Card -->
+    <div class="char-card">
+      <div class="char-header">
+        <div class="char-role">You are playing</div>
+        <div class="char-name">Bella Reid</div>
+        <div class="char-org">Support Worker · Youth Services · First Access</div>
+      </div>
+      <div class="char-body">
+        <div class="char-stat">
+          <span class="lbl">Works with</span>
+          <span class="val">Young people at risk. Currently supporting 14-year-old Danika (family violence + sexual abuse history)</span>
+        </div>
+        <div class="char-stat">
+          <span class="lbl">Triggered by</span>
+          <span class="val">Danika's disclosure mirrors Bella's own childhood trauma</span>
+        </div>
+        <div class="char-stat">
+          <span class="lbl">Motive</span>
+          <span class="val">Asked Estelle for peer supervision support directly after her session with Danika</span>
+        </div>
+        <div class="char-divider"></div>
+        <div class="char-trauma">
+          <div class="lbl">Bella's Trauma History</div>
+          <p>Alcoholic stepfather who was violent to her mother. Sexually abused Bella (age 13) and her sister (age 11). Mother called police — stepfather arrested. Mother never fully recovered; in/out of mental health facility interstate. Sister is close to their mum.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assessment Criteria Checklist -->
+    <div class="checklist-card">
+      <div class="checklist-header">
+        <h3>Assessor Criteria Checklist</h3>
+        <span class="progress-pill" id="progressPill">0 / 7</span>
+      </div>
+      <div class="criteria-list">
+        <div class="criterion" onclick="toggleCriterion(this)" id="crit0">
+          <div class="crit-box">✓</div>
+          <div class="crit-text">Participates in peer supervision</div>
+        </div>
+        <div class="criterion" onclick="toggleCriterion(this)" id="crit1">
+          <div class="crit-box">✓</div>
+          <div class="crit-text">Develops rapport that promotes safety, trust, choice and control</div>
+        </div>
+        <div class="criterion" onclick="toggleCriterion(this)" id="crit2">
+          <div class="crit-box">✓</div>
+          <div class="crit-text">Collaboratively identifies Bella's specific trauma needs</div>
+        </div>
+        <div class="criterion" onclick="toggleCriterion(this)" id="crit3">
+          <div class="crit-box">✓</div>
+          <div class="crit-text">Responds empathetically and sensitively to disclosures of past and current trauma</div>
+        </div>
+        <div class="criterion" onclick="toggleCriterion(this)" id="crit4">
+          <div class="crit-box">✓</div>
+          <div class="crit-text">Collaborates to identify the impact of trauma and vicarious trauma on mental health</div>
+        </div>
+        <div class="criterion" onclick="toggleCriterion(this)" id="crit5">
+          <div class="crit-box">✓</div>
+          <div class="crit-text">Obtains feedback on policies, procedures or practices contributing to trauma / re-traumatisation</div>
+        </div>
+        <div class="criterion" onclick="toggleCriterion(this)" id="crit6">
+          <div class="crit-box">✓</div>
+          <div class="crit-text">Collaborates to develop change strategies to strengthen First Access' trauma-informed practice</div>
+        </div>
+      </div>
+      <div class="checklist-footer">Tap each item as it is demonstrated. Results are for your reference only.</div>
+    </div>
+
+    <!-- Document Reminders -->
+    <div class="docs-card">
+      <h3>📄 Documents (Student must action)</h3>
+      <div class="doc-item" onclick="toggleDoc(this)">
+        <div class="doc-checkbox">✓</div>
+        <div>
+          <span class="doc-code">SD CC T3</span>
+          <div class="doc-name">Consent to Collect and Share Information — Bella must sign</div>
+        </div>
+      </div>
+      <div class="doc-item" onclick="toggleDoc(this)">
+        <div class="doc-checkbox">✓</div>
+        <div>
+          <span class="doc-code">Referral Options</span>
+          <div class="doc-name">Estelle must have referral options prepared for Bella</div>
+        </div>
+      </div>
+      <div class="doc-item" onclick="toggleDoc(this)">
+        <div class="doc-checkbox">✓</div>
+        <div>
+          <span class="doc-code">SD DR8</span>
+          <div class="doc-name">Code of Conduct Policy and Procedure</div>
+        </div>
+      </div>
+      <div class="doc-item" onclick="toggleDoc(this)">
+        <div class="doc-checkbox">✓</div>
+        <div>
+          <span class="doc-code">SD HS3</span>
+          <div class="doc-name">Duty of Care Policy and Procedure</div>
+        </div>
+      </div>
+      <button class="reset-btn" onclick="resetAll()">↺ Reset All Progress</button>
+    </div>
+
+  </div><!-- /right-col -->
+</div><!-- /main -->
+
+<script>
+let currentPhase = 0;
+const totalPhases = 6;
+const phaseDone = new Array(totalPhases).fill(false);
+
+function goToPhase(n) {
+  // Hide all phases
+  document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.stage-tab').forEach(t => t.classList.remove('active'));
+
+  // Show target
+  document.getElementById('phase' + n).classList.add('active');
+  document.getElementById('tab' + n).classList.add('active');
+
+  currentPhase = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleLine(el) {
+  el.classList.toggle('delivered');
+}
+
+function toggleCriterion(el) {
+  el.classList.toggle('checked');
+  updateProgress();
+}
+
+function toggleDoc(el) {
+  el.classList.toggle('checked');
+}
+
+function updateProgress() {
+  const total = document.querySelectorAll('.criterion').length;
+  const done = document.querySelectorAll('.criterion.checked').length;
+  document.getElementById('progressPill').textContent = done + ' / ' + total;
+}
+
+function togglePause() {
+  const overlay = document.getElementById('pauseOverlay');
+  const btn = document.getElementById('pauseBtn');
+  const isActive = overlay.classList.contains('active');
+  overlay.classList.toggle('active');
+  if (isActive) {
+    btn.textContent = '⏸ Pause (Step Out of Character)';
+    btn.classList.remove('paused');
+  } else {
+    btn.textContent = '▶ Resume Role-Play';
+    btn.classList.add('paused');
+  }
+}
+
+function markComplete() {
+  document.getElementById('completionBanner').classList.add('show');
+  document.getElementById('tab5').classList.add('done');
+}
+
+function resetAll() {
+  if (!confirm('Reset all checkboxes and script lines?')) return;
+  document.querySelectorAll('.script-line.delivered').forEach(el => el.classList.remove('delivered'));
+  document.querySelectorAll('.criterion.checked').forEach(el => el.classList.remove('checked'));
+  document.querySelectorAll('.doc-item.checked').forEach(el => el.classList.remove('checked'));
+  document.getElementById('completionBanner').classList.remove('show');
+  document.querySelectorAll('.stage-tab').forEach(t => t.classList.remove('done'));
+  updateProgress();
+}
+
+// Mark stage tabs as done when moving past them
+document.querySelectorAll('.nav-btn.primary').forEach(btn => {
+  btn.addEventListener('click', function() {
+    if (currentPhase < totalPhases - 1) {
+      document.getElementById('tab' + currentPhase).classList.add('done');
+    }
+  });
+});
+</script>
+</body>
+</html>
