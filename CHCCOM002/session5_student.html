@@ -205,6 +205,18 @@ ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
 .tbb-break .tbb-dur{background:var(--border);color:var(--muted);}
 .tbb-lunch{background:#fef9ee!important;border:1.5px solid #fcd34d;color:#92400e!important;}
 .tbb-lunch .tbb-dur{background:#fcd34d;color:#92400e;}
+/* DAY NAVIGATOR */
+.daynav-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:16px 24px;}
+.daynav-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px;}
+.daynav{display:flex;flex-direction:column;gap:4px;}
+.dn-block{display:flex;align-items:center;gap:12px;background:transparent;border:1.5px solid var(--border);border-radius:9px;padding:10px 14px;cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;width:100%;}
+.dn-block:hover{background:#eef2f7;border-color:var(--teal);}
+.dn-time{font-size:12.5px;font-weight:800;color:var(--navy);white-space:nowrap;min-width:105px;}
+.dn-name{flex:1;font-size:13.5px;font-weight:600;color:var(--text);}
+.dn-dur{font-size:11.5px;font-weight:700;background:var(--bg);color:var(--muted);padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.dn-block:hover .dn-dur{background:var(--teal);color:white;}
+.dn-break{display:flex;align-items:center;gap:8px;padding:5px 14px;font-size:12.5px;color:var(--muted);font-weight:600;}
+.dn-lunch{display:flex;align-items:center;gap:8px;padding:5px 14px;font-size:12.5px;color:#92400e;font-weight:600;}
 </style>
 </head>
 <body>
@@ -243,11 +255,46 @@ ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
   </div>
 </div>
 
+<!-- DAY NAVIGATOR -->
+<div class="daynav-wrap">
+  <div class="daynav-label">📅 Today's Schedule — click any block to jump there</div>
+  <div class="daynav">
+    <button class="dn-block" onclick="scrollToSection('s-overview')">
+      <span class="dn-time">9:30 – 10:30</span>
+      <span class="dn-name">Briefing &amp; Preparation — Read the scenario, find your role</span>
+      <span class="dn-dur">60 min</span>
+    </button>
+    <div class="dn-break">☕ &nbsp;10:30 – 10:45 &nbsp;·&nbsp; Break &nbsp;·&nbsp; 15 min</div>
+    <button class="dn-block" onclick="scrollToSection('s-roles')">
+      <span class="dn-time">10:45 – 12:00</span>
+      <span class="dn-name">AT3 Part A — Safety &amp; Respect Team Meeting Role Play</span>
+      <span class="dn-dur">75 min</span>
+    </button>
+    <div class="dn-lunch">🍽️ &nbsp;12:00 – 12:45 &nbsp;·&nbsp; Lunch &nbsp;·&nbsp; 45 min</div>
+    <button class="dn-block" onclick="scrollToSection('s-feedback')">
+      <span class="dn-time">12:45 – 1:15</span>
+      <span class="dn-name">AT3 Part B — Give &amp; Receive Peer Feedback</span>
+      <span class="dn-dur">30 min</span>
+    </button>
+    <button class="dn-block" onclick="scrollToSection('s-reflection')">
+      <span class="dn-time">1:15 – 2:30</span>
+      <span class="dn-name">AT3 Part C — Written Reflection</span>
+      <span class="dn-dur">75 min</span>
+    </button>
+    <div class="dn-break">☕ &nbsp;2:30 – 2:45 &nbsp;·&nbsp; Break &nbsp;·&nbsp; 15 min</div>
+    <button class="dn-block" onclick="scrollToSection('s-practice')">
+      <span class="dn-time">2:45 – 3:00</span>
+      <span class="dn-name">Wrap-up &amp; Debrief</span>
+      <span class="dn-dur">15 min</span>
+    </button>
+  </div>
+</div>
+
 <div class="page">
 
   <!-- SECTION: AT3 OVERVIEW -->
   <div class="tbb"><span class="tbb-time">9:30 – 10:30</span><span class="tbb-sep">|</span><span class="tbb-name">Briefing &amp; Preparation — Read the scenario and prepare your role</span><span class="tbb-dur">60 min</span></div>
-  <div class="section">
+  <div class="section" id="s-overview">
     <div class="section-label">Assessment Overview</div>
     <div class="section-title"><span class="ico">&#128203;</span>AT3 — What You Are Being Assessed On Today</div>
 
@@ -297,7 +344,7 @@ ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
   <div class="tbb tbb-break"><span class="tbb-time">10:30 – 10:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
   <div class="tbb"><span class="tbb-time">10:45 – 12:00</span><span class="tbb-sep">|</span><span class="tbb-name">AT3 Part A — Safety &amp; Respect Team Meeting Role Play</span><span class="tbb-dur">75 min</span></div>
   <!-- SECTION: ROLES -->
-  <div class="section">
+  <div class="section" id="s-roles">
     <div class="section-label">Your Role</div>
     <div class="section-title"><span class="ico">&#127917;</span>The Five Roles — Find Yours and Read It</div>
     <p>Open your assigned role. Read the character description, your responsibilities, and your full script. You can open other roles too — understanding what others will do helps you respond well in the meeting.</p>
@@ -441,7 +488,7 @@ ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
   <hr>
 
   <!-- MINUTES TEMPLATE -->
-  <div class="section">
+  <div class="section" id="s-minutes">
     <div class="section-label">Note-Taker Tool</div>
     <div class="section-title"><span class="ico">&#128196;</span>Digital Meeting Minutes Template</div>
     <p>If you are the <strong>Note-Taker</strong>, use this during the role play. All fields save automatically to this browser. If you have a different role, you can still follow along.</p>
@@ -695,7 +742,7 @@ ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
   <div class="tbb tbb-lunch"><span class="tbb-time">12:00 – 12:45</span><span class="tbb-sep">|</span><span class="tbb-name">🍽️ Lunch</span><span class="tbb-dur">45 min</span></div>
   <div class="tbb"><span class="tbb-time">12:45 – 1:15</span><span class="tbb-sep">|</span><span class="tbb-name">AT3 Part B — Give &amp; Receive Peer Feedback</span><span class="tbb-dur">30 min</span></div>
   <!-- PART B: FEEDBACK FORMS -->
-  <div class="section">
+  <div class="section" id="s-feedback">
     <div class="section-label">AT3 Part B</div>
     <div class="section-title"><span class="ico">&#128172;</span>Feedback to Group Members</div>
     <p>After the role play, write structured feedback for <strong>three</strong> of your group members. Be specific, constructive, and professional. Name what they did — not who they are as a person.</p>
@@ -758,7 +805,7 @@ ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
 
   <div class="tbb"><span class="tbb-time">1:15 – 2:30</span><span class="tbb-sep">|</span><span class="tbb-name">AT3 Part C — Written Reflection + AT1/AT2 Finalisation</span><span class="tbb-dur">75 min</span></div>
   <!-- PART C: REFLECTION -->
-  <div class="section">
+  <div class="section" id="s-reflection">
     <div class="section-label">AT3 Part C</div>
     <div class="section-title"><span class="ico">&#129300;</span>Reflection Questions</div>
     <p>Answer all five questions in full sentences. Your answers save automatically.</p>
@@ -790,7 +837,7 @@ ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
   <div class="tbb tbb-break"><span class="tbb-time">2:30 – 2:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
   <div class="tbb"><span class="tbb-time">2:45 – 3:00</span><span class="tbb-sep">|</span><span class="tbb-name">Group Discussion &amp; Wrap-up</span><span class="tbb-dur">15 min</span></div>
   <!-- PRACTICE SECTION -->
-  <div class="section">
+  <div class="section" id="s-practice">
     <div class="section-label">Warm Up</div>
     <div class="section-title"><span class="ico">&#127917;</span>Practise Before the Assessment</div>
     <p>Use these tools to warm up. Select your role first — your scripts will load automatically.</p>
@@ -931,6 +978,8 @@ Well done for putting yourself out there today. Role plays take courage, and you
 <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
 
 <script>
+function scrollToSection(id){ var el=document.getElementById(id); if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); } }
+
 var LS = 'chccom002_s5_';
 
 function saveMn(k,v){ localStorage.setItem(LS+'minutes_'+k, v); }

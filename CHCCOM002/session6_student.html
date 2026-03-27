@@ -207,6 +207,18 @@ tr:nth-child(even) td { background: var(--bg); }
 .tbb-break .tbb-dur{background:var(--border);color:var(--muted);}
 .tbb-lunch{background:#fef9ee!important;border:1.5px solid #fcd34d;color:#92400e!important;}
 .tbb-lunch .tbb-dur{background:#fcd34d;color:#92400e;}
+/* DAY NAVIGATOR */
+.daynav-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:16px 24px;}
+.daynav-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px;}
+.daynav{display:flex;flex-direction:column;gap:4px;}
+.dn-block{display:flex;align-items:center;gap:12px;background:transparent;border:1.5px solid var(--border);border-radius:9px;padding:10px 14px;cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;width:100%;}
+.dn-block:hover{background:#eef2f7;border-color:var(--teal);}
+.dn-time{font-size:12.5px;font-weight:800;color:var(--navy);white-space:nowrap;min-width:105px;}
+.dn-name{flex:1;font-size:13.5px;font-weight:600;color:var(--text);}
+.dn-dur{font-size:11.5px;font-weight:700;background:var(--bg);color:var(--muted);padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.dn-block:hover .dn-dur{background:var(--teal);color:white;}
+.dn-break{display:flex;align-items:center;gap:8px;padding:5px 14px;font-size:12.5px;color:var(--muted);font-weight:600;}
+.dn-lunch{display:flex;align-items:center;gap:8px;padding:5px 14px;font-size:12.5px;color:#92400e;font-weight:600;}
 </style>
 </head>
 <body>
@@ -247,6 +259,36 @@ tr:nth-child(even) td { background: var(--bg); }
     <span class="chip">Part B — Interpreter Facilitation</span>
     <span class="chip">Observed Assessment</span>
     <span class="chip">Session 6 of 6</span>
+  </div>
+</div>
+
+<!-- DAY NAVIGATOR -->
+<div class="daynav-wrap">
+  <div class="daynav-label">📅 Today's Schedule — click any block to jump there</div>
+  <div class="daynav">
+    <button class="dn-block" onclick="scrollToSection('s-overview')">
+      <span class="dn-time">9:30 – 10:00</span>
+      <span class="dn-name">Briefing &amp; Preparation — Both AT4 scenarios</span>
+      <span class="dn-dur">30 min</span>
+    </button>
+    <div class="dn-break">🧘 &nbsp;10:00 – 10:30 &nbsp;·&nbsp; Individual Prep — re-read scenario &amp; notes &nbsp;·&nbsp; 30 min</div>
+    <button class="dn-block" onclick="scrollToSection('s-partA')">
+      <span class="dn-time">10:30 – 12:00</span>
+      <span class="dn-name">AT4 Part A — Love at First Access (Conflict Resolution Role Play)</span>
+      <span class="dn-dur">90 min</span>
+    </button>
+    <div class="dn-lunch">🍽️ &nbsp;12:00 – 12:45 &nbsp;·&nbsp; Lunch &nbsp;·&nbsp; 45 min</div>
+    <button class="dn-block" onclick="scrollToSection('s-partB')">
+      <span class="dn-time">12:45 – 2:30</span>
+      <span class="dn-name">AT4 Part B — Accessing an Interpreter (Facilitation Role Play)</span>
+      <span class="dn-dur">105 min</span>
+    </button>
+    <div class="dn-break">☕ &nbsp;2:30 – 2:45 &nbsp;·&nbsp; Break &nbsp;·&nbsp; 15 min</div>
+    <button class="dn-block" onclick="scrollToSection('s-practice')">
+      <span class="dn-time">2:45 – 3:00</span>
+      <span class="dn-name">Final Wrap-up — End of CHCCOM002</span>
+      <span class="dn-dur">15 min</span>
+    </button>
   </div>
 </div>
 
@@ -838,6 +880,8 @@ You have completed CHCCOM002. Be proud of the work you have done this term.</div
 <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
 
 <script>
+function scrollToSection(id){ var el=document.getElementById(id); if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); } }
+
 // =============================================
 // LOCAL STORAGE
 // =============================================
