@@ -864,6 +864,284 @@ tr:nth-child(even) td { background: var(--bg); }
 
 <hr>
 
+<!-- WARM-UP: COMMUNICATION STYLES CARD SORT -->
+<div id="s-cardsort" class="section">
+  <div class="section-label">12:45 – 1:15 Warm-up</div>
+  <div class="section-title"><span class="ico">🃏</span> Communication Styles Card Sort</div>
+
+  <p>Read each workplace scenario below. Click the communication style that best matches what the worker is doing. You get instant green/red feedback for each one.</p>
+
+  <div class="box box-orange">
+    <div class="box-label">How to play</div>
+    <p>Seven scenarios. Seven styles. Match each scenario to the correct style — then click <strong>Reset</strong> to try again.</p>
+  </div>
+
+  <!-- Style legend -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:16px 20px; margin:18px 0;">
+    <div style="font-size:11px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">The 7 styles — tap a button on each scenario to lock in your answer</div>
+    <div style="display:flex; flex-wrap:wrap; gap:8px;">
+      <span style="background:var(--navy); color:white; font-size:13px; font-weight:700; padding:5px 13px; border-radius:20px;">Assertive</span>
+      <span style="background:#b91c1c; color:white; font-size:13px; font-weight:700; padding:5px 13px; border-radius:20px;">Aggressive</span>
+      <span style="background:#6b7280; color:white; font-size:13px; font-weight:700; padding:5px 13px; border-radius:20px;">Passive</span>
+      <span style="background:#7c3aed; color:white; font-size:13px; font-weight:700; padding:5px 13px; border-radius:20px;">Passive-Aggressive</span>
+      <span style="background:#0e7490; color:white; font-size:13px; font-weight:700; padding:5px 13px; border-radius:20px;">Submissive</span>
+      <span style="background:#854d0e; color:white; font-size:13px; font-weight:700; padding:5px 13px; border-radius:20px;">Manipulative</span>
+      <span style="background:#065f46; color:white; font-size:13px; font-weight:700; padding:5px 13px; border-radius:20px;">Direct</span>
+    </div>
+  </div>
+
+  <div id="cardsort_scenarios">
+
+    <!-- Scenario 1 -->
+    <div class="cs-scenario" id="cs_1" style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--teal); margin-bottom:8px;">Scenario 1</div>
+      <p style="font-size:15.5px; margin-bottom:14px; font-style:italic;">"I need to raise a concern about how the rota was changed without consultation. Can we discuss it at our next team meeting?"</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;" class="cs-btn-row">
+        <button class="cs-btn" data-scenario="1" data-style="Assertive" onclick="csSelect(this)">Assertive</button>
+        <button class="cs-btn" data-scenario="1" data-style="Aggressive" onclick="csSelect(this)">Aggressive</button>
+        <button class="cs-btn" data-scenario="1" data-style="Passive" onclick="csSelect(this)">Passive</button>
+        <button class="cs-btn" data-scenario="1" data-style="Passive-Aggressive" onclick="csSelect(this)">Passive-Aggressive</button>
+        <button class="cs-btn" data-scenario="1" data-style="Submissive" onclick="csSelect(this)">Submissive</button>
+        <button class="cs-btn" data-scenario="1" data-style="Manipulative" onclick="csSelect(this)">Manipulative</button>
+        <button class="cs-btn" data-scenario="1" data-style="Direct" onclick="csSelect(this)">Direct</button>
+      </div>
+      <div class="cs-feedback" id="cs_fb_1" style="display:none; font-size:14px; font-weight:700; padding:10px 14px; border-radius:8px; margin-top:4px;"></div>
+    </div>
+
+    <!-- Scenario 2 -->
+    <div class="cs-scenario" id="cs_2" style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--teal); margin-bottom:8px;">Scenario 2</div>
+      <p style="font-size:15.5px; margin-bottom:14px; font-style:italic;">A worker slams their folder down and says: "This is ridiculous. Nobody ever listens to me. I'm done."</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;" class="cs-btn-row">
+        <button class="cs-btn" data-scenario="2" data-style="Assertive" onclick="csSelect(this)">Assertive</button>
+        <button class="cs-btn" data-scenario="2" data-style="Aggressive" onclick="csSelect(this)">Aggressive</button>
+        <button class="cs-btn" data-scenario="2" data-style="Passive" onclick="csSelect(this)">Passive</button>
+        <button class="cs-btn" data-scenario="2" data-style="Passive-Aggressive" onclick="csSelect(this)">Passive-Aggressive</button>
+        <button class="cs-btn" data-scenario="2" data-style="Submissive" onclick="csSelect(this)">Submissive</button>
+        <button class="cs-btn" data-scenario="2" data-style="Manipulative" onclick="csSelect(this)">Manipulative</button>
+        <button class="cs-btn" data-scenario="2" data-style="Direct" onclick="csSelect(this)">Direct</button>
+      </div>
+      <div class="cs-feedback" id="cs_fb_2" style="display:none; font-size:14px; font-weight:700; padding:10px 14px; border-radius:8px; margin-top:4px;"></div>
+    </div>
+
+    <!-- Scenario 3 -->
+    <div class="cs-scenario" id="cs_3" style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--teal); margin-bottom:8px;">Scenario 3</div>
+      <p style="font-size:15.5px; margin-bottom:14px; font-style:italic;">A worker thinks their client's care plan is wrong but says nothing and just follows it anyway.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;" class="cs-btn-row">
+        <button class="cs-btn" data-scenario="3" data-style="Assertive" onclick="csSelect(this)">Assertive</button>
+        <button class="cs-btn" data-scenario="3" data-style="Aggressive" onclick="csSelect(this)">Aggressive</button>
+        <button class="cs-btn" data-scenario="3" data-style="Passive" onclick="csSelect(this)">Passive</button>
+        <button class="cs-btn" data-scenario="3" data-style="Passive-Aggressive" onclick="csSelect(this)">Passive-Aggressive</button>
+        <button class="cs-btn" data-scenario="3" data-style="Submissive" onclick="csSelect(this)">Submissive</button>
+        <button class="cs-btn" data-scenario="3" data-style="Manipulative" onclick="csSelect(this)">Manipulative</button>
+        <button class="cs-btn" data-scenario="3" data-style="Direct" onclick="csSelect(this)">Direct</button>
+      </div>
+      <div class="cs-feedback" id="cs_fb_3" style="display:none; font-size:14px; font-weight:700; padding:10px 14px; border-radius:8px; margin-top:4px;"></div>
+    </div>
+
+    <!-- Scenario 4 -->
+    <div class="cs-scenario" id="cs_4" style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--teal); margin-bottom:8px;">Scenario 4</div>
+      <p style="font-size:15.5px; margin-bottom:14px; font-style:italic;">A worker says "Sure, whatever you think is best" but later tells another colleague how unfair it was.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;" class="cs-btn-row">
+        <button class="cs-btn" data-scenario="4" data-style="Assertive" onclick="csSelect(this)">Assertive</button>
+        <button class="cs-btn" data-scenario="4" data-style="Aggressive" onclick="csSelect(this)">Aggressive</button>
+        <button class="cs-btn" data-scenario="4" data-style="Passive" onclick="csSelect(this)">Passive</button>
+        <button class="cs-btn" data-scenario="4" data-style="Passive-Aggressive" onclick="csSelect(this)">Passive-Aggressive</button>
+        <button class="cs-btn" data-scenario="4" data-style="Submissive" onclick="csSelect(this)">Submissive</button>
+        <button class="cs-btn" data-scenario="4" data-style="Manipulative" onclick="csSelect(this)">Manipulative</button>
+        <button class="cs-btn" data-scenario="4" data-style="Direct" onclick="csSelect(this)">Direct</button>
+      </div>
+      <div class="cs-feedback" id="cs_fb_4" style="display:none; font-size:14px; font-weight:700; padding:10px 14px; border-radius:8px; margin-top:4px;"></div>
+    </div>
+
+    <!-- Scenario 5 -->
+    <div class="cs-scenario" id="cs_5" style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--teal); margin-bottom:8px;">Scenario 5</div>
+      <p style="font-size:15.5px; margin-bottom:14px; font-style:italic;">A worker apologises repeatedly even though they did nothing wrong, then does whatever the client demands.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;" class="cs-btn-row">
+        <button class="cs-btn" data-scenario="5" data-style="Assertive" onclick="csSelect(this)">Assertive</button>
+        <button class="cs-btn" data-scenario="5" data-style="Aggressive" onclick="csSelect(this)">Aggressive</button>
+        <button class="cs-btn" data-scenario="5" data-style="Passive" onclick="csSelect(this)">Passive</button>
+        <button class="cs-btn" data-scenario="5" data-style="Passive-Aggressive" onclick="csSelect(this)">Passive-Aggressive</button>
+        <button class="cs-btn" data-scenario="5" data-style="Submissive" onclick="csSelect(this)">Submissive</button>
+        <button class="cs-btn" data-scenario="5" data-style="Manipulative" onclick="csSelect(this)">Manipulative</button>
+        <button class="cs-btn" data-scenario="5" data-style="Direct" onclick="csSelect(this)">Direct</button>
+      </div>
+      <div class="cs-feedback" id="cs_fb_5" style="display:none; font-size:14px; font-weight:700; padding:10px 14px; border-radius:8px; margin-top:4px;"></div>
+    </div>
+
+    <!-- Scenario 6 -->
+    <div class="cs-scenario" id="cs_6" style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--teal); margin-bottom:8px;">Scenario 6</div>
+      <p style="font-size:15.5px; margin-bottom:14px; font-style:italic;">"You know, if you help me finish this report, I'll put in a good word with the manager for you."</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;" class="cs-btn-row">
+        <button class="cs-btn" data-scenario="6" data-style="Assertive" onclick="csSelect(this)">Assertive</button>
+        <button class="cs-btn" data-scenario="6" data-style="Aggressive" onclick="csSelect(this)">Aggressive</button>
+        <button class="cs-btn" data-scenario="6" data-style="Passive" onclick="csSelect(this)">Passive</button>
+        <button class="cs-btn" data-scenario="6" data-style="Passive-Aggressive" onclick="csSelect(this)">Passive-Aggressive</button>
+        <button class="cs-btn" data-scenario="6" data-style="Submissive" onclick="csSelect(this)">Submissive</button>
+        <button class="cs-btn" data-scenario="6" data-style="Manipulative" onclick="csSelect(this)">Manipulative</button>
+        <button class="cs-btn" data-scenario="6" data-style="Direct" onclick="csSelect(this)">Direct</button>
+      </div>
+      <div class="cs-feedback" id="cs_fb_6" style="display:none; font-size:14px; font-weight:700; padding:10px 14px; border-radius:8px; margin-top:4px;"></div>
+    </div>
+
+    <!-- Scenario 7 -->
+    <div class="cs-scenario" id="cs_7" style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--teal); margin-bottom:8px;">Scenario 7</div>
+      <p style="font-size:15.5px; margin-bottom:14px; font-style:italic;">"Your appointment is at 2pm. If you miss it, we won't be able to reschedule this week."</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;" class="cs-btn-row">
+        <button class="cs-btn" data-scenario="7" data-style="Assertive" onclick="csSelect(this)">Assertive</button>
+        <button class="cs-btn" data-scenario="7" data-style="Aggressive" onclick="csSelect(this)">Aggressive</button>
+        <button class="cs-btn" data-scenario="7" data-style="Passive" onclick="csSelect(this)">Passive</button>
+        <button class="cs-btn" data-scenario="7" data-style="Passive-Aggressive" onclick="csSelect(this)">Passive-Aggressive</button>
+        <button class="cs-btn" data-scenario="7" data-style="Submissive" onclick="csSelect(this)">Submissive</button>
+        <button class="cs-btn" data-scenario="7" data-style="Manipulative" onclick="csSelect(this)">Manipulative</button>
+        <button class="cs-btn" data-scenario="7" data-style="Direct" onclick="csSelect(this)">Direct</button>
+      </div>
+      <div class="cs-feedback" id="cs_fb_7" style="display:none; font-size:14px; font-weight:700; padding:10px 14px; border-radius:8px; margin-top:4px;"></div>
+    </div>
+
+  </div><!-- end #cardsort_scenarios -->
+
+  <div id="cs_score_wrap" style="display:none; background:var(--navy); border-radius:var(--radius); padding:18px 22px; margin:18px 0; color:white;">
+    <span id="cs_score_text" style="font-size:16px; font-weight:700;"></span>
+  </div>
+
+  <button onclick="csReset()" style="background:var(--orange); color:white; border:none; font-size:15px; font-weight:700; padding:12px 28px; border-radius:8px; cursor:pointer; font-family:inherit; margin-top:6px;">Reset</button>
+
+</div><!-- end card sort section -->
+
+<style>
+.cs-btn {
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text);
+  transition: all .15s;
+}
+.cs-btn:hover { background: #e2e8f0; }
+.cs-btn.cs-correct {
+  background: #166534;
+  border-color: #166534;
+  color: white;
+}
+.cs-btn.cs-wrong {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: white;
+}
+.cs-btn.cs-locked { pointer-events: none; opacity: .5; }
+.cs-btn.cs-locked.cs-correct,
+.cs-btn.cs-locked.cs-wrong { opacity: 1; }
+</style>
+
+<script>
+(function() {
+  var CS_ANSWERS = {
+    '1': 'Assertive',
+    '2': 'Aggressive',
+    '3': 'Passive',
+    '4': 'Passive-Aggressive',
+    '5': 'Submissive',
+    '6': 'Manipulative',
+    '7': 'Direct'
+  };
+
+  var CS_EXPLANATIONS = {
+    '1': 'Assertive — the worker calmly names the problem and proposes a constructive next step. Direct, respectful, honest.',
+    '2': 'Aggressive — strong emotional outburst, physical action (slamming), and a statement that shuts down communication.',
+    '3': 'Passive — the worker has a concern but suppresses it and goes along with something they believe is wrong.',
+    '4': 'Passive-Aggressive — agrees on the surface but expresses resentment indirectly through a third party.',
+    '5': 'Submissive — excessive apologising and giving in to demands even when the worker has done nothing wrong.',
+    '6': 'Manipulative — using a reward or favour as leverage to get what they want rather than asking directly.',
+    '7': 'Direct — clear, factual statement of the situation and its consequence. No emotion, no padding, just the facts.'
+  };
+
+  var csAnswered = {};
+
+  window.csSelect = function(btn) {
+    var scenario = btn.getAttribute('data-scenario');
+    if (csAnswered[scenario]) return; // already locked
+
+    var chosen = btn.getAttribute('data-style');
+    var correct = CS_ANSWERS[scenario];
+    var allBtns = document.querySelectorAll('.cs-btn[data-scenario="' + scenario + '"]');
+    var fb = document.getElementById('cs_fb_' + scenario);
+
+    // Lock all buttons for this scenario
+    allBtns.forEach(function(b) {
+      b.classList.add('cs-locked');
+      if (b.getAttribute('data-style') === correct) {
+        b.classList.add('cs-correct');
+      }
+    });
+
+    if (chosen === correct) {
+      btn.classList.remove('cs-locked');
+      btn.classList.add('cs-correct');
+      fb.style.display = 'block';
+      fb.style.background = 'var(--green-lt)';
+      fb.style.color = 'var(--green)';
+      fb.style.borderLeft = '4px solid #16a34a';
+      fb.textContent = '\u2713 Correct! ' + CS_EXPLANATIONS[scenario];
+    } else {
+      btn.classList.remove('cs-locked');
+      btn.classList.add('cs-wrong');
+      fb.style.display = 'block';
+      fb.style.background = '#fef2f2';
+      fb.style.color = '#dc2626';
+      fb.style.borderLeft = '4px solid #dc2626';
+      fb.textContent = '\u2717 Not quite. ' + CS_EXPLANATIONS[scenario];
+    }
+
+    csAnswered[scenario] = true;
+
+    // Check if all 7 answered — show score
+    var total = Object.keys(CS_ANSWERS).length;
+    var done = Object.keys(csAnswered).length;
+    if (done === total) {
+      var scoreWrap = document.getElementById('cs_score_wrap');
+      var scoreText = document.getElementById('cs_score_text');
+      var correctCount = 0;
+      Object.keys(csAnswered).forEach(function(s) {
+        var chosen_btn = document.querySelector('.cs-btn[data-scenario="' + s + '"].cs-correct:not(.cs-locked)');
+        if (chosen_btn) correctCount++;
+      });
+      scoreWrap.style.display = 'block';
+      var emoji = correctCount === total ? '\ud83c\udf89' : correctCount >= 5 ? '\ud83d\udc4d' : '\ud83d\udcda';
+      scoreText.textContent = emoji + ' You matched ' + correctCount + ' out of ' + total + ' correctly. ' +
+        (correctCount === total ? 'Perfect score — you know your styles!' :
+         correctCount >= 5 ? 'Great work — review any you missed before your assessments.' :
+         'Review the styles above and try again using the Reset button.');
+      scoreWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+
+  window.csReset = function() {
+    csAnswered = {};
+    document.querySelectorAll('.cs-btn').forEach(function(b) {
+      b.classList.remove('cs-correct', 'cs-wrong', 'cs-locked');
+    });
+    for (var i = 1; i <= 7; i++) {
+      var fb = document.getElementById('cs_fb_' + i);
+      if (fb) { fb.style.display = 'none'; fb.textContent = ''; }
+    }
+    var scoreWrap = document.getElementById('cs_score_wrap');
+    if (scoreWrap) scoreWrap.style.display = 'none';
+  };
+})();
+</script>
+
+<hr>
+
 <!-- ASSESSMENT CONNECTIONS -->
 <div id="s-at" class="section">
   <div class="section-label">Assessment</div>

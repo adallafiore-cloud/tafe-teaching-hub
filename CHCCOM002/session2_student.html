@@ -208,6 +208,31 @@ th { background: var(--navy); color: white; padding: 11px 14px; text-align: left
 td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 14.5px; vertical-align: top; }
 tr:nth-child(even) td { background: var(--bg); }
 
+/* -- BOUNDARIES GAME -- */
+.bnb-wrap { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 28px; }
+.bnb-counter { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 14px; }
+.bnb-statement { font-size: 17px; font-weight: 600; color: var(--navy); background: #eef2f7; border-left: 4px solid var(--navy); border-radius: 0 9px 9px 0; padding: 16px 18px; margin-bottom: 20px; line-height: 1.55; }
+.bnb-btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.bnb-btn { flex: 1; min-width: 130px; padding: 14px 10px; border-radius: 10px; border: 2px solid transparent; font-size: 16px; font-weight: 800; cursor: pointer; font-family: inherit; transition: all .15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.bnb-btn-yes { background: var(--green-lt); border-color: #16a34a; color: var(--green); }
+.bnb-btn-yes:hover { background: #16a34a; color: white; }
+.bnb-btn-no  { background: #fef2f2; border-color: #dc2626; color: #dc2626; }
+.bnb-btn-no:hover  { background: #dc2626; color: white; }
+.bnb-btn:disabled { opacity: .5; cursor: not-allowed; }
+.bnb-feedback { display: none; border-radius: 9px; padding: 14px 18px; font-size: 15px; line-height: 1.6; margin-bottom: 18px; }
+.bnb-feedback.show { display: block; }
+.bnb-feedback-correct { background: var(--green-lt); border-left: 4px solid #16a34a; color: var(--green); }
+.bnb-feedback-concern { background: #fef2f2; border-left: 4px solid #dc2626; color: #b91c1c; }
+.bnb-feedback-caveat { background: var(--yellow-lt); border-left: 4px solid #eab308; color: var(--yellow); }
+.bnb-next-btn { background: var(--navy); color: white; border: none; font-size: 15px; font-weight: 700; padding: 12px 28px; border-radius: 8px; cursor: pointer; font-family: inherit; display: none; }
+.bnb-next-btn.show { display: inline-block; }
+.bnb-next-btn:hover { background: var(--teal); }
+.bnb-reset-btn { background: var(--orange); color: white; border: none; font-size: 15px; font-weight: 700; padding: 12px 28px; border-radius: 8px; cursor: pointer; font-family: inherit; display: none; margin-top: 14px; }
+.bnb-reset-btn:hover { background: #d45a10; }
+.bnb-score-panel { display: none; background: var(--navy); border-radius: var(--radius); padding: 22px 24px; color: white; text-align: center; }
+.bnb-score-panel h4 { font-size: 20px; margin-bottom: 10px; }
+.bnb-score-panel p { font-size: 15px; opacity: .9; margin-bottom: 0; }
+
 /* -- RESPONSIVE -- */
 @media (max-width: 600px) {
   .at-grid, .flip-grid { grid-template-columns: 1fr; }
@@ -612,6 +637,31 @@ tr:nth-child(even) td { background: var(--bg); }
   </div>
 
   <div class="save-note" style="margin-bottom:28px;"><span>&#128274;</span> <span>All scenario responses are saved privately to this device as you type.</span></div>
+</div>
+
+<hr>
+
+<!-- BOUNDARIES OR NO BOUNDARIES WARM-UP -->
+<div class="section">
+  <div class="section-label">12:45 – 1:15 Warm-up Activity</div>
+  <div class="section-title"><span class="ico">👍</span> Boundaries or No Boundaries?</div>
+  <p>For each statement, decide: is this <strong>appropriate</strong> professional behaviour, or does it cross a <strong>boundary</strong>? Click your answer, then read the explanation before moving to the next one.</p>
+
+  <div class="bnb-wrap" id="bnb_wrap">
+    <div class="bnb-counter" id="bnb_counter">Statement 1 of 8</div>
+    <div class="bnb-statement" id="bnb_statement"></div>
+    <div class="bnb-btn-row">
+      <button class="bnb-btn bnb-btn-yes" id="bnb_yes" onclick="bnbAnswer('yes')">👍 Appropriate</button>
+      <button class="bnb-btn bnb-btn-no"  id="bnb_no"  onclick="bnbAnswer('no')">👎 Boundary Concern</button>
+    </div>
+    <div class="bnb-feedback" id="bnb_feedback"></div>
+    <button class="bnb-next-btn" id="bnb_next" onclick="bnbNext()">Next statement →</button>
+    <div class="bnb-score-panel" id="bnb_score_panel">
+      <h4 id="bnb_score_heading"></h4>
+      <p id="bnb_score_msg"></p>
+      <button class="bnb-reset-btn" style="display:inline-block; margin-top:18px;" onclick="bnbReset()">↺ Start Again</button>
+    </div>
+  </div>
 </div>
 
 <hr>
@@ -1141,6 +1191,153 @@ function showCopyConfirm() {
 
     wrap.appendChild(card);
   });
+})();
+
+// --- Boundaries or No Boundaries? ---
+(function() {
+  var statements = [
+    {
+      text: 'A worker shares their personal mobile number with a client so they can text after hours.',
+      answer: 'no',
+      feedbackClass: 'bnb-feedback-concern',
+      feedbackLabel: '👎 Boundary Concern',
+      explanation: 'Clients should use the organisation\'s contact number. Personal contact blurs the professional relationship.'
+    },
+    {
+      text: 'A worker says "I understand that must be really hard" and checks in on the client\'s wellbeing at the start of each visit.',
+      answer: 'yes',
+      feedbackClass: 'bnb-feedback-correct',
+      feedbackLabel: '👍 Appropriate',
+      explanation: 'Showing empathy and checking in is good person-centred practice.'
+    },
+    {
+      text: 'A worker tells their friend about a client\'s situation because they\'re worried about them.',
+      answer: 'no',
+      feedbackClass: 'bnb-feedback-concern',
+      feedbackLabel: '👎 Boundary Concern',
+      explanation: 'Client information is confidential. Sharing it outside work breaches privacy, even with good intentions.'
+    },
+    {
+      text: 'A worker follows the organisation\'s policy and refers a client to a specialist, even though the worker feels they could help more directly.',
+      answer: 'yes',
+      feedbackClass: 'bnb-feedback-correct',
+      feedbackLabel: '👍 Appropriate',
+      explanation: 'Working within your role and referring when needed protects both the client and the worker.'
+    },
+    {
+      text: 'A worker accepts a gift from a client at Christmas — a small box of chocolates.',
+      answer: 'yes',
+      feedbackClass: 'bnb-feedback-caveat',
+      feedbackLabel: '👍 Appropriate (with caveats)',
+      explanation: 'Small tokens may be acceptable depending on organisational policy. Always check your workplace guidelines. This is a grey area — discuss with your supervisor.'
+    },
+    {
+      text: 'A worker drives a client to a personal appointment in their own car, without telling their supervisor.',
+      answer: 'no',
+      feedbackClass: 'bnb-feedback-concern',
+      feedbackLabel: '👎 Boundary Concern',
+      explanation: 'Using a personal vehicle without authorisation raises liability and safety issues. Always follow organisational procedures.'
+    },
+    {
+      text: 'A worker stays 30 minutes late (unpaid) every week to help a client they feel sorry for.',
+      answer: 'no',
+      feedbackClass: 'bnb-feedback-concern',
+      feedbackLabel: '👎 Boundary Concern',
+      explanation: 'Good intentions don\'t override boundaries. This can lead to burnout and creates an unequal relationship with other clients.'
+    },
+    {
+      text: 'A worker disagrees with a colleague\'s approach to a client but raises it professionally in supervision rather than in front of the client.',
+      answer: 'yes',
+      feedbackClass: 'bnb-feedback-correct',
+      feedbackLabel: '👍 Appropriate',
+      explanation: 'Raising concerns through the right channels is professional and protects the client.'
+    }
+  ];
+
+  var current = 0;
+  var score = 0;
+  var answered = false;
+
+  function render() {
+    var stmt = statements[current];
+    document.getElementById('bnb_counter').textContent = 'Statement ' + (current + 1) + ' of ' + statements.length;
+    document.getElementById('bnb_statement').textContent = stmt.text;
+    var fb = document.getElementById('bnb_feedback');
+    fb.className = 'bnb-feedback';
+    fb.innerHTML = '';
+    fb.style.display = 'none';
+    document.getElementById('bnb_yes').disabled = false;
+    document.getElementById('bnb_no').disabled = false;
+    document.getElementById('bnb_yes').style.opacity = '';
+    document.getElementById('bnb_no').style.opacity = '';
+    document.getElementById('bnb_next').className = 'bnb-next-btn';
+    document.getElementById('bnb_score_panel').style.display = 'none';
+    answered = false;
+  }
+
+  window.bnbAnswer = function(choice) {
+    if (answered) return;
+    answered = true;
+    var stmt = statements[current];
+    var correct = (choice === stmt.answer);
+    if (correct) score++;
+
+    var fb = document.getElementById('bnb_feedback');
+    fb.className = 'bnb-feedback show ' + stmt.feedbackClass;
+    fb.innerHTML = '<strong>' + stmt.feedbackLabel + '</strong> — ' + stmt.explanation;
+    fb.style.display = 'block';
+
+    document.getElementById('bnb_yes').disabled = true;
+    document.getElementById('bnb_no').disabled = true;
+
+    var isLast = (current === statements.length - 1);
+    var nextBtn = document.getElementById('bnb_next');
+    if (!isLast) {
+      nextBtn.className = 'bnb-next-btn show';
+      nextBtn.textContent = 'Next statement →';
+    } else {
+      nextBtn.className = 'bnb-next-btn show';
+      nextBtn.textContent = 'See my results →';
+    }
+  };
+
+  window.bnbNext = function() {
+    current++;
+    if (current < statements.length) {
+      render();
+    } else {
+      // show score
+      document.getElementById('bnb_counter').textContent = 'All 8 statements complete';
+      document.getElementById('bnb_statement').textContent = '';
+      document.getElementById('bnb_btn_row') && (document.getElementById('bnb_btn_row').style.display = 'none');
+      document.getElementById('bnb_yes').style.display = 'none';
+      document.getElementById('bnb_no').style.display = 'none';
+      document.getElementById('bnb_next').className = 'bnb-next-btn';
+      document.getElementById('bnb_feedback').className = 'bnb-feedback';
+      var panel = document.getElementById('bnb_score_panel');
+      panel.style.display = 'block';
+      var heading = document.getElementById('bnb_score_heading');
+      var msg = document.getElementById('bnb_score_msg');
+      heading.textContent = 'You got ' + score + ' out of ' + statements.length + ' correct.';
+      if (score === statements.length) {
+        msg.textContent = 'Excellent — you have a strong grasp of professional boundaries. Keep this thinking sharp for your assessment.';
+      } else if (score >= 6) {
+        msg.textContent = 'Good work. Review any you missed — boundaries can be tricky, especially the grey-area ones.';
+      } else {
+        msg.textContent = 'Boundaries can be harder than they look. Revisit the concepts above and try again.';
+      }
+    }
+  };
+
+  window.bnbReset = function() {
+    current = 0;
+    score = 0;
+    document.getElementById('bnb_yes').style.display = '';
+    document.getElementById('bnb_no').style.display = '';
+    render();
+  };
+
+  render();
 })();
 
 // --- De-escalation Do or Don't ---
