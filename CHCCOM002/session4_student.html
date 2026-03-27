@@ -207,6 +207,15 @@ tr:nth-child(even) td { background: var(--bg); }
   .hero-title { font-size: 21px; }
   .page { padding: 20px 14px 60px; }
 }
+.tbb{display:flex;align-items:center;gap:14px;background:var(--navy);color:white;padding:11px 18px;border-radius:10px;margin:0 0 22px;}
+.tbb-time{font-weight:800;font-size:14px;white-space:nowrap;}
+.tbb-sep{opacity:.4;font-size:14px;}
+.tbb-name{flex:1;font-size:13.5px;font-weight:600;}
+.tbb-dur{background:rgba(255,255,255,.18);padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap;}
+.tbb-break{background:var(--bg)!important;border:1.5px solid var(--border);color:var(--muted)!important;}
+.tbb-break .tbb-dur{background:var(--border);color:var(--muted);}
+.tbb-lunch{background:#fef9ee!important;border:1.5px solid #fcd34d;color:#92400e!important;}
+.tbb-lunch .tbb-dur{background:#fcd34d;color:#92400e;}
 </style>
 </head>
 <body>
@@ -283,6 +292,7 @@ tr:nth-child(even) td { background: var(--bg); }
 <hr>
 
 <!-- KEY CONCEPTS -->
+<div class="tbb"><span class="tbb-time">9:30 – 10:30</span><span class="tbb-sep">|</span><span class="tbb-name">New Learning 1 — Technology &amp; Written Communication Principles</span><span class="tbb-dur">60 min</span></div>
 <div id="s-concepts" class="section">
   <div class="section-label">Part 1 — Core Content</div>
   <div class="section-title"><span class="ico">💡</span> Key Concepts</div>
@@ -450,6 +460,8 @@ tr:nth-child(even) td { background: var(--bg); }
 <hr>
 
 <!-- CASE NOTES VS INCIDENT REPORTS -->
+<div class="tbb tbb-break"><span class="tbb-time">10:30 – 10:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
+<div class="tbb"><span class="tbb-time">10:45 – 12:00</span><span class="tbb-sep">|</span><span class="tbb-name">New Learning 2 + Activity — Case Notes, Incident Reports &amp; Writing Workshop</span><span class="tbb-dur">75 min</span></div>
 <div id="s-casenote" class="section">
   <div class="section-label">Part 3 — Documentation</div>
   <div class="section-title"><span class="ico">📋</span> Case Notes vs Incident Reports</div>
@@ -566,6 +578,8 @@ tr:nth-child(even) td { background: var(--bg); }
 <hr>
 
 <!-- FIX-IT ACTIVITY -->
+<div class="tbb tbb-lunch"><span class="tbb-time">12:00 – 12:45</span><span class="tbb-sep">|</span><span class="tbb-name">🍽️ Lunch</span><span class="tbb-dur">45 min</span></div>
+<div class="tbb"><span class="tbb-time">12:45 – 1:15</span><span class="tbb-sep">|</span><span class="tbb-name">Warm-up — Written Communication Fix-It</span><span class="tbb-dur">30 min</span></div>
 <div id="s-fixit" class="section">
   <div class="section-label">Part 4 — Fix-It Activity</div>
   <div class="section-title"><span class="ico">🔧</span> Fix the Documentation</div>
@@ -715,6 +729,9 @@ tr:nth-child(even) td { background: var(--bg); }
 <hr>
 
 <!-- REFLECTION -->
+<div class="tbb tbb-break"><span class="tbb-time">1:15 – 2:30</span><span class="tbb-sep">|</span><span class="tbb-name">📝 Assessment Work — Finalise AT1 &amp; AT2 (all parts)</span><span class="tbb-dur">75 min</span></div>
+<div class="tbb tbb-break"><span class="tbb-time">2:30 – 2:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
+<div class="tbb"><span class="tbb-time">2:45 – 3:00</span><span class="tbb-sep">|</span><span class="tbb-name">Group Discussion &amp; Wrap-up</span><span class="tbb-dur">15 min</span></div>
 <div id="s-reflection" class="section">
   <div class="section-label">Reflection</div>
   <div class="section-title"><span class="ico">💭</span> Your Reflection</div>

@@ -240,6 +240,15 @@ tr:nth-child(even) td { background: var(--bg); }
   .page { padding: 20px 14px 60px; }
   .stages-row { gap: 4px; }
 }
+.tbb{display:flex;align-items:center;gap:14px;background:var(--navy);color:white;padding:11px 18px;border-radius:10px;margin:0 0 22px;}
+.tbb-time{font-weight:800;font-size:14px;white-space:nowrap;}
+.tbb-sep{opacity:.4;font-size:14px;}
+.tbb-name{flex:1;font-size:13.5px;font-weight:600;}
+.tbb-dur{background:rgba(255,255,255,.18);padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap;}
+.tbb-break{background:var(--bg)!important;border:1.5px solid var(--border);color:var(--muted)!important;}
+.tbb-break .tbb-dur{background:var(--border);color:var(--muted);}
+.tbb-lunch{background:#fef9ee!important;border:1.5px solid #fcd34d;color:#92400e!important;}
+.tbb-lunch .tbb-dur{background:#fcd34d;color:#92400e;}
 </style>
 </head>
 <body>
@@ -313,6 +322,7 @@ tr:nth-child(even) td { background: var(--bg); }
 <hr>
 
 <!-- CONCEPTS: PROFESSIONALISM & BOUNDARIES -->
+<div class="tbb"><span class="tbb-time">9:30 – 10:30</span><span class="tbb-sep">|</span><span class="tbb-name">New Learning 1 — Professionalism, Boundaries &amp; Communication Approaches</span><span class="tbb-dur">60 min</span></div>
 <div id="s-concepts" class="section">
   <div class="section-label">Part 1 — AT1 Key Content</div>
   <div class="section-title"><span class="ico">🏛️</span> Professionalism, Policies &amp; Boundaries</div>
@@ -446,6 +456,8 @@ tr:nth-child(even) td { background: var(--bg); }
 <hr>
 
 <!-- CONFLICT MANAGEMENT -->
+<div class="tbb tbb-break"><span class="tbb-time">10:30 – 10:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
+<div class="tbb"><span class="tbb-time">10:45 – 12:00</span><span class="tbb-sep">|</span><span class="tbb-name">New Learning 2 + Activity 2 — Conflict Management &amp; Dispute Resolution</span><span class="tbb-dur">75 min</span></div>
 <div id="s-conflict" class="section">
   <div class="section-label">Part 3 — AT1 + AT4 Key Content</div>
   <div class="section-title"><span class="ico">⚡</span> Conflict Management</div>
@@ -642,6 +654,8 @@ tr:nth-child(even) td { background: var(--bg); }
 <hr>
 
 <!-- BOUNDARIES OR NO BOUNDARIES WARM-UP -->
+<div class="tbb tbb-lunch"><span class="tbb-time">12:00 – 12:45</span><span class="tbb-sep">|</span><span class="tbb-name">🍽️ Lunch</span><span class="tbb-dur">45 min</span></div>
+<div class="tbb"><span class="tbb-time">12:45 – 1:15</span><span class="tbb-sep">|</span><span class="tbb-name">Warm-up — Boundaries or No Boundaries?</span><span class="tbb-dur">30 min</span></div>
 <div class="section">
   <div class="section-label">12:45 – 1:15 Warm-up Activity</div>
   <div class="section-title"><span class="ico">👍</span> Boundaries or No Boundaries?</div>
@@ -862,6 +876,9 @@ tr:nth-child(even) td { background: var(--bg); }
 <hr>
 
 <!-- ASSESSMENT CONNECTIONS -->
+<div class="tbb tbb-break"><span class="tbb-time">1:15 – 2:30</span><span class="tbb-sep">|</span><span class="tbb-name">📝 Assessment Work — AT1 Q7–12 + AT2 Parts A &amp; B</span><span class="tbb-dur">75 min</span></div>
+<div class="tbb tbb-break"><span class="tbb-time">2:30 – 2:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
+<div class="tbb"><span class="tbb-time">2:45 – 3:00</span><span class="tbb-sep">|</span><span class="tbb-name">Group Discussion &amp; Wrap-up</span><span class="tbb-dur">15 min</span></div>
 <div class="section">
   <div class="section-label">Why This Matters</div>
   <div class="section-title"><span class="ico">🎯</span> Assessment Connections</div>
