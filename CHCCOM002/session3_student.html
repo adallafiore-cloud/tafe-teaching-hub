@@ -331,6 +331,64 @@ tr:nth-child(even) td { background: var(--bg); }
     <div class="box-label">Remote meeting tips</div>
     <p>Online meetings need extra structure. Agree on camera norms before you start. Assign someone to manage the chat. Use the 'raise hand' feature so everyone gets a turn. Have a backup plan for tech failures. The same principles — agenda, facilitation, minutes — apply exactly as they do in person.</p>
   </div>
+
+  <!-- HANDOUT 1: Meeting Minutes Template -->
+  <div class="concept-card cc-nv" style="margin-top:28px; margin-bottom:0;">
+    <div class="concept-num">Handout 1</div>
+    <div class="concept-name">Meeting Minutes Template</div>
+    <p style="font-size:15px; margin-bottom:16px;">Use this template during or after the practice meeting. Your notes save automatically.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Date</label>
+        <input id="min-date" class="form-input" type="text" placeholder="e.g. 27 April 2026" oninput="saveMin('min-date','chccom002_s3_min_date')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Time</label>
+        <input id="min-time" class="form-input" type="text" placeholder="e.g. 10:00am" oninput="saveMin('min-time','chccom002_s3_min_time')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Venue</label>
+        <input id="min-venue" class="form-input" type="text" placeholder="e.g. Room 2B" oninput="saveMin('min-venue','chccom002_s3_min_venue')">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Meeting Name</label>
+      <input id="min-name" class="form-input" type="text" placeholder="e.g. Team Communication Review" oninput="saveMin('min-name','chccom002_s3_min_name')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Facilitator</label>
+      <input id="min-facilitator" class="form-input" type="text" placeholder="Name of facilitator" oninput="saveMin('min-facilitator','chccom002_s3_min_facilitator')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Attendees</label>
+      <textarea id="min-attendees" class="fill-area" style="min-height:60px;" placeholder="List all attendees" oninput="saveMin('min-attendees','chccom002_s3_min_attendees')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Apologies</label>
+      <input id="min-apologies" class="form-input" type="text" placeholder="Names of those who sent apologies — or 'None'" oninput="saveMin('min-apologies','chccom002_s3_min_apologies')">
+    </div>
+
+    <div style="margin:20px 0 10px; font-size:14px; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.5px;">Agenda Items</div>
+    <p style="font-size:14px; color:var(--muted); margin-bottom:12px;">Click "Add Agenda Item" to expand each item block and fill in the details.</p>
+
+    <div id="min-agenda-items">
+      <!-- Items inserted by JS -->
+    </div>
+    <button class="btn-gen" style="background:var(--teal); margin-bottom:16px;" onclick="addAgendaItem()">+ Add Agenda Item</button>
+
+    <div class="form-row" style="margin-top:8px;">
+      <label class="form-label">Next Meeting Date</label>
+      <input id="min-nextdate" class="form-input" type="text" placeholder="e.g. 4 May 2026 — or 'TBC'" oninput="saveMin('min-nextdate','chccom002_s3_min_nextdate')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Notes Closed By</label>
+      <input id="min-closedby" class="form-input" type="text" placeholder="Name of note-taker" oninput="saveMin('min-closedby','chccom002_s3_min_closedby')">
+    </div>
+
+    <button class="btn-gen" style="margin-top:8px;" onclick="window.print()">Print / Save as PDF</button>
+    <div class="save-note" style="margin-top:10px;">&#128190; All fields save automatically to your browser.</div>
+  </div>
 </div>
 
 <hr>
@@ -479,6 +537,25 @@ tr:nth-child(even) td { background: var(--bg); }
       <li><strong>P</strong>oint — restate your point to finish</li>
     </ul>
     <p style="margin-top:10px; font-size:15px; color:var(--muted);">Example: "I think we should hold the meeting online [Point] because several team members are working from home that day [Reason]. Last month we used Zoom successfully for our case conference [Example]. Online would be the most inclusive option [Point]."</p>
+  </div>
+
+  <!-- HANDOUT 2: Meeting Effectiveness Evaluation -->
+  <div class="concept-card cc-sa" style="margin-top:28px; margin-bottom:0;">
+    <div class="concept-num">Handout 2</div>
+    <div class="concept-name">Meeting Effectiveness Evaluation</div>
+    <p style="font-size:15px; margin-bottom:16px;">After the practice meeting, rate your meeting on each criterion. Tap a number (1 = needs work, 5 = excellent).</p>
+
+    <div id="eval-criteria"></div>
+
+    <div style="margin:18px 0 8px; padding:14px 16px; background:var(--bg); border-radius:9px; border:1.5px solid var(--border);">
+      <div style="font-size:14px; font-weight:800; color:var(--navy);">Total Score: <span id="eval-total">0</span> / 25</div>
+    </div>
+
+    <div class="form-row" style="margin-top:16px;">
+      <label class="form-label">What would you do differently?</label>
+      <textarea id="eval-improve" class="fill-area" placeholder="Write your reflection here..." oninput="saveLS('chccom002_s3_eval_improve','eval-improve')"></textarea>
+    </div>
+    <div class="save-note">&#128190; Ratings and notes save automatically.</div>
   </div>
 </div>
 
@@ -772,85 +849,8 @@ tr:nth-child(even) td { background: var(--bg); }
 
 <!-- DIGITAL HANDOUTS -->
 <div id="s-handouts" class="section">
-  <div class="section-label">Digital Handouts</div>
-  <div class="section-title"><span class="ico">📋</span> Fill In on This Page</div>
-
-  <!-- HANDOUT 1: Meeting Minutes Template -->
-  <div class="concept-card cc-nv" style="margin-bottom:28px;">
-    <div class="concept-num">Handout 1</div>
-    <div class="concept-name">Meeting Minutes Template</div>
-    <p style="font-size:15px; margin-bottom:16px;">Use this template during or after the practice meeting. Your notes save automatically.</p>
-
-    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-      <div class="form-row">
-        <label class="form-label">Date</label>
-        <input id="min-date" class="form-input" type="text" placeholder="e.g. 27 April 2026" oninput="saveMin('min-date','chccom002_s3_min_date')">
-      </div>
-      <div class="form-row">
-        <label class="form-label">Time</label>
-        <input id="min-time" class="form-input" type="text" placeholder="e.g. 10:00am" oninput="saveMin('min-time','chccom002_s3_min_time')">
-      </div>
-      <div class="form-row">
-        <label class="form-label">Venue</label>
-        <input id="min-venue" class="form-input" type="text" placeholder="e.g. Room 2B" oninput="saveMin('min-venue','chccom002_s3_min_venue')">
-      </div>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Meeting Name</label>
-      <input id="min-name" class="form-input" type="text" placeholder="e.g. Team Communication Review" oninput="saveMin('min-name','chccom002_s3_min_name')">
-    </div>
-    <div class="form-row">
-      <label class="form-label">Facilitator</label>
-      <input id="min-facilitator" class="form-input" type="text" placeholder="Name of facilitator" oninput="saveMin('min-facilitator','chccom002_s3_min_facilitator')">
-    </div>
-    <div class="form-row">
-      <label class="form-label">Attendees</label>
-      <textarea id="min-attendees" class="fill-area" style="min-height:60px;" placeholder="List all attendees" oninput="saveMin('min-attendees','chccom002_s3_min_attendees')"></textarea>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Apologies</label>
-      <input id="min-apologies" class="form-input" type="text" placeholder="Names of those who sent apologies — or 'None'" oninput="saveMin('min-apologies','chccom002_s3_min_apologies')">
-    </div>
-
-    <div style="margin:20px 0 10px; font-size:14px; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.5px;">Agenda Items</div>
-    <p style="font-size:14px; color:var(--muted); margin-bottom:12px;">Click "Add Agenda Item" to expand each item block and fill in the details.</p>
-
-    <div id="min-agenda-items">
-      <!-- Items inserted by JS -->
-    </div>
-    <button class="btn-gen" style="background:var(--teal); margin-bottom:16px;" onclick="addAgendaItem()">+ Add Agenda Item</button>
-
-    <div class="form-row" style="margin-top:8px;">
-      <label class="form-label">Next Meeting Date</label>
-      <input id="min-nextdate" class="form-input" type="text" placeholder="e.g. 4 May 2026 — or 'TBC'" oninput="saveMin('min-nextdate','chccom002_s3_min_nextdate')">
-    </div>
-    <div class="form-row">
-      <label class="form-label">Notes Closed By</label>
-      <input id="min-closedby" class="form-input" type="text" placeholder="Name of note-taker" oninput="saveMin('min-closedby','chccom002_s3_min_closedby')">
-    </div>
-
-    <button class="btn-gen" style="margin-top:8px;" onclick="window.print()">Print / Save as PDF</button>
-    <div class="save-note" style="margin-top:10px;">&#128190; All fields save automatically to your browser.</div>
-  </div>
-
-  <!-- HANDOUT 2: Meeting Effectiveness Evaluation -->
-  <div class="concept-card cc-sa" style="margin-bottom:28px;">
-    <div class="concept-num">Handout 2</div>
-    <div class="concept-name">Meeting Effectiveness Evaluation</div>
-    <p style="font-size:15px; margin-bottom:16px;">After the practice meeting, rate your meeting on each criterion. Tap a number (1 = needs work, 5 = excellent).</p>
-
-    <div id="eval-criteria"></div>
-
-    <div style="margin:18px 0 8px; padding:14px 16px; background:var(--bg); border-radius:9px; border:1.5px solid var(--border);">
-      <div style="font-size:14px; font-weight:800; color:var(--navy);">Total Score: <span id="eval-total">0</span> / 25</div>
-    </div>
-
-    <div class="form-row" style="margin-top:16px;">
-      <label class="form-label">What would you do differently?</label>
-      <textarea id="eval-improve" class="fill-area" placeholder="Write your reflection here..." oninput="saveLS('chccom002_s3_eval_improve','eval-improve')"></textarea>
-    </div>
-    <div class="save-note">&#128190; Ratings and notes save automatically.</div>
-  </div>
+  <div class="section-label">Interactive Activities</div>
+  <div class="section-title"><span class="ico">🎮</span> Games &amp; Activities</div>
 
   <!-- ACTIVITY: Meeting Roles Mix-and-Match -->
   <div class="concept-card cc-co" style="margin-bottom:28px;">

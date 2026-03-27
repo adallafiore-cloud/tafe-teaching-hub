@@ -307,6 +307,59 @@ tr:nth-child(even) td { background: var(--bg); }
   </div>
 </div>
 
+<!-- WORKSHEET: Communication Cycle fill-in (Handout 2) -->
+<div class="section">
+  <div class="section-label">Worksheet</div>
+  <div class="section-title"><span class="ico">✏️</span> Handout 2 — Complete the Communication Cycle</div>
+  <p>Fill in each stage of the Communication Cycle below, then click <strong>Check My Answers</strong>.</p>
+
+  <!-- HANDOUT 2 -->
+  <div class="box box-navy" style="margin-bottom:24px; margin-top:0;">
+    <div class="box-label">Handout 2 — Key Model Handout: Complete the Communication Cycle</div>
+  </div>
+
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <p style="font-size:15px; margin-bottom:16px;">Each box in the Communication Cycle below has a blank label. Fill in the correct term for each stage, then click <strong>Check My Answers</strong>.</p>
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; justify-content:center; margin-bottom:20px;">
+
+      <div style="text-align:center;">
+        <div id="model_box1" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in1" placeholder="Stage 1" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
+      <div style="text-align:center;">
+        <div id="model_box2" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in2" placeholder="Stage 2" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
+      <div style="text-align:center;">
+        <div id="model_box3" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in3" placeholder="Stage 3" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
+      <div style="text-align:center;">
+        <div id="model_box4" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in4" placeholder="Stage 4" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
+      <div style="text-align:center;">
+        <div id="model_box5" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
+          <input type="text" id="model_in5" placeholder="Stage 5" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
+        </div>
+      </div>
+
+    </div>
+    <button onclick="checkModelAnswers()" style="background:var(--teal); color:white; border:none; font-size:14px; font-weight:700; padding:10px 22px; border-radius:8px; cursor:pointer; font-family:inherit;">Check My Answers</button>
+    <button onclick="resetModelAnswers()" style="background:var(--bg); color:var(--muted); border:1.5px solid var(--border); font-size:14px; font-weight:700; padding:10px 18px; border-radius:8px; cursor:pointer; font-family:inherit; margin-left:8px;">Reset</button>
+    <div id="model_result" style="display:none; margin-top:14px; font-size:14.5px;"></div>
+  </div>
+
+</div>
+
 <hr>
 
 <!-- ACTIVE LISTENING & QUESTIONING -->
@@ -379,6 +432,112 @@ tr:nth-child(even) td { background: var(--bg); }
   </div>
 </div>
 
+<!-- KEY ACTIVITY WORKSHEET: Communication Process (Handout 1 Part 1) -->
+<div class="section">
+  <div class="section-label">Activity 1 — Key Activity Worksheet</div>
+  <div class="section-title"><span class="ico">✏️</span> Handout 1 Part 1 — The Communication Process</div>
+  <p>Label the 5 stages of the communication process. Complete this during Activity 1.</p>
+
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 1 — The Communication Process</div>
+    <p style="font-size:15px; margin-bottom:14px;">Label the 5 stages of the communication process. Type each stage in order:</p>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px;">
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 1</div>
+        <input type="text" id="ws1_stage1" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 2</div>
+        <input type="text" id="ws1_stage2" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 3</div>
+        <input type="text" id="ws1_stage3" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 4</div>
+        <input type="text" id="ws1_stage4" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 5</div>
+        <input type="text" id="ws1_stage5" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
+      </div>
+    </div>
+    <button onclick="toggleWs1Answer()" style="background:var(--teal); color:white; border:none; font-size:13px; font-weight:700; padding:9px 18px; border-radius:7px; cursor:pointer; font-family:inherit;">Show Answer</button>
+    <div id="ws1_answer" style="display:none; margin-top:12px; background:var(--green-lt); border-left:4px solid #16a34a; border-radius:0 8px 8px 0; padding:12px 16px; font-size:14.5px; color:var(--green);">
+      <strong>Sender &rarr; Message &rarr; Channel &rarr; Receiver &rarr; Feedback</strong>
+    </div>
+  </div>
+
+</div>
+
+<!-- WORKSHEET: Non-Verbal Communication (Handout 1 Part 2) -->
+<div class="section">
+  <div class="section-label">Worksheet</div>
+  <div class="section-title"><span class="ico">✏️</span> Handout 1 Part 2 — Non-Verbal Communication</div>
+
+  <!-- Part 2 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 2 — Non-Verbal Communication</div>
+    <p style="font-size:15px; margin-bottom:14px;">For each row, write a non-verbal cue and what it can signal in community services:</p>
+    <div id="ws2_rows">
+      <!-- Row 1 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Non-Verbal Cue</div>
+          <input type="text" id="ws2_r1_cue" placeholder="e.g. crossed arms" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">What It Can Signal in Community Services</div>
+          <input type="text" id="ws2_r1_signal" placeholder="e.g. defensiveness or discomfort" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+      <!-- Row 2 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <input type="text" id="ws2_r2_cue" placeholder="e.g. eye contact" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <input type="text" id="ws2_r2_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+      <!-- Row 3 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <input type="text" id="ws2_r3_cue" placeholder="e.g. nodding" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <input type="text" id="ws2_r3_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+      <!-- Row 4 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <input type="text" id="ws2_r4_cue" placeholder="e.g. leaning forward" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <input type="text" id="ws2_r4_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+      <!-- Row 5 -->
+      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <input type="text" id="ws2_r5_cue" placeholder="e.g. turning away" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+        <div style="flex:2; min-width:220px;">
+          <input type="text" id="ws2_r5_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
+        </div>
+      </div>
+    </div>
+    <div class="save-note"><span>&#128274;</span> <span>Saved automatically to this device as you type.</span></div>
+  </div>
+
+</div>
+
 <hr>
 
 <!-- BARRIERS TO COMMUNICATION -->
@@ -411,6 +570,25 @@ tr:nth-child(even) td { background: var(--bg); }
     <div class="box-label">AT1 connection</div>
     <p>Questions 4 and 5 ask you to identify barriers and strategies to overcome them. Use this list as a starting point. Your answers need to include specific examples, not just the name of the barrier.</p>
   </div>
+</div>
+
+<!-- WORKSHEET: Barrier Experience (Handout 1 Part 3) -->
+<div class="section">
+  <div class="section-label">Worksheet</div>
+  <div class="section-title"><span class="ico">✏️</span> Handout 1 Part 3 — A Barrier I've Experienced</div>
+
+  <!-- Part 3 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 3 — A Barrier I've Experienced</div>
+    <div class="fill-label">What was the barrier?</div>
+    <textarea class="fill-area" id="ws3_barrier" placeholder="Describe a barrier to communication you've experienced or observed..." style="min-height:90px;"></textarea>
+    <div class="fill-label" style="margin-top:14px;">How did it affect the communication?</div>
+    <textarea class="fill-area" id="ws3_effect" placeholder="What happened as a result of the barrier?" style="min-height:90px;"></textarea>
+    <div class="fill-label" style="margin-top:14px;">What could have helped?</div>
+    <textarea class="fill-area" id="ws3_help" placeholder="What strategy or adjustment might have reduced the barrier?" style="min-height:90px;"></textarea>
+    <div class="save-note"><span>&#128274;</span> <span>Saved automatically to this device as you type.</span></div>
+  </div>
+
 </div>
 
 <hr>
@@ -569,6 +747,45 @@ tr:nth-child(even) td { background: var(--bg); }
   </div>
 </div>
 
+<!-- WORKSHEET: Communication Style + Word Scramble (Handout 1 Part 4) -->
+<div class="section">
+  <div class="section-label">Worksheet</div>
+  <div class="section-title"><span class="ico">✏️</span> Handout 1 Part 4 — My Communication Style</div>
+
+  <!-- Part 4 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 4 — My Communication Style</div>
+    <p style="font-size:15px; margin-bottom:14px;">Click the style that feels most like your default. Then explain your thinking below.</p>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;" id="styleButtons">
+      <button class="style-btn" onclick="selectStyle('Assertive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Assertive</button>
+      <button class="style-btn" onclick="selectStyle('Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Aggressive</button>
+      <button class="style-btn" onclick="selectStyle('Passive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive</button>
+      <button class="style-btn" onclick="selectStyle('Passive-Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive-Aggressive</button>
+      <button class="style-btn" onclick="selectStyle('Submissive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Submissive</button>
+      <button class="style-btn" onclick="selectStyle('Manipulative')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Manipulative</button>
+      <button class="style-btn" onclick="selectStyle('Direct')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Direct</button>
+    </div>
+    <div id="ws4_selected_display" style="font-size:14px; color:var(--muted); font-style:italic; margin-bottom:12px;">No style selected yet.</div>
+    <div class="fill-label">Why do you think this is your default style?</div>
+    <textarea class="fill-area" id="ws4_reason" placeholder="Think about how you naturally communicate under pressure, with people you don't know well, or when you disagree with someone..." style="min-height:90px;"></textarea>
+    <div class="save-note"><span>&#128274;</span> <span>Your selection and notes are saved privately to this device.</span></div>
+  </div>
+
+  <!-- WORD SCRAMBLE -->
+  <div class="box box-purple" style="margin-bottom:18px; margin-top:32px;">
+    <div class="box-label">Additional Activity — Word Scramble</div>
+    <p style="margin-bottom:0;">Unscramble the key terms. Type the correct word and press Enter or click Check.</p>
+  </div>
+
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div id="scramble_wrap">
+      <!-- Generated by JS -->
+    </div>
+    <div id="scramble_score" style="margin-top:14px; font-size:15px; font-weight:700; color:var(--navy); display:none;"></div>
+  </div>
+
+</div>
+
 <hr>
 
 <!-- REFLECTION SPACE -->
@@ -673,204 +890,6 @@ tr:nth-child(even) td { background: var(--bg); }
   </div>
 </div>
 
-<hr>
-
-<!-- DIGITAL HANDOUTS -->
-<div id="s-handouts" class="section">
-  <div class="section-label">Your Worksheets</div>
-  <div class="section-title"><span class="ico">📋</span> Digital Handouts — Fill In on This Page</div>
-
-  <p>These are the same handouts you'd normally receive as printed sheets. Fill them in here — your answers save privately to this device.</p>
-
-  <!-- HANDOUT 1 -->
-  <div class="box box-navy" style="margin-bottom:24px;">
-    <div class="box-label">Handout 1 — Key Activity Worksheet: Interpersonal Communication Skills</div>
-  </div>
-
-  <!-- Part 1 -->
-  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
-    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 1 — The Communication Process</div>
-    <p style="font-size:15px; margin-bottom:14px;">Label the 5 stages of the communication process. Type each stage in order:</p>
-    <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px;">
-      <div style="text-align:center;">
-        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 1</div>
-        <input type="text" id="ws1_stage1" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
-      </div>
-      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
-      <div style="text-align:center;">
-        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 2</div>
-        <input type="text" id="ws1_stage2" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
-      </div>
-      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
-      <div style="text-align:center;">
-        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 3</div>
-        <input type="text" id="ws1_stage3" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
-      </div>
-      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
-      <div style="text-align:center;">
-        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 4</div>
-        <input type="text" id="ws1_stage4" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
-      </div>
-      <div style="color:var(--orange); font-weight:700; font-size:18px; margin-top:18px;">→</div>
-      <div style="text-align:center;">
-        <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Stage 5</div>
-        <input type="text" id="ws1_stage5" placeholder="Type here..." style="border:1.5px solid var(--border); border-radius:7px; padding:8px 12px; font-size:14px; width:120px; font-family:inherit; background:var(--bg);">
-      </div>
-    </div>
-    <button onclick="toggleWs1Answer()" style="background:var(--teal); color:white; border:none; font-size:13px; font-weight:700; padding:9px 18px; border-radius:7px; cursor:pointer; font-family:inherit;">Show Answer</button>
-    <div id="ws1_answer" style="display:none; margin-top:12px; background:var(--green-lt); border-left:4px solid #16a34a; border-radius:0 8px 8px 0; padding:12px 16px; font-size:14.5px; color:var(--green);">
-      <strong>Sender &rarr; Message &rarr; Channel &rarr; Receiver &rarr; Feedback</strong>
-    </div>
-  </div>
-
-  <!-- Part 2 -->
-  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
-    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 2 — Non-Verbal Communication</div>
-    <p style="font-size:15px; margin-bottom:14px;">For each row, write a non-verbal cue and what it can signal in community services:</p>
-    <div id="ws2_rows">
-      <!-- Row 1 -->
-      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:1; min-width:180px;">
-          <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">Non-Verbal Cue</div>
-          <input type="text" id="ws2_r1_cue" placeholder="e.g. crossed arms" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-        <div style="flex:2; min-width:220px;">
-          <div style="font-size:11px; font-weight:700; color:var(--muted); margin-bottom:4px;">What It Can Signal in Community Services</div>
-          <input type="text" id="ws2_r1_signal" placeholder="e.g. defensiveness or discomfort" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-      </div>
-      <!-- Row 2 -->
-      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:1; min-width:180px;">
-          <input type="text" id="ws2_r2_cue" placeholder="e.g. eye contact" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-        <div style="flex:2; min-width:220px;">
-          <input type="text" id="ws2_r2_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-      </div>
-      <!-- Row 3 -->
-      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:1; min-width:180px;">
-          <input type="text" id="ws2_r3_cue" placeholder="e.g. nodding" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-        <div style="flex:2; min-width:220px;">
-          <input type="text" id="ws2_r3_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-      </div>
-      <!-- Row 4 -->
-      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:1; min-width:180px;">
-          <input type="text" id="ws2_r4_cue" placeholder="e.g. leaning forward" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-        <div style="flex:2; min-width:220px;">
-          <input type="text" id="ws2_r4_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-      </div>
-      <!-- Row 5 -->
-      <div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:1; min-width:180px;">
-          <input type="text" id="ws2_r5_cue" placeholder="e.g. turning away" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-        <div style="flex:2; min-width:220px;">
-          <input type="text" id="ws2_r5_signal" placeholder="What does it signal?" style="width:100%; border:1.5px solid var(--border); border-radius:7px; padding:9px 12px; font-size:14px; font-family:inherit; background:var(--bg);">
-        </div>
-      </div>
-    </div>
-    <div class="save-note"><span>&#128274;</span> <span>Saved automatically to this device as you type.</span></div>
-  </div>
-
-  <!-- Part 3 -->
-  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
-    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 3 — A Barrier I've Experienced</div>
-    <div class="fill-label">What was the barrier?</div>
-    <textarea class="fill-area" id="ws3_barrier" placeholder="Describe a barrier to communication you've experienced or observed..." style="min-height:90px;"></textarea>
-    <div class="fill-label" style="margin-top:14px;">How did it affect the communication?</div>
-    <textarea class="fill-area" id="ws3_effect" placeholder="What happened as a result of the barrier?" style="min-height:90px;"></textarea>
-    <div class="fill-label" style="margin-top:14px;">What could have helped?</div>
-    <textarea class="fill-area" id="ws3_help" placeholder="What strategy or adjustment might have reduced the barrier?" style="min-height:90px;"></textarea>
-    <div class="save-note"><span>&#128274;</span> <span>Saved automatically to this device as you type.</span></div>
-  </div>
-
-  <!-- Part 4 -->
-  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
-    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 4 — My Communication Style</div>
-    <p style="font-size:15px; margin-bottom:14px;">Click the style that feels most like your default. Then explain your thinking below.</p>
-    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;" id="styleButtons">
-      <button class="style-btn" onclick="selectStyle('Assertive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Assertive</button>
-      <button class="style-btn" onclick="selectStyle('Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Aggressive</button>
-      <button class="style-btn" onclick="selectStyle('Passive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive</button>
-      <button class="style-btn" onclick="selectStyle('Passive-Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive-Aggressive</button>
-      <button class="style-btn" onclick="selectStyle('Submissive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Submissive</button>
-      <button class="style-btn" onclick="selectStyle('Manipulative')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Manipulative</button>
-      <button class="style-btn" onclick="selectStyle('Direct')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Direct</button>
-    </div>
-    <div id="ws4_selected_display" style="font-size:14px; color:var(--muted); font-style:italic; margin-bottom:12px;">No style selected yet.</div>
-    <div class="fill-label">Why do you think this is your default style?</div>
-    <textarea class="fill-area" id="ws4_reason" placeholder="Think about how you naturally communicate under pressure, with people you don't know well, or when you disagree with someone..." style="min-height:90px;"></textarea>
-    <div class="save-note"><span>&#128274;</span> <span>Your selection and notes are saved privately to this device.</span></div>
-  </div>
-
-  <!-- HANDOUT 2 -->
-  <div class="box box-navy" style="margin-bottom:24px; margin-top:32px;">
-    <div class="box-label">Handout 2 — Key Model Handout: Complete the Communication Cycle</div>
-  </div>
-
-  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
-    <p style="font-size:15px; margin-bottom:16px;">Each box in the Communication Cycle below has a blank label. Fill in the correct term for each stage, then click <strong>Check My Answers</strong>.</p>
-    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; justify-content:center; margin-bottom:20px;">
-
-      <div style="text-align:center;">
-        <div id="model_box1" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
-          <input type="text" id="model_in1" placeholder="Stage 1" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
-        </div>
-      </div>
-      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
-      <div style="text-align:center;">
-        <div id="model_box2" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
-          <input type="text" id="model_in2" placeholder="Stage 2" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
-        </div>
-      </div>
-      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
-      <div style="text-align:center;">
-        <div id="model_box3" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
-          <input type="text" id="model_in3" placeholder="Stage 3" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
-        </div>
-      </div>
-      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
-      <div style="text-align:center;">
-        <div id="model_box4" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
-          <input type="text" id="model_in4" placeholder="Stage 4" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
-        </div>
-      </div>
-      <div style="color:var(--orange); font-size:18px; font-weight:700;">→</div>
-      <div style="text-align:center;">
-        <div id="model_box5" style="background:var(--bg); border:2px solid var(--border); border-radius:8px; padding:12px 10px; width:110px;">
-          <input type="text" id="model_in5" placeholder="Stage 5" style="width:100%; border:none; background:transparent; font-size:14px; font-weight:700; text-align:center; font-family:inherit; outline:none;">
-        </div>
-      </div>
-
-    </div>
-    <button onclick="checkModelAnswers()" style="background:var(--teal); color:white; border:none; font-size:14px; font-weight:700; padding:10px 22px; border-radius:8px; cursor:pointer; font-family:inherit;">Check My Answers</button>
-    <button onclick="resetModelAnswers()" style="background:var(--bg); color:var(--muted); border:1.5px solid var(--border); font-size:14px; font-weight:700; padding:10px 18px; border-radius:8px; cursor:pointer; font-family:inherit; margin-left:8px;">Reset</button>
-    <div id="model_result" style="display:none; margin-top:14px; font-size:14.5px;"></div>
-  </div>
-
-  <!-- WORD SCRAMBLE -->
-  <div class="box box-purple" style="margin-bottom:18px; margin-top:32px;">
-    <div class="box-label">Additional Activity — Word Scramble</div>
-    <p style="margin-bottom:0;">Unscramble the key terms. Type the correct word and press Enter or click Check.</p>
-  </div>
-
-  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
-    <div id="scramble_wrap">
-      <!-- Generated by JS -->
-    </div>
-    <div id="scramble_score" style="margin-top:14px; font-size:15px; font-weight:700; color:var(--navy); display:none;"></div>
-  </div>
-
-</div>
-
-<hr>
 
 <!-- END OF DAY SUMMARY -->
 <div id="s-summary" class="section">

@@ -428,6 +428,110 @@ ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
 
   <hr>
 
+  <!-- MINUTES TEMPLATE -->
+  <div class="section">
+    <div class="section-label">Note-Taker Tool</div>
+    <div class="section-title"><span class="ico">&#128196;</span>Digital Meeting Minutes Template</div>
+    <p>If you are the <strong>Note-Taker</strong>, use this during the role play. All fields save automatically to this browser. If you have a different role, you can still follow along.</p>
+
+    <div class="minutes-form">
+      <div class="mins-grid">
+        <div class="mins-group">
+          <label for="mn-name">Meeting Name</label>
+          <input class="fill-input" id="mn-name" placeholder="Safety and Respect Team — Meeting 1" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-date">Date</label>
+          <input class="fill-input" id="mn-date" placeholder="4 May 2026" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-time">Time</label>
+          <input class="fill-input" id="mn-time" placeholder="10:45am" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-venue">Venue</label>
+          <input class="fill-input" id="mn-venue" placeholder="Meeting Room, First Access" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-fac">Facilitator</label>
+          <input class="fill-input" id="mn-fac" placeholder="" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-apo">Apologies</label>
+          <input class="fill-input" id="mn-apo" placeholder="None" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group full">
+          <label for="mn-att">Attendees</label>
+          <input class="fill-input" id="mn-att" placeholder="List all names present" oninput="saveMn(this.id,this.value)">
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 1 — Welcome and Introductions</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a1d">Discussion Summary</label><textarea class="fill-area" id="a1d" rows="3" placeholder="Summarise what was discussed..." oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a1dec">Decision</label><input class="fill-input" id="a1dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a1act">Action</label><input class="fill-input" id="a1act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a1res">Responsible Person</label><input class="fill-input" id="a1res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 2 — Purpose of the Safety and Respect Team</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a2d">Discussion Summary</label><textarea class="fill-area" id="a2d" rows="3" placeholder="Summarise what was discussed..." oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a2dec">Decision</label><input class="fill-input" id="a2dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a2act">Action</label><input class="fill-input" id="a2act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a2res">Responsible Person</label><input class="fill-input" id="a2res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 3 — Current Gaps in Practice</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a3d">Discussion Summary</label><textarea class="fill-area" id="a3d" rows="4" placeholder="This is the longest item — summarise each gap raised..." oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a3dec">Decision</label><input class="fill-input" id="a3dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a3act">Action</label><input class="fill-input" id="a3act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a3res">Responsible Person</label><input class="fill-input" id="a3res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 4 — Proposed Actions</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a4d">Discussion Summary</label><textarea class="fill-area" id="a4d" rows="3" placeholder="List each proposed action discussed..." oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a4dec">Decision</label><input class="fill-input" id="a4dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a4act">Action</label><input class="fill-input" id="a4act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a4res">Responsible Person</label><input class="fill-input" id="a4res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-title">&#128221; Item 5 — Measuring Improvement</div>
+        <div class="ai-grid">
+          <div class="ai-group full"><label for="a5d">Discussion Summary</label><textarea class="fill-area" id="a5d" rows="3" placeholder="How will the team know things are improving?" oninput="saveMn(this.id,this.value)"></textarea></div>
+          <div class="ai-group"><label for="a5dec">Decision</label><input class="fill-input" id="a5dec" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a5act">Action</label><input class="fill-input" id="a5act" oninput="saveMn(this.id,this.value)"></div>
+          <div class="ai-group"><label for="a5res">Responsible Person</label><input class="fill-input" id="a5res" oninput="saveMn(this.id,this.value)"></div>
+        </div>
+      </div>
+
+      <div class="mins-grid" style="margin-top:16px;">
+        <div class="mins-group">
+          <label for="mn-next">Next Meeting Date</label>
+          <input class="fill-input" id="mn-next" oninput="saveMn(this.id,this.value)">
+        </div>
+        <div class="mins-group">
+          <label for="mn-close">Meeting Closed By</label>
+          <input class="fill-input" id="mn-close" oninput="saveMn(this.id,this.value)">
+        </div>
+      </div>
+    </div>
+    <p class="save-note">&#128190; Your minutes save automatically to this browser.</p>
+  </div>
+
+  <hr>
+
   <!-- ACTIVITY 1: MATCH GAME -->
   <div class="section">
     <div class="section-label">Activity 1</div>
@@ -572,110 +676,6 @@ ol.pl li, ul.pl li { font-size: 15.5px; margin-bottom: 6px; }
       <button class="btn-check" onclick="checkBlanks()">Check Answers</button>
       <div class="blank-feedback" id="blank-feedback"></div>
     </div>
-  </div>
-
-  <hr>
-
-  <!-- MINUTES TEMPLATE -->
-  <div class="section">
-    <div class="section-label">Note-Taker Tool</div>
-    <div class="section-title"><span class="ico">&#128196;</span>Digital Meeting Minutes Template</div>
-    <p>If you are the <strong>Note-Taker</strong>, use this during the role play. All fields save automatically to this browser. If you have a different role, you can still follow along.</p>
-
-    <div class="minutes-form">
-      <div class="mins-grid">
-        <div class="mins-group">
-          <label for="mn-name">Meeting Name</label>
-          <input class="fill-input" id="mn-name" placeholder="Safety and Respect Team — Meeting 1" oninput="saveMn(this.id,this.value)">
-        </div>
-        <div class="mins-group">
-          <label for="mn-date">Date</label>
-          <input class="fill-input" id="mn-date" placeholder="4 May 2026" oninput="saveMn(this.id,this.value)">
-        </div>
-        <div class="mins-group">
-          <label for="mn-time">Time</label>
-          <input class="fill-input" id="mn-time" placeholder="10:45am" oninput="saveMn(this.id,this.value)">
-        </div>
-        <div class="mins-group">
-          <label for="mn-venue">Venue</label>
-          <input class="fill-input" id="mn-venue" placeholder="Meeting Room, First Access" oninput="saveMn(this.id,this.value)">
-        </div>
-        <div class="mins-group">
-          <label for="mn-fac">Facilitator</label>
-          <input class="fill-input" id="mn-fac" placeholder="" oninput="saveMn(this.id,this.value)">
-        </div>
-        <div class="mins-group">
-          <label for="mn-apo">Apologies</label>
-          <input class="fill-input" id="mn-apo" placeholder="None" oninput="saveMn(this.id,this.value)">
-        </div>
-        <div class="mins-group full">
-          <label for="mn-att">Attendees</label>
-          <input class="fill-input" id="mn-att" placeholder="List all names present" oninput="saveMn(this.id,this.value)">
-        </div>
-      </div>
-
-      <div class="ai-card">
-        <div class="ai-title">&#128221; Item 1 — Welcome and Introductions</div>
-        <div class="ai-grid">
-          <div class="ai-group full"><label for="a1d">Discussion Summary</label><textarea class="fill-area" id="a1d" rows="3" placeholder="Summarise what was discussed..." oninput="saveMn(this.id,this.value)"></textarea></div>
-          <div class="ai-group"><label for="a1dec">Decision</label><input class="fill-input" id="a1dec" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a1act">Action</label><input class="fill-input" id="a1act" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a1res">Responsible Person</label><input class="fill-input" id="a1res" oninput="saveMn(this.id,this.value)"></div>
-        </div>
-      </div>
-
-      <div class="ai-card">
-        <div class="ai-title">&#128221; Item 2 — Purpose of the Safety and Respect Team</div>
-        <div class="ai-grid">
-          <div class="ai-group full"><label for="a2d">Discussion Summary</label><textarea class="fill-area" id="a2d" rows="3" placeholder="Summarise what was discussed..." oninput="saveMn(this.id,this.value)"></textarea></div>
-          <div class="ai-group"><label for="a2dec">Decision</label><input class="fill-input" id="a2dec" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a2act">Action</label><input class="fill-input" id="a2act" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a2res">Responsible Person</label><input class="fill-input" id="a2res" oninput="saveMn(this.id,this.value)"></div>
-        </div>
-      </div>
-
-      <div class="ai-card">
-        <div class="ai-title">&#128221; Item 3 — Current Gaps in Practice</div>
-        <div class="ai-grid">
-          <div class="ai-group full"><label for="a3d">Discussion Summary</label><textarea class="fill-area" id="a3d" rows="4" placeholder="This is the longest item — summarise each gap raised..." oninput="saveMn(this.id,this.value)"></textarea></div>
-          <div class="ai-group"><label for="a3dec">Decision</label><input class="fill-input" id="a3dec" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a3act">Action</label><input class="fill-input" id="a3act" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a3res">Responsible Person</label><input class="fill-input" id="a3res" oninput="saveMn(this.id,this.value)"></div>
-        </div>
-      </div>
-
-      <div class="ai-card">
-        <div class="ai-title">&#128221; Item 4 — Proposed Actions</div>
-        <div class="ai-grid">
-          <div class="ai-group full"><label for="a4d">Discussion Summary</label><textarea class="fill-area" id="a4d" rows="3" placeholder="List each proposed action discussed..." oninput="saveMn(this.id,this.value)"></textarea></div>
-          <div class="ai-group"><label for="a4dec">Decision</label><input class="fill-input" id="a4dec" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a4act">Action</label><input class="fill-input" id="a4act" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a4res">Responsible Person</label><input class="fill-input" id="a4res" oninput="saveMn(this.id,this.value)"></div>
-        </div>
-      </div>
-
-      <div class="ai-card">
-        <div class="ai-title">&#128221; Item 5 — Measuring Improvement</div>
-        <div class="ai-grid">
-          <div class="ai-group full"><label for="a5d">Discussion Summary</label><textarea class="fill-area" id="a5d" rows="3" placeholder="How will the team know things are improving?" oninput="saveMn(this.id,this.value)"></textarea></div>
-          <div class="ai-group"><label for="a5dec">Decision</label><input class="fill-input" id="a5dec" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a5act">Action</label><input class="fill-input" id="a5act" oninput="saveMn(this.id,this.value)"></div>
-          <div class="ai-group"><label for="a5res">Responsible Person</label><input class="fill-input" id="a5res" oninput="saveMn(this.id,this.value)"></div>
-        </div>
-      </div>
-
-      <div class="mins-grid" style="margin-top:16px;">
-        <div class="mins-group">
-          <label for="mn-next">Next Meeting Date</label>
-          <input class="fill-input" id="mn-next" oninput="saveMn(this.id,this.value)">
-        </div>
-        <div class="mins-group">
-          <label for="mn-close">Meeting Closed By</label>
-          <input class="fill-input" id="mn-close" oninput="saveMn(this.id,this.value)">
-        </div>
-      </div>
-    </div>
-    <p class="save-note">&#128190; Your minutes save automatically to this browser.</p>
   </div>
 
   <hr>

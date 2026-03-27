@@ -235,7 +235,7 @@ tr:nth-child(even) td { background: var(--bg); }
     <div class="step" onclick="scrollToSection('s-reflection')" title="Reflection"></div>
     <div class="step" onclick="scrollToSection('s-glossary')" title="Glossary"></div>
     <div class="step" onclick="scrollToSection('s-assessment')" title="Assessment Links"></div>
-    <div class="step" onclick="scrollToSection('s-handouts')" title="Digital Handouts"></div>
+    <div class="step" onclick="scrollToSection('s-handouts')" title="Activities"></div>
     <div class="step" onclick="scrollToSection('s-summary')" title="End of Day Summary"></div>
   </div>
 </div>
@@ -394,6 +394,57 @@ tr:nth-child(even) td { background: var(--bg); }
       <div class="ba-text">"Dear [Supervisor name],<br><br>I am writing to inform you of an incident involving client Cherie that occurred during today's check-in appointment. I would like to request a team meeting at your earliest convenience to discuss an appropriate response.<br><br>Please let me know a suitable time.<br><br>Kind regards,<br>[Worker name]"</div>
     </div>
   </div>
+
+  <!-- HANDOUT 2: Professional Email Draft -->
+  <div class="concept-card cc-co" style="margin-top:28px; margin-bottom:0;">
+    <div class="concept-num">Handout 2</div>
+    <div class="concept-name">Professional Email Draft — AT2 Part C</div>
+    <p style="font-size:15px; margin-bottom:16px;">Draft the email for AT2 Part C here. Your draft saves automatically.</p>
+
+    <div class="form-row">
+      <label class="form-label">To:</label>
+      <input id="draft-to" class="form-input" type="text" placeholder="Recipient name and role" oninput="saveLSField('chccom002_s4_email_to','draft-to')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Subject:</label>
+      <input id="draft-subject" class="form-input" type="text" placeholder="e.g. Request for team meeting — client incident 28 April 2026" oninput="saveLSField('chccom002_s4_email_subject','draft-subject')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Greeting</label>
+      <input id="draft-greeting" class="form-input" type="text" placeholder="e.g. Dear [Name]," oninput="saveLSField('chccom002_s4_email_greeting','draft-greeting')">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Paragraph 1 — Purpose of email</label>
+      <textarea id="draft-para1" class="fill-area" placeholder="State clearly why you are writing..." oninput="saveLSField('chccom002_s4_email_para1','draft-para1')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Paragraph 2 — What happened / what you are requesting</label>
+      <textarea id="draft-para2" class="fill-area" placeholder="Describe the incident or request clearly and factually..." oninput="saveLSField('chccom002_s4_email_para2','draft-para2')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Paragraph 3 — Proposed agenda items for the meeting</label>
+      <textarea id="draft-para3" class="fill-area" placeholder="List what you would like to discuss in the meeting..." oninput="saveLSField('chccom002_s4_email_para3','draft-para3')"></textarea>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Close</label>
+        <input id="draft-close" class="form-input" type="text" placeholder="e.g. Kind regards," oninput="saveLSField('chccom002_s4_email_close','draft-close')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Name</label>
+        <input id="draft-name" class="form-input" type="text" placeholder="Your name" oninput="saveLSField('chccom002_s4_email_name','draft-name')">
+      </div>
+    </div>
+    <button class="btn-gen" style="background:var(--teal);" onclick="generateEmailDraft()">Generate Preview</button>
+
+    <div id="email-draft-output" style="display:none; margin-top:18px; background:#f0fdfa; border:1.5px solid var(--teal); border-radius:var(--radius); padding:20px 22px;">
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--teal);margin-bottom:12px;">Your Email Preview</div>
+      <div id="email-draft-rendered" style="font-size:15px;line-height:1.85;color:var(--text);white-space:pre-wrap;font-family:'Segoe UI',Arial,sans-serif;"></div>
+      <button class="btn-gen" style="background:var(--orange);margin-top:14px;font-size:13px;padding:9px 18px;" onclick="copyEmailDraft()">Copy to clipboard</button>
+      <div id="email-draft-copied" style="font-size:13px;color:var(--green);margin-top:8px;display:none;">Copied!</div>
+    </div>
+    <div class="save-note" style="margin-top:10px;">&#128190; All fields save automatically to your browser.</div>
+  </div>
 </div>
 
 <hr>
@@ -445,6 +496,70 @@ tr:nth-child(even) td { background: var(--bg); }
   <div class="box box-orange">
     <div class="box-label">The Legal Test</div>
     <p style="margin-bottom:0;">Ask yourself: could you defend <em>every sentence you wrote</em> in a legal proceeding? If the answer is no — or even maybe — rewrite it. Remove anything that is an opinion, assumption, or interpretation. Record only what you observed or what was directly stated.</p>
+  </div>
+
+  <!-- HANDOUT 1: Incident Report Draft -->
+  <div class="concept-card cc-nv" style="margin-top:28px; margin-bottom:0;">
+    <div class="concept-num">Handout 1</div>
+    <div class="concept-name">Incident Report Draft — Cherie's Story (AT2 Part B)</div>
+    <p style="font-size:15px; margin-bottom:16px;">Use this to draft your AT2 Part B incident report. Your draft saves automatically.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Date of Incident</label>
+        <input id="ir-date" class="form-input" type="text" placeholder="e.g. 28 April 2026" oninput="saveLSField('chccom002_s4_ir_date','ir-date')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Time of Incident</label>
+        <input id="ir-time" class="form-input" type="text" placeholder="e.g. 2:00pm" oninput="saveLSField('chccom002_s4_ir_time','ir-time')">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Location</label>
+      <input id="ir-location" class="form-input" type="text" placeholder="e.g. Interview Room 1, Box Hill Community Services" oninput="saveLSField('chccom002_s4_ir_location','ir-location')">
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Worker Name</label>
+        <input id="ir-worker" class="form-input" type="text" placeholder="Your name" oninput="saveLSField('chccom002_s4_ir_worker','ir-worker')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Client Name</label>
+        <input id="ir-client" class="form-input" type="text" value="Cherie" oninput="saveLSField('chccom002_s4_ir_client','ir-client')">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">People Present</label>
+      <textarea id="ir-present" class="fill-area" style="min-height:55px;" placeholder="List all people present during the incident" oninput="saveLSField('chccom002_s4_ir_present','ir-present')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Description of Incident</label>
+      <textarea id="ir-description" class="fill-area" placeholder="Describe what happened — factual observations only. No opinions or assumptions." oninput="saveLSField('chccom002_s4_ir_description','ir-description')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Client's Statements</label>
+      <textarea id="ir-statements" class="fill-area" placeholder="What did the client say? Use direct quotes where possible." oninput="saveLSField('chccom002_s4_ir_statements','ir-statements')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Actions Taken</label>
+      <textarea id="ir-actions" class="fill-area" placeholder="What steps did you take during or immediately after the incident?" oninput="saveLSField('chccom002_s4_ir_actions','ir-actions')"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Follow-up Required</label>
+      <textarea id="ir-followup" class="fill-area" placeholder="What needs to happen next? Who needs to be informed?" oninput="saveLSField('chccom002_s4_ir_followup','ir-followup')"></textarea>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-row">
+        <label class="form-label">Reported To</label>
+        <input id="ir-reportedto" class="form-input" type="text" placeholder="Name and role of person reported to" oninput="saveLSField('chccom002_s4_ir_reportedto','ir-reportedto')">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Worker Signature / Name</label>
+        <input id="ir-signature" class="form-input" type="text" placeholder="Your name" oninput="saveLSField('chccom002_s4_ir_signature','ir-signature')">
+      </div>
+    </div>
+    <button class="btn-gen" style="margin-top:8px;" onclick="window.print()">Print / Save as PDF</button>
+    <div class="save-note" style="margin-top:10px;">&#128190; All fields save automatically to your browser.</div>
   </div>
 </div>
 
@@ -715,125 +830,10 @@ tr:nth-child(even) td { background: var(--bg); }
 
 <hr>
 
-<!-- DIGITAL HANDOUTS -->
+<!-- INTERACTIVE ACTIVITIES -->
 <div id="s-handouts" class="section">
-  <div class="section-label">Digital Handouts</div>
-  <div class="section-title"><span class="ico">📋</span> Fill In on This Page</div>
-
-  <!-- HANDOUT 1: Incident Report Draft -->
-  <div class="concept-card cc-nv" style="margin-bottom:28px;">
-    <div class="concept-num">Handout 1</div>
-    <div class="concept-name">Incident Report Draft — Cherie's Story (AT2 Part B)</div>
-    <p style="font-size:15px; margin-bottom:16px;">Use this to draft your AT2 Part B incident report. Your draft saves automatically.</p>
-
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-      <div class="form-row">
-        <label class="form-label">Date of Incident</label>
-        <input id="ir-date" class="form-input" type="text" placeholder="e.g. 28 April 2026" oninput="saveLSField('chccom002_s4_ir_date','ir-date')">
-      </div>
-      <div class="form-row">
-        <label class="form-label">Time of Incident</label>
-        <input id="ir-time" class="form-input" type="text" placeholder="e.g. 2:00pm" oninput="saveLSField('chccom002_s4_ir_time','ir-time')">
-      </div>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Location</label>
-      <input id="ir-location" class="form-input" type="text" placeholder="e.g. Interview Room 1, Box Hill Community Services" oninput="saveLSField('chccom002_s4_ir_location','ir-location')">
-    </div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-      <div class="form-row">
-        <label class="form-label">Worker Name</label>
-        <input id="ir-worker" class="form-input" type="text" placeholder="Your name" oninput="saveLSField('chccom002_s4_ir_worker','ir-worker')">
-      </div>
-      <div class="form-row">
-        <label class="form-label">Client Name</label>
-        <input id="ir-client" class="form-input" type="text" value="Cherie" oninput="saveLSField('chccom002_s4_ir_client','ir-client')">
-      </div>
-    </div>
-    <div class="form-row">
-      <label class="form-label">People Present</label>
-      <textarea id="ir-present" class="fill-area" style="min-height:55px;" placeholder="List all people present during the incident" oninput="saveLSField('chccom002_s4_ir_present','ir-present')"></textarea>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Description of Incident</label>
-      <textarea id="ir-description" class="fill-area" placeholder="Describe what happened — factual observations only. No opinions or assumptions." oninput="saveLSField('chccom002_s4_ir_description','ir-description')"></textarea>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Client's Statements</label>
-      <textarea id="ir-statements" class="fill-area" placeholder="What did the client say? Use direct quotes where possible." oninput="saveLSField('chccom002_s4_ir_statements','ir-statements')"></textarea>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Actions Taken</label>
-      <textarea id="ir-actions" class="fill-area" placeholder="What steps did you take during or immediately after the incident?" oninput="saveLSField('chccom002_s4_ir_actions','ir-actions')"></textarea>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Follow-up Required</label>
-      <textarea id="ir-followup" class="fill-area" placeholder="What needs to happen next? Who needs to be informed?" oninput="saveLSField('chccom002_s4_ir_followup','ir-followup')"></textarea>
-    </div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-      <div class="form-row">
-        <label class="form-label">Reported To</label>
-        <input id="ir-reportedto" class="form-input" type="text" placeholder="Name and role of person reported to" oninput="saveLSField('chccom002_s4_ir_reportedto','ir-reportedto')">
-      </div>
-      <div class="form-row">
-        <label class="form-label">Worker Signature / Name</label>
-        <input id="ir-signature" class="form-input" type="text" placeholder="Your name" oninput="saveLSField('chccom002_s4_ir_signature','ir-signature')">
-      </div>
-    </div>
-    <button class="btn-gen" style="margin-top:8px;" onclick="window.print()">Print / Save as PDF</button>
-    <div class="save-note" style="margin-top:10px;">&#128190; All fields save automatically to your browser.</div>
-  </div>
-
-  <!-- HANDOUT 2: Professional Email Draft -->
-  <div class="concept-card cc-co" style="margin-bottom:28px;">
-    <div class="concept-num">Handout 2</div>
-    <div class="concept-name">Professional Email Draft — AT2 Part C</div>
-    <p style="font-size:15px; margin-bottom:16px;">Draft the email for AT2 Part C here. Your draft saves automatically.</p>
-
-    <div class="form-row">
-      <label class="form-label">To:</label>
-      <input id="draft-to" class="form-input" type="text" placeholder="Recipient name and role" oninput="saveLSField('chccom002_s4_email_to','draft-to')">
-    </div>
-    <div class="form-row">
-      <label class="form-label">Subject:</label>
-      <input id="draft-subject" class="form-input" type="text" placeholder="e.g. Request for team meeting — client incident 28 April 2026" oninput="saveLSField('chccom002_s4_email_subject','draft-subject')">
-    </div>
-    <div class="form-row">
-      <label class="form-label">Greeting</label>
-      <input id="draft-greeting" class="form-input" type="text" placeholder="e.g. Dear [Name]," oninput="saveLSField('chccom002_s4_email_greeting','draft-greeting')">
-    </div>
-    <div class="form-row">
-      <label class="form-label">Paragraph 1 — Purpose of email</label>
-      <textarea id="draft-para1" class="fill-area" placeholder="State clearly why you are writing..." oninput="saveLSField('chccom002_s4_email_para1','draft-para1')"></textarea>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Paragraph 2 — What happened / what you are requesting</label>
-      <textarea id="draft-para2" class="fill-area" placeholder="Describe the incident or request clearly and factually..." oninput="saveLSField('chccom002_s4_email_para2','draft-para2')"></textarea>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Paragraph 3 — Proposed agenda items for the meeting</label>
-      <textarea id="draft-para3" class="fill-area" placeholder="List what you would like to discuss in the meeting..." oninput="saveLSField('chccom002_s4_email_para3','draft-para3')"></textarea>
-    </div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-      <div class="form-row">
-        <label class="form-label">Close</label>
-        <input id="draft-close" class="form-input" type="text" placeholder="e.g. Kind regards," oninput="saveLSField('chccom002_s4_email_close','draft-close')">
-      </div>
-      <div class="form-row">
-        <label class="form-label">Name</label>
-        <input id="draft-name" class="form-input" type="text" placeholder="Your name" oninput="saveLSField('chccom002_s4_email_name','draft-name')">
-      </div>
-    </div>
-    <button class="btn-gen" style="background:var(--teal);" onclick="generateEmailDraft()">Generate Preview</button>
-
-    <div id="email-draft-output" style="display:none; margin-top:18px; background:#f0fdfa; border:1.5px solid var(--teal); border-radius:var(--radius); padding:20px 22px;">
-      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--teal);margin-bottom:12px;">Your Email Preview</div>
-      <div id="email-draft-rendered" style="font-size:15px;line-height:1.85;color:var(--text);white-space:pre-wrap;font-family:'Segoe UI',Arial,sans-serif;"></div>
-      <button class="btn-gen" style="background:var(--orange);margin-top:14px;font-size:13px;padding:9px 18px;" onclick="copyEmailDraft()">Copy to clipboard</button>
-      <div id="email-draft-copied" style="font-size:13px;color:var(--green);margin-top:8px;display:none;">Copied!</div>
-    </div>
-    <div class="save-note" style="margin-top:10px;">&#128190; All fields save automatically to your browser.</div>
-  </div>
+  <div class="section-label">Interactive Activities</div>
+  <div class="section-title"><span class="ico">🎮</span> Games and Activities</div>
 
   <!-- ACTIVITY: Professional Writing Bingo -->
   <div class="concept-card cc-pu" style="margin-bottom:28px;">
