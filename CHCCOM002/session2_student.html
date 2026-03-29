@@ -285,7 +285,9 @@ tr:nth-child(even) td { background: var(--bg); }
     <div class="step" onclick="scrollToSection('s-concepts')" title="Professionalism & Boundaries"></div>
     <div class="step" onclick="scrollToSection('s-approaches')" title="Approaches"></div>
     <div class="step" onclick="scrollToSection('s-conflict')" title="Conflict Management"></div>
+    <div class="step" onclick="scrollToSection('s-warmup')" title="Warm-up"></div>
     <div class="step" onclick="scrollToSection('s-quiz')" title="Quiz"></div>
+    <div class="step" onclick="scrollToSection('s-assessment')" title="Assessment Work"></div>
     <div class="step" onclick="scrollToSection('s-reflection')" title="Reflection"></div>
   </div>
 </div>
@@ -852,7 +854,43 @@ tr:nth-child(even) td { background: var(--bg); }
 
 <hr>
 
+<!-- ASSESSMENT WORK -->
+<div class="tbb"><span class="tbb-time">1:15 – 2:30</span><span class="tbb-sep">|</span><span class="tbb-name">📝 Assessment Work — AT1 Q7–12 + AT2 Parts A &amp; B</span><span class="tbb-dur">75 min</span></div>
+<div id="s-assessment" class="section">
+  <div class="section-label">Why This Matters</div>
+  <div class="section-title"><span class="ico">🎯</span> Assessment Connections</div>
+  <p>Everything covered today links to your assessments. Here's how.</p>
+
+  <div class="at-grid">
+    <div class="at-card">
+      <div class="at-num">AT1 — Knowledge Questions</div>
+      <div class="at-name">Q7–12</div>
+      <div class="at-link">Boundaries, approaches, conflict stages, de-escalation, and dispute resolution are all covered today. Start drafting now.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT2 — Part A</div>
+      <div class="at-name">Cherie's Story</div>
+      <div class="at-link">Use person-centred and rights-based language in your responses about Cherie's situation. Avoid telling her what she needs.</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT2 — Part B</div>
+      <div class="at-name">Incident Report</div>
+      <div class="at-link">Today's policies content applies. Write factual observations, not opinions. "Cherie raised her voice" — not "Cherie seemed angry."</div>
+    </div>
+    <div class="at-card">
+      <div class="at-num">AT4 — Part A</div>
+      <div class="at-name">Conflict Role Play</div>
+      <div class="at-link">Today's conflict management and de-escalation skills are exactly what the role play tests. Start thinking about how you'd handle the scenario.</div>
+    </div>
+  </div>
+</div>
+
+<div class="tbb tbb-break"><span class="tbb-time">2:30 – 2:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
+
+<hr>
+
 <!-- REFLECTION -->
+<div class="tbb"><span class="tbb-time">2:45 – 3:00</span><span class="tbb-sep">|</span><span class="tbb-name">Group Discussion &amp; Wrap-up</span><span class="tbb-dur">15 min</span></div>
 <div id="s-reflection" class="section">
   <div class="section-label">Reflective Practice</div>
   <div class="section-title"><span class="ico">💭</span> Your Reflection</div>
@@ -918,41 +956,6 @@ tr:nth-child(even) td { background: var(--bg); }
   <div class="gloss-item">
     <div class="gloss-term">Assertive communication</div>
     <div class="gloss-def">A communication style that clearly expresses needs, boundaries, or concerns without aggression or passivity. The professional standard in community services.</div>
-  </div>
-</div>
-
-<hr>
-
-<!-- ASSESSMENT CONNECTIONS -->
-<div class="tbb tbb-break"><span class="tbb-time">1:15 – 2:30</span><span class="tbb-sep">|</span><span class="tbb-name">📝 Assessment Work — AT1 Q7–12 + AT2 Parts A &amp; B</span><span class="tbb-dur">75 min</span></div>
-<div class="tbb tbb-break"><span class="tbb-time">2:30 – 2:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
-<div class="tbb"><span class="tbb-time">2:45 – 3:00</span><span class="tbb-sep">|</span><span class="tbb-name">Group Discussion &amp; Wrap-up</span><span class="tbb-dur">15 min</span></div>
-<div id="s-assessment" class="section">
-  <div class="section-label">Why This Matters</div>
-  <div class="section-title"><span class="ico">🎯</span> Assessment Connections</div>
-  <p>Everything covered today links to your assessments. Here's how.</p>
-
-  <div class="at-grid">
-    <div class="at-card">
-      <div class="at-num">AT1 — Knowledge Questions</div>
-      <div class="at-name">Q7–12</div>
-      <div class="at-link">Boundaries, approaches, conflict stages, de-escalation, and dispute resolution are all covered today. Start drafting now.</div>
-    </div>
-    <div class="at-card">
-      <div class="at-num">AT2 — Part A</div>
-      <div class="at-name">Cherie's Story</div>
-      <div class="at-link">Use person-centred and rights-based language in your responses about Cherie's situation. Avoid telling her what she needs.</div>
-    </div>
-    <div class="at-card">
-      <div class="at-num">AT2 — Part B</div>
-      <div class="at-name">Incident Report</div>
-      <div class="at-link">Today's policies content applies. Write factual observations, not opinions. "Cherie raised her voice" — not "Cherie seemed angry."</div>
-    </div>
-    <div class="at-card">
-      <div class="at-num">AT4 — Part A</div>
-      <div class="at-name">Conflict Role Play</div>
-      <div class="at-link">Today's conflict management and de-escalation skills are exactly what the role play tests. Start thinking about how you'd handle the scenario.</div>
-    </div>
   </div>
 </div>
 
@@ -1041,7 +1044,7 @@ See you next Monday for Session 3.</div>
 
 <script>
 // --- Progress bar ---
-const sections = ['s-intro','s-concepts','s-approaches','s-conflict','s-quiz','s-reflection'];
+const sections = ['s-intro','s-concepts','s-approaches','s-conflict','s-warmup','s-quiz','s-assessment','s-reflection'];
 function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
 }

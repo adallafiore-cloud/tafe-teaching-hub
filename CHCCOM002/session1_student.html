@@ -228,6 +228,7 @@ tr:nth-child(even) td { background: var(--bg); }
     <div class="step" onclick="scrollToSection('s-process')" title="Communication Process"></div>
     <div class="step" onclick="scrollToSection('s-listening')" title="Active Listening"></div>
     <div class="step" onclick="scrollToSection('s-barriers')" title="Barriers"></div>
+    <div class="step" onclick="scrollToSection('s-cardsort')" title="Card Sort"></div>
     <div class="step" onclick="scrollToSection('s-quiz')" title="Quiz"></div>
     <div class="step" onclick="scrollToSection('s-reflection')" title="Reflection"></div>
   </div>
@@ -653,281 +654,7 @@ tr:nth-child(even) td { background: var(--bg); }
 
 <hr>
 
-<!-- QUIZ -->
-<div id="s-quiz" class="section">
-  <div class="section-label">Check Your Learning</div>
-  <div class="section-title"><span class="ico">✅</span> Communication Styles Quiz</div>
-  <p>Test yourself on today's key concepts. Choose the best answer for each question.</p>
-
-  <div class="quiz-wrap">
-    <h3>Knowledge Check</h3>
-
-    <div class="quiz-q" id="qq1">
-      <div class="quiz-q-num">QUESTION 1</div>
-      <div class="quiz-q-text">A colleague keeps interrupting you in meetings. The MOST assertive response is:</div>
-      <div class="quiz-options">
-        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
-          <input type="radio">
-          <div>
-            <span>A) Say nothing — it's not worth the conflict</span>
-            <div class="feedback-text">That's passive — avoiding conflict doesn't solve it.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
-          <input type="radio">
-          <div>
-            <span>B) "Excuse me, I'd like to finish my point."</span>
-            <div class="feedback-text">Correct — assertive means direct and respectful. You name the issue without aggression.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
-          <input type="radio">
-          <div>
-            <span>C) Roll your eyes and sigh loudly</span>
-            <div class="feedback-text">That's passive-aggressive — sending a message indirectly rather than addressing it.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
-          <input type="radio">
-          <div>
-            <span>D) Raise your voice and demand they stop</span>
-            <div class="feedback-text">That's aggressive — it escalates the situation and damages the relationship.</div>
-          </div>
-        </label>
-      </div>
-    </div>
-
-    <div class="quiz-q" id="qq2">
-      <div class="quiz-q-num">QUESTION 2</div>
-      <div class="quiz-q-text">Which of the following is a non-verbal communication cue?</div>
-      <div class="quiz-options">
-        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
-          <input type="radio">
-          <div>
-            <span>A) The words you use</span>
-            <div class="feedback-text">That's verbal communication — the actual words chosen.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
-          <input type="radio">
-          <div>
-            <span>B) Eye contact</span>
-            <div class="feedback-text">Correct — eye contact is a key non-verbal cue. It signals attention, confidence, or (in some cultures) respect or challenge.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
-          <input type="radio">
-          <div>
-            <span>C) Your choice of topic</span>
-            <div class="feedback-text">Topic selection is part of verbal/conversational strategy — not a non-verbal cue.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
-          <input type="radio">
-          <div>
-            <span>D) Asking open questions</span>
-            <div class="feedback-text">That's an active listening technique — a verbal skill.</div>
-          </div>
-        </label>
-      </div>
-    </div>
-
-    <div class="quiz-q" id="qq3">
-      <div class="quiz-q-num">QUESTION 3</div>
-      <div class="quiz-q-text">You're explaining a service plan to a client who looks confused. The BEST next step is:</div>
-      <div class="quiz-options">
-        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
-          <input type="radio">
-          <div>
-            <span>A) Continue — they'll catch up</span>
-            <div class="feedback-text">Ignoring confusion is not good practice. The client's understanding is your responsibility.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
-          <input type="radio">
-          <div>
-            <span>B) Repeat the same explanation louder</span>
-            <div class="feedback-text">Repeating louder doesn't help comprehension — it may feel condescending.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
-          <input type="radio">
-          <div>
-            <span>C) Ask: "Can I check — what are you taking away from this?"</span>
-            <div class="feedback-text">Correct — checking understanding is active listening in action. It invites the client to share without embarrassment.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
-          <input type="radio">
-          <div>
-            <span>D) Hand them a brochure and move on</span>
-            <div class="feedback-text">This avoids the communication issue rather than addressing it.</div>
-          </div>
-        </label>
-      </div>
-    </div>
-
-    <div class="quiz-q" id="qq4">
-      <div class="quiz-q-num">QUESTION 4</div>
-      <div class="quiz-q-text">Which communication style is MOST appropriate in community services?</div>
-      <div class="quiz-options">
-        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
-          <input type="radio">
-          <div>
-            <span>A) Passive — to avoid upsetting anyone</span>
-            <div class="feedback-text">Passive communication can lead to poor outcomes — needs and concerns go unaddressed.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
-          <input type="radio">
-          <div>
-            <span>B) Aggressive — to get things done</span>
-            <div class="feedback-text">Aggressive communication damages trust and can harm clients and colleagues.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
-          <input type="radio">
-          <div>
-            <span>C) Assertive — direct, respectful, honest</span>
-            <div class="feedback-text">Correct — assertive communication respects your own needs and the other person's. It's the professional standard in community services.</div>
-          </div>
-        </label>
-        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
-          <input type="radio">
-          <div>
-            <span>D) Manipulative — to motivate clients</span>
-            <div class="feedback-text">Manipulative communication violates professional ethics and client rights.</div>
-          </div>
-        </label>
-      </div>
-    </div>
-
-    <button class="quiz-submit" onclick="submitQuiz()">Check my answers</button>
-    <div class="quiz-result" id="quizResult"></div>
-  </div>
-</div>
-
-<!-- WORKSHEET: Communication Style + Word Scramble (Handout 1 Part 4) -->
-<div class="section">
-  <div class="section-label">Worksheet</div>
-  <div class="section-title"><span class="ico">✏️</span> Handout 1 Part 4 — My Communication Style</div>
-
-  <!-- Part 4 -->
-  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
-    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 4 — My Communication Style</div>
-    <p style="font-size:15px; margin-bottom:14px;">Click the style that feels most like your default. Then explain your thinking below.</p>
-    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;" id="styleButtons">
-      <button class="style-btn" onclick="selectStyle('Assertive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Assertive</button>
-      <button class="style-btn" onclick="selectStyle('Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Aggressive</button>
-      <button class="style-btn" onclick="selectStyle('Passive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive</button>
-      <button class="style-btn" onclick="selectStyle('Passive-Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive-Aggressive</button>
-      <button class="style-btn" onclick="selectStyle('Submissive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Submissive</button>
-      <button class="style-btn" onclick="selectStyle('Manipulative')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Manipulative</button>
-      <button class="style-btn" onclick="selectStyle('Direct')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Direct</button>
-    </div>
-    <div id="ws4_selected_display" style="font-size:14px; color:var(--muted); font-style:italic; margin-bottom:12px;">No style selected yet.</div>
-    <div class="fill-label">Why do you think this is your default style?</div>
-    <textarea class="fill-area" id="ws4_reason" placeholder="Think about how you naturally communicate under pressure, with people you don't know well, or when you disagree with someone..." style="min-height:90px;"></textarea>
-    <div class="save-note"><span>&#128274;</span> <span>Your selection and notes are saved privately to this device.</span></div>
-  </div>
-
-  <!-- WORD SCRAMBLE -->
-  <div class="box box-purple" style="margin-bottom:18px; margin-top:32px;">
-    <div class="box-label">Additional Activity — Word Scramble</div>
-    <p style="margin-bottom:0;">Unscramble the key terms. Type the correct word and press Enter or click Check.</p>
-  </div>
-
-  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
-    <div id="scramble_wrap">
-      <!-- Generated by JS -->
-    </div>
-    <div id="scramble_score" style="margin-top:14px; font-size:15px; font-weight:700; color:var(--navy); display:none;"></div>
-  </div>
-
-</div>
-
-<hr>
-
-<!-- REFLECTION SPACE -->
-<div class="tbb tbb-break"><span class="tbb-time">1:15 – 2:30</span><span class="tbb-sep">|</span><span class="tbb-name">📝 Assessment Work — AT1 Q1–6 + AT2 Part A read-through</span><span class="tbb-dur">75 min</span></div>
-<div class="tbb tbb-break"><span class="tbb-time">2:30 – 2:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
-<div class="tbb"><span class="tbb-time">2:45 – 3:00</span><span class="tbb-sep">|</span><span class="tbb-name">Group Discussion &amp; Wrap-up</span><span class="tbb-dur">15 min</span></div>
-<div id="s-reflection" class="section">
-  <div class="section-label">Reflection</div>
-  <div class="section-title"><span class="ico">✍️</span> Your Reflection</div>
-
-  <p>Reflection is a professional skill — not just an assessment requirement. The ability to examine your own communication honestly is what separates average workers from great ones.</p>
-
-  <div class="box box-purple">
-    <div class="box-label">Reflection prompt</div>
-    <p>Think of a communication situation you've been in — at work, study, or in life generally. What style were you using? What worked? What would you do differently?</p>
-  </div>
-
-  <div class="fill-label">Your reflection</div>
-  <textarea class="fill-area" id="reflectionArea" placeholder="Write your thoughts here..." style="min-height: 130px;"></textarea>
-  <div class="save-note">
-    <span>&#128274;</span>
-    <span>Your notes are saved privately to this device. They are not sent anywhere.</span>
-  </div>
-</div>
-
-<hr>
-
-<!-- GLOSSARY -->
-<div id="s-glossary" class="section">
-  <div class="section-label">Reference</div>
-  <div class="section-title"><span class="ico">📖</span> Key Terms</div>
-
-  <div class="gloss-item">
-    <div class="gloss-term">Interpersonal skills</div>
-    <div class="gloss-def">The skills used to interact and communicate with others. In community services, these include empathy, active listening, and the ability to build trust.</div>
-  </div>
-  <div class="gloss-item">
-    <div class="gloss-term">Communication process</div>
-    <div class="gloss-def">The cycle by which a message moves from sender to receiver and back through feedback. All five parts — sender, message, channel, receiver, feedback — must work for communication to succeed.</div>
-  </div>
-  <div class="gloss-item">
-    <div class="gloss-term">Verbal communication</div>
-    <div class="gloss-def">Communication using spoken or written words — including the words chosen, tone of voice, pace, and volume.</div>
-  </div>
-  <div class="gloss-item">
-    <div class="gloss-term">Non-verbal communication</div>
-    <div class="gloss-def">Communication through body language, facial expressions, eye contact, gestures, posture, and use of personal space — often more powerful than words.</div>
-  </div>
-  <div class="gloss-item">
-    <div class="gloss-term">Active listening</div>
-    <div class="gloss-def">Giving your full attention to a speaker — using nodding, eye contact, paraphrasing, and summarising to show you are engaged and to check understanding.</div>
-    <div class="gloss-eg">Paraphrasing: "So what I'm hearing is that you're feeling overwhelmed — is that right?"</div>
-  </div>
-  <div class="gloss-item">
-    <div class="gloss-term">Open question</div>
-    <div class="gloss-def">A question that invites a detailed response — cannot be answered with just yes or no. Used to explore and understand.</div>
-    <div class="gloss-eg">"What has been the hardest part of this week for you?"</div>
-  </div>
-  <div class="gloss-item">
-    <div class="gloss-term">Closed question</div>
-    <div class="gloss-def">A question with a short or yes/no answer. Used to confirm specific facts.</div>
-    <div class="gloss-eg">"Have you received your Centrelink payment this week?"</div>
-  </div>
-  <div class="gloss-item">
-    <div class="gloss-term">Clarifying question</div>
-    <div class="gloss-def">A question used to confirm understanding and avoid assumptions.</div>
-    <div class="gloss-eg">"Just to check — you said you'd prefer morning appointments?"</div>
-  </div>
-  <div class="gloss-item">
-    <div class="gloss-term">Barrier to communication</div>
-    <div class="gloss-def">Anything that prevents a message from being sent, received, or understood correctly — including language, emotion, environment, disability, or bias.</div>
-  </div>
-  <div class="gloss-item">
-    <div class="gloss-term">Assertive communication</div>
-    <div class="gloss-def">Expressing your thoughts, feelings, and needs clearly and respectfully — without being passive (suppressing them) or aggressive (forcing them on others).</div>
-    <div class="gloss-eg">Community services professional standard: honest, direct, and kind.</div>
-  </div>
-</div>
-
-<hr>
-
-<!-- WARM-UP: COMMUNICATION STYLES CARD SORT -->
+<!-- LUNCH + WARM-UP: COMMUNICATION STYLES CARD SORT -->
 <div class="tbb tbb-lunch"><span class="tbb-time">12:00 – 12:45</span><span class="tbb-sep">|</span><span class="tbb-name">🍽️ Lunch</span><span class="tbb-dur">45 min</span></div>
 <div class="tbb"><span class="tbb-time">12:45 – 1:15</span><span class="tbb-sep">|</span><span class="tbb-name">Warm-up — Communication Styles Card Sort</span><span class="tbb-dur">30 min</span></div>
 <div id="s-cardsort" class="section">
@@ -1207,6 +934,280 @@ tr:nth-child(even) td { background: var(--bg); }
 
 <hr>
 
+<!-- QUIZ -->
+<div class="tbb"><span class="tbb-time">1:15 – 2:30</span><span class="tbb-sep">|</span><span class="tbb-name">📝 Assessment Work — AT1 Q1–6 + AT2 Part A read-through</span><span class="tbb-dur">75 min</span></div>
+<div id="s-quiz" class="section">
+  <div class="section-label">Check Your Learning</div>
+  <div class="section-title"><span class="ico">✅</span> Communication Styles Quiz</div>
+  <p>Test yourself on today's key concepts. Choose the best answer for each question.</p>
+
+  <div class="quiz-wrap">
+    <h3>Knowledge Check</h3>
+
+    <div class="quiz-q" id="qq1">
+      <div class="quiz-q-num">QUESTION 1</div>
+      <div class="quiz-q-text">A colleague keeps interrupting you in meetings. The MOST assertive response is:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <input type="radio">
+          <div>
+            <span>A) Say nothing — it's not worth the conflict</span>
+            <div class="feedback-text">That's passive — avoiding conflict doesn't solve it.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <input type="radio">
+          <div>
+            <span>B) "Excuse me, I'd like to finish my point."</span>
+            <div class="feedback-text">Correct — assertive means direct and respectful. You name the issue without aggression.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <input type="radio">
+          <div>
+            <span>C) Roll your eyes and sigh loudly</span>
+            <div class="feedback-text">That's passive-aggressive — sending a message indirectly rather than addressing it.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq1')">
+          <input type="radio">
+          <div>
+            <span>D) Raise your voice and demand they stop</span>
+            <div class="feedback-text">That's aggressive — it escalates the situation and damages the relationship.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq2">
+      <div class="quiz-q-num">QUESTION 2</div>
+      <div class="quiz-q-text">Which of the following is a non-verbal communication cue?</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <input type="radio">
+          <div>
+            <span>A) The words you use</span>
+            <div class="feedback-text">That's verbal communication — the actual words chosen.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <input type="radio">
+          <div>
+            <span>B) Eye contact</span>
+            <div class="feedback-text">Correct — eye contact is a key non-verbal cue. It signals attention, confidence, or (in some cultures) respect or challenge.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <input type="radio">
+          <div>
+            <span>C) Your choice of topic</span>
+            <div class="feedback-text">Topic selection is part of verbal/conversational strategy — not a non-verbal cue.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq2')">
+          <input type="radio">
+          <div>
+            <span>D) Asking open questions</span>
+            <div class="feedback-text">That's an active listening technique — a verbal skill.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq3">
+      <div class="quiz-q-num">QUESTION 3</div>
+      <div class="quiz-q-text">You're explaining a service plan to a client who looks confused. The BEST next step is:</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <input type="radio">
+          <div>
+            <span>A) Continue — they'll catch up</span>
+            <div class="feedback-text">Ignoring confusion is not good practice. The client's understanding is your responsibility.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <input type="radio">
+          <div>
+            <span>B) Repeat the same explanation louder</span>
+            <div class="feedback-text">Repeating louder doesn't help comprehension — it may feel condescending.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <input type="radio">
+          <div>
+            <span>C) Ask: "Can I check — what are you taking away from this?"</span>
+            <div class="feedback-text">Correct — checking understanding is active listening in action. It invites the client to share without embarrassment.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq3')">
+          <input type="radio">
+          <div>
+            <span>D) Hand them a brochure and move on</span>
+            <div class="feedback-text">This avoids the communication issue rather than addressing it.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="quiz-q" id="qq4">
+      <div class="quiz-q-num">QUESTION 4</div>
+      <div class="quiz-q-text">Which communication style is MOST appropriate in community services?</div>
+      <div class="quiz-options">
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <input type="radio">
+          <div>
+            <span>A) Passive — to avoid upsetting anyone</span>
+            <div class="feedback-text">Passive communication can lead to poor outcomes — needs and concerns go unaddressed.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <input type="radio">
+          <div>
+            <span>B) Aggressive — to get things done</span>
+            <div class="feedback-text">Aggressive communication damages trust and can harm clients and colleagues.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <input type="radio">
+          <div>
+            <span>C) Assertive — direct, respectful, honest</span>
+            <div class="feedback-text">Correct — assertive communication respects your own needs and the other person's. It's the professional standard in community services.</div>
+          </div>
+        </label>
+        <label class="quiz-opt" onclick="selectOpt(this,'qq4')">
+          <input type="radio">
+          <div>
+            <span>D) Manipulative — to motivate clients</span>
+            <div class="feedback-text">Manipulative communication violates professional ethics and client rights.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">Check my answers</button>
+    <div class="quiz-result" id="quizResult"></div>
+  </div>
+</div>
+
+<!-- WORKSHEET: Communication Style + Word Scramble (Handout 1 Part 4) -->
+<div class="section">
+  <div class="section-label">Worksheet</div>
+  <div class="section-title"><span class="ico">✏️</span> Handout 1 Part 4 — My Communication Style</div>
+
+  <!-- Part 4 -->
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div style="font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--teal); margin-bottom:12px;">Part 4 — My Communication Style</div>
+    <p style="font-size:15px; margin-bottom:14px;">Click the style that feels most like your default. Then explain your thinking below.</p>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;" id="styleButtons">
+      <button class="style-btn" onclick="selectStyle('Assertive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Assertive</button>
+      <button class="style-btn" onclick="selectStyle('Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Aggressive</button>
+      <button class="style-btn" onclick="selectStyle('Passive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive</button>
+      <button class="style-btn" onclick="selectStyle('Passive-Aggressive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Passive-Aggressive</button>
+      <button class="style-btn" onclick="selectStyle('Submissive')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Submissive</button>
+      <button class="style-btn" onclick="selectStyle('Manipulative')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Manipulative</button>
+      <button class="style-btn" onclick="selectStyle('Direct')" style="padding:10px 16px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .15s;">Direct</button>
+    </div>
+    <div id="ws4_selected_display" style="font-size:14px; color:var(--muted); font-style:italic; margin-bottom:12px;">No style selected yet.</div>
+    <div class="fill-label">Why do you think this is your default style?</div>
+    <textarea class="fill-area" id="ws4_reason" placeholder="Think about how you naturally communicate under pressure, with people you don't know well, or when you disagree with someone..." style="min-height:90px;"></textarea>
+    <div class="save-note"><span>&#128274;</span> <span>Your selection and notes are saved privately to this device.</span></div>
+  </div>
+
+  <!-- WORD SCRAMBLE -->
+  <div class="box box-purple" style="margin-bottom:18px; margin-top:32px;">
+    <div class="box-label">Additional Activity — Word Scramble</div>
+    <p style="margin-bottom:0;">Unscramble the key terms. Type the correct word and press Enter or click Check.</p>
+  </div>
+
+  <div style="background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:22px;">
+    <div id="scramble_wrap">
+      <!-- Generated by JS -->
+    </div>
+    <div id="scramble_score" style="margin-top:14px; font-size:15px; font-weight:700; color:var(--navy); display:none;"></div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- REFLECTION SPACE -->
+<div class="tbb tbb-break"><span class="tbb-time">2:30 – 2:45</span><span class="tbb-sep">|</span><span class="tbb-name">☕ Break</span><span class="tbb-dur">15 min</span></div>
+<div class="tbb"><span class="tbb-time">2:45 – 3:00</span><span class="tbb-sep">|</span><span class="tbb-name">Group Discussion &amp; Wrap-up</span><span class="tbb-dur">15 min</span></div>
+<div id="s-reflection" class="section">
+  <div class="section-label">Reflection</div>
+  <div class="section-title"><span class="ico">✍️</span> Your Reflection</div>
+
+  <p>Reflection is a professional skill — not just an assessment requirement. The ability to examine your own communication honestly is what separates average workers from great ones.</p>
+
+  <div class="box box-purple">
+    <div class="box-label">Reflection prompt</div>
+    <p>Think of a communication situation you've been in — at work, study, or in life generally. What style were you using? What worked? What would you do differently?</p>
+  </div>
+
+  <div class="fill-label">Your reflection</div>
+  <textarea class="fill-area" id="reflectionArea" placeholder="Write your thoughts here..." style="min-height: 130px;"></textarea>
+  <div class="save-note">
+    <span>&#128274;</span>
+    <span>Your notes are saved privately to this device. They are not sent anywhere.</span>
+  </div>
+</div>
+
+<hr>
+
+<!-- GLOSSARY -->
+<div id="s-glossary" class="section">
+  <div class="section-label">Reference</div>
+  <div class="section-title"><span class="ico">📖</span> Key Terms</div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">Interpersonal skills</div>
+    <div class="gloss-def">The skills used to interact and communicate with others. In community services, these include empathy, active listening, and the ability to build trust.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Communication process</div>
+    <div class="gloss-def">The cycle by which a message moves from sender to receiver and back through feedback. All five parts — sender, message, channel, receiver, feedback — must work for communication to succeed.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Verbal communication</div>
+    <div class="gloss-def">Communication using spoken or written words — including the words chosen, tone of voice, pace, and volume.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Non-verbal communication</div>
+    <div class="gloss-def">Communication through body language, facial expressions, eye contact, gestures, posture, and use of personal space — often more powerful than words.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Active listening</div>
+    <div class="gloss-def">Giving your full attention to a speaker — using nodding, eye contact, paraphrasing, and summarising to show you are engaged and to check understanding.</div>
+    <div class="gloss-eg">Paraphrasing: "So what I'm hearing is that you're feeling overwhelmed — is that right?"</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Open question</div>
+    <div class="gloss-def">A question that invites a detailed response — cannot be answered with just yes or no. Used to explore and understand.</div>
+    <div class="gloss-eg">"What has been the hardest part of this week for you?"</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Closed question</div>
+    <div class="gloss-def">A question with a short or yes/no answer. Used to confirm specific facts.</div>
+    <div class="gloss-eg">"Have you received your Centrelink payment this week?"</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Clarifying question</div>
+    <div class="gloss-def">A question used to confirm understanding and avoid assumptions.</div>
+    <div class="gloss-eg">"Just to check — you said you'd prefer morning appointments?"</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Barrier to communication</div>
+    <div class="gloss-def">Anything that prevents a message from being sent, received, or understood correctly — including language, emotion, environment, disability, or bias.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Assertive communication</div>
+    <div class="gloss-def">Expressing your thoughts, feelings, and needs clearly and respectfully — without being passive (suppressing them) or aggressive (forcing them on others).</div>
+    <div class="gloss-eg">Community services professional standard: honest, direct, and kind.</div>
+  </div>
+</div>
+
+<hr>
+
 <!-- ASSESSMENT CONNECTIONS -->
 <div id="s-at" class="section">
   <div class="section-label">Assessment</div>
@@ -1277,7 +1278,7 @@ Keep your Key Model Handout and worksheet — useful reference tools for your as
 
 <script>
 // --- Progress steps ---
-const sections = ['s-intro','s-process','s-listening','s-barriers','s-quiz','s-reflection'];
+const sections = ['s-intro','s-process','s-listening','s-barriers','s-cardsort','s-quiz','s-reflection'];
 function updateProgress() {
   const steps = document.querySelectorAll('.step');
   let current = 0;
