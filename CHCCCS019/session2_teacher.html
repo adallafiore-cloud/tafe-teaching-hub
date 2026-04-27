@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 2 — TEACHER VIEW | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1e2d42;--amber:#e8a020;--amber-light:#f0b84a;--amber-dim:#c4851a;--teal:#2a8c82;--teal-light:#3ab3a6;--rose:#c0534a;--teacher:#4a2a7a;--teacher-light:#9b6dcf;--teacher-border:#6b3fa0;--text:#dde3ec;--text-dim:#8a9bb5;--text-faint:#4a5a72;--border:#243350;--card:#162032;--radius:10px;--radius-sm:6px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+  .site-header{background:#120d1f;border-bottom:2px solid var(--teacher-border);padding:0 2rem;position:sticky;top:0;z-index:100}
+  .header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .header-unit{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teacher-light);letter-spacing:.12em;text-transform:uppercase}
+  .header-nav{display:flex;gap:1.2rem;align-items:center}
+  .header-nav a{color:var(--text-dim);text-decoration:none;font-size:.8rem;transition:color .2s}.header-nav a:hover{color:var(--teacher-light)}
+  .view-badge{background:var(--teacher);color:#fff;font-size:.65rem;font-weight:500;padding:.2rem .7rem;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+  .hero{background:linear-gradient(135deg,#0d0d1a 0%,#120d1f 60%,#0f1020 100%);border-bottom:1px solid var(--teacher-border);padding:3rem 2rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(155,109,207,.1) 0%,transparent 70%);pointer-events:none}
+  .hero-inner{max-width:960px;margin:0 auto}
+  .hero-session{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teacher-light);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+  .hero-session::before{content:'';display:inline-block;width:24px;height:2px;background:var(--teacher-light)}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:#fff;margin-bottom:.8rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem;color:var(--text-dim);font-size:.85rem;margin-bottom:1rem}
+  .hero-meta span{display:flex;align-items:center;gap:.4rem}
+  .hero-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--teacher-light);flex-shrink:0}
+  .teacher-warning{background:rgba(74,42,122,.2);border:1px solid var(--teacher-border);border-radius:var(--radius-sm);padding:.6rem 1rem;font-size:.78rem;color:var(--teacher-light);display:inline-flex;align-items:center;gap:.5rem}
+  .page-body{max-width:960px;margin:0 auto;padding:2.5rem 2rem 5rem}
+  .teacher-block{background:rgba(74,42,122,.12);border:1px solid var(--teacher-border);border-left:4px solid var(--teacher-light);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1.2rem}
+  .teacher-block-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teacher-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+  .teacher-block-label::after{content:'';flex:1;height:1px;background:rgba(107,63,160,.3)}
+  .teacher-block p{font-size:.87rem;color:var(--text-dim);margin-bottom:.5rem}.teacher-block p:last-child{margin-bottom:0}
+  .teacher-block ul{padding-left:1.2rem}.teacher-block li{font-size:.85rem;color:var(--text-dim);margin-bottom:.3rem}
+  .script-block{background:rgba(42,140,130,.06);border:1px solid rgba(42,140,130,.3);border-radius:var(--radius);padding:1.2rem 1.5rem;margin-bottom:1rem}
+  .script-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teal-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+  .script-text{font-size:.88rem;color:var(--text);line-height:1.65;font-style:italic}
+  .timed-plan{margin-bottom:2rem}
+  .time-row{display:grid;grid-template-columns:110px 1fr;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border);align-items:start}
+  .time-row:last-child{border-bottom:none}
+  .time-slot{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--amber);padding-top:.1rem}
+  .time-content h4{font-size:.9rem;color:var(--text);font-weight:500;margin-bottom:.3rem}
+  .time-content p{font-size:.82rem;color:var(--text-dim)}
+  .time-row.break .time-content h4{color:var(--text-faint)}
+  .section-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teacher-light);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:1rem}
+  .section{margin-bottom:3rem}
+  .diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+  .diff-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem}
+  .diff-label{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+  .diff-label.support{color:var(--teal-light)}.diff-label.extend{color:var(--amber)}
+  .diff-card ul{padding-left:1.2rem}.diff-card li{font-size:.82rem;color:var(--text-dim);margin-bottom:.3rem}
+  .checklist{list-style:none;padding:0}
+  .checklist li{display:flex;align-items:center;gap:.8rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.85rem;color:var(--text-dim);cursor:pointer;user-select:none}
+  .checklist li:last-child{border-bottom:none}
+  .check-box{width:18px;height:18px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .checklist li.checked .check-box{background:var(--teal);border-color:var(--teal)}
+  .checklist li.checked .check-box::after{content:'✓';color:#fff;font-size:.7rem;font-weight:700}
+  .checklist li.checked span{text-decoration:line-through;color:var(--text-faint)}
+  .answers-block{background:rgba(232,160,32,.06);border:1px solid rgba(232,160,32,.2);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1rem}
+  .answers-block h3{color:var(--amber-light);font-size:.9rem;margin-bottom:.8rem}
+  .answer-row{display:flex;gap:.8rem;font-size:.84rem;padding:.4rem 0}
+  .answer-row .q-num{color:var(--amber);font-family:'DM Mono',monospace;font-size:.75rem;flex-shrink:0}
+  .answer-row .q-ans{color:var(--text-dim)}.answer-row .q-ans strong{color:var(--amber-light)}
+  .callout{display:flex;gap:1rem;padding:1.1rem 1.3rem;border-radius:var(--radius);margin-bottom:1rem;align-items:flex-start}
+  .callout.amber{background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.25)}
+  .callout.rose{background:rgba(192,83,74,.08);border:1px solid rgba(192,83,74,.25)}
+  .callout-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+  .callout-body{font-size:.85rem;color:var(--text-dim);line-height:1.5}.callout-body strong{color:var(--text)}
+  .summary-panel{background:linear-gradient(135deg,#120d1f,#1a1030);border:1px solid var(--teacher-border);border-top:3px solid var(--teacher-light);border-radius:var(--radius);padding:2rem;margin-bottom:2rem}
+  .summary-panel h2{margin-bottom:1rem}
+  .summary-items{list-style:none;padding:0;margin-bottom:1.5rem}
+  .summary-items li{display:flex;gap:.7rem;font-size:.88rem;color:var(--text-dim);padding:.4rem 0;align-items:flex-start}
+  .summary-items li::before{content:'✓';color:var(--teal-light);flex-shrink:0;font-weight:600}
+  .copy-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--teacher-light);color:#fff;border:none;border-radius:var(--radius-sm);padding:.65rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s}
+  .copy-btn:hover{background:#b584ea}.copy-btn.copied{background:var(--teal)}
+  @media(max-width:600px){.diff-grid{grid-template-columns:1fr}.time-row{grid-template-columns:80px 1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 2 — Teacher</span>
+    <nav class="header-nav">
+      <a href="#plan">Timing</a>
+      <a href="#scripts">Scripts</a>
+      <a href="#answers">Answers</a>
+      <a href="#diff">Differentiation</a>
+      <span class="view-badge">🍎 Teacher</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Teacher View — Session 2 of 6</div>
+    <h1>Legal and Ethical Framework</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Tuesday 12 May 2026</span>
+      <span><span class="dot"></span> 9:30 AM – 3:00 PM</span>
+      <span><span class="dot"></span> Chapter 2</span>
+    </div>
+    <div class="teacher-warning">🔒 Teacher only — do not share with students</div>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <section class="section" id="plan">
+    <div class="section-label">Facilitation Plan</div>
+    <h2>Timed Session Plan</h2>
+    <div class="timed-plan">
+      <div class="time-row">
+        <div class="time-slot">9:30–10:30</div>
+        <div class="time-content"><h4>Warm-up + Legal Concepts</h4><p>Warm-up activity (slide 30). Duty of care in detail — four elements of negligence, welfare check example (slides 31–40). Activity 2A — Mary and Joe duty of care case study.</p></div>
+      </div>
+      <div class="time-row break"><div class="time-slot">10:30–10:45</div><div class="time-content"><h4>☕ Break</h4></div></div>
+      <div class="time-row">
+        <div class="time-slot">10:45–12:00</div>
+        <div class="time-content"><h4>Codes, Values, Ethical Dilemmas</h4><p>Codes of practice (slides 46–49); YouTube — Mental Health Services in Victoria (5 min). Personal values and beliefs — assumptions, stereotypes, resilience (slides 41–45). Activity 2C — Safi and Martin ethical dilemma. Activity 2D — personal values reflection.</p></div>
+      </div>
+      <div class="time-row break"><div class="time-slot">12:00–12:45</div><div class="time-content"><h4>🍽️ Lunch</h4></div></div>
+      <div class="time-row">
+        <div class="time-slot">12:45–1:15</div>
+        <div class="time-content"><h4>Confirming Actions are Legal — Checklist</h4><p>Walk through the duty of care checklist on slide 48. Small group: apply to a scenario. Whole group debrief — what questions would you ask?</p></div>
+      </div>
+      <div class="time-row">
+        <div class="time-slot">1:15–2:30</div>
+        <div class="time-content"><h4>AT1 Work Time</h4><p>Students work on Chapter 2 knowledge questions. Circulate — check for misunderstandings about negligence, confidentiality exceptions, and the distinction between policy and legislation.</p></div>
+      </div>
+      <div class="time-row break"><div class="time-slot">2:30–2:45</div><div class="time-content"><h4>☕ Break</h4></div></div>
+      <div class="time-row">
+        <div class="time-slot">2:45–3:00</div>
+        <div class="time-content"><h4>Wrap-up</h4><p>Key takeaways (slide 50). Teams summary. Confirm homework: read Chapter 3.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="scripts">
+    <div class="section-label">Teacher Scripts</div>
+    <h2>Facilitation Notes</h2>
+
+    <div class="script-block">
+      <div class="script-label">Opening — Duty of care (Slide 31)</div>
+      <p class="script-text">"Duty of care is one of those terms that gets used a lot in community services, but people often misunderstand what it actually means legally. It doesn't mean you're responsible for everything that happens to your client. It means you must avoid causing reasonably foreseeable harm through careless behaviour. The key word is 'reasonable.' You're not expected to be psychic or to prevent every possible outcome — you're expected to apply the judgement of a competent professional in your role. If you work within your job description, follow your org's policies, and use common sense, you are very unlikely to breach duty of care."</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Confidentiality — when can you disclose? (Slide 37)</div>
+      <p class="script-text">"Here's the rule: you do not disclose confidential information without consent — full stop. Two exceptions: one, when it's necessary to protect someone from harm — not possible harm, not theoretical harm, but an identified risk of harm. Two, when formally required by a court of law. That's it. Not because your supervisor asked. Not because the client's family is worried. Not because you think it would be in the client's best interests. Check your org's policy and document your decision-making if you ever face this situation."</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Values and assumptions (Slide 41–43)</div>
+      <p class="script-text">"I want to talk about something that's easy to say and hard to practise: being non-judgemental. We all have values. We all have assumptions. They shape how we see people before we've even heard their story. An extreme version of an assumption is a stereotype — a fixed set of ideas about a whole group of people based on a single characteristic. <em>(read examples from learner guide)</em> These aren't just abstract moral problems — they directly affect the quality of care we give. If you assume someone who uses drugs is unreliable, you'll treat them differently. If you assume someone experiencing DFV 'just needs to leave,' you'll miss what's actually keeping them there. Our job is to notice these judgements when they arise in us and not let them drive our practice."</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Discussion Prompts</div>
+    <h2>Class Discussion Questions</h2>
+    <div class="teacher-block">
+      <div class="teacher-block-label">Use as needed throughout the session</div>
+      <ul>
+        <li>What's the difference between a policy and a procedure? Can you think of an example of each from a community services setting?</li>
+        <li>If a client tells you they're planning to harm someone, are you required to maintain confidentiality? What would you do?</li>
+        <li>What does 'reasonably foreseeable harm' mean? Give an example where harm was foreseeable and one where it wasn't.</li>
+        <li>Simon buys clothing for a child client out of his own pocket and offers to have her stay at his house. Why is this problematic — even though his intentions are good?</li>
+        <li>What is one assumption you've noticed yourself making about a particular group of people? How might that assumption affect your work as a community services worker?</li>
+        <li>What's the difference between stereotyping and having a culturally informed understanding of a community?</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="answers">
+    <div class="section-label">Quiz Answers</div>
+    <h2>Student Quiz — Benchmark Answers</h2>
+    <div class="answers-block">
+      <div class="answer-row"><span class="q-num">Q1</span><span class="q-ans"><strong>B</strong> — Take reasonable care to avoid reasonably foreseeable harm through careless behaviour. Duty of care does not require you to predict all possible harm, only that which a reasonable person could foresee.</span></div>
+      <div class="answer-row"><span class="q-num">Q2</span><span class="q-ans"><strong>C</strong> — To protect someone from harm, or when formally required by a court of law. Not supervisor requests, not family requests, not personal judgement about the client's 'best interests.'</span></div>
+      <div class="answer-row"><span class="q-num">Q3</span><span class="q-ans"><strong>B</strong> — Working outside work role boundaries. Taking a client child home and buying them gifts creates professional and legal risks regardless of intent. Simon should consult his supervisor and refer to appropriate services.</span></div>
+      <div class="answer-row"><span class="q-num">Q4</span><span class="q-ans"><strong>C</strong> — People have strengths and capacity to address their own situations — they are the experts on their own lives. This reflects a strengths-based, empowering approach. Options A and B reflect harmful assumptions.</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="diff">
+    <div class="section-label">Differentiation</div>
+    <h2>Supporting Your Cohort</h2>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-label support">Support strategies</div>
+        <ul>
+          <li>Pre-teach key legal vocabulary: duty of care, negligence, mandatory reporting, disclosure</li>
+          <li>Provide the Duty of Care Checklist handout as a reference during activities</li>
+          <li>For EAL/D students: pair for the ethical dilemma activity and allow verbal responses</li>
+          <li>Use the sample welfare check policy (LG p.26–28) as a worked example before activities</li>
+        </ul>
+      </div>
+      <div class="diff-card">
+        <div class="diff-label extend">Extension strategies</div>
+        <ul>
+          <li>Research the actual text of the Privacy Act 1988 (Cth) — what does it require?</li>
+          <li>Find one example of a community services worker who was found liable for negligence — what happened?</li>
+          <li>Compare the ACWA Code of Ethics with the NDIS Code of Conduct — key similarities and differences</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout amber">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body"><strong>Watch for:</strong> Students often confuse 'duty of care' with 'always doing whatever the client wants.' Clarify that client autonomy and duty of care can sometimes be in tension — and that working within your role boundaries is how you navigate this.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Resource Checklist</div>
+    <h2>Before You Start</h2>
+    <ul class="checklist" id="resourceList">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Key Model Handout — Duty of Care Checklist (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Activity Worksheet — Ethical Dilemmas (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>YouTube — Mental Health Services in Victoria queued and tested (5 min)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>ACWA Code of Ethics URL ready to share (https://www.acwa.org.au)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>PowerPoint slides loaded and tested</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Student HTML page URL ready to share via Teams</span></li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="summary-panel">
+      <h2>Teacher Summary — Session 2</h2>
+      <ul class="summary-items">
+        <li>Duty of care and four elements of negligence covered</li>
+        <li>Privacy, confidentiality and disclosure exceptions clarified</li>
+        <li>Work role boundaries — Simon case study discussed</li>
+        <li>Mandatory reporting obligations reviewed</li>
+        <li>Codes of practice and confirming legal actions covered</li>
+        <li>Personal values, assumptions and stereotypes discussed</li>
+      </ul>
+      <button class="copy-btn" id="copyBtn" onclick="copyToTeams()">📋 Copy Teams message</button>
+    </div>
+  </section>
+
+</div>
+<script>
+function toggleCheck(el){el.classList.toggle('checked')}
+function copyToTeams(){
+  const text=`📌 Session 2 Summary — Legal and Ethical Framework | CHCCCS019
+
+Today we covered:
+✔ Duty of care and what it means in practice
+✔ Privacy, confidentiality, and when disclosure is justified
+✔ Work role boundaries and why they matter
+✔ Mandatory reporting obligations
+✔ Codes of practice (ACWA and others)
+✔ How personal values and beliefs can affect your work
+
+📚 Before Session 3 (Mon 18 May): Read Chapter 3 of your Learner Guide — Principles and Practices.
+📝 AT1: Continue working on questions related to Chapter 2.`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copyBtn');btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copy Teams message';btn.classList.remove('copied');},2500);
+  });
+}
+</script>
+</body>
+</html>

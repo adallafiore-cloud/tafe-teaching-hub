@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 4 — Crisis Intervention Practices & Self-Care | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1e2d42;--amber:#e8a020;--amber-light:#f0b84a;--amber-dim:#c4851a;--teal:#2a8c82;--teal-light:#3ab3a6;--rose:#c0534a;--rose-light:#d96c63;--text:#dde3ec;--text-dim:#8a9bb5;--text-faint:#4a5a72;--border:#243350;--card:#162032;--card-hover:#1d2c42;--radius:10px;--radius-sm:6px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+  .site-header{background:var(--navy-mid);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:100}
+  .header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .header-unit{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--amber);letter-spacing:.12em;text-transform:uppercase}
+  .header-nav{display:flex;gap:1.2rem;align-items:center}
+  .header-nav a{color:var(--text-dim);text-decoration:none;font-size:.8rem;transition:color .2s}.header-nav a:hover{color:var(--amber)}
+  .view-badge{background:var(--teal);color:#fff;font-size:.65rem;font-weight:500;padding:.2rem .6rem;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+  .hero{background:linear-gradient(135deg,#0d1b2a 0%,#162032 60%,#0f2438 100%);border-bottom:1px solid var(--border);padding:3.5rem 2rem 3rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(232,160,32,.08) 0%,transparent 70%);pointer-events:none}
+  .hero-inner{max-width:900px;margin:0 auto}
+  .hero-session{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--amber);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+  .hero-session::before{content:'';display:inline-block;width:24px;height:2px;background:var(--amber)}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1.15;color:#fff;margin-bottom:1rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem;color:var(--text-dim);font-size:.85rem}
+  .hero-meta span{display:flex;align-items:center;gap:.4rem}
+  .hero-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0}
+  .page-body{max-width:900px;margin:0 auto;padding:2.5rem 2rem 5rem}
+  .section-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;color:#fff;margin-bottom:1rem}
+  h3{font-family:'DM Sans',sans-serif;font-weight:500;font-size:1rem;color:var(--amber-light);margin-bottom:.6rem}
+  .section{margin-bottom:3rem}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .card p{color:var(--text-dim);font-size:.9rem;margin-bottom:.6rem}.card p:last-child{margin-bottom:0}
+  .quiz-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .quiz-q{font-size:.95rem;color:var(--text);margin-bottom:1rem;font-weight:500}
+  .quiz-options{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+  .quiz-option{background:var(--navy-light);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem 1rem;cursor:pointer;font-size:.85rem;color:var(--text-dim);transition:all .2s;text-align:left}
+  .quiz-option:hover{border-color:var(--amber-dim);color:var(--text)}
+  .quiz-option.correct{border-color:var(--teal);background:rgba(42,140,130,.12);color:var(--teal-light)}
+  .quiz-option.incorrect{border-color:var(--rose);background:rgba(192,83,74,.12);color:var(--rose-light)}
+  .quiz-feedback{font-size:.82rem;border-radius:var(--radius-sm);padding:.6rem .9rem;display:none}
+  .quiz-feedback.correct{background:rgba(42,140,130,.15);color:var(--teal-light);border:1px solid var(--teal);display:block}
+  .quiz-feedback.incorrect{background:rgba(192,83,74,.15);color:var(--rose-light);border:1px solid var(--rose);display:block}
+  .reflection-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .reflection-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem}
+  .reflection-prompt{font-size:.9rem;color:var(--text-dim);margin-bottom:.8rem}
+  .reflection-area{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;line-height:1.6;padding:.8rem 1rem;resize:vertical;min-height:90px;transition:border-color .2s}
+  .reflection-area:focus{outline:none;border-color:var(--teal)}.reflection-area::placeholder{color:var(--text-faint)}
+  .callout{display:flex;gap:1rem;padding:1.1rem 1.3rem;border-radius:var(--radius);margin-bottom:1rem;align-items:flex-start}
+  .callout.amber{background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.25)}
+  .callout.teal{background:rgba(42,140,130,.08);border:1px solid rgba(42,140,130,.25)}
+  .callout.rose{background:rgba(192,83,74,.08);border:1px solid rgba(192,83,74,.25)}
+  .callout-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+  .callout-body{font-size:.85rem;color:var(--text-dim);line-height:1.5}
+  .callout-body strong{color:var(--text)}
+  .at-box{background:rgba(232,160,32,.06);border:1px solid rgba(232,160,32,.2);border-radius:var(--radius);padding:1.2rem 1.5rem;margin-bottom:1.5rem}
+  .at-box-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--amber);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+  .at-box h3{color:var(--amber-light);font-size:.95rem;margin-bottom:.4rem}
+  .at-box p{color:var(--text-dim);font-size:.84rem}
+  .at-box.urgent{border-color:rgba(232,160,32,.5);background:rgba(232,160,32,.1)}
+  .summary-panel{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border:1px solid var(--border);border-top:3px solid var(--amber);border-radius:var(--radius);padding:2rem;margin-bottom:2rem}
+  .summary-panel h2{margin-bottom:1rem}
+  .summary-items{list-style:none;padding:0;margin-bottom:1.5rem}
+  .summary-items li{display:flex;gap:.7rem;font-size:.88rem;color:var(--text-dim);padding:.4rem 0;align-items:flex-start}
+  .summary-items li::before{content:'✓';color:var(--teal-light);flex-shrink:0;font-weight:600}
+  .summary-next{background:var(--navy);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem 1.2rem;font-size:.85rem;color:var(--text-dim);margin-bottom:1rem}
+  .summary-next strong{color:var(--amber-light);display:block;margin-bottom:.3rem}
+  .copy-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--amber);color:var(--navy);border:none;border-radius:var(--radius-sm);padding:.65rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s}
+  .copy-btn:hover{background:var(--amber-light)}.copy-btn.copied{background:var(--teal);color:#fff}
+  .progress-bar{height:3px;background:var(--border);border-radius:99px;margin-bottom:2.5rem;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber-light));border-radius:99px}
+  .fade-in{opacity:0;transform:translateY(16px);animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+  .fade-in:nth-child(1){animation-delay:.05s}.fade-in:nth-child(2){animation-delay:.1s}.fade-in:nth-child(3){animation-delay:.15s}.fade-in:nth-child(4){animation-delay:.2s}.fade-in:nth-child(5){animation-delay:.25s}
+  .steps-list{list-style:none;padding:0}
+  .steps-list li{display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
+  .steps-list li:last-child{border-bottom:none}
+  .step-num{flex-shrink:0;width:28px;height:28px;background:var(--amber);color:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;margin-top:.1rem}
+  .step-content{font-size:.88rem;color:var(--text-dim);line-height:1.5}
+  .step-content strong{color:var(--text)}
+  /* SELF CARE GRID */
+  .sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.8rem;margin-bottom:1.5rem}
+  .sc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center}
+  .sc-icon{font-size:1.5rem;margin-bottom:.5rem}
+  .sc-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+  .sc-items{font-size:.78rem;color:var(--text-dim);line-height:1.5}
+  /* ROLEPLAY PREP */
+  .roleplay-block{background:rgba(192,83,74,.06);border:1px solid rgba(192,83,74,.25);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1rem}
+  .roleplay-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--rose-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+  .roleplay-block h3{color:var(--rose-light);font-size:.95rem;margin-bottom:.5rem}
+  .roleplay-block p{font-size:.85rem;color:var(--text-dim);margin-bottom:.4rem}
+  .roleplay-block ul{padding-left:1.2rem}
+  .roleplay-block li{font-size:.83rem;color:var(--text-dim);margin-bottom:.3rem}
+  @media(max-width:600px){.sc-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 4</span>
+    <nav class="header-nav">
+      <a href="#safety">Safety</a>
+      <a href="#selfcare">Self-Care</a>
+      <a href="#roleplay">Role Play Prep</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#summary">Summary</a>
+      <span class="view-badge">Student</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Session 4 of 6</div>
+    <h1>Crisis Intervention Practices & Self-Care</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Tuesday 19 May 2026</span>
+      <span><span class="dot"></span> Learner Guide Chapters 4–5</span>
+      <span><span class="dot"></span> AT1 due today</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-body">
+  <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
+
+  <!-- SAFETY CONCERNS -->
+  <section class="section fade-in" id="safety">
+    <div class="section-label">Chapter 4 — Addressing Safety Concerns</div>
+    <h2>Steps for Addressing Safety in a Crisis</h2>
+    <div class="card"><p>Your first task is identifying who is at risk, what the risks are, and how serious they are. These steps don't always happen in this order.</p></div>
+    <ul class="steps-list">
+      <li><div class="step-num">1</div><div class="step-content"><strong>Observe</strong> the situation carefully.</div></li>
+      <li><div class="step-num">2</div><div class="step-content"><strong>Ask direct questions:</strong> "Tell me what is happening." "Do you feel safe?" "What would you like to do?" "How can I help?"</div></li>
+      <li><div class="step-num">3</div><div class="step-content"><strong>Take immediate action</strong> if necessary — first aid, remove people from danger.</div></li>
+      <li><div class="step-num">4</div><div class="step-content"><strong>Active listening</strong> — collect information and show empathy.</div></li>
+      <li><div class="step-num">5</div><div class="step-content"><strong>Help reframe</strong> — suggest strategies and help the person identify and express more positive thoughts.</div></li>
+      <li><div class="step-num">6</div><div class="step-content"><strong>Assess capacity</strong> — how able is this person to make decisions right now?</div></li>
+      <li><div class="step-num">7</div><div class="step-content"><strong>Balance collaboration and direction</strong> — collaborate where possible; provide direction when the person is overwhelmed.</div></li>
+      <li><div class="step-num">8</div><div class="step-content"><strong>Agree on actions</strong> — reach agreement about what to do about immediate risks.</div></li>
+      <li><div class="step-num">9</div><div class="step-content"><strong>Follow duty of care</strong> — check and follow org policies and procedures.</div></li>
+    </ul>
+
+    <h3 style="margin-top:1.5rem;margin-bottom:.8rem">Communication Techniques</h3>
+    <div class="card">
+      <p><strong>Active listening:</strong> Open body language, eye contact, attentive listening, not interrupting, nodding, minimal utterances ("mm-hmm"), reflecting back what was said.</p>
+      <p><strong>Affirm agency:</strong> "You've been through a lot." "You have options." "You have support." "You've done really well."</p>
+      <p><strong>Affirm safety:</strong> "You're safe here now." "You're in a safe place."</p>
+      <p><strong>Enable positive thoughts:</strong> Help the person identify and express thoughts that build towards a plan, rather than catastrophising.</p>
+    </div>
+    <div class="callout amber">
+      <span class="callout-icon">⚖️</span>
+      <div class="callout-body"><strong>Collaboration vs direction:</strong> Always prefer collaboration — it respects the person's agency and builds their capacity. Move to direction only when the person is so overwhelmed they cannot make decisions safely.</div>
+    </div>
+  </section>
+
+  <!-- SELF-CARE -->
+  <section class="section fade-in" id="selfcare">
+    <div class="section-label">Chapter 5 — Self-Care</div>
+    <h2>Taking Care of Yourself</h2>
+    <div class="card">
+      <p>Self-care means taking care of your own physical, mental, and emotional wellbeing as part of your professional practice. You cannot effectively support others if you are not able to support yourself.</p>
+      <p><strong>Vicarious trauma</strong> is the emotional, psychological, and physical impact of being exposed to others' traumatic experiences. It is an unavoidable consequence of working in community services — not a sign of weakness.</p>
+    </div>
+
+    <h3 style="margin-top:1.2rem;margin-bottom:.8rem">Signs you may need support</h3>
+    <div class="card">
+      <p>Emotional numbness or detachment from work · Difficulty sleeping or concentrating · Increased irritability or anxiety · Loss of satisfaction in your work · Physical symptoms (headaches, fatigue)</p>
+    </div>
+
+    <h3 style="margin-top:1.2rem;margin-bottom:.8rem">Self-Care Strategies</h3>
+    <div class="sc-grid">
+      <div class="sc-card">
+        <div class="sc-icon">🏃</div>
+        <div class="sc-label">Healthy lifestyle</div>
+        <div class="sc-items">Sleep · Nutrition · Exercise</div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-icon">🎨</div>
+        <div class="sc-label">Hobbies</div>
+        <div class="sc-items">Sports · Music · Arts and crafts</div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-icon">👥</div>
+        <div class="sc-label">Relationships</div>
+        <div class="sc-items">Friends · Family · Significant others</div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-icon">🧘</div>
+        <div class="sc-label">Wellbeing</div>
+        <div class="sc-items">Meditation · Yoga · Mindfulness</div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-icon">💬</div>
+        <div class="sc-label">Stress management</div>
+        <div class="sc-items">Debriefing · Counselling · Work/life routines</div>
+      </div>
+    </div>
+
+    <div class="callout teal">
+      <span class="callout-icon">👁</span>
+      <div class="callout-body"><strong>Supervision</strong> is essential when working with people in crisis. Access it regularly — not just when things go wrong. It's part of your duty of care to yourself.</div>
+    </div>
+    <div class="callout teal">
+      <span class="callout-icon">🗓</span>
+      <div class="callout-body"><strong>Critical incident debriefing</strong> should happen as soon as possible after an incident — ideally within 3 days. Your org is required to provide this support.</div>
+    </div>
+  </section>
+
+  <!-- ROLE PLAY PREP -->
+  <section class="section fade-in" id="roleplay">
+    <div class="section-label">Assessment Preparation</div>
+    <h2>Role Play Briefing — Session 5</h2>
+    <div class="callout rose">
+      <span class="callout-icon">📋</span>
+      <div class="callout-body"><strong>Session 5 (Mon 25 May) is Assessment Day.</strong> You will complete three role plays — AT2 (Denise), AT3 (Serena), and AT4 (Colman Parts A & B). Read your Student Assessment Booklet carefully before next session.</div>
+    </div>
+
+    <div class="roleplay-block">
+      <div class="roleplay-label">AT2 — Denise</div>
+      <h3>Scenario overview</h3>
+      <p>You are a client services officer at First Access. Denise has PTSD following an attempted murder-suicide by her drug-affected partner. You have just finished her appointment. While saying goodbye in the reception area, a car backfires outside — Denise has a severe trauma response.</p>
+      <p><strong>Your assessor will observe whether you:</strong></p>
+      <ul>
+        <li>Identify and respond to signs of crisis</li>
+        <li>Monitor for safety risks to Denise, yourself and others</li>
+        <li>Use appropriate active listening and communication techniques</li>
+        <li>Affirm Denise's agency and safety</li>
+        <li>Balance direction and collaboration</li>
+        <li>Follow correct workplace duty of care procedures</li>
+      </ul>
+    </div>
+
+    <div class="roleplay-block">
+      <div class="roleplay-label">AT3 — Serena</div>
+      <h3>Scenario overview</h3>
+      <p>Serena is a young woman who has experienced domestic violence. She has moved away and has a personal safety intervention order. She arrives at First Access an hour early, extremely distressed and agitated.</p>
+    </div>
+
+    <div class="roleplay-block">
+      <div class="roleplay-label">AT4 — Colman (Parts A & B)</div>
+      <h3>Scenario overview</h3>
+      <p>Two-part role play. Part A: respond to Colman's initial crisis. Part B: follow up with Colman. Full scenario and instructions are in your Student Assessment Booklet.</p>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="section fade-in" id="quiz">
+    <div class="section-label">Knowledge Check</div>
+    <h2>Quick Quiz</h2>
+
+    <div class="quiz-block">
+      <div class="quiz-q">1. What is vicarious trauma?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">A type of trauma that only affects clinical psychologists</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">The emotional, psychological and physical impact of being exposed to others' traumatic experiences</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">A trauma caused by witnessing violence in the workplace</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">A mild stress response that resolves itself without intervention</button>
+      </div>
+      <div class="quiz-feedback" id="qfb1"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">2. When should you move from a collaborative to a more directive approach in crisis intervention?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">Always — direction is more efficient in a crisis</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Never — collaboration must always be maintained</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">When the person is so overwhelmed that they cannot make decisions safely</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">When the person is verbally aggressive or refusing help</button>
+      </div>
+      <div class="quiz-feedback" id="qfb2"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">3. Which of the following is an example of affirming a client's agency?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">"Don't worry, everything is going to be fine."</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">"I'll call an ambulance — you don't need to make any decisions right now."</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">"You've done really well to get here today. You have options, and I'd like to help you think through them. What would you like to happen?"</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">"I can see you're feeling very distressed — you should probably go home and rest."</button>
+      </div>
+      <div class="quiz-feedback" id="qfb3"></div>
+    </div>
+  </section>
+
+  <!-- REFLECTION -->
+  <section class="section fade-in">
+    <div class="section-label">Self-Care Planning</div>
+    <div class="reflection-block">
+      <div class="reflection-label">Activity 5A — Your Self-Care Plan</div>
+      <div class="reflection-prompt">Identify three aspects of community services work that might be emotionally challenging for you. Then name one self-care strategy for each that would genuinely help — not just what sounds good, but what would actually work for you.</div>
+      <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+    </div>
+  </section>
+
+  <!-- AT1 DUE -->
+  <section class="section fade-in">
+    <div class="section-label">Assessment</div>
+    <div class="at-box urgent">
+      <div class="at-box-label">⚡ AT1 — Due Today</div>
+      <h3>Submit your Knowledge Questions by end of session</h3>
+      <p>AT1 covers all content from Sessions 1–4 (Chapters 1–5 of the Learner Guide). Open book. Submit your completed Student Assessment Booklet to your teacher today.</p>
+    </div>
+    <div class="at-box">
+      <div class="at-box-label">Next Session — Assessment Day</div>
+      <h3>Session 5 (Mon 25 May) — Role Plays</h3>
+      <p>Come prepared for AT2 (Denise), AT3 (Serena), and AT4 (Colman Parts A & B). Read your Student Assessment Booklet. Know your scenarios.</p>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="section fade-in" id="summary">
+    <div class="section-label">End of Session</div>
+    <div class="summary-panel">
+      <h2>Session 4 — What We Covered</h2>
+      <ul class="summary-items">
+        <li>How to address safety concerns in a crisis — observe, ask, listen, reframe, collaborate</li>
+        <li>Communication techniques: active listening, affirming agency and safety, enabling positive thoughts</li>
+        <li>Balancing direction and collaboration based on the person's capacity</li>
+        <li>What self-care is and why it matters for community services workers</li>
+        <li>Vicarious trauma — what it is and how to manage it</li>
+        <li>Self-care strategies, supervision, and critical incident debriefing</li>
+      </ul>
+      <div class="summary-next">
+        <strong>📋 AT1 submitted today — thank you!</strong>
+        Your teacher will mark your work and provide feedback.
+      </div>
+      <div class="summary-next">
+        <strong>🎭 Next Session (Mon 25 May): Assessment Day.</strong>
+        Come prepared for all three role play scenarios. Read your Student Assessment Booklet carefully this week.
+      </div>
+      <button class="copy-btn" id="copyBtn" onclick="copyToTeams()">📋 Copy summary for Teams</button>
+    </div>
+  </section>
+</div>
+
+<script>
+let qAttempts={};
+function checkQ(btn,isCorrect){
+  const block=btn.closest('.quiz-block');const qid=block.querySelector('.quiz-feedback').id;
+  if(qAttempts[qid])return;qAttempts[qid]=true;
+  const opts=block.querySelectorAll('.quiz-option');opts.forEach(o=>o.style.pointerEvents='none');
+  const fb=document.getElementById(qid);
+  if(isCorrect){btn.classList.add('correct');fb.textContent='✓ Correct!';fb.className='quiz-feedback correct';}
+  else{btn.classList.add('incorrect');fb.textContent='✗ Not quite — review the learner guide.';fb.className='quiz-feedback incorrect';opts.forEach(o=>{if(o.onclick.toString().includes('true'))o.classList.add('correct');});}
+}
+function copyToTeams(){
+  const text=`📌 Session 4 Summary — Crisis Intervention Practices & Self-Care | CHCCCS019
+
+Today we covered:
+✔ How to address safety concerns in a crisis
+✔ Communication techniques: active listening, affirming agency and safety
+✔ Balancing direction and collaboration
+✔ What self-care is and why it matters
+✔ Vicarious trauma and how to manage it
+✔ Self-care strategies, supervision, and critical incident debriefing
+
+📋 AT1 submitted today — thank you!
+🎭 Next session (Mon 25 May) is Assessment Day. Come prepared for AT2 (Denise), AT3 (Serena), and AT4 (Colman). Read your Student Assessment Booklet.`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copyBtn');btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copy summary for Teams';btn.classList.remove('copied');},2500);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 — What is a Crisis? | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #162032;
+    --navy-light: #1e2d42;
+    --amber: #e8a020;
+    --amber-light: #f0b84a;
+    --amber-dim: #c4851a;
+    --teal: #2a8c82;
+    --teal-light: #3ab3a6;
+    --rose: #c0534a;
+    --rose-light: #d96c63;
+    --text: #dde3ec;
+    --text-dim: #8a9bb5;
+    --text-faint: #4a5a72;
+    --border: #243350;
+    --card: #162032;
+    --card-hover: #1d2c42;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--navy-mid);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .header-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--amber);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .header-nav { display: flex; gap: 1.2rem; align-items: center; }
+  .header-nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+  }
+  .header-nav a:hover { color: var(--amber); }
+  .view-badge {
+    background: var(--teal);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0d1b2a 0%, #162032 60%, #0f2438 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 3.5rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(232,160,32,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero-session {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--amber);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .hero-session::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 2px;
+    background: var(--amber);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
+  .hero-meta .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+  /* ── LAYOUT ── */
+  .page-body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 5rem;
+  }
+
+  /* ── SECTION HEADINGS ── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--amber);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--amber-light);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 0.6rem; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* ── KEY CONCEPT CARDS ── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .concept-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .concept-card:hover { background: var(--card-hover); }
+  .concept-card h3 { color: var(--amber-light); margin-bottom: 0.4rem; font-size: 0.9rem; }
+  .concept-card p { color: var(--text-dim); font-size: 0.85rem; line-height: 1.5; }
+
+  /* ── FLIP CARDS ── */
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .flip-card {
+    height: 160px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .flip-card-inner {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+  }
+  .flip-front {
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .flip-front .flip-term {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 600;
+  }
+  .flip-front .flip-hint {
+    font-size: 0.65rem;
+    color: var(--text-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .flip-back {
+    background: var(--navy-light);
+    border: 1px solid var(--amber-dim);
+    transform: rotateY(180deg);
+  }
+  .flip-back p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* ── QUIZ ── */
+  .quiz-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .quiz-q {
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+  .quiz-option {
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    text-align: left;
+  }
+  .quiz-option:hover { border-color: var(--amber-dim); color: var(--text); }
+  .quiz-option.correct { border-color: var(--teal); background: rgba(42,140,130,0.12); color: var(--teal-light); }
+  .quiz-option.incorrect { border-color: var(--rose); background: rgba(192,83,74,0.12); color: var(--rose-light); }
+  .quiz-feedback {
+    font-size: 0.82rem;
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.9rem;
+    display: none;
+  }
+  .quiz-feedback.correct { background: rgba(42,140,130,0.15); color: var(--teal-light); border: 1px solid var(--teal); display: block; }
+  .quiz-feedback.incorrect { background: rgba(192,83,74,0.15); color: var(--rose-light); border: 1px solid var(--rose); display: block; }
+
+  /* ── REFLECTION BOX ── */
+  .reflection-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .reflection-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--teal-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .reflection-prompt { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0.8rem; }
+  .reflection-area {
+    width: 100%;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    padding: 0.8rem 1rem;
+    resize: vertical;
+    min-height: 90px;
+    transition: border-color 0.2s;
+  }
+  .reflection-area:focus { outline: none; border-color: var(--teal); }
+  .reflection-area::placeholder { color: var(--text-faint); }
+
+  /* ── SCENARIO BLOCK ── */
+  .scenario-block {
+    background: rgba(42,140,130,0.06);
+    border: 1px solid rgba(42,140,130,0.3);
+    border-left: 3px solid var(--teal);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .scenario-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--teal-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .scenario-block p { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 0.4rem; }
+  .scenario-block p:last-child { margin-bottom: 0; }
+
+  /* ── SAFETY STEPS ── */
+  .steps-list { list-style: none; padding: 0; }
+  .steps-list li {
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .steps-list li:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    background: var(--amber);
+    color: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-top: 0.1rem;
+  }
+  .step-content { font-size: 0.88rem; color: var(--text-dim); line-height: 1.5; }
+  .step-content strong { color: var(--text); }
+
+  /* ── MATCH GAME ── */
+  .match-game { margin-bottom: 2rem; }
+  .match-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .match-col-label { font-size: 0.7rem; color: var(--text-faint); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .match-item {
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 1rem;
+    font-size: 0.82rem;
+    cursor: pointer;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    margin-bottom: 0.4rem;
+    user-select: none;
+  }
+  .match-item:hover { border-color: var(--amber-dim); color: var(--text); }
+  .match-item.selected { border-color: var(--amber); color: var(--amber-light); background: rgba(232,160,32,0.08); }
+  .match-item.matched { border-color: var(--teal); color: var(--teal-light); background: rgba(42,140,130,0.1); cursor: default; }
+  .match-item.wrong { border-color: var(--rose); animation: shake 0.3s; }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)}
+  }
+  .match-feedback { font-size: 0.82rem; color: var(--text-faint); text-align: center; min-height: 1.2em; }
+  .match-feedback.win { color: var(--teal-light); }
+  .match-reset-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.6rem;
+  }
+  .match-reset-btn:hover { border-color: var(--amber-dim); color: var(--amber); }
+
+  /* ── CALLOUT ── */
+  .callout {
+    display: flex;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    align-items: flex-start;
+  }
+  .callout.amber { background: rgba(232,160,32,0.08); border: 1px solid rgba(232,160,32,0.25); }
+  .callout.teal { background: rgba(42,140,130,0.08); border: 1px solid rgba(42,140,130,0.25); }
+  .callout-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .callout-body { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+  .callout-body strong { color: var(--text); }
+
+  /* ── ASSESSMENT LINK BOX ── */
+  .at-box {
+    background: rgba(232,160,32,0.06);
+    border: 1px solid rgba(232,160,32,0.2);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .at-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--amber);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .at-box h3 { color: var(--amber-light); font-size: 0.95rem; margin-bottom: 0.4rem; }
+  .at-box p { color: var(--text-dim); font-size: 0.84rem; }
+
+  /* ── SECTION SPACER ── */
+  .section { margin-bottom: 3rem; }
+
+  /* ── SUMMARY PANEL ── */
+  .summary-panel {
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--amber);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .summary-panel h2 { margin-bottom: 1rem; }
+  .summary-items { list-style: none; padding: 0; margin-bottom: 1.5rem; }
+  .summary-items li {
+    display: flex;
+    gap: 0.7rem;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    padding: 0.4rem 0;
+    align-items: flex-start;
+  }
+  .summary-items li::before {
+    content: '✓';
+    color: var(--teal-light);
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+  .summary-next {
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.2rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+  }
+  .summary-next strong { color: var(--amber-light); display: block; margin-bottom: 0.3rem; }
+
+  /* ── COPY BUTTON ── */
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--amber);
+    color: var(--navy);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.65rem 1.3rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .copy-btn:hover { background: var(--amber-light); }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn.copied { background: var(--teal); color: #fff; }
+
+  /* ── PROGRESS ── */
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 99px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--amber), var(--amber-light));
+    border-radius: 99px;
+    transition: width 0.8s ease;
+  }
+
+  /* ── FADE IN ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in:nth-child(1){animation-delay:0.05s}
+  .fade-in:nth-child(2){animation-delay:0.1s}
+  .fade-in:nth-child(3){animation-delay:0.15s}
+  .fade-in:nth-child(4){animation-delay:0.2s}
+  .fade-in:nth-child(5){animation-delay:0.25s}
+  .fade-in:nth-child(6){animation-delay:0.3s}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:600px){
+    .match-columns { grid-template-columns: 1fr; }
+    .flip-grid { grid-template-columns: 1fr 1fr; }
+    .concept-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 1</span>
+    <nav class="header-nav">
+      <a href="#key-concepts">Concepts</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#activities">Activities</a>
+      <a href="#summary">Summary</a>
+      <span class="view-badge">Student</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Session 1 of 6</div>
+    <h1>What is a Crisis?</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Monday 11 May 2026</span>
+      <span><span class="dot"></span> Learner Guide Chapter 1</span>
+      <span><span class="dot"></span> 9:30 AM – 3:00 PM</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <div class="progress-bar"><div class="progress-fill" style="width:16%"></div></div>
+
+  <!-- KEY CONCEPTS -->
+  <section class="section fade-in" id="key-concepts">
+    <div class="section-label">Key Concepts</div>
+    <h2>Defining a Crisis</h2>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <h3>What is a crisis?</h3>
+        <p>A turning point — a time of great difficulty, danger, or important change. In community services, it means a person is <em>unable to function in their usual way</em> due to an overwhelming event.</p>
+      </div>
+      <div class="concept-card">
+        <h3>Crisis intervention</h3>
+        <p>Short-term, immediate help that addresses the crisis, reduces distress, and supports the person to identify resources and regain their ability to function.</p>
+      </div>
+      <div class="concept-card">
+        <h3>Triggering events</h3>
+        <p>Situations (natural disasters, violence, financial hardship), relationships (breakdown, abuse), or life changes (adolescence, ageing, loss of employment).</p>
+      </div>
+      <div class="concept-card">
+        <h3>Direct indicators</h3>
+        <p>Observable signs: a triggering event has occurred, distorted perceptions, inability to solve problems, overwhelming emotions stopping the person from functioning.</p>
+      </div>
+      <div class="concept-card">
+        <h3>Indirect indicators</h3>
+        <p>Less obvious signs: changes in social engagement, mood, physical health, skills, or use of drugs and alcohol — behavioural 'red flags.'</p>
+      </div>
+      <div class="concept-card">
+        <h3>Communication in crisis</h3>
+        <p>People revert to fight-or-flight thinking. They miss information, fill gaps with speculation, and may feel fear, dread, or denial. Their responses can be exaggerated or distorted.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLIP CARDS -->
+  <section class="section fade-in">
+    <div class="section-label">Flip Cards — Types of Crisis</div>
+    <h2>Know Your Crisis Types</h2>
+    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:1.2rem;">Click each card to reveal how to respond.</p>
+    <div class="flip-grid">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <span class="flip-term">Potential Suicide</span>
+            <span class="flip-hint">tap to reveal</span>
+          </div>
+          <div class="flip-back">
+            <p><strong>Ask</strong> directly. <strong>Listen and stay</strong> — do not leave them alone. <strong>Get help</strong> — call Lifeline 13 11 14 or 000 if life is in danger.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <span class="flip-term">Self-Harm</span>
+            <span class="flip-hint">tap to reveal</span>
+          </div>
+          <div class="flip-back">
+            <p>Provide first aid if needed. Use <strong>active listening</strong>. Remain <strong>calm and non-judgmental</strong>. Encourage professional help from someone they trust.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <span class="flip-term">Threats of Harm</span>
+            <span class="flip-hint">tap to reveal</span>
+          </div>
+          <div class="flip-back">
+            <p>Identify who is at risk. If imminent — <strong>remove yourself and others</strong>, then call for help. Follow org policies and procedures.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <span class="flip-term">Received Threats</span>
+            <span class="flip-hint">tap to reveal</span>
+          </div>
+          <div class="flip-back">
+            <p>Keep everyone safe. Follow your org's policies and procedures. Use <strong>common sense</strong>. Err on the side of caution — notify police if the situation warrants.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <span class="flip-term">Abuse</span>
+            <span class="flip-hint">tap to reveal</span>
+          </div>
+          <div class="flip-back">
+            <p>Protect safety and wellbeing. Follow legal requirements (child protection legislation). Use <strong>rights-based, person-centred, strengths-based</strong> approaches.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <span class="flip-term">Domestic & Family Violence</span>
+            <span class="flip-hint">tap to reveal</span>
+          </div>
+          <div class="flip-back">
+            <p>DFV = power and control through fear. <strong>Family violence</strong> is broader, covering extended family/kinship. Prioritise safety of the person experiencing violence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY STEPS -->
+  <section class="section fade-in" id="safety">
+    <div class="section-label">Safety Planning</div>
+    <h2>Addressing Safety Issues</h2>
+    <div class="card" style="margin-bottom:1.2rem;">
+      <p>Safety is always your primary concern when responding to crisis. These steps may not always happen in this order.</p>
+    </div>
+    <ul class="steps-list">
+      <li><div class="step-num">1</div><div class="step-content"><strong>Listen empathetically</strong> — collect information about the situation.</div></li>
+      <li><div class="step-num">2</div><div class="step-content"><strong>Affirm</strong> the person's links to safety and living.</div></li>
+      <li><div class="step-num">3</div><div class="step-content"><strong>Support</strong> the person to identify possible solutions and strategies.</div></li>
+      <li><div class="step-num">4</div><div class="step-content"><strong>Balance</strong> collaborative and directive approaches — adapt to the person's capacity to make decisions.</div></li>
+      <li><div class="step-num">5</div><div class="step-content"><strong>Agree on actions</strong> to minimise risks.</div></li>
+      <li><div class="step-num">6</div><div class="step-content"><strong>Call for emergency assistance</strong> if required.</div></li>
+      <li><div class="step-num">7</div><div class="step-content"><strong>Check</strong> your actions are legal, ethical, and consistent with your org's duty of care policies.</div></li>
+    </ul>
+    <div class="callout amber" style="margin-top:1rem;">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body"><strong>SMART goals</strong> for safety planning: Specific · Measurable · Achievable · Relevant · Timely</div>
+    </div>
+  </section>
+
+  <!-- MATCH GAME -->
+  <section class="section fade-in">
+    <div class="section-label">Activity — Match It</div>
+    <h2>Match the Indicator</h2>
+    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:1.2rem;">Click a term on the left, then its match on the right. Match all 4 pairs.</p>
+    <div class="match-game" id="matchGame1">
+      <div class="match-columns">
+        <div>
+          <div class="match-col-label">Term</div>
+          <div class="match-item" data-pair="1" data-side="left" onclick="handleMatch(this)">Direct indicator</div>
+          <div class="match-item" data-pair="2" data-side="left" onclick="handleMatch(this)">Indirect indicator</div>
+          <div class="match-item" data-pair="3" data-side="left" onclick="handleMatch(this)">Triggering event</div>
+          <div class="match-item" data-pair="4" data-side="left" onclick="handleMatch(this)">Crisis intervention</div>
+        </div>
+        <div>
+          <div class="match-col-label">Definition</div>
+          <div class="match-item" data-pair="3" data-side="right" onclick="handleMatch(this)">Natural disaster, relationship breakdown, or life change that overwhelms the person</div>
+          <div class="match-item" data-pair="1" data-side="right" onclick="handleMatch(this)">Observable sign that something has caused significant distress — e.g. panic attacks, inability to function</div>
+          <div class="match-item" data-pair="4" data-side="right" onclick="handleMatch(this)">Short-term immediate help to address the crisis and support the person to regain functioning</div>
+          <div class="match-item" data-pair="2" data-side="right" onclick="handleMatch(this)">Behavioural 'red flags' — changes in mood, social engagement, drug/alcohol use</div>
+        </div>
+      </div>
+      <div class="match-feedback" id="matchFeedback1"></div>
+      <button class="match-reset-btn" onclick="resetMatch('matchGame1','matchFeedback1')">↺ Reset</button>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="section fade-in" id="quiz">
+    <div class="section-label">Knowledge Check</div>
+    <h2>Quick Quiz</h2>
+
+    <div class="quiz-block">
+      <div class="quiz-q">1. According to the learner guide, what is a crisis?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this, false)">A major disaster event such as a bushfire or flood</button>
+        <button class="quiz-option" onclick="checkQ(this, true)">A state in which a person is unable to function in their usual way, often due to a significantly stressful event</button>
+        <button class="quiz-option" onclick="checkQ(this, false)">A mental health condition requiring clinical treatment</button>
+        <button class="quiz-option" onclick="checkQ(this, false)">Any situation that causes a person to feel upset or worried</button>
+      </div>
+      <div class="quiz-feedback" id="qfb1"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">2. Which of the following is an INDIRECT indicator of crisis?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this, false)">A person experiencing visible panic attacks</button>
+        <button class="quiz-option" onclick="checkQ(this, false)">A person unable to fill in paperwork due to emotional overwhelm</button>
+        <button class="quiz-option" onclick="checkQ(this, true)">A person becoming increasingly withdrawn and increasing their alcohol use</button>
+        <button class="quiz-option" onclick="checkQ(this, false)">A person saying they cannot cope with what has happened</button>
+      </div>
+      <div class="quiz-feedback" id="qfb2"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">3. If you think someone might be suicidal, what should you do first?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this, false)">Wait for them to bring it up themselves</button>
+        <button class="quiz-option" onclick="checkQ(this, false)">Call 000 immediately</button>
+        <button class="quiz-option" onclick="checkQ(this, true)">Ask them directly — 'Are you thinking about suicide?'</button>
+        <button class="quiz-option" onclick="checkQ(this, false)">Tell them things aren't that bad and try to cheer them up</button>
+      </div>
+      <div class="quiz-feedback" id="qfb3"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">4. What does SMART stand for in safety planning?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this, false)">Safe, Measured, Appropriate, Realistic, Timed</button>
+        <button class="quiz-option" onclick="checkQ(this, true)">Specific, Measurable, Achievable, Relevant, Timely</button>
+        <button class="quiz-option" onclick="checkQ(this, false)">Simple, Managed, Actionable, Reviewed, Tracked</button>
+        <button class="quiz-option" onclick="checkQ(this, false)">Structured, Motivated, Assessed, Regulated, Tracked</button>
+      </div>
+      <div class="quiz-feedback" id="qfb4"></div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section class="section fade-in" id="activities">
+    <div class="section-label">Learner Guide Activities</div>
+    <h2>Today's Activities</h2>
+
+    <div class="scenario-block">
+      <div class="scenario-label">Activity 1A — Case Study</div>
+      <p><strong>Catalina</strong> is in her early twenties, studying at TAFE. Since breaking up with her boyfriend she has been drinking heavily, missing classes, withdrawing from friends and family, and making comments about 'ending it all.' She still attends ballet classes and visits her grandmother every Sunday.</p>
+    </div>
+    <div class="reflection-block" style="margin-bottom:1.5rem;">
+      <div class="reflection-label">Your reflection — Activity 1A</div>
+      <div class="reflection-prompt">Identify at least three signs that Catalina may be thinking about suicide, and identify one 'protective factor' in this scenario.</div>
+      <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+    </div>
+
+    <div class="scenario-block">
+      <div class="scenario-label">Activity 1D — Domestic & Family Violence</div>
+      <p><strong>Danica</strong> is in her sixties. Her husband Waldis controls the family finances, doesn't allow her to have a mobile phone, monitors her movements, and is approaching retirement. Danica has been experiencing panic attacks and insomnia but Waldis dismisses her concerns.</p>
+    </div>
+    <div class="reflection-block">
+      <div class="reflection-label">Your reflection — Activity 1D</div>
+      <div class="reflection-prompt">Does this scenario fall within the definition of domestic and family violence? Who is at risk, and what are the risks?</div>
+      <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+    </div>
+  </section>
+
+  <!-- AT1 LINK -->
+  <section class="section fade-in">
+    <div class="section-label">Assessment</div>
+    <div class="at-box">
+      <div class="at-box-label">AT1 — Knowledge Questions</div>
+      <h3>Open-book written assessment</h3>
+      <p>AT1 covers content from all four teaching sessions. Start working on questions relating to today's content — Chapter 1. Use your learner guide. AT1 is due at the end of Session 4 (Tuesday 19 May).</p>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="section fade-in" id="summary">
+    <div class="section-label">End of Session</div>
+    <div class="summary-panel">
+      <h2>Session 1 — What We Covered</h2>
+      <ul class="summary-items">
+        <li>What a crisis is and how it's triggered</li>
+        <li>Direct and indirect indicators of crisis</li>
+        <li>How communication changes during a crisis</li>
+        <li>Types of crisis: suicide, self-harm, threats, abuse, and DFV</li>
+        <li>Safety planning principles and SMART goals</li>
+      </ul>
+      <div class="summary-next">
+        <strong>📚 Before Session 2 (Tue 12 May):</strong>
+        Read Chapter 2 of your Learner Guide — Legal and Ethical Framework. Focus on duty of care, privacy and confidentiality, and work role boundaries.
+      </div>
+      <div class="summary-next">
+        <strong>📝 AT1 reminder:</strong>
+        Start working on knowledge questions related to Chapter 1 content.
+      </div>
+      <button class="copy-btn" id="copyBtn" onclick="copyToTeams()">
+        📋 Copy summary for Teams
+      </button>
+    </div>
+  </section>
+
+</div><!-- end page-body -->
+
+<script>
+// ── QUIZ ──
+let qAttempts = {};
+function checkQ(btn, isCorrect) {
+  const block = btn.closest('.quiz-block');
+  const qid = block.querySelector('.quiz-feedback').id;
+  if (qAttempts[qid]) return;
+  qAttempts[qid] = true;
+  const opts = block.querySelectorAll('.quiz-option');
+  opts.forEach(o => o.style.pointerEvents = 'none');
+  const fb = document.getElementById(qid);
+  if (isCorrect) {
+    btn.classList.add('correct');
+    fb.textContent = '✓ Correct!';
+    fb.className = 'quiz-feedback correct';
+  } else {
+    btn.classList.add('incorrect');
+    fb.textContent = '✗ Not quite — review the learner guide and try to identify the correct answer.';
+    fb.className = 'quiz-feedback incorrect';
+    opts.forEach(o => { if (o.onclick.toString().includes('true')) o.classList.add('correct'); });
+  }
+}
+
+// ── MATCH GAME ──
+let matchSelected = null;
+let matchPairs = {};
+
+function handleMatch(el) {
+  if (el.classList.contains('matched') || el.classList.contains('wrong')) return;
+  const side = el.dataset.side;
+  const pair = el.dataset.pair;
+  if (!matchSelected) {
+    if (matchSelected) matchSelected.classList.remove('selected');
+    el.classList.add('selected');
+    matchSelected = el;
+  } else {
+    const prevSide = matchSelected.dataset.side;
+    const prevPair = matchSelected.dataset.pair;
+    if (prevSide === side) {
+      matchSelected.classList.remove('selected');
+      el.classList.add('selected');
+      matchSelected = el;
+    } else if (prevPair === pair) {
+      matchSelected.classList.remove('selected');
+      matchSelected.classList.add('matched');
+      el.classList.add('matched');
+      matchSelected = null;
+      matchPairs[pair] = true;
+      const total = document.querySelectorAll('#matchGame1 [data-side="left"]').length;
+      if (Object.keys(matchPairs).length === total) {
+        document.getElementById('matchFeedback1').textContent = '🎉 All matched! Great work.';
+        document.getElementById('matchFeedback1').className = 'match-feedback win';
+      } else {
+        document.getElementById('matchFeedback1').textContent = `${Object.keys(matchPairs).length} of ${total} matched.`;
+      }
+    } else {
+      matchSelected.classList.remove('selected');
+      el.classList.add('wrong');
+      setTimeout(() => el.classList.remove('wrong'), 500);
+      matchSelected = null;
+      document.getElementById('matchFeedback1').textContent = 'Not a match — try again.';
+    }
+  }
+}
+
+function resetMatch(gameId, feedbackId) {
+  matchSelected = null;
+  matchPairs = {};
+  document.querySelectorAll(`#${gameId} .match-item`).forEach(el => {
+    el.classList.remove('selected', 'matched', 'wrong');
+  });
+  document.getElementById(feedbackId).textContent = '';
+  document.getElementById(feedbackId).className = 'match-feedback';
+}
+
+// ── COPY TO TEAMS ──
+function copyToTeams() {
+  const text = `📌 Session 1 Summary — What is a Crisis? | CHCCCS019
+
+Today we covered:
+✔ What a crisis is and how it's triggered
+✔ Direct and indirect indicators of crisis
+✔ How communication changes during a crisis
+✔ Types of crisis: suicide, self-harm, threats, abuse, and DFV
+✔ Safety planning principles and SMART goals
+
+📚 Before Session 2 (Tue 12 May): Read Chapter 2 of your Learner Guide — Legal and Ethical Framework.
+📝 AT1: Start working on knowledge questions related to Chapter 1.`;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copy summary for Teams'; btn.classList.remove('copied'); }, 2500);
+  });
+}
+</script>
+</body>
+</html>

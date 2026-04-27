@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 5 — TEACHER VIEW | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1e2d42;--amber:#e8a020;--amber-light:#f0b84a;--teal:#2a8c82;--teal-light:#3ab3a6;--rose:#c0534a;--rose-light:#d96c63;--teacher:#4a2a7a;--teacher-light:#9b6dcf;--teacher-border:#6b3fa0;--text:#dde3ec;--text-dim:#8a9bb5;--text-faint:#4a5a72;--border:#243350;--card:#162032;--radius:10px;--radius-sm:6px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+  .site-header{background:#120d1f;border-bottom:2px solid var(--teacher-border);padding:0 2rem;position:sticky;top:0;z-index:100}
+  .header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .header-unit{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teacher-light);letter-spacing:.12em;text-transform:uppercase}
+  .view-badge{background:var(--teacher);color:#fff;font-size:.65rem;font-weight:500;padding:.2rem .7rem;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+  .hero{background:linear-gradient(135deg,#0d0d1a 0%,#120d1f 60%,#0f1020 100%);border-bottom:1px solid var(--teacher-border);padding:3rem 2rem}
+  .hero-inner{max-width:960px;margin:0 auto}
+  .hero-session{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teacher-light);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+  .hero-session::before{content:'';display:inline-block;width:24px;height:2px;background:var(--teacher-light)}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:#fff;margin-bottom:.8rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem;color:var(--text-dim);font-size:.85rem;margin-bottom:1rem}
+  .hero-meta span{display:flex;align-items:center;gap:.4rem}
+  .hero-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--teacher-light);flex-shrink:0}
+  .teacher-warning{background:rgba(74,42,122,.2);border:1px solid var(--teacher-border);border-radius:var(--radius-sm);padding:.6rem 1rem;font-size:.78rem;color:var(--teacher-light);display:inline-flex;align-items:center;gap:.5rem}
+  .page-body{max-width:960px;margin:0 auto;padding:2.5rem 2rem 5rem}
+  .teacher-block{background:rgba(74,42,122,.12);border:1px solid var(--teacher-border);border-left:4px solid var(--teacher-light);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1.2rem}
+  .teacher-block-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teacher-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+  .teacher-block-label::after{content:'';flex:1;height:1px;background:rgba(107,63,160,.3)}
+  .teacher-block p,.teacher-block li{font-size:.85rem;color:var(--text-dim);margin-bottom:.3rem}
+  .teacher-block ul{padding-left:1.2rem}
+  .section-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teacher-light);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:1rem}
+  h3{font-family:'DM Sans',sans-serif;font-weight:500;font-size:.95rem;color:var(--amber-light);margin-bottom:.5rem}
+  .section{margin-bottom:3rem}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1rem}
+  .card p{color:var(--text-dim);font-size:.85rem;margin-bottom:.4rem}.card p:last-child{margin-bottom:0}
+  .roleplay-block{background:rgba(192,83,74,.06);border:1px solid rgba(192,83,74,.25);border-left:4px solid var(--rose);border-radius:var(--radius);padding:1.4rem 1.5rem;margin-bottom:1rem}
+  .roleplay-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--rose-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+  .roleplay-block h3{color:var(--text);margin-bottom:.8rem}
+  .roleplay-block p,.roleplay-block li{font-size:.85rem;color:var(--text-dim);margin-bottom:.3rem}
+  .roleplay-block ul{padding-left:1.2rem}
+  .timed-plan{margin-bottom:2rem}
+  .time-row{display:grid;grid-template-columns:110px 1fr;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border);align-items:start}
+  .time-row:last-child{border-bottom:none}
+  .time-slot{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--amber);padding-top:.1rem}
+  .time-content h4{font-size:.9rem;color:var(--text);font-weight:500;margin-bottom:.3rem}
+  .time-content p{font-size:.82rem;color:var(--text-dim)}
+  .time-row.break .time-content h4{color:var(--text-faint)}
+  .callout{display:flex;gap:1rem;padding:1.1rem 1.3rem;border-radius:var(--radius);margin-bottom:1rem;align-items:flex-start}
+  .callout.amber{background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.25)}
+  .callout.rose{background:rgba(192,83,74,.08);border:1px solid rgba(192,83,74,.25)}
+  .callout-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+  .callout-body{font-size:.85rem;color:var(--text-dim);line-height:1.5}.callout-body strong{color:var(--text)}
+  .checklist{list-style:none;padding:0}
+  .checklist li{display:flex;align-items:center;gap:.8rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.85rem;color:var(--text-dim);cursor:pointer;user-select:none}
+  .checklist li:last-child{border-bottom:none}
+  .check-box{width:18px;height:18px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .checklist li.checked .check-box{background:var(--teal);border-color:var(--teal)}
+  .checklist li.checked .check-box::after{content:'✓';color:#fff;font-size:.7rem;font-weight:700}
+  .checklist li.checked span{text-decoration:line-through;color:var(--text-faint)}
+  @media(max-width:600px){.time-row{grid-template-columns:80px 1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 5 — Teacher</span>
+    <span class="view-badge">🍎 Teacher</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Teacher View — Session 5 of 6</div>
+    <h1>Assessment Day — Role Plays</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Monday 25 May 2026</span>
+      <span><span class="dot"></span> AT2a · AT3a · AT4a</span>
+    </div>
+    <div class="teacher-warning">🔒 Teacher only — do not share with students</div>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <section class="section">
+    <div class="section-label">Session Plan</div>
+    <h2>Timed Assessment Schedule</h2>
+    <div class="timed-plan">
+      <div class="time-row"><div class="time-slot">9:30–10:00</div><div class="time-content"><h4>Setup and Briefing</h4><p>Confirm room setup: reception area with desk and chairs. Brief all role players privately. Confirm student order for role plays. Check all equipment (audio, documents, marking guides).</p></div></div>
+      <div class="time-row"><div class="time-slot">10:00–12:00</div><div class="time-content"><h4>AT2 (Denise) + AT3 (Serena) Role Plays</h4><p>Rotate students through AT2 and AT3. Give role play instructions privately to supporting role players before each student's turn. Deliver verbal questions after each role play. Record outcomes in marking guide.</p></div></div>
+      <div class="time-row break"><div class="time-slot">12:00–12:45</div><div class="time-content"><h4>🍽️ Lunch</h4></div></div>
+      <div class="time-row"><div class="time-slot">12:45–2:30</div><div class="time-content"><h4>AT4 (Colman) Role Plays — Parts A and B</h4><p>Students complete both parts of AT4. Deliver verbal questions after Part B. Record outcomes. For students who are NS on earlier tasks, make arrangements for reassessment.</p></div></div>
+      <div class="time-row"><div class="time-slot">2:30–3:00</div><div class="time-content"><h4>Debrief and Close</h4><p>Group debrief — invite brief reflections. Wellbeing check-in. Confirm Session 6 instructions: bring assessment booklet for written tasks. Send Teams summary.</p></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">AT2 — Denise</div>
+    <h2>Role Play Instructions and Marking Notes</h2>
+    <div class="roleplay-block">
+      <div class="roleplay-label">Setting up the role play</div>
+      <h3>AT2 — Denise (PTSD/Trauma Response)</h3>
+      <p><strong>Setup:</strong> Student stands at reception desk. Assessor plays Denise. 1–2 people seated in waiting area (use other staff or students not being assessed).</p>
+      <p><strong>Trigger:</strong> Play car backfire audio when the student is mid-farewell. One person in waiting room says loudly: "Don't worry, it was just a car backfiring." Denise does not hear/register this.</p>
+      <p><strong>Denise's behaviour:</strong> Jerk and shake. Clench/unclench fists. Cry. Say "I just can't go on." "It's all too much." "I just want to die." Stare towards a window. Do NOT respond to student unless they make an affirming statement. If student affirms capacity → become receptive. If student offers accommodation → accept and appear reassured. If student offers counselling → accept with relief.</p>
+      <p><strong>Verbal questions after:</strong></p>
+      <ul>
+        <li>Whose safety were you responsible for? (Answer: yourself, Denise, other clients)</li>
+        <li>Two physical indicators Denise presented a safety risk? (Any two: clenching fists, shaking, jerking, non-responsive/staring, seeming afraid)</li>
+        <li>What next steps for paperwork? (Incident record, notify supervisor)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">AT3 — Serena</div>
+    <h2>Role Play Instructions</h2>
+    <div class="roleplay-block">
+      <div class="roleplay-label">Setting up the role play</div>
+      <h3>AT3 — Serena (DFV/Panic Response)</h3>
+      <p>Serena arrives an hour early, extremely distressed and agitated. Student is called out to receive her. No one else in waiting room.</p>
+      <p>Full role play instructions are in the CHCCCS019 Marking Guide assessor documents. As assessor, play Serena — display acute anxiety, pacing, difficulty communicating. Gradually respond to student's calming techniques.</p>
+      <p>Observe for: crisis identification, communication techniques, safety assessment, affirming safety, referral/next steps.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">AT4 — Colman</div>
+    <h2>Role Play Instructions</h2>
+    <div class="roleplay-block">
+      <div class="roleplay-label">Two-part role play</div>
+      <h3>AT4 — Colman (Parts A and B)</h3>
+      <p><strong>Part A:</strong> Respond to Colman's initial crisis. Full scenario and assessor instructions in the Marking Guide.</p>
+      <p><strong>Part B:</strong> Follow-up with Colman. Student should demonstrate ability to continue supportive practice, check on safety, and move towards referral/documentation.</p>
+      <p>Documentation required for AT4b (written task in Session 6): Incident Record + Crisis Intervention Plan.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Assessor Notes</div>
+    <div class="callout rose">
+      <span class="callout-icon">🚨</span>
+      <div class="callout-body"><strong>Wellbeing check:</strong> This content involves DFV and trauma. After role plays are completed, check in with all students before they leave. Have BHI counselling number: 9286 9891. If a student becomes distressed during a role play, pause and offer support before continuing.</div>
+    </div>
+    <div class="callout amber">
+      <span class="callout-icon">📝</span>
+      <div class="callout-body"><strong>Recording outcomes:</strong> Mark each checklist item as Satisfactory or Not Satisfactory at the time of observation. For NS items, provide specific, actionable feedback immediately so the student understands what to improve if they have another attempt.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Resource Checklist</div>
+    <h2>Setup Checklist — Before 9:30</h2>
+    <ul class="checklist" id="resourceList">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Room set up as reception area (desk + waiting chairs)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Car backfire audio file queued on laptop — tested and volume set</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>1–2 additional role players briefed for AT2 waiting room</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>AT2, AT3, AT4 marking guides open with pens ready</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>First Access HS2, HS3, HS9 policy docs accessible</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>CHCCCS019 Incident Record forms printed</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Crisis Intervention Plan — Colman printed</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Student Assessment Booklets available</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>BHI counselling number noted: 9286 9891</span></li>
+    </ul>
+  </section>
+
+</div>
+<script>function toggleCheck(el){el.classList.toggle('checked')}</script>
+</body>
+</html>

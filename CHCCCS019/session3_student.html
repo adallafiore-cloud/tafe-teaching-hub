@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 3 — Principles and Practices | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1e2d42;--amber:#e8a020;--amber-light:#f0b84a;--amber-dim:#c4851a;--teal:#2a8c82;--teal-light:#3ab3a6;--rose:#c0534a;--rose-light:#d96c63;--text:#dde3ec;--text-dim:#8a9bb5;--text-faint:#4a5a72;--border:#243350;--card:#162032;--card-hover:#1d2c42;--radius:10px;--radius-sm:6px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+  .site-header{background:var(--navy-mid);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:100}
+  .header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .header-unit{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--amber);letter-spacing:.12em;text-transform:uppercase}
+  .header-nav{display:flex;gap:1.2rem;align-items:center}
+  .header-nav a{color:var(--text-dim);text-decoration:none;font-size:.8rem;transition:color .2s}.header-nav a:hover{color:var(--amber)}
+  .view-badge{background:var(--teal);color:#fff;font-size:.65rem;font-weight:500;padding:.2rem .6rem;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+  .hero{background:linear-gradient(135deg,#0d1b2a 0%,#162032 60%,#0f2438 100%);border-bottom:1px solid var(--border);padding:3.5rem 2rem 3rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(232,160,32,.08) 0%,transparent 70%);pointer-events:none}
+  .hero-inner{max-width:900px;margin:0 auto}
+  .hero-session{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--amber);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+  .hero-session::before{content:'';display:inline-block;width:24px;height:2px;background:var(--amber)}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1.15;color:#fff;margin-bottom:1rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem;color:var(--text-dim);font-size:.85rem}
+  .hero-meta span{display:flex;align-items:center;gap:.4rem}
+  .hero-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0}
+  .page-body{max-width:900px;margin:0 auto;padding:2.5rem 2rem 5rem}
+  .section-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;color:#fff;margin-bottom:1rem}
+  h3{font-family:'DM Sans',sans-serif;font-weight:500;font-size:1rem;color:var(--amber-light);margin-bottom:.6rem}
+  .section{margin-bottom:3rem}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .card p{color:var(--text-dim);font-size:.9rem;margin-bottom:.6rem}.card p:last-child{margin-bottom:0}
+  .quiz-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .quiz-q{font-size:.95rem;color:var(--text);margin-bottom:1rem;font-weight:500}
+  .quiz-options{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+  .quiz-option{background:var(--navy-light);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem 1rem;cursor:pointer;font-size:.85rem;color:var(--text-dim);transition:all .2s;text-align:left}
+  .quiz-option:hover{border-color:var(--amber-dim);color:var(--text)}
+  .quiz-option.correct{border-color:var(--teal);background:rgba(42,140,130,.12);color:var(--teal-light)}
+  .quiz-option.incorrect{border-color:var(--rose);background:rgba(192,83,74,.12);color:var(--rose-light)}
+  .quiz-feedback{font-size:.82rem;border-radius:var(--radius-sm);padding:.6rem .9rem;display:none}
+  .quiz-feedback.correct{background:rgba(42,140,130,.15);color:var(--teal-light);border:1px solid var(--teal);display:block}
+  .quiz-feedback.incorrect{background:rgba(192,83,74,.15);color:var(--rose-light);border:1px solid var(--rose);display:block}
+  .reflection-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .reflection-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem}
+  .reflection-prompt{font-size:.9rem;color:var(--text-dim);margin-bottom:.8rem}
+  .reflection-area{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;line-height:1.6;padding:.8rem 1rem;resize:vertical;min-height:90px;transition:border-color .2s}
+  .reflection-area:focus{outline:none;border-color:var(--teal)}.reflection-area::placeholder{color:var(--text-faint)}
+  .at-box{background:rgba(232,160,32,.06);border:1px solid rgba(232,160,32,.2);border-radius:var(--radius);padding:1.2rem 1.5rem;margin-bottom:1.5rem}
+  .at-box-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--amber);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+  .at-box h3{color:var(--amber-light);font-size:.95rem;margin-bottom:.4rem}
+  .at-box p{color:var(--text-dim);font-size:.84rem}
+  .summary-panel{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border:1px solid var(--border);border-top:3px solid var(--amber);border-radius:var(--radius);padding:2rem;margin-bottom:2rem}
+  .summary-panel h2{margin-bottom:1rem}
+  .summary-items{list-style:none;padding:0;margin-bottom:1.5rem}
+  .summary-items li{display:flex;gap:.7rem;font-size:.88rem;color:var(--text-dim);padding:.4rem 0;align-items:flex-start}
+  .summary-items li::before{content:'✓';color:var(--teal-light);flex-shrink:0;font-weight:600}
+  .summary-next{background:var(--navy);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem 1.2rem;font-size:.85rem;color:var(--text-dim);margin-bottom:1rem}
+  .summary-next strong{color:var(--amber-light);display:block;margin-bottom:.3rem}
+  .copy-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--amber);color:var(--navy);border:none;border-radius:var(--radius-sm);padding:.65rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s}
+  .copy-btn:hover{background:var(--amber-light)}.copy-btn.copied{background:var(--teal);color:#fff}
+  .progress-bar{height:3px;background:var(--border);border-radius:99px;margin-bottom:2.5rem;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber-light));border-radius:99px}
+  .fade-in{opacity:0;transform:translateY(16px);animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+  .fade-in:nth-child(1){animation-delay:.05s}.fade-in:nth-child(2){animation-delay:.1s}.fade-in:nth-child(3){animation-delay:.15s}.fade-in:nth-child(4){animation-delay:.2s}.fade-in:nth-child(5){animation-delay:.25s}
+  /* NUMBERED STEPS */
+  .steps-list{list-style:none;padding:0}
+  .steps-list li{display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
+  .steps-list li:last-child{border-bottom:none}
+  .step-num{flex-shrink:0;width:28px;height:28px;background:var(--amber);color:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;margin-top:.1rem}
+  .step-content{font-size:.88rem;color:var(--text-dim);line-height:1.5}
+  .step-content strong{color:var(--text)}
+  /* TWO COLUMN GRID */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+  .model-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.4rem}
+  .model-card h3{font-size:.85rem;color:var(--amber-light);margin-bottom:.8rem}
+  .model-card ol{padding-left:1.2rem}
+  .model-card li{font-size:.82rem;color:var(--text-dim);margin-bottom:.3rem}
+  /* ACCORDION */
+  .accordion{margin-bottom:.5rem}
+  .acc-header{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.9rem 1.2rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:.9rem;color:var(--text);transition:background .2s}
+  .acc-header:hover{background:var(--card-hover)}
+  .acc-arrow{transition:transform .3s;color:var(--amber);font-size:.8rem}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .acc-body-inner{padding:.8rem 1.2rem 1rem;background:var(--navy-light);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm)}
+  .acc-body-inner p{font-size:.85rem;color:var(--text-dim);margin-bottom:.3rem}
+  .accordion.open .acc-arrow{transform:rotate(180deg)}
+  .accordion.open .acc-body{max-height:300px}
+  /* CALLOUT */
+  .callout{display:flex;gap:1rem;padding:1.1rem 1.3rem;border-radius:var(--radius);margin-bottom:1rem;align-items:flex-start}
+  .callout.amber{background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.25)}
+  .callout.teal{background:rgba(42,140,130,.08);border:1px solid rgba(42,140,130,.25)}
+  .callout-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+  .callout-body{font-size:.85rem;color:var(--text-dim);line-height:1.5}
+  .callout-body strong{color:var(--text)}
+  @media(max-width:600px){.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 3</span>
+    <nav class="header-nav">
+      <a href="#principles">Principles</a>
+      <a href="#models">Models</a>
+      <a href="#incidents">Critical Incidents</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#summary">Summary</a>
+      <span class="view-badge">Student</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Session 3 of 6</div>
+    <h1>Principles and Practices</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Monday 18 May 2026</span>
+      <span><span class="dot"></span> Learner Guide Chapter 3</span>
+      <span><span class="dot"></span> 9:30 AM – 3:00 PM</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-body">
+  <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+
+  <!-- STAGES OF CRISIS -->
+  <section class="section fade-in" id="principles">
+    <div class="section-label">Crisis Intervention Principles</div>
+    <h2>Stages of Crisis Intervention</h2>
+    <div class="card"><p>People experiencing crisis move through stages — your response needs to adapt at each stage.</p></div>
+    <ul class="steps-list">
+      <li><div class="step-num">1</div><div class="step-content"><strong>Recognise</strong> that there is a crisis.</div></li>
+      <li><div class="step-num">2</div><div class="step-content"><strong>Identify</strong> the significance of the triggering event and its impact on your client.</div></li>
+      <li><div class="step-num">3</div><div class="step-content"><strong>Release tension</strong> by listening and providing emotional support.</div></li>
+      <li><div class="step-num">4</div><div class="step-content"><strong>Encourage realism</strong> — help the person avoid catastrophising by focusing on the realities of the situation (cognitive restructuring).</div></li>
+      <li><div class="step-num">5</div><div class="step-content"><strong>Make plans</strong> — prioritise needs and issues, set achievable goals.</div></li>
+      <li><div class="step-num">6</div><div class="step-content"><strong>Build on strengths</strong> — empower the client and offer alternatives. Allow them to feel in control as much as possible.</div></li>
+    </ul>
+  </section>
+
+  <!-- COMMON PRINCIPLES -->
+  <section class="section fade-in">
+    <div class="section-label">Key Principles</div>
+    <h2>Common Principles for Crisis Intervention</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.5rem;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center;font-size:.82rem;color:var(--text-dim)">Keep it <strong style="color:var(--amber-light);display:block;margin-bottom:.3rem">Simple</strong></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center;font-size:.82rem;color:var(--text-dim)">Respond <strong style="color:var(--amber-light);display:block;margin-bottom:.3rem">Quickly</strong></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center;font-size:.82rem;color:var(--text-dim)">Be <strong style="color:var(--amber-light);display:block;margin-bottom:.3rem">Practical</strong></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center;font-size:.82rem;color:var(--text-dim)">Address <strong style="color:var(--amber-light);display:block;margin-bottom:.3rem">Individual Needs</strong></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center;font-size:.82rem;color:var(--text-dim)">Keep it <strong style="color:var(--amber-light);display:block;margin-bottom:.3rem">Brief</strong></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center;font-size:.82rem;color:var(--text-dim)">Use Accessible <strong style="color:var(--amber-light);display:block;margin-bottom:.3rem">Services</strong></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center;font-size:.82rem;color:var(--text-dim)">Support <strong style="color:var(--amber-light);display:block;margin-bottom:.3rem">Hope</strong></div>
+    </div>
+    <div class="callout amber">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body">Crisis intervention can be seen as <strong>'first aid' for mental health</strong> — it's short-term, practical, and focused on immediate stabilisation, not long-term treatment.</div>
+    </div>
+  </section>
+
+  <!-- TWO MODELS -->
+  <section class="section fade-in" id="models">
+    <div class="section-label">Intervention Models</div>
+    <h2>Two Key Frameworks</h2>
+    <div class="two-col">
+      <div class="model-card">
+        <h3>Psychological First Aid (PFA)</h3>
+        <ol>
+          <li>Listen — don't pressure people to talk</li>
+          <li>Provide comfort; help people feel calm</li>
+          <li>Connect people to information, services and social supports</li>
+          <li>Protect people from further harm</li>
+        </ol>
+      </div>
+      <div class="model-card">
+        <h3>Roberts' Seven Stage Model</h3>
+        <ol>
+          <li>Assess lethality and mental health status</li>
+          <li>Establish rapport and engage the client</li>
+          <li>Identify major problems</li>
+          <li>Deal with feelings</li>
+          <li>Explore alternative coping and partial solutions</li>
+          <li>Develop an action plan</li>
+          <li>Develop a termination and follow-up protocol</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRITICAL INCIDENTS -->
+  <section class="section fade-in" id="incidents">
+    <div class="section-label">Critical Incidents</div>
+    <h2>What is a Critical Incident?</h2>
+    <div class="card"><p>A critical incident is any event that poses a serious risk to the life, health or safety of a person receiving services. This includes assault, threats, severe injury, death, fire, bomb threats, self-harm, violent behaviour, missing clients, medication errors, and suicide or attempted suicide.</p></div>
+
+    <h3 style="margin-top:1.5rem;margin-bottom:.8rem">Critical Incident Stress Management (CISM)</h3>
+    <div class="accordion" onclick="toggleAcc(this)">
+      <div class="acc-header">1. Prepare <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="acc-body-inner"><p>Provide education and training for crisis before it occurs. Prevention and preparation are essential.</p></div></div>
+    </div>
+    <div class="accordion" onclick="toggleAcc(this)">
+      <div class="acc-header">2 & 3. Defuse (immediately after) <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="acc-body-inner"><p><strong>Defusing</strong> — immediately after an incident — gives those affected a chance to ventilate and express feelings. Should happen as soon as possible, ideally within 3 days and at the site of the incident.</p></div></div>
+    </div>
+    <div class="accordion" onclick="toggleAcc(this)">
+      <div class="acc-header">4. Debrief (within a week) <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="acc-body-inner"><p><strong>Critical Incident Stress Debriefing (CISD)</strong> — usually within a week — helps address acute impacts, decide on follow-up, and provide a sense of closure.</p></div></div>
+    </div>
+    <div class="accordion" onclick="toggleAcc(this)">
+      <div class="acc-header">5–7. Counselling and referral <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="acc-body-inner"><p>Individual crisis intervention counselling (may be ongoing). Family/organisational support if required. Referral to follow-up supports and services.</p></div></div>
+    </div>
+
+    <div style="margin-top:1.5rem"></div>
+    <h3>Emergency Interventions & CATT</h3>
+    <div class="card">
+      <p>Emergency interventions include calling emergency services, 'talking down' a person intent on self-harm, protecting others, removing people from danger, and (last resort) physical or chemical restraints.</p>
+      <p>The <strong>Crisis Assessment and Treatment Team (CATT)</strong> responds 24/7 to mental health crises including psychosis, self-harm, suicidality, and feeling out of control.</p>
+    </div>
+  </section>
+
+  <!-- SIGNS AND REFERRALS -->
+  <section class="section fade-in">
+    <div class="section-label">Signs & Referrals</div>
+    <h2>Identifying Safety Issues and Making Referrals</h2>
+    <div class="two-col" style="margin-bottom:1.5rem">
+      <div class="model-card">
+        <h3>Direct signs</h3>
+        <p style="font-size:.83rem;color:var(--text-dim)">Observable indicators: visible physical injury (bruises, wounds), threatening behaviour, visible fear, overt aggression or violence.</p>
+      </div>
+      <div class="model-card">
+        <h3>Indirect signs</h3>
+        <p style="font-size:.83rem;color:var(--text-dim)">Verbal/nonverbal 'hints': fear contradicted by words, inappropriate laughter, flinching, cowering, avoiding a particular person, threatening gestures, invading personal space.</p>
+      </div>
+    </div>
+    <div class="callout teal">
+      <span class="callout-icon">🔗</span>
+      <div class="callout-body"><strong>Referrals:</strong> Discuss options with client → obtain consent → provide info → follow org procedures → check eligibility → provide info to receiving agency → follow up to check outcomes.</div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="section fade-in" id="quiz">
+    <div class="section-label">Knowledge Check</div>
+    <h2>Quick Quiz</h2>
+
+    <div class="quiz-block">
+      <div class="quiz-q">1. What does PFA stand for, and what is its core purpose?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">Personal First Aid — providing physical first aid in a crisis</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">Psychological First Aid — providing non-intrusive psychological, social and practical support</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Professional First Assessment — assessing lethality and mental health status</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Protective First Action — removing people from immediate danger</button>
+      </div>
+      <div class="quiz-feedback" id="qfb1"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">2. In Roberts' Seven Stage Model, what is Stage 1?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,true)">Assess lethality (risk of harm) and mental health status</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Establish rapport and engage the client</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Identify major problems</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Develop an action plan</button>
+      </div>
+      <div class="quiz-feedback" id="qfb2"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">3. A client avoids being alone with a particular staff member and flinches when that person comes close. This is best described as:</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">A direct indicator of a safety issue</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">An indirect indicator of a safety issue</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">A triggering event</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">A sign of cognitive restructuring</button>
+      </div>
+      <div class="quiz-feedback" id="qfb3"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">4. What does CATT stand for, and when does it operate?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">Crisis Aid and Trauma Team — operates during business hours</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">Crisis Assessment and Treatment Team — responds 24 hours a day, 7 days a week</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Critical Action and Treatment Team — responds within 48 hours</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Community Assessment and Treatment Team — operates weekdays only</button>
+      </div>
+      <div class="quiz-feedback" id="qfb4"></div>
+    </div>
+  </section>
+
+  <!-- REFLECTION -->
+  <section class="section fade-in">
+    <div class="section-label">Reflection</div>
+    <div class="reflection-block">
+      <div class="reflection-label">Think, Pair, Share</div>
+      <div class="reflection-prompt">Think of a crisis scenario from the news, a TV show, or your own experience. Apply Roberts' Seven Stage Model — how might a community services worker have moved through the stages? What might the hardest stage be?</div>
+      <textarea class="reflection-area" placeholder="Write your thoughts here..."></textarea>
+    </div>
+  </section>
+
+  <!-- AT1 -->
+  <section class="section fade-in">
+    <div class="section-label">Assessment</div>
+    <div class="at-box">
+      <div class="at-box-label">AT1 — Knowledge Questions</div>
+      <h3>Chapter 3 content — continue working</h3>
+      <p>Questions relating to today's content cover crisis intervention principles, critical incidents, emergency interventions, signs of safety issues, and referrals. Due end of Session 4 (Tue 19 May).</p>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="section fade-in" id="summary">
+    <div class="section-label">End of Session</div>
+    <div class="summary-panel">
+      <h2>Session 3 — What We Covered</h2>
+      <ul class="summary-items">
+        <li>Crisis intervention principles and stages</li>
+        <li>Common principles: simple, quick, practical, brief, accessible, hopeful</li>
+        <li>Psychological First Aid (PFA) and Roberts' Seven Stage Model</li>
+        <li>Critical incident procedures and Critical Incident Stress Management</li>
+        <li>Emergency interventions and the role of CATT</li>
+        <li>Direct and indirect signs of safety issues</li>
+        <li>Referral responsibilities and process</li>
+      </ul>
+      <div class="summary-next">
+        <strong>📚 Before Session 4 (Tue 19 May):</strong>
+        Read Chapters 4 and 5 of your Learner Guide — Crisis Intervention Practices and Self-Care.
+      </div>
+      <div class="summary-next">
+        <strong>📝 AT1 reminder:</strong>
+        Aim to have most questions drafted before Session 4 — it's due at the end of that session.
+      </div>
+      <button class="copy-btn" id="copyBtn" onclick="copyToTeams()">📋 Copy summary for Teams</button>
+    </div>
+  </section>
+</div>
+
+<script>
+let qAttempts={};
+function checkQ(btn,isCorrect){
+  const block=btn.closest('.quiz-block');const qid=block.querySelector('.quiz-feedback').id;
+  if(qAttempts[qid])return;qAttempts[qid]=true;
+  const opts=block.querySelectorAll('.quiz-option');opts.forEach(o=>o.style.pointerEvents='none');
+  const fb=document.getElementById(qid);
+  if(isCorrect){btn.classList.add('correct');fb.textContent='✓ Correct!';fb.className='quiz-feedback correct';}
+  else{btn.classList.add('incorrect');fb.textContent='✗ Not quite — review the learner guide.';fb.className='quiz-feedback incorrect';opts.forEach(o=>{if(o.onclick.toString().includes('true'))o.classList.add('correct');});}
+}
+function toggleAcc(el){
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.accordion.open').forEach(a=>a.classList.remove('open'));
+  if(!isOpen)el.classList.add('open');
+}
+function copyToTeams(){
+  const text=`📌 Session 3 Summary — Principles and Practices | CHCCCS019
+
+Today we covered:
+✔ Crisis intervention principles and stages
+✔ Common principles: simple, quick, practical, brief, accessible, hopeful
+✔ Psychological First Aid (PFA) and Roberts' Seven Stage Model
+✔ Critical incident procedures and CISM
+✔ Emergency interventions and the role of CATT
+✔ Direct and indirect signs of safety issues
+✔ Referral responsibilities and process
+
+📚 Before Session 4 (Tue 19 May): Read Chapters 4 and 5 of your Learner Guide.
+📝 AT1: Aim to have most questions drafted — due end of Session 4.`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copyBtn');btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copy summary for Teams';btn.classList.remove('copied');},2500);
+  });
+}
+</script>
+</body>
+</html>

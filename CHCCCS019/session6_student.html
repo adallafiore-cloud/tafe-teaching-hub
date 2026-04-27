@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 6 — Assessment Day: Written Tasks | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1e2d42;--amber:#e8a020;--amber-light:#f0b84a;--teal:#2a8c82;--teal-light:#3ab3a6;--rose:#c0534a;--rose-light:#d96c63;--text:#dde3ec;--text-dim:#8a9bb5;--border:#243350;--card:#162032;--radius:10px;--radius-sm:6px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+  .site-header{background:var(--navy-mid);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:100}
+  .header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .header-unit{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--amber);letter-spacing:.12em;text-transform:uppercase}
+  .view-badge{background:var(--teal);color:#fff;font-size:.65rem;font-weight:500;padding:.2rem .6rem;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+  .hero{background:linear-gradient(135deg,#0d1b2a 0%,#162032 60%,#0f2438 100%);border-bottom:1px solid var(--border);padding:3.5rem 2rem 3rem}
+  .hero-inner{max-width:900px;margin:0 auto}
+  .hero-session{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--amber);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+  .hero-session::before{content:'';display:inline-block;width:24px;height:2px;background:var(--amber)}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1.15;color:#fff;margin-bottom:1rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem;color:var(--text-dim);font-size:.85rem}
+  .hero-meta span{display:flex;align-items:center;gap:.4rem}
+  .hero-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0}
+  .page-body{max-width:900px;margin:0 auto;padding:2.5rem 2rem 5rem}
+  .section-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;color:#fff;margin-bottom:1rem}
+  h3{font-family:'DM Sans',sans-serif;font-weight:500;font-size:1rem;color:var(--amber-light);margin-bottom:.6rem}
+  .section{margin-bottom:3rem}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .card p{color:var(--text-dim);font-size:.9rem;margin-bottom:.6rem}.card p:last-child{margin-bottom:0}
+  .callout{display:flex;gap:1rem;padding:1.1rem 1.3rem;border-radius:var(--radius);margin-bottom:1rem;align-items:flex-start}
+  .callout.amber{background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.25)}
+  .callout.teal{background:rgba(42,140,130,.08);border:1px solid rgba(42,140,130,.25)}
+  .callout-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+  .callout-body{font-size:.85rem;color:var(--text-dim);line-height:1.5}
+  .callout-body strong{color:var(--text)}
+  .task-card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--radius);padding:1.4rem 1.5rem;margin-bottom:1rem}
+  .task-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teal-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+  .task-card h3{color:var(--text);font-size:.95rem;margin-bottom:.6rem}
+  .task-card p{font-size:.85rem;color:var(--text-dim);margin-bottom:.4rem}
+  .progress-bar{height:3px;background:var(--border);border-radius:99px;margin-bottom:2.5rem;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber-light));border-radius:99px}
+  .summary-panel{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border:1px solid var(--border);border-top:3px solid var(--teal);border-radius:var(--radius);padding:2rem;margin-bottom:2rem}
+  .summary-panel h2{margin-bottom:1rem}
+  .summary-items{list-style:none;padding:0;margin-bottom:1.5rem}
+  .summary-items li{display:flex;gap:.7rem;font-size:.88rem;color:var(--text-dim);padding:.4rem 0;align-items:flex-start}
+  .summary-items li::before{content:'✓';color:var(--teal-light);flex-shrink:0;font-weight:600}
+  .copy-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);padding:.65rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s}
+  .copy-btn:hover{background:var(--teal-light)}.copy-btn.copied{background:var(--amber);color:var(--navy)}
+  .fade-in{opacity:0;transform:translateY(16px);animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 6</span>
+    <span class="view-badge">Student</span>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Session 6 of 6</div>
+    <h1>Assessment Day — Written Tasks</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Tuesday 26 May 2026</span>
+      <span><span class="dot"></span> AT2b · AT3b · AT4b</span>
+      <span><span class="dot"></span> Final Session</span>
+    </div>
+  </div>
+</section>
+<div class="page-body">
+  <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+
+  <section class="section fade-in">
+    <div class="callout amber">
+      <span class="callout-icon">📝</span>
+      <div class="callout-body"><strong>Today's session:</strong> Written follow-up tasks for your three role plays. Open book. Work in your Student Assessment Booklet.</div>
+    </div>
+  </section>
+
+  <section class="section fade-in">
+    <div class="section-label">Written Tasks</div>
+    <h2>What You're Completing Today</h2>
+
+    <div class="task-card">
+      <div class="task-label">AT2b — Written Questions (Denise)</div>
+      <h3>Following the Denise role play</h3>
+      <p>Answer written questions about the Denise role play. Topics include: indicators of crisis you observed, communication techniques you used, your duty of care responsibilities, and next steps and documentation.</p>
+    </div>
+
+    <div class="task-card">
+      <div class="task-label">AT3b — Written Questions (Serena)</div>
+      <h3>Following the Serena role play</h3>
+      <p>Answer written questions about the Serena role play. Topics include: signs of crisis you identified, how you assessed and managed safety, legal and ethical considerations.</p>
+    </div>
+
+    <div class="task-card">
+      <div class="task-label">AT4b — Documentation and Written Questions (Colman)</div>
+      <h3>Following the Colman role play</h3>
+      <p>Complete the Incident, Injury, Trauma and Illness Record form. Complete the Crisis Intervention Plan for Colman. Answer written questions about your role play experience.</p>
+    </div>
+
+    <div class="callout teal" style="margin-top:1rem;">
+      <span class="callout-icon">📚</span>
+      <div class="callout-body">All written tasks are <strong>open book</strong> — you may use your Learner Guide and any class notes. Use the correct terminology from the unit. Refer back to your assessment booklet for the specific questions.</div>
+    </div>
+  </section>
+
+  <section class="section fade-in">
+    <div class="section-label">End of Unit</div>
+    <div class="summary-panel">
+      <h2>That's a wrap — CHCCCS019 complete! 🎉</h2>
+      <ul class="summary-items">
+        <li>AT1 — Knowledge Questions (submitted Session 4)</li>
+        <li>AT2 — Denise role play + written questions</li>
+        <li>AT3 — Serena role play + written questions</li>
+        <li>AT4 — Colman role play (Parts A & B) + documentation</li>
+      </ul>
+      <p style="color:var(--text-dim);font-size:.88rem;margin-bottom:1.5rem;">Your assessor will mark your work and let you know your outcome — Competent or Not Yet Competent. If any tasks are Not Satisfactory, you'll receive feedback and have the opportunity to resubmit or redo the role play.</p>
+      <p style="color:var(--text-dim);font-size:.88rem;margin-bottom:1.5rem;">Thank you for your engagement, your vulnerability, and your commitment throughout this unit. Recognising and responding to crisis situations is one of the most important skills you'll use in your career.</p>
+      <button class="copy-btn" id="copyBtn" onclick="copyToTeams()">📋 Copy final message for Teams</button>
+    </div>
+  </section>
+</div>
+<script>
+function copyToTeams(){
+  const text=`📌 Session 6 — Final Session | CHCCCS019
+
+That's a wrap on CHCCCS019 — Recognise and respond to crisis situations! 🎉
+
+You've completed:
+✔ AT1 — Knowledge Questions
+✔ AT2 — Denise role play + written questions
+✔ AT3 — Serena role play + written questions
+✔ AT4 — Colman role play + documentation
+
+Your assessor will be in touch with your results. If any tasks need resubmission, you'll get feedback and another opportunity.
+
+Thank you for your hard work this unit. 💜`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copyBtn');btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copy final message for Teams';btn.classList.remove('copied');},2500);
+  });
+}
+</script>
+</body>
+</html>

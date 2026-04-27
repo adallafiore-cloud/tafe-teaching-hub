@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 4 — TEACHER VIEW | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1e2d42;--amber:#e8a020;--amber-light:#f0b84a;--teal:#2a8c82;--teal-light:#3ab3a6;--rose:#c0534a;--teacher:#4a2a7a;--teacher-light:#9b6dcf;--teacher-border:#6b3fa0;--text:#dde3ec;--text-dim:#8a9bb5;--text-faint:#4a5a72;--border:#243350;--card:#162032;--radius:10px;--radius-sm:6px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+  .site-header{background:#120d1f;border-bottom:2px solid var(--teacher-border);padding:0 2rem;position:sticky;top:0;z-index:100}
+  .header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .header-unit{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teacher-light);letter-spacing:.12em;text-transform:uppercase}
+  .header-nav{display:flex;gap:1.2rem;align-items:center}
+  .header-nav a{color:var(--text-dim);text-decoration:none;font-size:.8rem;transition:color .2s}.header-nav a:hover{color:var(--teacher-light)}
+  .view-badge{background:var(--teacher);color:#fff;font-size:.65rem;font-weight:500;padding:.2rem .7rem;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+  .hero{background:linear-gradient(135deg,#0d0d1a 0%,#120d1f 60%,#0f1020 100%);border-bottom:1px solid var(--teacher-border);padding:3rem 2rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(155,109,207,.1) 0%,transparent 70%);pointer-events:none}
+  .hero-inner{max-width:960px;margin:0 auto}
+  .hero-session{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teacher-light);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+  .hero-session::before{content:'';display:inline-block;width:24px;height:2px;background:var(--teacher-light)}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:#fff;margin-bottom:.8rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem;color:var(--text-dim);font-size:.85rem;margin-bottom:1rem}
+  .hero-meta span{display:flex;align-items:center;gap:.4rem}
+  .hero-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--teacher-light);flex-shrink:0}
+  .teacher-warning{background:rgba(74,42,122,.2);border:1px solid var(--teacher-border);border-radius:var(--radius-sm);padding:.6rem 1rem;font-size:.78rem;color:var(--teacher-light);display:inline-flex;align-items:center;gap:.5rem}
+  .page-body{max-width:960px;margin:0 auto;padding:2.5rem 2rem 5rem}
+  .teacher-block{background:rgba(74,42,122,.12);border:1px solid var(--teacher-border);border-left:4px solid var(--teacher-light);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1.2rem}
+  .teacher-block-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teacher-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+  .teacher-block-label::after{content:'';flex:1;height:1px;background:rgba(107,63,160,.3)}
+  .teacher-block p,.teacher-block li{font-size:.85rem;color:var(--text-dim);margin-bottom:.3rem}
+  .teacher-block ul{padding-left:1.2rem}
+  .script-block{background:rgba(42,140,130,.06);border:1px solid rgba(42,140,130,.3);border-radius:var(--radius);padding:1.2rem 1.5rem;margin-bottom:1rem}
+  .script-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teal-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+  .script-text{font-size:.88rem;color:var(--text);line-height:1.65;font-style:italic}
+  .timed-plan{margin-bottom:2rem}
+  .time-row{display:grid;grid-template-columns:110px 1fr;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border);align-items:start}
+  .time-row:last-child{border-bottom:none}
+  .time-slot{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--amber);padding-top:.1rem}
+  .time-content h4{font-size:.9rem;color:var(--text);font-weight:500;margin-bottom:.3rem}
+  .time-content p{font-size:.82rem;color:var(--text-dim)}
+  .time-row.break .time-content h4{color:var(--text-faint)}
+  .section-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teacher-light);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:1rem}
+  .section{margin-bottom:3rem}
+  .diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+  .diff-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem}
+  .diff-label{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+  .diff-label.support{color:var(--teal-light)}.diff-label.extend{color:var(--amber)}
+  .diff-card ul{padding-left:1.2rem}.diff-card li{font-size:.82rem;color:var(--text-dim);margin-bottom:.3rem}
+  .checklist{list-style:none;padding:0}
+  .checklist li{display:flex;align-items:center;gap:.8rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.85rem;color:var(--text-dim);cursor:pointer;user-select:none}
+  .checklist li:last-child{border-bottom:none}
+  .check-box{width:18px;height:18px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .checklist li.checked .check-box{background:var(--teal);border-color:var(--teal)}
+  .checklist li.checked .check-box::after{content:'✓';color:#fff;font-size:.7rem;font-weight:700}
+  .checklist li.checked span{text-decoration:line-through;color:var(--text-faint)}
+  .answers-block{background:rgba(232,160,32,.06);border:1px solid rgba(232,160,32,.2);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1rem}
+  .answers-block h3{color:var(--amber-light);font-size:.9rem;margin-bottom:.8rem;font-family:'DM Sans',sans-serif;font-weight:500}
+  .answer-row{display:flex;gap:.8rem;font-size:.84rem;padding:.4rem 0}
+  .answer-row .q-num{color:var(--amber);font-family:'DM Mono',monospace;font-size:.75rem;flex-shrink:0}
+  .answer-row .q-ans{color:var(--text-dim)}.answer-row .q-ans strong{color:var(--amber-light)}
+  .callout{display:flex;gap:1rem;padding:1.1rem 1.3rem;border-radius:var(--radius);margin-bottom:1rem;align-items:flex-start}
+  .callout.amber{background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.25)}
+  .callout.rose{background:rgba(192,83,74,.08);border:1px solid rgba(192,83,74,.25)}
+  .callout-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+  .callout-body{font-size:.85rem;color:var(--text-dim);line-height:1.5}.callout-body strong{color:var(--text)}
+  .summary-panel{background:linear-gradient(135deg,#120d1f,#1a1030);border:1px solid var(--teacher-border);border-top:3px solid var(--teacher-light);border-radius:var(--radius);padding:2rem;margin-bottom:2rem}
+  .summary-panel h2{margin-bottom:1rem}
+  .summary-items{list-style:none;padding:0;margin-bottom:1.5rem}
+  .summary-items li{display:flex;gap:.7rem;font-size:.88rem;color:var(--text-dim);padding:.4rem 0;align-items:flex-start}
+  .summary-items li::before{content:'✓';color:var(--teal-light);flex-shrink:0;font-weight:600}
+  .copy-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--teacher-light);color:#fff;border:none;border-radius:var(--radius-sm);padding:.65rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s}
+  .copy-btn:hover{background:#b584ea}.copy-btn.copied{background:var(--teal)}
+  @media(max-width:600px){.diff-grid{grid-template-columns:1fr}.time-row{grid-template-columns:80px 1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 4 — Teacher</span>
+    <nav class="header-nav">
+      <a href="#plan">Timing</a>
+      <a href="#scripts">Scripts</a>
+      <a href="#answers">Answers</a>
+      <a href="#diff">Differentiation</a>
+      <span class="view-badge">🍎 Teacher</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Teacher View — Session 4 of 6</div>
+    <h1>Crisis Intervention Practices & Self-Care</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Tuesday 19 May 2026</span>
+      <span><span class="dot"></span> 9:30 AM – 3:00 PM</span>
+      <span><span class="dot"></span> ⚡ AT1 due today</span>
+    </div>
+    <div class="teacher-warning">🔒 Teacher only — do not share with students</div>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <section class="section" id="plan">
+    <div class="section-label">Facilitation Plan</div>
+    <h2>Timed Session Plan</h2>
+    <div class="timed-plan">
+      <div class="time-row">
+        <div class="time-slot">9:30–10:30</div>
+        <div class="time-content"><h4>Warm-up + Addressing Safety Concerns</h4><p>Warm-up activity (slide 75). Safety concerns — steps for addressing (slides 76–78). Activity 4A — Zoya and Laura DFV scenario. Communication techniques — active listening, affirming agency and safety.</p></div>
+      </div>
+      <div class="time-row break"><div class="time-slot">10:30–10:45</div><div class="time-content"><h4>☕ Break</h4></div></div>
+      <div class="time-row">
+        <div class="time-slot">10:45–12:00</div>
+        <div class="time-content"><h4>Self-Care — Vicarious Trauma + Strategies</h4><p>What is self-care? Vicarious trauma — definition and impact (slides 79–89). YouTube — Self Care Strategies in Trauma Work (3 min). Self-care routines and strategies table. Supervision and critical incident debriefing. Org responsibilities. Activity 5A — self-care plan draft.</p></div>
+      </div>
+      <div class="time-row break"><div class="time-slot">12:00–12:45</div><div class="time-content"><h4>🍽️ Lunch</h4></div></div>
+      <div class="time-row">
+        <div class="time-slot">12:45–1:15</div>
+        <div class="time-content"><h4>Activity 4B + Role Play Briefing</h4><p>Activity 4B — researching crisis intervention techniques (small groups). Then: role play briefing for Session 5. Walk through all three scenarios and clarify expectations.</p></div>
+      </div>
+      <div class="time-row">
+        <div class="time-slot">1:15–2:30</div>
+        <div class="time-content"><h4>AT1 Finalisation and Submission</h4><p>Students finalise and submit AT1. Collect assessment booklets. Circulate to answer last questions. Remind about the criteria checklist in the booklet.</p></div>
+      </div>
+      <div class="time-row break"><div class="time-slot">2:30–2:45</div><div class="time-content"><h4>☕ Break</h4></div></div>
+      <div class="time-row">
+        <div class="time-slot">2:45–3:00</div>
+        <div class="time-content"><h4>Wrap-up + Session 5 Preview</h4><p>Key takeaways (slide 90). Confirm Session 5 details: room setup, role play order, what to bring. Teams summary sent.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="scripts">
+    <div class="section-label">Teacher Scripts</div>
+    <h2>Facilitation Notes</h2>
+
+    <div class="script-block">
+      <div class="script-label">Collaboration vs direction — the key tension in crisis work</div>
+      <p class="script-text">"I want to sit with this tension for a moment, because it comes up in every role play. Your default as a community services worker is collaboration — you work with the person, not for them. You ask what they want. You present options. You respect their autonomy. But here's the thing: a person in acute crisis may not be able to make decisions safely. Their cognitive function is impaired. They're overwhelmed. And in that moment, you may need to be more directive — not controlling, but providing a structure the person can't create for themselves right now. The skill is knowing when to move between these modes. And you move back to collaboration as soon as the person's capacity returns."</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Vicarious trauma — making it real for students</div>
+      <p class="script-text">"Vicarious trauma is not just an occupational hazard — it's an occupational certainty if you work in community services long enough. Every one of you will be affected by this work. The question isn't whether it will happen — it's how you're going to manage it. Research shows that workers who have good self-care practices, strong peer support networks, regular supervision, and organisations that take debriefing seriously are much more resilient to vicarious trauma. The ones who struggle are the ones who think they're supposed to leave it at the office, or who believe that needing support is a sign of weakness. It's the opposite — seeking support is a professional skill."</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Zoya and Laura debrief — what to draw out</div>
+      <p class="script-text">"In the Zoya and Laura scenario, notice what Zoya does well: she stays calm, she provides first aid, she asks questions, she tells Laura what is going to happen next. But she also checks in about consent — she asks if Laura wants her mother notified, and when Laura says no, she respects that, even in a crisis. That's the professional balance. When you debrief the scenario in groups, ask: at which points was Zoya collaborative? At which points was she directive? Were both appropriate?"</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Role Play Briefing Notes</div>
+    <h2>Session 5 Setup — What Teachers Need to Organise</h2>
+    <div class="teacher-block">
+      <div class="teacher-block-label">Room setup required for Session 5</div>
+      <ul>
+        <li>Reception area simulation: 1 desk (reception desk), 3–4 chairs in waiting area configuration</li>
+        <li>For AT2 (Denise): 1–2 additional people in waiting room chairs (other staff, TAs, or students not being assessed)</li>
+        <li>Car backfire audio file queued and tested — play from laptop when trigger point arrives</li>
+        <li>All three role play assessor marking guides open and ready before 9:30</li>
+        <li>First Access SD policy documents accessible (HS2, HS3, HS9) — either printed or on screen</li>
+        <li>CHCCCS019 Incident Record form printed (for AT4b)</li>
+        <li>CHCCCS019 Crisis Intervention Plan — Colman printed (for AT4b)</li>
+      </ul>
+    </div>
+    <div class="callout amber">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body"><strong>Welfare check:</strong> After role plays involving DFV and trauma content, check in with students during the Session 5 debrief. This content can surface unexpected emotional responses. Have the BHI counselling number ready.</div>
+    </div>
+  </section>
+
+  <section class="section" id="answers">
+    <div class="section-label">Quiz Answers</div>
+    <h2>Student Quiz — Benchmark Answers</h2>
+    <div class="answers-block">
+      <div class="answer-row"><span class="q-num">Q1</span><span class="q-ans"><strong>B</strong> — The emotional, psychological and physical impact of being exposed to others' traumatic experiences. Vicarious trauma is not limited to clinical workers and is not limited to workplace incidents.</span></div>
+      <div class="answer-row"><span class="q-num">Q2</span><span class="q-ans"><strong>C</strong> — When the person is so overwhelmed that they cannot make decisions safely. Not for efficiency, not when the person is angry, and collaboration should always return as the person's capacity recovers.</span></div>
+      <div class="answer-row"><span class="q-num">Q3</span><span class="q-ans"><strong>C</strong> — Affirming agency: acknowledging the person's capacity and offering them choice. Options A and B disempower or make decisions for the person. Option D is directive without being empowering.</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="diff">
+    <div class="section-label">Differentiation</div>
+    <h2>Supporting Your Cohort</h2>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-label support">Support strategies</div>
+        <ul>
+          <li>Self-care plan activity (5A) can be completed verbally with a partner if students struggle with written reflection</li>
+          <li>For students anxious about the role plays, reassure them: they are not expected to be perfect — the assessor is looking for genuine effort and the right instincts</li>
+          <li>Offer additional time to read the role play scenarios before Session 5 (send them now if needed)</li>
+          <li>Vicarious trauma content may be particularly resonant for students with their own trauma histories — be observant and offer space</li>
+        </ul>
+      </div>
+      <div class="diff-card">
+        <div class="diff-label extend">Extension strategies</div>
+        <ul>
+          <li>Research the Australian Association of Social Workers (AASW) Supervision Standards — what does good supervision look like?</li>
+          <li>Find an EAP (Employee Assistance Program) provider used by a community services org — what services do they offer?</li>
+          <li>Read the Safe and Equal vicarious trauma resource linked on slide 89</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Resource Checklist</div>
+    <h2>Before You Start</h2>
+    <ul class="checklist" id="resourceList">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Key Model Handout — Self-Care Strategies (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Reflective Writing Sheet — My Self-Care Plan (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Assessment Overview Handout (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>YouTube — Self Care Strategies in Trauma Work (3 min) queued and tested</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>PowerPoint slides 74–90 loaded and tested</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>AT1 submission system ready (physical collection or digital)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Session 5 room booking and setup confirmed</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Car backfire audio file downloaded and tested</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Marking guides for AT2, AT3, AT4 printed and ready</span></li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="summary-panel">
+      <h2>Teacher Summary — Session 4</h2>
+      <ul class="summary-items">
+        <li>Safety concerns — steps for addressing in a crisis, covered with Zoya/Laura scenario</li>
+        <li>Communication techniques — active listening, affirming agency and safety</li>
+        <li>Vicarious trauma and self-care strategies covered in depth</li>
+        <li>AT1 collected from all students</li>
+        <li>Role play briefing for Session 5 completed</li>
+        <li>Teams summary sent</li>
+      </ul>
+      <button class="copy-btn" id="copyBtn" onclick="copyToTeams()">📋 Copy Teams message</button>
+    </div>
+  </section>
+
+</div>
+<script>
+function toggleCheck(el){el.classList.toggle('checked')}
+function copyToTeams(){
+  const text=`📌 Session 4 Summary — Crisis Intervention Practices & Self-Care | CHCCCS019
+
+Today we covered:
+✔ How to address safety concerns in a crisis
+✔ Communication techniques: active listening, affirming agency and safety
+✔ Balancing direction and collaboration
+✔ Vicarious trauma and self-care strategies
+✔ Supervision and critical incident debriefing
+
+📋 AT1 submitted today — thank you!
+🎭 Next session (Mon 25 May) is Assessment Day. Come prepared for AT2 (Denise), AT3 (Serena), and AT4 (Colman). Read your Student Assessment Booklet.`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copyBtn');btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copy Teams message';btn.classList.remove('copied');},2500);
+  });
+}
+</script>
+</body>
+</html>

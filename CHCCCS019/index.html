@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAFE Teaching Hub | CHC42021 Community Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1e2d42;
+    --amber:#e8a020;--amber-light:#f0b84a;--amber-dim:#c4851a;
+    --teal:#2a8c82;--teal-light:#3ab3a6;
+    --text:#dde3ec;--text-dim:#8a9bb5;--text-faint:#4a5a72;
+    --border:#243350;--card:#162032;--card-hover:#1d2c42;
+    --radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;min-height:100vh}
+
+  /* ── HERO ── */
+  .hero{
+    background:linear-gradient(160deg,#070f18 0%,#0d1b2a 40%,#0f2438 100%);
+    border-bottom:1px solid var(--border);
+    padding:5rem 2rem 4rem;
+    position:relative;overflow:hidden;
+    text-align:center;
+  }
+  .hero::before{
+    content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:600px;height:300px;
+    background:radial-gradient(ellipse,rgba(232,160,32,.07) 0%,transparent 70%);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:'';position:absolute;bottom:-1px;left:0;right:0;height:60px;
+    background:linear-gradient(to bottom,transparent,var(--navy));
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    font-family:'DM Mono',monospace;font-size:.7rem;color:var(--amber);
+    letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.2rem;
+    display:flex;align-items:center;justify-content:center;gap:.8rem;
+  }
+  .hero-eyebrow::before,.hero-eyebrow::after{content:'';width:30px;height:1px;background:var(--amber);opacity:.5}
+  .hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.2rem,6vw,4rem);
+    font-weight:700;color:#fff;line-height:1.1;
+    margin-bottom:1rem;
+  }
+  .hero h1 em{font-style:normal;color:var(--amber)}
+  .hero-sub{
+    font-size:1rem;color:var(--text-dim);max-width:520px;
+    margin:0 auto 2rem;line-height:1.6;
+  }
+  .hero-badges{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap}
+  .hero-badge{
+    background:var(--navy-light);border:1px solid var(--border);
+    border-radius:99px;padding:.35rem .9rem;
+    font-size:.75rem;color:var(--text-dim);
+    font-family:'DM Mono',monospace;letter-spacing:.05em;
+  }
+
+  /* ── LAYOUT ── */
+  .page-body{max-width:960px;margin:0 auto;padding:3rem 2rem 6rem}
+
+  /* ── SECTION ── */
+  .section{margin-bottom:4rem}
+  .section-label{
+    font-family:'DM Mono',monospace;font-size:.65rem;color:var(--amber);
+    letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.5rem;
+    display:flex;align-items:center;gap:.7rem;
+  }
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  h2{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+
+  /* ── UNIT CARDS ── */
+  .unit-grid{display:flex;flex-direction:column;gap:1.2rem}
+  .unit-card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:border-color .2s,background .2s;
+  }
+  .unit-card:hover{border-color:var(--amber-dim);background:var(--card-hover)}
+  .unit-card-inner{padding:1.6rem 1.8rem}
+  .unit-code{
+    font-family:'DM Mono',monospace;font-size:.68rem;color:var(--amber);
+    letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;
+  }
+  .unit-title{
+    font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;
+    color:#fff;margin-bottom:.6rem;line-height:1.2;
+  }
+  .unit-meta{
+    display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem;
+    font-size:.78rem;color:var(--text-faint);
+  }
+  .unit-meta span{display:flex;align-items:center;gap:.3rem}
+  .unit-sessions{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:.6rem;
+  }
+  .session-row{
+    display:flex;gap:.6rem;align-items:center;
+    padding:.6rem .8rem;
+    background:var(--navy);border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+  }
+  .session-num{
+    font-family:'DM Mono',monospace;font-size:.62rem;color:var(--amber);
+    flex-shrink:0;width:22px;text-align:right;
+  }
+  .session-date{
+    font-size:.72rem;color:var(--text-faint);flex-shrink:0;
+    font-family:'DM Mono',monospace;
+  }
+  .session-links{display:flex;gap:.4rem;margin-left:auto}
+  .session-link{
+    font-size:.7rem;font-weight:500;text-decoration:none;
+    padding:.22rem .55rem;border-radius:4px;
+    transition:all .2s;letter-spacing:.03em;
+  }
+  .session-link.student{
+    background:rgba(42,140,130,.15);color:var(--teal-light);
+    border:1px solid rgba(42,140,130,.3);
+  }
+  .session-link.student:hover{background:rgba(42,140,130,.25);border-color:var(--teal)}
+  .session-link.teacher{
+    background:rgba(232,160,32,.1);color:var(--amber-light);
+    border:1px solid rgba(232,160,32,.25);
+  }
+  .session-link.teacher:hover{background:rgba(232,160,32,.2);border-color:var(--amber)}
+  .session-link.inactive{
+    background:transparent;color:var(--text-faint);
+    border:1px solid var(--border);cursor:not-allowed;opacity:.5;
+  }
+  .unit-status{
+    display:inline-flex;align-items:center;gap:.4rem;
+    font-size:.65rem;font-weight:500;padding:.25rem .6rem;
+    border-radius:99px;letter-spacing:.06em;text-transform:uppercase;
+    font-family:'DM Mono',monospace;
+  }
+  .status-complete{background:rgba(42,140,130,.12);color:var(--teal-light);border:1px solid rgba(42,140,130,.25)}
+  .status-active{background:rgba(232,160,32,.12);color:var(--amber-light);border:1px solid rgba(232,160,32,.25)}
+  .status-planned{background:rgba(74,90,114,.15);color:var(--text-faint);border:1px solid var(--border)}
+
+  /* ── QUICK NAV ── */
+  .quick-nav{
+    display:flex;gap:.6rem;flex-wrap:wrap;
+    margin-bottom:2.5rem;
+  }
+  .quick-nav a{
+    font-size:.78rem;color:var(--text-dim);text-decoration:none;
+    padding:.35rem .8rem;background:var(--navy-light);
+    border:1px solid var(--border);border-radius:99px;
+    transition:all .2s;font-family:'DM Mono',monospace;letter-spacing:.04em;
+  }
+  .quick-nav a:hover{color:var(--amber);border-color:var(--amber-dim)}
+
+  /* ── FOOTER ── */
+  .site-footer{
+    border-top:1px solid var(--border);
+    padding:2rem;text-align:center;
+    color:var(--text-faint);font-size:.75rem;
+  }
+  .site-footer strong{color:var(--text-dim)}
+
+  /* ── ANIM ── */
+  .fade-in{opacity:0;transform:translateY(12px);animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+  .fade-in:nth-child(1){animation-delay:.05s}
+  .fade-in:nth-child(2){animation-delay:.1s}
+  .fade-in:nth-child(3){animation-delay:.15s}
+  .fade-in:nth-child(4){animation-delay:.2s}
+
+  @media(max-width:600px){
+    .hero{padding:3.5rem 1.5rem 3rem}
+    .unit-sessions{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-eyebrow">Box Hill TAFE · CHC42021</div>
+  <h1>TAFE Teaching <em>Hub</em></h1>
+  <p class="hero-sub">Certificate IV in Community Services — lesson plans, student activities, and teacher resources for every session.</p>
+  <div class="hero-badges">
+    <span class="hero-badge">Dally Fiore</span>
+    <span class="hero-badge">Mon + Tue · 9:30–3:00</span>
+    <span class="hero-badge">23 Students</span>
+    <span class="hero-badge">2026</span>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <div class="quick-nav">
+    <a href="#chcdiv001">CHCDIV001</a>
+    <a href="#chccom002">CHCCOM002</a>
+    <a href="#chcccs019">CHCCCS019</a>
+  </div>
+
+  <!-- CHCDIV001 -->
+  <section class="section fade-in" id="chcdiv001">
+    <div class="section-label">Unit 1</div>
+    <div class="unit-card">
+      <div class="unit-card-inner">
+        <div class="unit-code">CHCDIV001</div>
+        <div class="unit-title">Work with Diverse People</div>
+        <div class="unit-meta">
+          <span>✅ Complete</span>
+          <span class="unit-status status-complete">Complete</span>
+        </div>
+        <div class="unit-sessions">
+          <div class="session-row">
+            <span class="session-num">S1</span>
+            <span class="session-date">TBC</span>
+            <div class="session-links">
+              <a class="session-link student inactive" href="#">Student</a>
+              <a class="session-link teacher inactive" href="#">Teacher</a>
+            </div>
+          </div>
+          <div class="session-row">
+            <span class="session-num">S2</span>
+            <span class="session-date">TBC</span>
+            <div class="session-links">
+              <a class="session-link student inactive" href="#">Student</a>
+              <a class="session-link teacher inactive" href="#">Teacher</a>
+            </div>
+          </div>
+          <div class="session-row">
+            <span class="session-num">S3</span>
+            <span class="session-date">TBC</span>
+            <div class="session-links">
+              <a class="session-link student inactive" href="#">Student</a>
+              <a class="session-link teacher inactive" href="#">Teacher</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHCCOM002 -->
+  <section class="section fade-in" id="chccom002">
+    <div class="section-label">Unit 2</div>
+    <div class="unit-card">
+      <div class="unit-card-inner">
+        <div class="unit-code">CHCCOM002</div>
+        <div class="unit-title">Use Communication to Build Relationships</div>
+        <div class="unit-meta">
+          <span>✅ Complete</span>
+          <span class="unit-status status-complete">Complete</span>
+        </div>
+        <div class="unit-sessions">
+          <div class="session-row">
+            <span class="session-num">S1</span>
+            <span class="session-date">TBC</span>
+            <div class="session-links">
+              <a class="session-link student inactive" href="#">Student</a>
+              <a class="session-link teacher inactive" href="#">Teacher</a>
+            </div>
+          </div>
+          <div class="session-row">
+            <span class="session-num">S2</span>
+            <span class="session-date">TBC</span>
+            <div class="session-links">
+              <a class="session-link student inactive" href="#">Student</a>
+              <a class="session-link teacher inactive" href="#">Teacher</a>
+            </div>
+          </div>
+          <div class="session-row">
+            <span class="session-num">S3</span>
+            <span class="session-date">TBC</span>
+            <div class="session-links">
+              <a class="session-link student inactive" href="#">Student</a>
+              <a class="session-link teacher inactive" href="#">Teacher</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHCCCS019 -->
+  <section class="section fade-in" id="chcccs019">
+    <div class="section-label">Unit 3 — Current</div>
+    <div class="unit-card" style="border-color:rgba(232,160,32,.3)">
+      <div class="unit-card-inner">
+        <div class="unit-code">CHCCCS019</div>
+        <div class="unit-title">Recognise and Respond to Crisis Situations</div>
+        <div class="unit-meta">
+          <span>🔴 In Progress</span>
+          <span class="unit-status status-active">Active</span>
+          <span>11 May – 26 May 2026</span>
+          <span>6 Sessions</span>
+        </div>
+        <div class="unit-sessions">
+          <div class="session-row">
+            <span class="session-num">S1</span>
+            <span class="session-date">Mon 11 May</span>
+            <div class="session-links">
+              <a class="session-link student" href="CHCCCS019/session1_student.html">Student</a>
+              <a class="session-link teacher" href="CHCCCS019/session1_teacher.html">Teacher</a>
+            </div>
+          </div>
+          <div class="session-row">
+            <span class="session-num">S2</span>
+            <span class="session-date">Tue 12 May</span>
+            <div class="session-links">
+              <a class="session-link student" href="CHCCCS019/session2_student.html">Student</a>
+              <a class="session-link teacher" href="CHCCCS019/session2_teacher.html">Teacher</a>
+            </div>
+          </div>
+          <div class="session-row">
+            <span class="session-num">S3</span>
+            <span class="session-date">Mon 18 May</span>
+            <div class="session-links">
+              <a class="session-link student" href="CHCCCS019/session3_student.html">Student</a>
+              <a class="session-link teacher" href="CHCCCS019/session3_teacher.html">Teacher</a>
+            </div>
+          </div>
+          <div class="session-row">
+            <span class="session-num">S4</span>
+            <span class="session-date">Tue 19 May</span>
+            <div class="session-links">
+              <a class="session-link student" href="CHCCCS019/session4_student.html">Student</a>
+              <a class="session-link teacher" href="CHCCCS019/session4_teacher.html">Teacher</a>
+            </div>
+          </div>
+          <div class="session-row">
+            <span class="session-num">S5</span>
+            <span class="session-date">Mon 25 May</span>
+            <div class="session-links">
+              <a class="session-link student" href="CHCCCS019/session5_student.html">Student</a>
+              <a class="session-link teacher" href="CHCCCS019/session5_teacher.html">Teacher</a>
+            </div>
+          </div>
+          <div class="session-row">
+            <span class="session-num">S6</span>
+            <span class="session-date">Tue 26 May</span>
+            <div class="session-links">
+              <a class="session-link student" href="CHCCCS019/session6_student.html">Student</a>
+              <a class="session-link teacher" href="CHCCCS019/session6_teacher.html">Teacher</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUTURE PLACEHOLDER -->
+  <section class="section fade-in">
+    <div class="section-label">Coming Next</div>
+    <div class="unit-card" style="opacity:.6">
+      <div class="unit-card-inner">
+        <div class="unit-code">Next Unit</div>
+        <div class="unit-title" style="color:var(--text-dim)">— To be confirmed —</div>
+        <div class="unit-meta">
+          <span class="unit-status status-planned">Planned</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-footer">
+  <strong>TAFE Teaching Hub</strong> · CHC42021 Certificate IV in Community Services · Box Hill TAFE<br>
+  <span style="margin-top:.3rem;display:block">Built for face-to-face delivery · Student pages are safe to share · Teacher pages are for your eyes only</span>
+</footer>
+
+</body>
+</html>

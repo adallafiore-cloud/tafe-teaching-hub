@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 — TEACHER VIEW | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #162032;
+    --navy-light: #1e2d42;
+    --amber: #e8a020;
+    --amber-light: #f0b84a;
+    --amber-dim: #c4851a;
+    --teal: #2a8c82;
+    --teal-light: #3ab3a6;
+    --rose: #c0534a;
+    --teacher: #4a2a7a;
+    --teacher-light: #9b6dcf;
+    --teacher-border: #6b3fa0;
+    --text: #dde3ec;
+    --text-dim: #8a9bb5;
+    --text-faint: #4a5a72;
+    --border: #243350;
+    --card: #162032;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; }
+
+  .site-header {
+    background: #120d1f;
+    border-bottom: 2px solid var(--teacher-border);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; height: 56px;
+  }
+  .header-unit { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--teacher-light); letter-spacing: 0.12em; text-transform: uppercase; }
+  .header-nav { display: flex; gap: 1.2rem; align-items: center; }
+  .header-nav a { color: var(--text-dim); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+  .header-nav a:hover { color: var(--teacher-light); }
+  .view-badge { background: var(--teacher); color: #fff; font-size: 0.65rem; font-weight: 500; padding: 0.2rem 0.7rem; border-radius: 99px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .hero {
+    background: linear-gradient(135deg, #0d0d1a 0%, #120d1f 60%, #0f1020 100%);
+    border-bottom: 1px solid var(--teacher-border);
+    padding: 3rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(155,109,207,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 960px; margin: 0 auto; }
+  .hero-session { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--teacher-light); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.6rem; }
+  .hero-session::before { content: ''; display: inline-block; width: 24px; height: 2px; background: var(--teacher-light); }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; color: #fff; margin-bottom: 0.8rem; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem; }
+  .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
+  .hero-meta .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teacher-light); flex-shrink: 0; }
+  .teacher-warning {
+    background: rgba(74,42,122,0.2);
+    border: 1px solid var(--teacher-border);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 1rem;
+    font-size: 0.78rem;
+    color: var(--teacher-light);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .page-body { max-width: 960px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
+
+  /* TEACHER BLOCKS */
+  .teacher-block {
+    background: rgba(74,42,122,0.12);
+    border: 1px solid var(--teacher-border);
+    border-left: 4px solid var(--teacher-light);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .teacher-block-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--teacher-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .teacher-block-label::after { content: ''; flex:1; height:1px; background: rgba(107,63,160,0.3); }
+  .teacher-block p { font-size: 0.87rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  .teacher-block p:last-child { margin-bottom: 0; }
+  .teacher-block ul { padding-left: 1.2rem; }
+  .teacher-block li { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.3rem; }
+
+  /* SCRIPT BLOCK */
+  .script-block {
+    background: rgba(42,140,130,0.06);
+    border: 1px solid rgba(42,140,130,0.3);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .script-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--teal-light); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .script-text { font-size: 0.88rem; color: var(--text); line-height: 1.65; font-style: italic; }
+  .script-text em { font-style: normal; color: var(--text-dim); font-size: 0.82rem; }
+
+  /* TIMED PLAN */
+  .timed-plan { margin-bottom: 2rem; }
+  .time-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .time-row:last-child { border-bottom: none; }
+  .time-slot { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--amber); padding-top: 0.1rem; }
+  .time-content h4 { font-size: 0.9rem; color: var(--text); font-weight: 500; margin-bottom: 0.3rem; }
+  .time-content p { font-size: 0.82rem; color: var(--text-dim); }
+  .time-row.break .time-content h4 { color: var(--text-faint); }
+
+  /* SECTION HEADINGS */
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--teacher-light); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; color: #fff; margin-bottom: 1rem; }
+  h3 { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.95rem; color: var(--text); margin-bottom: 0.5rem; }
+  .section { margin-bottom: 3rem; }
+
+  /* DIFF GUIDE */
+  .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+  .diff-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+  }
+  .diff-label { font-size: 0.68rem; font-family: 'DM Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .diff-label.support { color: var(--teal-light); }
+  .diff-label.extend { color: var(--amber); }
+  .diff-card ul { padding-left: 1.2rem; }
+  .diff-card li { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 0.3rem; }
+
+  /* RESOURCE CHECKLIST */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem; color: var(--text-dim);
+    cursor: pointer;
+    user-select: none;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .checklist li.checked .check-box { background: var(--teal); border-color: var(--teal); }
+  .checklist li.checked .check-box::after { content: '✓'; color: #fff; font-size: 0.7rem; font-weight: 700; }
+  .checklist li.checked span { text-decoration: line-through; color: var(--text-faint); }
+
+  /* QUIZ ANSWERS */
+  .answers-block {
+    background: rgba(232,160,32,0.06);
+    border: 1px solid rgba(232,160,32,0.2);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .answers-block h3 { color: var(--amber-light); font-size: 0.9rem; margin-bottom: 0.8rem; }
+  .answer-row { display: flex; gap: 0.8rem; font-size: 0.84rem; padding: 0.4rem 0; }
+  .answer-row .q-num { color: var(--amber); font-family: 'DM Mono', monospace; font-size: 0.75rem; flex-shrink: 0; }
+  .answer-row .q-ans { color: var(--text-dim); }
+  .answer-row .q-ans strong { color: var(--amber-light); }
+
+  /* CALLOUT */
+  .callout { display: flex; gap: 1rem; padding: 1.1rem 1.3rem; border-radius: var(--radius); margin-bottom: 1rem; align-items: flex-start; }
+  .callout.amber { background: rgba(232,160,32,0.08); border: 1px solid rgba(232,160,32,0.25); }
+  .callout.rose { background: rgba(192,83,74,0.08); border: 1px solid rgba(192,83,74,0.25); }
+  .callout-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .callout-body { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+  .callout-body strong { color: var(--text); }
+
+  .summary-panel { background: linear-gradient(135deg, #120d1f, #1a1030); border: 1px solid var(--teacher-border); border-top: 3px solid var(--teacher-light); border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; }
+  .summary-panel h2 { margin-bottom: 1rem; }
+  .summary-items { list-style: none; padding: 0; margin-bottom: 1.5rem; }
+  .summary-items li { display: flex; gap: 0.7rem; font-size: 0.88rem; color: var(--text-dim); padding: 0.4rem 0; align-items: flex-start; }
+  .summary-items li::before { content: '✓'; color: var(--teal-light); flex-shrink: 0; font-weight: 600; }
+
+  .copy-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--teacher-light); color: #fff; border: none; border-radius: var(--radius-sm); padding: 0.65rem 1.3rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+  .copy-btn:hover { background: #b584ea; }
+  .copy-btn.copied { background: var(--teal); }
+
+  @media(max-width:600px){ .diff-grid { grid-template-columns:1fr; } .time-row { grid-template-columns: 80px 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 1 — Teacher</span>
+    <nav class="header-nav">
+      <a href="#plan">Timing</a>
+      <a href="#scripts">Scripts</a>
+      <a href="#answers">Answers</a>
+      <a href="#diff">Differentiation</a>
+      <span class="view-badge">🍎 Teacher</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Teacher View — Session 1 of 6</div>
+    <h1>What is a Crisis?</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Monday 11 May 2026</span>
+      <span><span class="dot"></span> 9:30 AM – 3:00 PM</span>
+      <span><span class="dot"></span> Chapter 1 — 23 students</span>
+    </div>
+    <div class="teacher-warning">🔒 Teacher only — do not share with students</div>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <!-- TIMED PLAN -->
+  <section class="section" id="plan">
+    <div class="section-label">Facilitation Plan</div>
+    <h2>Timed Session Plan</h2>
+    <div class="timed-plan">
+      <div class="time-row">
+        <div class="time-slot">9:30–10:30</div>
+        <div class="time-content">
+          <h4>New Learning 1 — Welcome + Defining a Crisis</h4>
+          <p>Admin (slides 1–4): intro, WHS, trigger warning, course outline, AT1 overview. Icebreaker (slide 5). Defining crisis, triggering events, indicators, communication (slides 6–15). Case study — John & Mary.</p>
+        </div>
+      </div>
+      <div class="time-row break">
+        <div class="time-slot">10:30–10:45</div>
+        <div class="time-content"><h4>☕ Break</h4></div>
+      </div>
+      <div class="time-row">
+        <div class="time-slot">10:45–12:00</div>
+        <div class="time-content">
+          <h4>New Learning 2 — Types of Crisis + Safety</h4>
+          <p>Types of crisis situations (slides 16–27): suicide, self-harm, threats, abuse (incl. child abuse and elder abuse), DFV. YouTube — Lifeline video (2 min). Activities 1A, 1B, 1D. Safety planning + SMART goals.</p>
+        </div>
+      </div>
+      <div class="time-row break">
+        <div class="time-slot">12:00–12:45</div>
+        <div class="time-content"><h4>🍽️ Lunch</h4></div>
+      </div>
+      <div class="time-row">
+        <div class="time-slot">12:45–1:15</div>
+        <div class="time-content">
+          <h4>Small Group Discussion — Scenario Analysis</h4>
+          <p>Students use scenario handout to identify crisis type and indicators. Small groups of 3–4. Debrief as class — listen for any disclosure or distress given the topic of DFV.</p>
+        </div>
+      </div>
+      <div class="time-row">
+        <div class="time-slot">1:15–2:30</div>
+        <div class="time-content">
+          <h4>AT1 Introduction + Work Time</h4>
+          <p>Distribute Student Assessment Booklets. Walk through AT1 requirements. Students begin Chapter 1 questions. Circulate to check understanding and answer questions.</p>
+        </div>
+      </div>
+      <div class="time-row break">
+        <div class="time-slot">2:30–2:45</div>
+        <div class="time-content"><h4>☕ Break</h4></div>
+      </div>
+      <div class="time-row">
+        <div class="time-slot">2:45–3:00</div>
+        <div class="time-content">
+          <h4>Wrap-up + Exit Reflection</h4>
+          <p>Key takeaways (slide 28). Share Teams summary. Ask: one thing you'll remember about crisis intervention. Confirm homework: read Chapter 2 before Session 2.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHER SCRIPTS -->
+  <section class="section" id="scripts">
+    <div class="section-label">Teacher Scripts</div>
+    <h2>Word-for-Word Facilitation Notes</h2>
+
+    <div class="teacher-block" style="margin-bottom:1.5rem;">
+      <div class="teacher-block-label">⚠️ Trigger Warning — say this at the start</div>
+      <p>This unit deals with sensitive topics including suicide, self-harm, domestic violence, and child abuse. We'll be discussing these professionally and respectfully. If anything we cover brings up difficult feelings for you, you are welcome to step out — no questions asked. Box Hill TAFE has counselling services available. Look after yourselves and each other.</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Opening — What is a crisis? (Slide 7)</div>
+      <p class="script-text">"Before we define a crisis professionally, I want you to think about a time you've experienced one yourself — or watched someone go through it. Not necessarily a major disaster — it might have been something that felt overwhelming in the moment. A relationship ending. A job loss. An exam result. Failing to pay rent. What made it a crisis wasn't the size of the event — it was that the person couldn't cope the way they usually would. That's the key. <em>(pause — invite brief sharing)</em> In community services, our working definition is: a crisis is a state in which a person is unable to function in their usual way due to a significantly stressful event."</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Suicide — framing this topic (Slide 16–17)</div>
+      <p class="script-text">"We're now going to talk about potential suicide. I know this might feel confronting, but as community services workers, this is something you will encounter. Research tells us that asking someone directly about suicide does NOT increase the risk — it actually decreases it, because it tells the person someone is willing to have the conversation. The three principles are simple: Ask. Listen and stay. Get help. Let me walk through each of these."</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">DFV — distinguishing the terms (Slide 24–25)</div>
+      <p class="script-text">"There's an important distinction here between domestic violence and family violence. Domestic violence specifically refers to behaviour between current or former intimate partners — one person using power and control over the other, usually through fear. Family violence is broader — it covers violence between any family members, and it's the preferred term when working with Aboriginal and Torres Strait Islander communities because it acknowledges extended family and kinship structures. In practice you'll use both terms — know the difference."</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Safety planning wrap-up (after SMART goals)</div>
+      <p class="script-text">"The key word here is 'collaborative.' We're not making safety plans for people — we're making them with them. Imposing a plan on someone in crisis takes away their agency and often doesn't work. At some point you might need to be directive — if someone is in immediate danger, you act. But your default is to keep the person at the centre of decision-making as much as their capacity allows. That balance — between collaboration and direction — is something we'll come back to in Session 4."</p>
+    </div>
+  </section>
+
+  <!-- DISCUSSION PROMPTS -->
+  <section class="section">
+    <div class="section-label">Discussion Prompts</div>
+    <h2>Class Discussion Questions</h2>
+    <div class="teacher-block">
+      <div class="teacher-block-label">Discussion prompts — use as needed</div>
+      <ul>
+        <li>What's the difference between a crisis and just a really bad day? Where's the line?</li>
+        <li>Can you think of a news event from the past year that triggered a crisis for many people? What kinds of support were needed?</li>
+        <li>Why might indirect indicators of crisis be harder to spot than direct ones? What makes them easy to miss?</li>
+        <li>In the John and Mary case study — who is in crisis? Is Mary also at risk? What would you do as a support worker?</li>
+        <li>Why do you think directly asking someone about suicide actually reduces risk rather than increasing it?</li>
+        <li>What do you think the hardest part of working with someone in a DFV situation would be? Why?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- QUIZ ANSWERS -->
+  <section class="section" id="answers">
+    <div class="section-label">Quiz Answers</div>
+    <h2>Student Quiz — Benchmark Answers</h2>
+    <div class="answers-block">
+      <div class="answer-row"><span class="q-num">Q1</span><span class="q-ans"><strong>B</strong> — A state in which a person is unable to function in their usual way, often due to a significantly stressful event. Not all crises involve disasters; the key is the person's inability to cope using their usual resources.</span></div>
+      <div class="answer-row"><span class="q-num">Q2</span><span class="q-ans"><strong>C</strong> — Withdrawal and increased alcohol use are indirect indicators — behavioural changes that suggest distress without directly referencing the crisis. Options A, B and D are direct indicators.</span></div>
+      <div class="answer-row"><span class="q-num">Q3</span><span class="q-ans"><strong>C</strong> — Ask directly: 'Are you thinking about suicide?' Research shows direct questioning reduces risk. Never wait for the person to bring it up — asking shows you care and opens the conversation.</span></div>
+      <div class="answer-row"><span class="q-num">Q4</span><span class="q-ans"><strong>B</strong> — Specific, Measurable, Achievable, Relevant, Timely. Safety planning goals should meet all five criteria to be effective.</span></div>
+    </div>
+  </section>
+
+  <!-- DIFFERENTIATION -->
+  <section class="section" id="diff">
+    <div class="section-label">Differentiation</div>
+    <h2>Supporting Your Cohort</h2>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-label support">Support strategies</div>
+        <ul>
+          <li>Pre-teach key vocabulary before the session (crisis, indicator, mandatory reporting)</li>
+          <li>Provide the Key Model Handout as a reference throughout activities</li>
+          <li>Allow verbal responses to activity questions instead of written</li>
+          <li>Pair EAL/D learners with a supportive peer for group activities</li>
+          <li>Offer sentence starters for reflection tasks</li>
+          <li>Allow extra time for AT1 where reasonable adjustment applies</li>
+        </ul>
+      </div>
+      <div class="diff-card">
+        <div class="diff-label extend">Extension strategies</div>
+        <ul>
+          <li>Research Gerard Caplan's crisis theory and report back to the group</li>
+          <li>Investigate one Victorian piece of legislation relevant to the crisis types covered today</li>
+          <li>Find a current news story involving a crisis situation — apply the indicators framework</li>
+          <li>Compare the 'Ask, Listen and Stay, Get Help' model with the Lifeline resources</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout amber">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body"><strong>EAL/D note:</strong> Several students may find the DFV and suicide content particularly confronting or culturally sensitive. Check in privately during break or lunch if you notice any student becoming withdrawn or distressed.</div>
+    </div>
+    <div class="callout rose">
+      <span class="callout-icon">🚨</span>
+      <div class="callout-body"><strong>Disclosure protocol:</strong> This content may trigger disclosures. If a student discloses personal experience of DFV, abuse or suicidal ideation, respond calmly, thank them for sharing, and follow BHI's student welfare and mandatory reporting procedures. Do not probe further in class.</div>
+    </div>
+  </section>
+
+  <!-- RESOURCE CHECKLIST -->
+  <section class="section">
+    <div class="section-label">Resource Checklist</div>
+    <h2>Before You Start — Check These Off</h2>
+    <ul class="checklist" id="resourceList">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Learner guides distributed to all 23 students</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>AT1 Student Assessment Booklets ready to distribute</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Activity Worksheet — Types of Crisis (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Scenario Handout — John & Mary (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Key Model Handout — Defining a Crisis (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Reflective Writing Sheet — Your Experience of Crisis (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Sentence Starters handout (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>YouTube — Lifeline video queued and tested (2 min)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>PowerPoint slides loaded and tested</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Trigger warning prepared — will say at start of session</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Student HTML page URL ready to share via Teams</span></li>
+    </ul>
+  </section>
+
+  <!-- SUMMARY / TEAMS TEXT -->
+  <section class="section">
+    <div class="section-label">End of Session</div>
+    <div class="summary-panel">
+      <h2>Teacher Summary — Session 1</h2>
+      <ul class="summary-items">
+        <li>Trigger warning delivered at start; no disclosed issues</li>
+        <li>Crisis defined; direct and indirect indicators covered</li>
+        <li>6 types of crisis situations explored with case studies</li>
+        <li>Safety planning steps and SMART goals covered</li>
+        <li>AT1 introduced and distributed</li>
+        <li>Teams summary sent to students</li>
+      </ul>
+      <button class="copy-btn" id="copyBtn" onclick="copyToTeams()">
+        📋 Copy Teams message
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+}
+function copyToTeams() {
+  const text = `📌 Session 1 Summary — What is a Crisis? | CHCCCS019
+
+Today we covered:
+✔ What a crisis is and how it's triggered
+✔ Direct and indirect indicators of crisis
+✔ How communication changes during a crisis
+✔ Types of crisis: suicide, self-harm, threats, abuse, and DFV
+✔ Safety planning principles and SMART goals
+
+📚 Before Session 2 (Tue 12 May): Read Chapter 2 of your Learner Guide — Legal and Ethical Framework.
+📝 AT1: Start working on knowledge questions related to Chapter 1.`;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copy Teams message'; btn.classList.remove('copied'); }, 2500);
+  });
+}
+</script>
+</body>
+</html>

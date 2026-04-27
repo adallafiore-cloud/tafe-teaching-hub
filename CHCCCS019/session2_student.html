@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 2 — Legal & Ethical Framework | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1e2d42;--amber:#e8a020;--amber-light:#f0b84a;--amber-dim:#c4851a;--teal:#2a8c82;--teal-light:#3ab3a6;--rose:#c0534a;--rose-light:#d96c63;--text:#dde3ec;--text-dim:#8a9bb5;--text-faint:#4a5a72;--border:#243350;--card:#162032;--card-hover:#1d2c42;--radius:10px;--radius-sm:6px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+  .site-header{background:var(--navy-mid);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:100}
+  .header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .header-unit{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--amber);letter-spacing:.12em;text-transform:uppercase}
+  .header-nav{display:flex;gap:1.2rem;align-items:center}
+  .header-nav a{color:var(--text-dim);text-decoration:none;font-size:0.8rem;transition:color .2s}
+  .header-nav a:hover{color:var(--amber)}
+  .view-badge{background:var(--teal);color:#fff;font-size:.65rem;font-weight:500;padding:.2rem .6rem;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+  .hero{background:linear-gradient(135deg,#0d1b2a 0%,#162032 60%,#0f2438 100%);border-bottom:1px solid var(--border);padding:3.5rem 2rem 3rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(232,160,32,.08) 0%,transparent 70%);pointer-events:none}
+  .hero-inner{max-width:900px;margin:0 auto}
+  .hero-session{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--amber);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+  .hero-session::before{content:'';display:inline-block;width:24px;height:2px;background:var(--amber)}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1.15;color:#fff;margin-bottom:1rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem;color:var(--text-dim);font-size:.85rem}
+  .hero-meta span{display:flex;align-items:center;gap:.4rem}
+  .hero-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0}
+  .page-body{max-width:900px;margin:0 auto;padding:2.5rem 2rem 5rem}
+  .section-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;color:#fff;margin-bottom:1rem}
+  h3{font-family:'DM Sans',sans-serif;font-weight:500;font-size:1rem;color:var(--amber-light);margin-bottom:.6rem}
+  .section{margin-bottom:3rem}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .card p{color:var(--text-dim);font-size:.9rem;margin-bottom:.6rem}
+  .card p:last-child{margin-bottom:0}
+  .concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:2rem}
+  .concept-card{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:var(--radius);padding:1.2rem 1.4rem;transition:background .2s}
+  .concept-card:hover{background:var(--card-hover)}
+  .concept-card h3{color:var(--amber-light);margin-bottom:.4rem;font-size:.9rem}
+  .concept-card p{color:var(--text-dim);font-size:.85rem;line-height:1.5}
+  .flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+  .flip-card{height:150px;perspective:1000px;cursor:pointer}
+  .flip-card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+  .flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+  .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;padding:1rem;text-align:center}
+  .flip-front{background:var(--navy-light);border:1px solid var(--border);flex-direction:column;gap:.5rem}
+  .flip-front .flip-term{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;font-weight:600}
+  .flip-front .flip-hint{font-size:.65rem;color:var(--text-faint);letter-spacing:.08em;text-transform:uppercase}
+  .flip-back{background:var(--navy-light);border:1px solid var(--amber-dim);transform:rotateY(180deg)}
+  .flip-back p{font-size:.8rem;color:var(--text-dim);line-height:1.5}
+  .quiz-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .quiz-q{font-size:.95rem;color:var(--text);margin-bottom:1rem;font-weight:500}
+  .quiz-options{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+  .quiz-option{background:var(--navy-light);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem 1rem;cursor:pointer;font-size:.85rem;color:var(--text-dim);transition:all .2s;text-align:left}
+  .quiz-option:hover{border-color:var(--amber-dim);color:var(--text)}
+  .quiz-option.correct{border-color:var(--teal);background:rgba(42,140,130,.12);color:var(--teal-light)}
+  .quiz-option.incorrect{border-color:var(--rose);background:rgba(192,83,74,.12);color:var(--rose-light)}
+  .quiz-feedback{font-size:.82rem;border-radius:var(--radius-sm);padding:.6rem .9rem;display:none}
+  .quiz-feedback.correct{background:rgba(42,140,130,.15);color:var(--teal-light);border:1px solid var(--teal);display:block}
+  .quiz-feedback.incorrect{background:rgba(192,83,74,.15);color:var(--rose-light);border:1px solid var(--rose);display:block}
+  .reflection-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+  .reflection-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem}
+  .reflection-prompt{font-size:.9rem;color:var(--text-dim);margin-bottom:.8rem}
+  .reflection-area{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;line-height:1.6;padding:.8rem 1rem;resize:vertical;min-height:90px;transition:border-color .2s}
+  .reflection-area:focus{outline:none;border-color:var(--teal)}
+  .reflection-area::placeholder{color:var(--text-faint)}
+  .scenario-block{background:rgba(42,140,130,.06);border:1px solid rgba(42,140,130,.3);border-left:3px solid var(--teal);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1.5rem}
+  .scenario-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teal-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+  .scenario-block p{font-size:.88rem;color:var(--text-dim);margin-bottom:.4rem}
+  .scenario-block p:last-child{margin-bottom:0}
+  .callout{display:flex;gap:1rem;padding:1.1rem 1.3rem;border-radius:var(--radius);margin-bottom:1rem;align-items:flex-start}
+  .callout.amber{background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.25)}
+  .callout.teal{background:rgba(42,140,130,.08);border:1px solid rgba(42,140,130,.25)}
+  .callout-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+  .callout-body{font-size:.85rem;color:var(--text-dim);line-height:1.5}
+  .callout-body strong{color:var(--text)}
+  .at-box{background:rgba(232,160,32,.06);border:1px solid rgba(232,160,32,.2);border-radius:var(--radius);padding:1.2rem 1.5rem;margin-bottom:1.5rem}
+  .at-box-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--amber);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+  .at-box h3{color:var(--amber-light);font-size:.95rem;margin-bottom:.4rem}
+  .at-box p{color:var(--text-dim);font-size:.84rem}
+  .summary-panel{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border:1px solid var(--border);border-top:3px solid var(--amber);border-radius:var(--radius);padding:2rem;margin-bottom:2rem}
+  .summary-panel h2{margin-bottom:1rem}
+  .summary-items{list-style:none;padding:0;margin-bottom:1.5rem}
+  .summary-items li{display:flex;gap:.7rem;font-size:.88rem;color:var(--text-dim);padding:.4rem 0;align-items:flex-start}
+  .summary-items li::before{content:'✓';color:var(--teal-light);flex-shrink:0;font-weight:600}
+  .summary-next{background:var(--navy);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem 1.2rem;font-size:.85rem;color:var(--text-dim);margin-bottom:1rem}
+  .summary-next strong{color:var(--amber-light);display:block;margin-bottom:.3rem}
+  .copy-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--amber);color:var(--navy);border:none;border-radius:var(--radius-sm);padding:.65rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s,transform .1s}
+  .copy-btn:hover{background:var(--amber-light)}
+  .copy-btn:active{transform:scale(.97)}
+  .copy-btn.copied{background:var(--teal);color:#fff}
+  .progress-bar{height:3px;background:var(--border);border-radius:99px;margin-bottom:2.5rem;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber-light));border-radius:99px;transition:width .8s ease}
+  .fade-in{opacity:0;transform:translateY(16px);animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+  .fade-in:nth-child(1){animation-delay:.05s}.fade-in:nth-child(2){animation-delay:.1s}.fade-in:nth-child(3){animation-delay:.15s}.fade-in:nth-child(4){animation-delay:.2s}.fade-in:nth-child(5){animation-delay:.25s}
+  .checklist-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem}
+  .checklist-table th{text-align:left;font-size:.7rem;font-family:'DM Mono',monospace;color:var(--amber);letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1rem;border-bottom:1px solid var(--border)}
+  .checklist-table td{font-size:.85rem;color:var(--text-dim);padding:.7rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+  .checklist-table tr:last-child td{border-bottom:none}
+  .checklist-table td:first-child{color:var(--text);font-weight:500}
+  @media(max-width:600px){.concept-grid{grid-template-columns:1fr}.flip-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 2</span>
+    <nav class="header-nav">
+      <a href="#key-concepts">Concepts</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#activities">Activities</a>
+      <a href="#summary">Summary</a>
+      <span class="view-badge">Student</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Session 2 of 6</div>
+    <h1>Legal and Ethical Framework</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Tuesday 12 May 2026</span>
+      <span><span class="dot"></span> Learner Guide Chapter 2</span>
+      <span><span class="dot"></span> 9:30 AM – 3:00 PM</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-body">
+  <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+
+  <!-- KEY CONCEPTS -->
+  <section class="section fade-in" id="key-concepts">
+    <div class="section-label">Key Concepts</div>
+    <h2>Legal and Ethical Foundations</h2>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <h3>Duty of care</h3>
+        <p>A legal principle requiring you to avoid causing reasonably foreseeable harm to others through careless behaviour. In crisis work: recognise and respond to foreseeable risks, work within your role, follow legal requirements.</p>
+      </div>
+      <div class="concept-card">
+        <h3>Privacy & confidentiality</h3>
+        <p>Do NOT disclose confidential information without consent — except to protect someone from harm or if ordered by a court. Always check org policies before disclosing.</p>
+      </div>
+      <div class="concept-card">
+        <h3>Work role boundaries</h3>
+        <p>Working outside your boundaries harms clients and breaches duty of care. If unsure — consult your supervisor and check your job role description. Don't take on tasks you're not qualified for.</p>
+      </div>
+      <div class="concept-card">
+        <h3>Mandatory reporting</h3>
+        <p>In situations involving child safety or DFV, you may be legally required to report. Check your state's legislation (Vic: Children, Youth and Families Act 2005) and your org's procedures.</p>
+      </div>
+      <div class="concept-card">
+        <h3>Codes of practice</h3>
+        <p>Guidelines for good professional practice. ACWA Code of Ethics is the most relevant for community services workers. Sector-specific codes also apply (NDIS, mental health).</p>
+      </div>
+      <div class="concept-card">
+        <h3>Personal values & beliefs</h3>
+        <p>Being non-judgemental is essential. Develop awareness of your own biases, assumptions and stereotypes — they shape how you communicate and treat clients, often subconsciously.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEGLIGENCE EXPLAINER -->
+  <section class="section fade-in">
+    <div class="section-label">Understanding Negligence</div>
+    <h2>Four Elements of Negligence</h2>
+    <p style="color:var(--text-dim);font-size:.88rem;margin-bottom:1.2rem;">For legal action for negligence to be taken, all four elements must be present.</p>
+    <div class="flip-grid">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front"><span class="flip-term">1. Duty of care relationship</span><span class="flip-hint">tap to reveal</span></div>
+          <div class="flip-back"><p>A relationship exists where one person's actions might foreseeably affect the other's safety or wellbeing.</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front"><span class="flip-term">2. Standard of care</span><span class="flip-hint">tap to reveal</span></div>
+          <div class="flip-back"><p>A standard for reasonably careful behaviour exists. In professional roles, this standard is higher than for an 'ordinary person.'</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front"><span class="flip-term">3. Breach of duty</span><span class="flip-hint">tap to reveal</span></div>
+          <div class="flip-back"><p>The standard of care was NOT met. If you work within your role and follow org policies, you are unlikely to breach duty of care.</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-front"><span class="flip-term">4. Harm resulting</span><span class="flip-hint">tap to reveal</span></div>
+          <div class="flip-back"><p>Harm must have resulted from the breach. Harm includes physical injury, economic loss, damage to reputation, psychological harm.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUTY OF CARE CHECKLIST TABLE -->
+  <section class="section fade-in">
+    <div class="section-label">Practical Tool</div>
+    <h2>Confirming Your Actions are Legal</h2>
+    <div class="card">
+      <p>Use this checklist when making decisions in a crisis situation.</p>
+    </div>
+    <table class="checklist-table">
+      <tr><th>Question</th><th>What to do</th></tr>
+      <tr><td>What legislation is relevant?</td><td>Identify the relevant Act/s and what they require you to do</td></tr>
+      <tr><td>What do my org's policies say?</td><td>Check policies and procedures specific to this situation</td></tr>
+      <tr><td>Is there a code of ethics?</td><td>Refer to ACWA or sector-specific code; identify relevant principles</td></tr>
+      <tr><td>What are my role boundaries?</td><td>Refer to your job description; consult supervisor if unsure</td></tr>
+      <tr><td>Who is at risk, and how seriously?</td><td>Identify risks and assess their severity</td></tr>
+      <tr><td>How can I minimise risk?</td><td>Identify and agree on actions with the person in crisis</td></tr>
+      <tr><td>Who should I inform and who should I ask?</td><td>Notify supervisor; involve emergency services if required</td></tr>
+    </table>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="section fade-in" id="quiz">
+    <div class="section-label">Knowledge Check</div>
+    <h2>Quick Quiz</h2>
+
+    <div class="quiz-block">
+      <div class="quiz-q">1. Under duty of care, you are expected to:</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">Prevent every possible harm to your client, no matter how unlikely</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">Take reasonable care to avoid causing reasonably foreseeable harm through careless behaviour</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Always follow the client's wishes, even if it puts them at risk</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Report all client information to your supervisor at the end of each day</button>
+      </div>
+      <div class="quiz-feedback" id="qfb1"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">2. When IS it justified to disclose confidential information without consent?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">When your supervisor asks you to</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">When the client's family requests it</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">When necessary to protect someone from harm, or when formally requested by a court of law</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">When you think it would be in the client's best interests</button>
+      </div>
+      <div class="quiz-feedback" id="qfb2"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">3. Simon offers to have a client child stay at his own home during a family crisis. This is an example of:</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">Going above and beyond in his duty of care</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">Working outside his work role boundaries, creating risks for himself and the child</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Applying a strengths-based approach</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">A reasonable adjustment for a vulnerable client</button>
+      </div>
+      <div class="quiz-feedback" id="qfb3"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q">4. Which of the following best describes an attitude that FACILITATES crisis care?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="checkQ(this,false)">People who experience crises are usually weak or lacking resilience</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Crisis is a sign of mental illness that requires clinical intervention</button>
+        <button class="quiz-option" onclick="checkQ(this,true)">People have strengths and capacity to address their own situations — they are the experts on their own lives</button>
+        <button class="quiz-option" onclick="checkQ(this,false)">Most people who experience a crisis will need ongoing support for years</button>
+      </div>
+      <div class="quiz-feedback" id="qfb4"></div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section class="section fade-in" id="activities">
+    <div class="section-label">Learner Guide Activities</div>
+    <h2>Today's Activities</h2>
+
+    <div class="scenario-block">
+      <div class="scenario-label">Activity 2A — Duty of Care (Mary and Joe)</div>
+      <p><strong>Joe</strong> has bipolar disorder, well-controlled by medication. He has joined an alternative religious group whose leader is encouraging him to stop taking his medication. His support worker Mary has noticed significant mood swings. Joe is at risk of risky behaviour during 'highs' and suicidality during depressive periods.</p>
+    </div>
+    <div class="reflection-block" style="margin-bottom:1.5rem;">
+      <div class="reflection-label">Your reflection — Activity 2A</div>
+      <div class="reflection-prompt">What is Mary's duty of care here? Does this involve 'reasonably foreseeable harm'? Suggest two things Mary could do to keep Joe safe while respecting his rights.</div>
+      <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+    </div>
+
+    <div class="scenario-block">
+      <div class="scenario-label">Activity 2C — Ethical Dilemma (Safi and Martin)</div>
+      <p><strong>Safi</strong> is a support worker in an aged care facility who suspects her new colleague Martin may have been bullying or harming a resident, Lucy, who has dementia. Lucy appears afraid of Martin. Martin has moved between multiple facilities. Safi has no concrete evidence and is unsure whether to report her concerns.</p>
+    </div>
+    <div class="reflection-block">
+      <div class="reflection-label">Your reflection — Activity 2C</div>
+      <div class="reflection-prompt">Who is at risk and how? Where could Safi find guidance? What do you think Safi should do, and why?</div>
+      <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+    </div>
+  </section>
+
+  <!-- CALLOUTS -->
+  <section class="section fade-in">
+    <div class="callout amber">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body"><strong>Remember:</strong> Being 'non-judgemental' doesn't mean you have no opinions — it means you don't let your personal values and assumptions drive your professional behaviour or your treatment of clients.</div>
+    </div>
+    <div class="callout teal">
+      <span class="callout-icon">🔑</span>
+      <div class="callout-body"><strong>ACWA Code of Ethics</strong> is the most relevant general code for community services workers. It outlines standards and guidelines for good professional practice.</div>
+    </div>
+  </section>
+
+  <!-- AT1 -->
+  <section class="section fade-in">
+    <div class="section-label">Assessment</div>
+    <div class="at-box">
+      <div class="at-box-label">AT1 — Knowledge Questions</div>
+      <h3>Chapter 2 content — continue working</h3>
+      <p>Today's questions relate to duty of care, privacy and confidentiality, work role boundaries, mandatory reporting, codes of practice, and personal values. Use your learner guide. Due end of Session 4 (Tue 19 May).</p>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="section fade-in" id="summary">
+    <div class="section-label">End of Session</div>
+    <div class="summary-panel">
+      <h2>Session 2 — What We Covered</h2>
+      <ul class="summary-items">
+        <li>Duty of care — what it means and what it requires of you</li>
+        <li>Privacy, confidentiality, and when disclosure is justified</li>
+        <li>Work role boundaries and why staying within them protects both you and your clients</li>
+        <li>Mandatory reporting obligations in Victoria</li>
+        <li>Codes of practice — ACWA and sector-specific codes</li>
+        <li>How personal values and assumptions can impede or facilitate crisis care</li>
+      </ul>
+      <div class="summary-next">
+        <strong>📚 Before Session 3 (Mon 18 May):</strong>
+        Read Chapter 3 of your Learner Guide — Principles and Practices.
+      </div>
+      <div class="summary-next">
+        <strong>📝 AT1 reminder:</strong>
+        Continue working on knowledge questions related to Chapter 2 content.
+      </div>
+      <button class="copy-btn" id="copyBtn" onclick="copyToTeams()">📋 Copy summary for Teams</button>
+    </div>
+  </section>
+</div>
+
+<script>
+let qAttempts={};
+function checkQ(btn,isCorrect){
+  const block=btn.closest('.quiz-block');
+  const qid=block.querySelector('.quiz-feedback').id;
+  if(qAttempts[qid])return;
+  qAttempts[qid]=true;
+  const opts=block.querySelectorAll('.quiz-option');
+  opts.forEach(o=>o.style.pointerEvents='none');
+  const fb=document.getElementById(qid);
+  if(isCorrect){btn.classList.add('correct');fb.textContent='✓ Correct!';fb.className='quiz-feedback correct';}
+  else{btn.classList.add('incorrect');fb.textContent='✗ Not quite — review the learner guide.';fb.className='quiz-feedback incorrect';opts.forEach(o=>{if(o.onclick.toString().includes('true'))o.classList.add('correct');});}
+}
+function copyToTeams(){
+  const text=`📌 Session 2 Summary — Legal and Ethical Framework | CHCCCS019
+
+Today we covered:
+✔ Duty of care and what it means in practice
+✔ Privacy, confidentiality, and when disclosure is justified
+✔ Work role boundaries and why they matter
+✔ Mandatory reporting obligations
+✔ Codes of practice (ACWA and others)
+✔ How personal values and beliefs can affect your work
+
+📚 Before Session 3 (Mon 18 May): Read Chapter 3 of your Learner Guide — Principles and Practices.
+📝 AT1: Continue working on questions related to Chapter 2.`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copyBtn');
+    btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copy summary for Teams';btn.classList.remove('copied');},2500);
+  });
+}
+</script>
+</body>
+</html>

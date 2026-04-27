@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 3 — TEACHER VIEW | CHCCCS019</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1e2d42;--amber:#e8a020;--amber-light:#f0b84a;--teal:#2a8c82;--teal-light:#3ab3a6;--rose:#c0534a;--teacher:#4a2a7a;--teacher-light:#9b6dcf;--teacher-border:#6b3fa0;--text:#dde3ec;--text-dim:#8a9bb5;--text-faint:#4a5a72;--border:#243350;--card:#162032;--radius:10px;--radius-sm:6px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+  .site-header{background:#120d1f;border-bottom:2px solid var(--teacher-border);padding:0 2rem;position:sticky;top:0;z-index:100}
+  .header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .header-unit{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teacher-light);letter-spacing:.12em;text-transform:uppercase}
+  .header-nav{display:flex;gap:1.2rem;align-items:center}
+  .header-nav a{color:var(--text-dim);text-decoration:none;font-size:.8rem;transition:color .2s}.header-nav a:hover{color:var(--teacher-light)}
+  .view-badge{background:var(--teacher);color:#fff;font-size:.65rem;font-weight:500;padding:.2rem .7rem;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+  .hero{background:linear-gradient(135deg,#0d0d1a 0%,#120d1f 60%,#0f1020 100%);border-bottom:1px solid var(--teacher-border);padding:3rem 2rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(155,109,207,.1) 0%,transparent 70%);pointer-events:none}
+  .hero-inner{max-width:960px;margin:0 auto}
+  .hero-session{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teacher-light);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+  .hero-session::before{content:'';display:inline-block;width:24px;height:2px;background:var(--teacher-light)}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:#fff;margin-bottom:.8rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem;color:var(--text-dim);font-size:.85rem;margin-bottom:1rem}
+  .hero-meta span{display:flex;align-items:center;gap:.4rem}
+  .hero-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--teacher-light);flex-shrink:0}
+  .teacher-warning{background:rgba(74,42,122,.2);border:1px solid var(--teacher-border);border-radius:var(--radius-sm);padding:.6rem 1rem;font-size:.78rem;color:var(--teacher-light);display:inline-flex;align-items:center;gap:.5rem}
+  .page-body{max-width:960px;margin:0 auto;padding:2.5rem 2rem 5rem}
+  .teacher-block{background:rgba(74,42,122,.12);border:1px solid var(--teacher-border);border-left:4px solid var(--teacher-light);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1.2rem}
+  .teacher-block-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teacher-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+  .teacher-block-label::after{content:'';flex:1;height:1px;background:rgba(107,63,160,.3)}
+  .teacher-block p,.teacher-block li{font-size:.85rem;color:var(--text-dim);margin-bottom:.3rem}
+  .teacher-block ul{padding-left:1.2rem}
+  .script-block{background:rgba(42,140,130,.06);border:1px solid rgba(42,140,130,.3);border-radius:var(--radius);padding:1.2rem 1.5rem;margin-bottom:1rem}
+  .script-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teal-light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+  .script-text{font-size:.88rem;color:var(--text);line-height:1.65;font-style:italic}
+  .timed-plan{margin-bottom:2rem}
+  .time-row{display:grid;grid-template-columns:110px 1fr;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border);align-items:start}
+  .time-row:last-child{border-bottom:none}
+  .time-slot{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--amber);padding-top:.1rem}
+  .time-content h4{font-size:.9rem;color:var(--text);font-weight:500;margin-bottom:.3rem}
+  .time-content p{font-size:.82rem;color:var(--text-dim)}
+  .time-row.break .time-content h4{color:var(--text-faint)}
+  .section-label{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teacher-light);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:1rem}
+  .section{margin-bottom:3rem}
+  .diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+  .diff-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem}
+  .diff-label{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+  .diff-label.support{color:var(--teal-light)}.diff-label.extend{color:var(--amber)}
+  .diff-card ul{padding-left:1.2rem}.diff-card li{font-size:.82rem;color:var(--text-dim);margin-bottom:.3rem}
+  .checklist{list-style:none;padding:0}
+  .checklist li{display:flex;align-items:center;gap:.8rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.85rem;color:var(--text-dim);cursor:pointer;user-select:none}
+  .checklist li:last-child{border-bottom:none}
+  .check-box{width:18px;height:18px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .checklist li.checked .check-box{background:var(--teal);border-color:var(--teal)}
+  .checklist li.checked .check-box::after{content:'✓';color:#fff;font-size:.7rem;font-weight:700}
+  .checklist li.checked span{text-decoration:line-through;color:var(--text-faint)}
+  .answers-block{background:rgba(232,160,32,.06);border:1px solid rgba(232,160,32,.2);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1rem}
+  .answers-block h3{color:var(--amber-light);font-size:.9rem;margin-bottom:.8rem;font-family:'DM Sans',sans-serif;font-weight:500}
+  .answer-row{display:flex;gap:.8rem;font-size:.84rem;padding:.4rem 0}
+  .answer-row .q-num{color:var(--amber);font-family:'DM Mono',monospace;font-size:.75rem;flex-shrink:0}
+  .answer-row .q-ans{color:var(--text-dim)}.answer-row .q-ans strong{color:var(--amber-light)}
+  .callout{display:flex;gap:1rem;padding:1.1rem 1.3rem;border-radius:var(--radius);margin-bottom:1rem;align-items:flex-start}
+  .callout.amber{background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.25)}
+  .callout.rose{background:rgba(192,83,74,.08);border:1px solid rgba(192,83,74,.25)}
+  .callout-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+  .callout-body{font-size:.85rem;color:var(--text-dim);line-height:1.5}.callout-body strong{color:var(--text)}
+  .summary-panel{background:linear-gradient(135deg,#120d1f,#1a1030);border:1px solid var(--teacher-border);border-top:3px solid var(--teacher-light);border-radius:var(--radius);padding:2rem;margin-bottom:2rem}
+  .summary-panel h2{margin-bottom:1rem}
+  .summary-items{list-style:none;padding:0;margin-bottom:1.5rem}
+  .summary-items li{display:flex;gap:.7rem;font-size:.88rem;color:var(--text-dim);padding:.4rem 0;align-items:flex-start}
+  .summary-items li::before{content:'✓';color:var(--teal-light);flex-shrink:0;font-weight:600}
+  .copy-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--teacher-light);color:#fff;border:none;border-radius:var(--radius-sm);padding:.65rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s}
+  .copy-btn:hover{background:#b584ea}.copy-btn.copied{background:var(--teal)}
+  @media(max-width:600px){.diff-grid{grid-template-columns:1fr}.time-row{grid-template-columns:80px 1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-unit">CHCCCS019 — Session 3 — Teacher</span>
+    <nav class="header-nav">
+      <a href="#plan">Timing</a>
+      <a href="#scripts">Scripts</a>
+      <a href="#answers">Answers</a>
+      <a href="#diff">Differentiation</a>
+      <span class="view-badge">🍎 Teacher</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-session">Teacher View — Session 3 of 6</div>
+    <h1>Principles and Practices</h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Monday 18 May 2026</span>
+      <span><span class="dot"></span> 9:30 AM – 3:00 PM</span>
+      <span><span class="dot"></span> Chapter 3</span>
+    </div>
+    <div class="teacher-warning">🔒 Teacher only — do not share with students</div>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <section class="section" id="plan">
+    <div class="section-label">Facilitation Plan</div>
+    <h2>Timed Session Plan</h2>
+    <div class="timed-plan">
+      <div class="time-row">
+        <div class="time-slot">9:30–10:30</div>
+        <div class="time-content"><h4>Warm-up + Crisis Intervention Principles</h4><p>Warm-up activity (slide 52). Stages of crisis (6 stages). Common principles. Psychological First Aid. Aims of crisis intervention. Roberts' Seven Stage Model (slides 53–68). Think/Pair/Share: apply model to a scenario. Janice and Joe case study from LG p.40.</p></div>
+      </div>
+      <div class="time-row break"><div class="time-slot">10:30–10:45</div><div class="time-content"><h4>☕ Break</h4></div></div>
+      <div class="time-row">
+        <div class="time-slot">10:45–12:00</div>
+        <div class="time-content"><h4>Critical Incidents + Safety + Referrals</h4><p>Critical incidents — definition, CISM steps, emergency interventions, CATT (slides 69–72). Vic Government suicide risk assessment tool. Signs and indicators of safety issues (direct vs indirect). Referrals — responsibilities and process. Activity 3A.</p></div>
+      </div>
+      <div class="time-row break"><div class="time-slot">12:00–12:45</div><div class="time-content"><h4>🍽️ Lunch</h4></div></div>
+      <div class="time-row">
+        <div class="time-slot">12:45–1:15</div>
+        <div class="time-content"><h4>Case Study Discussion — Simon and Alex</h4><p>Work through the Simon/Alex emergency intervention scenario in small groups. Debrief: who is at risk? what would you do? what procedures apply? Was Simon's response appropriate?</p></div>
+      </div>
+      <div class="time-row">
+        <div class="time-slot">1:15–2:30</div>
+        <div class="time-content"><h4>AT1 Work Time</h4><p>Students work on Chapter 3 questions. Common issues to watch for: confusing PFA with Roberts' model, confusing 'defusing' with 'debriefing,' misidentifying direct vs indirect safety indicators.</p></div>
+      </div>
+      <div class="time-row break"><div class="time-slot">2:30–2:45</div><div class="time-content"><h4>☕ Break</h4></div></div>
+      <div class="time-row">
+        <div class="time-slot">2:45–3:00</div>
+        <div class="time-content"><h4>Wrap-up</h4><p>Key takeaways (slide 73). Teams summary. Confirm homework: read Chapters 4 and 5. Remind students AT1 is due end of Session 4.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="scripts">
+    <div class="section-label">Teacher Scripts</div>
+    <h2>Facilitation Notes</h2>
+
+    <div class="script-block">
+      <div class="script-label">Stages of Crisis — setting up the Think/Pair/Share</div>
+      <p class="script-text">"These six stages are a framework — not a rigid sequence. In real crisis work, you might move backwards through stages, loop, or need to return to emotional support after you thought you'd moved on to planning. The reason the framework is useful is that it gives you a mental map. It stops you from jumping to problem-solving when the person is still in acute distress and can't hear solutions yet. Stage 3 — releasing tension — is often where workers want to rush past. Sitting with someone's pain without trying to fix it immediately is one of the hardest skills in this work."</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">PFA vs Roberts' Model — clarifying the difference</div>
+      <p class="script-text">"Students sometimes confuse these two. PFA is a broad approach — it's what you do in the immediate aftermath of a crisis or traumatic event, often with groups of people. It's less structured and more about immediate stabilisation. Roberts' Seven Stage Model is a more detailed clinical framework for individual crisis intervention — it's what a trained worker might use in a one-on-one conversation with someone in crisis. Both are useful, and in practice you'll draw on both."</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Critical incidents — why this matters for YOU (slide 69)</div>
+      <p class="script-text">"I want to shift the lens for a moment. We've been talking about crisis from the perspective of the person receiving services. But critical incidents affect workers too — and organisations have a legal and ethical responsibility to support you after a critical incident. Defusing and debriefing are not optional extras. They're part of workplace health and safety. If you ever respond to a serious incident and your employer doesn't offer you any form of debrief, that's a problem — and you're entitled to ask for it."</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Discussion Prompts</div>
+    <h2>Class Discussion Questions</h2>
+    <div class="teacher-block">
+      <div class="teacher-block-label">Use throughout the session</div>
+      <ul>
+        <li>What's the difference between defusing and debriefing? Why does the timing matter?</li>
+        <li>In the Janice and Joe case study (LG p.40), which of Roberts' seven stages can you identify?</li>
+        <li>Why does the learner guide describe crisis intervention as 'first aid for mental health'? What are the limits of that analogy?</li>
+        <li>What's the difference between a direct and an indirect indicator of a safety issue? Which is harder to act on, and why?</li>
+        <li>In the Simon/Alex scenario, Simon locked Alex inside and called an ambulance. Was this the right call? What else could he have done?</li>
+        <li>What do you think a community services worker's responsibility is after they've made a referral? When does their involvement end?</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="answers">
+    <div class="section-label">Quiz Answers</div>
+    <h2>Student Quiz — Benchmark Answers</h2>
+    <div class="answers-block">
+      <div class="answer-row"><span class="q-num">Q1</span><span class="q-ans"><strong>B</strong> — Psychological First Aid — providing non-intrusive psychological, social and practical support. Not clinical treatment. PFA listens, provides comfort, connects people to supports, and protects from further harm.</span></div>
+      <div class="answer-row"><span class="q-num">Q2</span><span class="q-ans"><strong>A</strong> — Assess lethality (risk of harm) and mental health status. This is Stage 1 in Roberts' model. Many students incorrectly choose B (establishing rapport), but lethality assessment must come first.</span></div>
+      <div class="answer-row"><span class="q-num">Q3</span><span class="q-ans"><strong>B</strong> — An indirect indicator. There is no explicit statement of abuse — the behaviour pattern is the clue. Distinguishing direct from indirect is important because indirect signs require 'reading between the lines.'</span></div>
+      <div class="answer-row"><span class="q-num">Q4</span><span class="q-ans"><strong>B</strong> — Crisis Assessment and Treatment Team — responds 24 hours a day, 7 days a week. CATT is called for psychosis, self-harm, suicidality, and feeling out of control.</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="diff">
+    <div class="section-label">Differentiation</div>
+    <h2>Supporting Your Cohort</h2>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-label support">Support strategies</div>
+        <ul>
+          <li>Provide the Stages and Roberts' Model handouts as references during the Think/Pair/Share — don't expect students to have memorised them</li>
+          <li>For EAL/D students: pair for the case study activity; allow verbal contributions in the debrief</li>
+          <li>The accordion on the student page helps students step through CISM at their own pace</li>
+          <li>If students struggle with 'defusing vs debriefing,' use an analogy: defusing = immediately after a car accident, you check on people. Debriefing = a week later, you all sit down and talk through what happened.</li>
+        </ul>
+      </div>
+      <div class="diff-card">
+        <div class="diff-label extend">Extension strategies</div>
+        <ul>
+          <li>Research the Victorian CATT service — who is eligible? How do you contact them?</li>
+          <li>Compare Roberts' Seven Stage Model with another crisis intervention model (e.g., the Slaikeu model)</li>
+          <li>Read the original Roberts & Ottens paper (2005) — key arguments and critiques</li>
+          <li>Find a community services org in Melbourne that provides critical incident debriefing — what does their process look like?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout amber">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body"><strong>Common confusion:</strong> Students often conflate 'critical incident' with 'crisis.' Clarify: all critical incidents trigger a crisis response, but not all crises are critical incidents. A critical incident is a specific, severe event that poses a serious risk to life, health or safety.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Resource Checklist</div>
+    <h2>Before You Start</h2>
+    <ul class="checklist" id="resourceList">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Key Model Handout — Stages of Crisis Intervention (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Key Model Handout — Roberts' Seven Stage Model (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Activity Worksheet — Critical Incident Scenarios (class set printed)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Vic Govt Suicide Risk Assessment URL ready to share</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>PowerPoint slides 51–73 loaded and tested</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Student HTML page URL ready to share via Teams</span></li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="summary-panel">
+      <h2>Teacher Summary — Session 3</h2>
+      <ul class="summary-items">
+        <li>Crisis intervention principles and six stages covered</li>
+        <li>PFA and Roberts' Seven Stage Model compared and applied</li>
+        <li>Critical incidents, CISM, emergency interventions and CATT covered</li>
+        <li>Direct and indirect safety indicators discussed</li>
+        <li>Referral responsibilities and process covered</li>
+        <li>AT1 due date (end of Session 4) reminded</li>
+      </ul>
+      <button class="copy-btn" id="copyBtn" onclick="copyToTeams()">📋 Copy Teams message</button>
+    </div>
+  </section>
+
+</div>
+<script>
+function toggleCheck(el){el.classList.toggle('checked')}
+function copyToTeams(){
+  const text=`📌 Session 3 Summary — Principles and Practices | CHCCCS019
+
+Today we covered:
+✔ Crisis intervention principles and stages
+✔ Psychological First Aid (PFA) and Roberts' Seven Stage Model
+✔ Critical incident procedures and CISM
+✔ Emergency interventions and the role of CATT
+✔ Direct and indirect signs of safety issues
+✔ Referral responsibilities and process
+
+📚 Before Session 4 (Tue 19 May): Read Chapters 4 and 5 of your Learner Guide.
+📝 AT1: Aim to have most questions drafted — due end of Session 4.`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copyBtn');btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copy Teams message';btn.classList.remove('copied');},2500);
+  });
+}
+</script>
+</body>
+</html>
